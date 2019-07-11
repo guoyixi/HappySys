@@ -1,4 +1,4 @@
-package com.tj;
+package com.tj.category;
 
 import lombok.*;
 
@@ -17,9 +17,9 @@ import lombok.*;
 @AllArgsConstructor
 public class HappysysCategory {
 
- private Integer categoryId;
- private String categoryName;
- private Integer categoryParentId;
- private Integer categoryType;
+ private Integer categoryId; //分类ID
+ private String categoryName;//分类名称
+ private Integer categoryParentId;//分类父ID
+ private Integer categoryType;//分类级别
 
 }
