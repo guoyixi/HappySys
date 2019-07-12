@@ -1,28 +1,36 @@
 server:
   port: 9001
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-        #include: hystrix.stream
-  endpoint:
-      health:
-        show-details: ALWAYS
+mybatis-plus:
+  type-aliases-package: com.tj.category
+  configuration:
+    auto-mapping-behavior: full
+    use-generated-keys: true
+    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+    #下划线转驼峰
+    #驼峰转下划线
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: not_empty
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+      #表名、是否使用下划线命名，默认数据库表使用下划线命名
+      table-underline: true
+      #列名名、是否使用下划线命名，默认数据库列使用下划线命名
+      column-underline: true
 
-mybatis:
-  config-location: classpath:mybatis/mybatis-cfg.xml
-  type-aliases-package: com.tj.bean
-  mapper-locations: classpath:mybatis/mapper/**/*.xml
+      #逻辑删除是为了方便数据恢复和保护数据本身价值等等的一种方案，但实际就是删除。
+      #如果你需要再查出来就不应使用逻辑删除，而是以一个状态去表示。
 
 spring:
   application:
-    name: microservice-dept
+    name: HAPPY-CATEGORY
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql:///employee
+    url: jdbc:mysql://118.25.13.168:3306/happysys
     username: root
     password: 856856
     dbcp2:
@@ -30,19 +38,13 @@ spring:
       initial-size: 5
       max-total: 5
       max-wait-millis: 200
-  boot:
-    admin:
-      client:
-        url: "http://localhost:9001"
 
 eureka:
   client: #客户端注册进eureka服务列表内
     service-url:
-      #defaultZone: http://localhost:6001/eureka
-      #Eureka服务器集群
-      defaultZone: http://eureka6001.com:6001/eureka/,http://eureka6002.com:6002/eureka/
+      defaultZone: http://localhost:6001/eureka
   instance:
-    instance-id: microservice-dept-hystrix-8003
+    instance-id: happy-eureka-6001
     prefer-ip-address: true     #访问路径可以显示IP地址
     leaseRenewalIntervalInSeconds: 10  #租期更新时间间隔（默认30秒）
     leaseExpirationDurationInSeconds: 30 #租期到期时间（默认90秒）
