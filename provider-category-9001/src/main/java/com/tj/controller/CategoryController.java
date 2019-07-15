@@ -1,10 +1,10 @@
 package com.tj.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tj.category.HappysysCategory;
 import com.tj.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,9 +14,35 @@ public class CategoryController {
  @Autowired
  private CategoryService categoryService;
 
- @RequestMapping("/HappysysCategory/list")
- public List<HappysysCategory> list(){
-  return categoryService.list();
+
+
+ @RequestMapping( value = "/HappysysCategory/list",method = RequestMethod.GET)
+ public List<HappysysCategory> list() {
+
+  System.out.println("----------------List------------------");
+
+  return categoryService.findCategoryAndChild(0);
  }
-	
+
+
+ @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
+ public List<HappysysCategory> recursionObject(@PathVariable("id") Integer id) {
+
+  System.out.println("-----------------Get------------------:"+id);
+
+   //根据parent_ID查询出子集
+   return categoryService.list(new QueryWrapper<HappysysCategory>().eq("category_parent_id",id));
+ }
+
+ @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
+ public boolean add(@RequestBody HappysysCategory happysysCategory){
+
+  System.out.println("参数："+happysysCategory);
+
+  return categoryService.save(happysysCategory);
+ }
+
 }
+
+/*
+ */

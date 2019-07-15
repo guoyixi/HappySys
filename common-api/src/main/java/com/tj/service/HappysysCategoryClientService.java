@@ -21,12 +21,12 @@ import java.util.List;
 public interface HappysysCategoryClientService {
 
  @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
- public HappysysCategory get(@PathVariable("id") long id);
+ public List<HappysysCategory> get(@PathVariable("id") Integer categoryId);
 
  @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
  public List<HappysysCategory> list();
 
  @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
- public boolean add(HappysysCategory HappysysCategory);
+ public boolean add(HappysysCategory happysysCategory);
 
 }

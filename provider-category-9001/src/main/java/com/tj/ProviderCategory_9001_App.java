@@ -7,11 +7,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
-@SpringBootApplication
-@EnableEurekaClient          //启动后会自动注册进eureka服务中
 @MapperScan("com.tj.mapper")
-public class ProviderCategory_8001_App {
+@EnableEurekaClient
+@SpringBootApplication
+public class ProviderCategory_9001_App {
 	public static void main(String[] args)	{
-		SpringApplication.run(ProviderCategory_8001_App.class, args);
+		SpringApplication.run(ProviderCategory_9001_App.class, args);
 	}
 }

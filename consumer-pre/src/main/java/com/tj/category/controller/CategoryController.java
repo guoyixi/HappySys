@@ -10,21 +10,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 /**
-* @program: happysys
-* @Date: 2019/7/11 11:04
-* @Author: Mr.Deng
-* @Description:
-*/
+ * @program: happysys
+ * @Date: 2019/7/11 11:04
+ * @Author: Mr.Deng
+ * @Description:
+ */
 @Controller
 public class CategoryController {
 
-   //@Autowired
-   private HappysysCategoryClientService happysysCategoryClientService;
+ @Autowired
+ private HappysysCategoryClientService happysysCategoryClientService;
 
-   @RequestMapping("category/list")
-   @ResponseBody
-   public List<HappysysCategory> category(){
-    return this.happysysCategoryClientService.list();
-   }
+ @RequestMapping("category/list")
+ @ResponseBody
+ public List<HappysysCategory> category(){
+  return this.happysysCategoryClientService.list();
+ }
 
 }

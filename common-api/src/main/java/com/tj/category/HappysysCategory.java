@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * @program: tj
  * @Date: 2019/7/10 22:19
@@ -17,7 +20,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class HappysysCategory {
+public class HappysysCategory implements Serializable{
 
  @TableId
  private Integer categoryId; //分类ID
@@ -26,6 +29,6 @@ public class HappysysCategory {
  private Integer categoryType;//分类级别
 
  @TableField(exist = false)
- private HappysysCategoryVo happysysCategoryVo;
+ private List<HappysysCategory> happysysCategories;
 
 }

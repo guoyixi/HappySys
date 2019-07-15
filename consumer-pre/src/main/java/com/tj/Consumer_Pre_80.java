@@ -3,6 +3,8 @@ package com.tj;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.netflix.ribbon.RibbonClients;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
@@ -12,8 +14,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @Author: Mr.Deng
  * @Description:
  */
+@EnableEurekaClient
+@EnableFeignClients(basePackages = {"com.tj.service"})
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@EnableFeignClients
 @RibbonClients
 public class Consumer_Pre_80 {
 
