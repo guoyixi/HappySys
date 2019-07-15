@@ -1,0 +1,53 @@
+server:
+  port: 3001
+#  servlet:
+#    context-path:
+
+
+spring:
+  application:
+    name: HAPPY-PRODUCT
+
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: zlj
+    username: zlj
+    url: jdbc:mysql://118.25.13.168:3306/happysys?&useSSL=false&serverTimezone=UTC
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  data:
+    mongodb:
+      uri: mongodb://test:test@118.25.13.168:27017/test
+  main:
+    allow-bean-definition-overriding: true
+
+
+mybatis-plus:
+  type-aliases-package: com.tj.entity
+  mapper-locations: classpath*:com/**/*Mapper.xml
+  configuration:
+    use-generated-keys: true
+    auto-mapping-behavior: full
+
+
+
+
+
+eureka:
+  instance:
+    instance-id: happy-product-3001
+    prefer-ip-address: true
+
+
+  client:
+    service-url:
+      defaultZone: http://localhost:6001/eureka/
+
+
+info:
+  app.name: xiaoll-microservice
+  company.name: www.xiaoll.com
+  build.artifactId: ${project.artifactId}
+  build.version: ${project.version}
+

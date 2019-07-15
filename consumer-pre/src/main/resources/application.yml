@@ -1,6 +1,6 @@
 server:
   #eureka服务器端口号。尽管无论官网还是大部分参考书都使用8761，但默认并不是，而是8080
-  port: 80
+  port: 800
   
 spring:
   application:
@@ -17,8 +17,13 @@ eureka:
   instance:
     prefer-ip-address: true     #访问路径可以显示IP地址
 
+ribbon:
+  eureka:
+    enabled: true
+
 info:
   app.name: tj-happy
   company.name: www.tj.com
   build.artifactId: ${project.artifactId}
   build.version: ${project.version}
+

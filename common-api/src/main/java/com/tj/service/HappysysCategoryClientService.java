@@ -1,6 +1,7 @@
 package com.tj.service;
 
 import com.tj.category.HappysysCategory;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
