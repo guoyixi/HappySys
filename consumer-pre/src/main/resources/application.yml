@@ -1,7 +1,7 @@
 server:
   #eureka服务器端口号。尽管无论官网还是大部分参考书都使用8761，但默认并不是，而是8080
   port: 80
-
+  
 spring:
   application:
     name: happy-consumer
@@ -18,6 +18,7 @@ eureka:
     instance-id: HAPPY-CONSUMER-80
     prefer-ip-address: true     #访问路径可以显示IP地址
 
+
 #fegin的超时时间
 feign:
   httpclient:
@@ -25,24 +26,26 @@ feign:
 
 #hystrix的超时时间
 hystrix:
-    command:
-        default:
-            execution:
-              timeout:
-                enabled: true
-              isolation:
-                    thread:
-                        timeoutInMilliseconds: 30000
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
+
+
 #ribbon的超时时间
 ribbon:
   ReadTimeout: 30000
   ConnectTimeout: 30000
-
+  eureka:
+    enabled: true
 
 info:
   app.name: tj-happy
   company.name: www.tj.com
   build.artifactId: ${project.artifactId}
   build.version: ${project.version}
-
 
