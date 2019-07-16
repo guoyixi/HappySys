@@ -9,6 +9,7 @@
         <module>consumer-pre</module>
         <module>consumer-back</module>
         <module>provider-category-9001</module>
+        <module>provider-product-7001</module>
     </modules>
 
     <parent>
@@ -31,8 +32,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <junit.version>4.12</junit.version>
-        <log4j.version>1.2.17</log4j.version>
     </properties>
 
     <dependencyManagement>
@@ -58,7 +57,7 @@
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.16</version>
+                <version>8.0.13</version>
             </dependency>
 
 
@@ -83,13 +82,12 @@
                 <version>1.2.3</version>
             </dependency>
 
+            <!--mybatis默认日志-->
             <dependency>
-                <groupId>com.tj</groupId>
-                <artifactId>maven-parent-common</artifactId>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
             </dependency>
-
 
         </dependencies>
     </dependencyManagement>

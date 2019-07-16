@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Map;
-
 @Controller
 public class ProductController {
 
@@ -18,7 +16,7 @@ public class ProductController {
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
     @ResponseBody
-    public HappysysPoduct getProductById(@PathVariable Integer productId){
+    public HappysysPoduct getProductById(@PathVariable("productId") Integer productId){
         return happysysProductClientService.getProductById(productId);
     }
 

@@ -18,6 +18,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!-- Ribbon相关 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+
         <!-- Feign相关 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

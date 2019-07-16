@@ -6,7 +6,6 @@ import com.tj.product.HappysysPoduct;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -14,11 +13,11 @@ import java.util.List;
 public interface HappysysProductClientService {
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
-    public HappysysPoduct getProductById(@PathVariable Integer productId);
+    public HappysysPoduct getProductById(@PathVariable("productId") Integer productId);
 
 
     @RequestMapping("/HappysysProduct/getCommonProblemByProductId/{productId}")
-    public List<HappysysCommonProblem> getCommonProblemByProductId(@PathVariable Integer productId);
+    public List<HappysysCommonProblem> getCommonProblemByProductId(@PathVariable("productId") Integer productId);
 
 
 }
