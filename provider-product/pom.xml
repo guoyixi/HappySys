@@ -14,7 +14,6 @@
 
     <dependencies>
 
-
         <!--web核心-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -28,10 +27,10 @@
         </dependency>
 
         <!--thymeleaf模板引擎-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!--mongodb -->
         <dependency>
@@ -46,11 +45,11 @@
         </dependency>-->
 
         <!--lombol小辣椒-->
-        <dependency>
+        <!--<dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
-        </dependency>
+        </dependency>-->
 
         <!--mysql驱动-->
         <dependency>
