@@ -10,6 +10,8 @@
         <module>consumer-back</module>
         <module>provider-category-9001</module>
         <module>provider-product-7001</module>
+        <module>provider-user-8001</module>
+
     </modules>
 
     <parent>

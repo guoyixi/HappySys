@@ -5,6 +5,23 @@ server:
 spring:
   application:
     name: happy-consumer
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+
+#映射静态资源       （映射所有，static-locations下的所有东西都放过static-path-pattern: /**）
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+#Thymeleaf配置
+  thymeleaf:
+    encoding: UTF-8
+    #开发时关闭缓存,不然没法看到实时页面(要重启)
+    cache: false
+    prefix: classpath:/templates/ #(默认)
+    suffix: .html		  #(默认)
 
 eureka:
   client:
