@@ -1,6 +1,6 @@
 server:
   #eureka服务器端口号。尽管无论官网还是大部分参考书都使用8761，但默认并不是，而是8080
-  port: 80
+  port: 800
   
 spring:
   application:
@@ -15,6 +15,7 @@ spring:
   resources:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
+
 #Thymeleaf配置
   thymeleaf:
     encoding: UTF-8
@@ -22,6 +23,11 @@ spring:
     cache: false
     prefix: classpath:/templates/ #(默认)
     suffix: .html		  #(默认)
+
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 eureka:
   client:
