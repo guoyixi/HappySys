@@ -5,10 +5,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class HappysysUser {
+public class HappysysUser implements Serializable{
     @TableId
     private Integer userId;
     private String userName;

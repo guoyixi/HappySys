@@ -7,13 +7,17 @@ import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
 import com.tj.user.util.HttpClientUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
+@RefreshScope
 @Controller
 public class UserController {
     @Autowired
@@ -65,11 +69,20 @@ public class UserController {
         System.out.println("dianhua:"+account+","+password);
         user.setUserName(account);
         user.setUserPassword(password);
-        //int login = userClientService.login(user);
+        ServletContext application=session.getServletContext();
+        List<HappysysUser> lists=(List<HappysysUser>) application.getAttribute("users");
+        for (HappysysUser hsu :lists){
+            if(hsu.getUserName().contains(user.getUserName())){
+                model.addAttribute("mess","该用户已在线");
+                return "login";
+            }
+        }
         HappysysUser u=userClientService.showUser(user);
+
         if(u!=null){
-            //存入一个对象
-            session.setAttribute("happysysUser",u);
+            session.setAttribute("user",u);
+            //添加到在线用户集合
+            lists.add(u);
             if(u.getUserIsadmin()==1){
                 System.out.println("准备进主页");
                 return "index";
