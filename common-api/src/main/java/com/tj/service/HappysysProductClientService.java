@@ -17,7 +17,7 @@ public interface HappysysProductClientService {
 
     /**
      * @param productId     商品id
-     * @return
+     * @return              根据商品id查询商品
      */
     @RequestMapping("/HappysysProduct/getById/{productId}")
     HappysysPoduct getProductById(@PathVariable("productId") Integer productId);
@@ -25,7 +25,7 @@ public interface HappysysProductClientService {
 
     /**
      * @param productId
-     * @return              返回根据productId商品的所有常见问题
+     * @return              根据productId商品的所有常见问题
      */
     @RequestMapping("/HappysysCommonProblem/getByProductId/{productId}")
     List<HappysysCommonProblem> getCommonProblemByProductId(@PathVariable("productId") Integer productId);
