@@ -1,8 +1,7 @@
-package com.tj.controller;
-
+package com.tj.product.controller;
 
 import com.tj.product.HappysysCommonProblem;
-import com.tj.service.CommonProblemService;
+import com.tj.service.HappysysProductClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,14 +14,12 @@ import java.util.List;
 public class CommonProblemController {
 
     @Autowired
-    private CommonProblemService commonProblemService;
+    private HappysysProductClientService happysysProductClientService;
 
     @RequestMapping("/HappysysCommonProblem/getByProductId/{productId}")
     @ResponseBody
-    public List<HappysysCommonProblem> getCommonProblemByProductId(@PathVariable Integer productId){
-        System.out.println("CommonProblemController     getCommonProblemByProductId");
-
-        return commonProblemService.getCommonProblemByProductId(productId);
+    public List<HappysysCommonProblem> getCommonProblemByProductId(@PathVariable("productId") Integer productId){
+        return happysysProductClientService.getCommonProblemByProductId(productId);
     }
 
 

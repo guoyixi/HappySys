@@ -18,6 +18,7 @@ public class CommonProblemServiceImpl extends ServiceImpl<CommonProblemMapper, H
     @Autowired
     private CommonProblemMapper commonProblemMapper;
 
+    @Override
     public List<HappysysCommonProblem> getCommonProblemByProductId(Integer productId){
 
         return commonProblemMapper.selectList(new QueryWrapper<HappysysCommonProblem>().eq("commonp_product_id", productId));

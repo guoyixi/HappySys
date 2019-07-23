@@ -1,6 +1,6 @@
 server:
   #eureka服务器端口号。尽管无论官网还是大部分参考书都使用8761，但默认并不是，而是8080
-  port: 80
+  port: 800
   
 spring:
   application:
@@ -14,6 +14,13 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+  #redis配置
+  redis:
+      database: 0
+      host: 192.168.153.133
+      port: 6379
+      password: 123456
+      timeout: 20000
 
 #Thymeleaf配置
   thymeleaf:
@@ -22,6 +29,11 @@ spring:
     cache: false
     prefix: classpath:/templates/ #(默认)
     suffix: .html		  #(默认)
+
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 eureka:
   client:
@@ -54,11 +66,11 @@ hystrix:
 
 
 #ribbon的超时时间
-ribbon:
-  ReadTimeout: 30000
-  ConnectTimeout: 30000
-  eureka:
-    enabled: true
+#ribbon:
+#  ReadTimeout: 30000
+#  ConnectTimeout: 30000
+#  eureka:
+#    enabled: true
 
 info:
   app.name: tj-happy

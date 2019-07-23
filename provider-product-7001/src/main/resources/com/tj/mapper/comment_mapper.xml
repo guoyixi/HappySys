@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tj.mapper.CommentMapper">
+
+
+    <select id="getCommentAndUserByProductId" resultType="map">
+        SELECT `comment_id`,`comment_product_id`,`comment_purpose`,`comment_time`,`comment_grade`
+                ,`comment_content`,`user_id`,`user_name`,`user_icon`
+        FROM `happysys_comment` c
+        INNER JOIN `happysys_user`  u ON c.`comment_user_id` = user_id
+        WHERE `comment_product_id` = #{productId}
+    </select>
+
+
+</mapper>
+
+

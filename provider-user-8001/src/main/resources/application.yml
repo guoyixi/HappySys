@@ -3,22 +3,11 @@ server:
 
 #视图解析器
 spring:
-   mvc:
-     view:
-        prefix: /
-        suffix: .html
-
-#映射静态资源       （映射所有，static-locations下的所有东西都放过static-path-pattern: /**）
-     static-path-pattern: /**
-   resources:
-     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
    datasource:
      driver-class-name: com.mysql.jdbc.Driver
      url: jdbc:mysql://118.25.13.168:3306/happysys?serverTimezone=GMT #jdbc:mysql://118.25.13.168:3306/happysys?serverTimezone=GMT
      username: lt #lt
      password: lt #lt
-
-
 
    application:
      #微服务名

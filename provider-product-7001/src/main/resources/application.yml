@@ -1,12 +1,10 @@
 server:
-  port: 3001
-#  servlet:
-#    context-path:
+  port: 7001
 
 
 spring:
   application:
-    name: HAPPY-PRODUCT
+    name: HAPPY-PRODUCT     #微服务名
 
 
   datasource:
@@ -14,37 +12,49 @@ spring:
     password: zlj
     username: zlj
     url: jdbc:mysql://118.25.13.168:3306/happysys?&useSSL=false&serverTimezone=UTC
+    #配置alibaba的druid连接池
     type: com.alibaba.druid.pool.DruidDataSource
 
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  #mongodb配置
   data:
     mongodb:
       uri: mongodb://test:test@118.25.13.168:27017/test
+
   main:
     allow-bean-definition-overriding: true
 
 
+#mybatisplus配置
 mybatis-plus:
   type-aliases-package: com.tj.entity
-  mapper-locations: classpath*:com/**/*Mapper.xml
+  mapper-locations: classpath*:com/**/*mapper.xml
   configuration:
     use-generated-keys: true
     auto-mapping-behavior: full
-
-
+    #配置java驼峰命名法和数据库下划线命名规则互转
+    map-underscore-to-camel-case: true
 
 
 
 eureka:
   instance:
-    instance-id: happy-product-3001
+    #当前提供者在微服务集群中的名字
+    instance-id: happy-product-7001
+    #是否可查看到当前ip
     prefer-ip-address: true
 
 
+#注册中心配置
   client:
     service-url:
       defaultZone: http://localhost:6001/eureka/
 
 
+#该提供者信息
 info:
   app.name: xiaoll-microservice
   company.name: www.xiaoll.com
