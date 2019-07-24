@@ -2,8 +2,10 @@ package com.tj.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+
 import com.tj.user.HappysysUser;
 import com.tj.service.HappySys_UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,10 +23,11 @@ public class HappySys_UserController {
     public HappySys_UserController() {
     }
 
+
     @RequestMapping({"/add/user"})
     @ResponseBody
     public boolean addUser(@RequestBody HappysysUser user) {
-        user.setUserIsadmin(1);
+
         return this.userservice.save(user);
     }
 
@@ -40,6 +43,19 @@ public class HappySys_UserController {
     @ResponseBody
     public HappysysUser selectUser(@RequestBody HappysysUser user){
        return  userservice.getOne(new QueryWrapper<HappysysUser>().eq("user_name",user.getUserName()).eq("user_password",user.getUserPassword()));
+    }
+    @RequestMapping("/user/nameisExists")
+    @ResponseBody
+    public int nameisExists(@RequestBody String phone){
+        System.out.println("后台phone:"+phone);
+        return userservice.count(new QueryWrapper<HappysysUser>().eq("user_name",phone));
+    }
+
+    @RequestMapping("/user/findbyname")
+    @ResponseBody
+    public HappysysUser findbyname(@RequestBody String username){
+        System.out.println("username:"+username);
+        return userservice.getOne(new QueryWrapper<HappysysUser>().eq("user_name",username));
     }
 
 }
