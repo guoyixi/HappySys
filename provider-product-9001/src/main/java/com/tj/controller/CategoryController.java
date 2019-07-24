@@ -4,25 +4,35 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tj.product.HappysysCategory;
 import com.tj.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class CategoryController {
 
  @Autowired
  private CategoryService categoryService;
 
-
-
  @RequestMapping( value = "/HappysysCategory/list",method = RequestMethod.GET)
+ @ResponseBody
  public List<HappysysCategory> list() {
 
   System.out.println("----------------List------------------");
 
   return categoryService.findCategoryAndChild(0);
  }
+
+
+
+
+
+
+
+
+
+
 
 
  @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)

@@ -41,14 +41,17 @@ public interface HappysysProductClientService {
     @RequestMapping("/HappysysComment/getList/{productId}/{currentPage}/{size}")
     Page<Map<String,Object>> getCommentAndUserByProductId(@PathVariable("productId") Integer productId, @PathVariable(value = "currentPage") Integer currentPage, @PathVariable(value = "size") Integer size);
 
+
+
+
     @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
-    public List<HappysysCategory> get(@PathVariable("id") Integer categoryId);
+    List<HappysysCategory> get(@PathVariable("id") Integer categoryId);
 
     @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
-    public List<HappysysCategory> list();
+    List<HappysysCategory> list();
 
     @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
-    public boolean add(HappysysCategory happysysCategory);
+    boolean add(HappysysCategory happysysCategory);
 
 
 

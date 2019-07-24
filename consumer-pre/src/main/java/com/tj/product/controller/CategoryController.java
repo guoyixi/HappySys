@@ -1,13 +1,10 @@
 package com.tj.product.controller;
 
-import com.tj.product.HappysysCategory;
 import com.tj.service.HappysysProductClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.List;
 
 /**
  * @program: happysys
@@ -22,9 +19,19 @@ public class CategoryController {
  private HappysysProductClientService happysysProductClientService;
 
  @RequestMapping("category/list")
+ public String category(Model model){
+
+  model.addAttribute("categoryList",this.happysysProductClientService.list());
+
+  System.out.println("成功进入首页：Index");
+  return "index";
+ }
+
+
+/* @RequestMapping("category/list")
  @ResponseBody
  public List<HappysysCategory> category(){
-  return this.happysysProductClientService.list();
- }
+  return happysysProductClientService.list();
+ }*/
 
 }

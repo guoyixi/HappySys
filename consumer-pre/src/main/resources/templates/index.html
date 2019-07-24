@@ -9,21 +9,14 @@
     <!-- /公共头部：静态资源路径与工程路径 -->
 
     <title>开心保保险网-好保险,聪明选.网上买保险推荐平台!</title>
-    <link rel="canonical" href="http://www.kaixinbao.com/">
-    <link rel="stylesheet" href="css/mod_common.css">
-    <link rel="stylesheet" href="css/mod_home.css">
+    <link th:href="@{/css/mod_common.css}">
+    <link th:href="@{/css/mod_home.css}">
 
 
-    <script type="text/javascript">
-
-        //百度自动推送代码：
-
-        // 360自动收录代码：
-
-    </script>
 
 </head>
 <body id="home">
+
 <!-- 公共头部：后台开发请直接替换 -->
 <div id="header-box">
     <!---top导航-->
@@ -37,7 +30,7 @@
                                                   onclick="javascript:void(0);return(VL_FileDL(this));return false;"
                                                   exturl="http://www.kaixinbao.com/toplogin"
                                                   vlpageid="toplogin">登录</a><span>|</span>
-                        <a rel="nofollow" href="http://www.kaixinbao.com/wj/shop/member!newLogin.action?tagid=regtag"
+                        <a  href="http://www.kaixinbao.com/wj/shop/member!newLogin.action?tagid=regtag"
                            onclick="javascript:void(0);return(VL_FileDL(this));return false;"
                            exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">免费注册</a></div>
                     <div class="user-box">
@@ -97,18 +90,18 @@
                 <dl>
                     <dt><a href="javascript:void(0);">保单服务</a><i class="iconfont icon-xiangxia"></i></dt>
                     <dd class="list child" style="display:none;">
-                        <a href="http://www.kaixinbao.com/ddkscx/" target="_blank" rel="nofollow">保单查询</a>
-                        <a href="http://www.kaixinbao.com/bdyz/" target="_blank" rel="nofollow">保单验真</a>
+                        <a href="http://www.kaixinbao.com/ddkscx/" target="_blank" >保单查询</a>
+                        <a href="http://www.kaixinbao.com/bdyz/" target="_blank" >保单验真</a>
                     </dd>
                 </dl>
 
                 <dl id="vipBtn">
-                    <dt><a rel="nofollow" href="http://www.kaixinbao.com/member/center/index.shtml"
+                    <dt><a  href="http://www.kaixinbao.com/member/center/index.shtml"
                            onclick="wxsend('memlogin');">会员中心</a><i class="iconfont icon-xiangxia"></i></dt>
                     <dd class="list child" style="display:none;">
-                        <a href="http://www.kaixinbao.com/member/center/noPayOrder.shtml" rel="nofollow">待支付订单</a>
-                        <a href="http://www.kaixinbao.com/member/collection/init" rel="nofollow">我的收藏</a>
-                        <a href="http://www.kaixinbao.com/member/myPoints/init" rel="nofollow">我的积分</a>
+                        <a href="http://www.kaixinbao.com/member/center/noPayOrder.shtml" >待支付订单</a>
+                        <a href="http://www.kaixinbao.com/member/collection/init" >我的收藏</a>
+                        <a href="http://www.kaixinbao.com/member/myPoints/init" >我的积分</a>
                     </dd>
                 </dl>
             </div>
@@ -145,45 +138,46 @@
     <!--- logo ---->
     <!--- 主导航 --->
     <div class="main-nav clearfix">
+
+
         <!-- 分类导航-->
         <div class="main-nav-more">
             <h2>所有保险产品</h2>
-            <div class="main-nav-box">
+            <div class="main-nav-box" >
 
-                <dl th:each="category:${categoryList}">
+                 <dl th:each="first:${categoryList}">
 
                     <dt>
-                        <em class="navicon icon3"></em><a href="http://www.kaixinbao.com/jiankang-baoxian/" class="tit">健康保险</a><span
-                            class="arrows"></span>
-                        <div class="list"><a href="http://www.kaixinbao.com/jiankang-baoxian/zhongdajibing/">重大疾病</a>|<a
-                                href="http://www.kaixinbao.com/jiankang-baoxian/zhuyuanyiliao/">住院医疗</a>|<a
-                                href="http://www.kaixinbao.com/jiankang-baoxian/tedingjibing/">防癌保障</a></div>
+                        <em class="navicon icon3"></em><a class="tit"  th:text="${first.categoryName}"></a><span class="arrows"></span>
+                        <div class="list"><a >重大疾病</a>|<a>住院医疗</a>|<a>防癌保障</a></div>
                     </dt>
 
-                    <dd class="child" style="display: none">
+
+                    <dd class="child" style="display: block">
+
+
                         <div class="case">
-                            <b th:text="${}"></b>
-                            <p>
 
-                                <a href="http://www.kaixinbao.com/huixuan/0000000026.shtml" target="_blank">少儿健康险</a>
+                            <div th:each="second:${first.happysysCategories}">
+                                <b th:text="${second.categoryName}"></b>
+                                <p>
+                                    <!--循环：friendlink count：30-->
+                                    <a th:each="third:${second.happysysCategories}" th:text="${third.categoryName}" target="_blank"></a>
 
-                            </p>
+                                </p>
+                            </div>
 
                         </div>
-                        <div class="recommend">
+
+                        <div  class="recommend">
                             <b>推荐计划</b>
 
 
                             <dl>
-                                <dt><a href="http://www.kaixinbao.com/jiankang-baoxian/316142.shtml" target="_blank">安联臻爱医疗保险-感恩版</a>
-                                </dt>
+                                <dt><a href="http://www.kaixinbao.com/jiankang-baoxian/316142.shtml" target="_blank">安联臻爱医疗保险-感恩版</a></dt>
                                 <dd>
                                     <ul>
-                                        <li><span>意外身故及伤残</span></li>
-                                        <li><span>百万医疗保险</span></li>
-                                        <li><span>重疾医疗保险</span></li>
-                                        <li><span>重疾绿通</span></li>
-                                        <li><span>住院医疗垫付</span></li>
+                                        <li><span>意外身故及伤残</span></li><li><span>百万医疗保险</span></li><li><span>重疾医疗保险</span></li><li><span>重疾绿通</span></li><li><span>住院医疗垫付</span></li>
                                     </ul>
                                 </dd>
                                 <dd>
@@ -194,14 +188,10 @@
 
 
                             <dl>
-                                <dt><a href="http://www.kaixinbao.com/jiankang-baoxian/314267.shtml" target="_blank">安联住院宝保障计划</a>
-                                </dt>
+                                <dt><a href="http://www.kaixinbao.com/jiankang-baoxian/314267.shtml" target="_blank">安联住院宝保障计划</a></dt>
                                 <dd>
                                     <ul>
-                                        <li><span>不限社保用药</span></li>
-                                        <li><span>0-65周岁都能投保</span></li>
-                                        <li><span>0免赔</span></li>
-                                        <li><span>保障更全面</span></li>
+                                        <li><span>不限社保用药</span></li><li><span>0-65周岁都能投保</span></li><li><span>0免赔</span></li><li><span>保障更全面</span></li>
                                     </ul>
                                 </dd>
                                 <dd>
@@ -211,31 +201,35 @@
                             </dl>
 
                         </div>
+
+
                     </dd>
+
+
+
                 </dl>
 
-                <dl>
+<!--                <dl>
                     <dt>
-                        <em class="navicon icon2"></em><a href="http://www.kaixinbao.com/renshou-baoxian/" class="tit">人寿保险</a>
+                        <em class="navicon icon2"></em><a href="http://www.kaixinbao.com/renshou-baoxian/"  class="tit">人寿保险</a>
                         <div class="list">
-                            <a href="http://www.kaixinbao.com/renshou-baoxian/dingqi/">定期寿险</a>|<a
-                                href="http://www.kaixinbao.com/renshou-baoxian/nianjinxian/">养老计划</a>
+                            <a href="http://www.kaixinbao.com/renshou-baoxian/dingqi/">定期寿险</a>|<a href="http://www.kaixinbao.com/renshou-baoxian/nianjinxian/">养老计划</a>
                         </div>
                     </dt>
                 </dl>
-
                 <dl>
                     <dt>
-                        <em class="navicon icon5"></em><a href="http://www.kaixinbao.com/jiacai-baoxian/" class="tit">家财保险</a>
+                        <em class="navicon icon5"></em><a href="http://www.kaixinbao.com/jiacai-baoxian/"  class="tit">家财保险</a>
                         <div class="list"><a href="http://www.kaixinbao.com/jiacai-baoxian/">房屋保险</a></div>
                     </dt>
-                </dl>
-
+                </dl>-->
 
 
             </div>
         </div>
         <!-- 分类导航-->
+
+
         <!-- 导航-->
         <div class="main-nav-list">
             <ul>
@@ -458,6 +452,7 @@
     </div>
 </div>
 <!-- /严选模块-->
+
 <!-- 保险规划 -->
 <div id="support-box">
     <div class="wearper-box">
@@ -497,6 +492,7 @@
     </div>
 </div>
 <!-- /保险规划 -->
+
 <!-- 会员服务-->
 <div id="service-box">
     <div class="wearper-box">
@@ -534,6 +530,7 @@
     </div>
 </div>
 <!--/会员服务 -->
+
 <!-- 评测与资讯-->
 <div id="news-box">
     <div class="wearper-box">
@@ -723,6 +720,7 @@
 
 </div>
 <!-- 品牌-->
+
 <!-- 侧边栏广告 -->
 <div id="fix-wechar" class="fix-banner" style="display:none">
     <img src="picture/code_main.png" alt="">
@@ -940,47 +938,47 @@
         <dl>
             <dt>新手指南</dt>
             <dd>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn1" target="_blank"
-                   rel="nofollow">如何注册</a>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn4" target="_blank"
-                   rel="nofollow">如何投保</a>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn3" target="_blank"
-                   rel="nofollow">找回密码</a>
+                <a  href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn1" target="_blank"
+                   >如何注册</a>
+                <a  href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn4" target="_blank"
+                   >如何投保</a>
+                <a  href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn3" target="_blank"
+                   >找回密码</a>
             </dd>
         </dl>
         <dl>
             <dt>支付帮助</dt>
             <dd>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/4/index.shtml#zfbz2" target="_blank"
-                   rel="nofollow">支付方式</a>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/4/index.shtml#zfbz1" target="_blank"
-                   rel="nofollow">支付说明</a>
+                <a  href="http://www.kaixinbao.com/about/4/index.shtml#zfbz2" target="_blank"
+                   >支付方式</a>
+                <a  href="http://www.kaixinbao.com/about/4/index.shtml#zfbz1" target="_blank"
+                   >支付说明</a>
             </dd>
         </dl>
         <dl>
             <dt>保单服务</dt>
             <dd>
-                <a href="http://www.kaixinbao.com/ddkscx/" target="_blank" rel="nofollow">保单查询</a>
-                <a href="http://www.kaixinbao.com/bdyz/" target="_blank" rel="nofollow">保单验真</a>
-                <a href="http://www.kaixinbao.com/about/1/index.shtml#yxxg2" target="_blank" rel="nofollow">变更与取消</a>
-                <a href="http://www.kaixinbao.com/about/1/index.shtml#yxxg1" target="_blank" rel="nofollow">保单寄送</a>
+                <a href="http://www.kaixinbao.com/ddkscx/" target="_blank" >保单查询</a>
+                <a href="http://www.kaixinbao.com/bdyz/" target="_blank" >保单验真</a>
+                <a href="http://www.kaixinbao.com/about/1/index.shtml#yxxg2" target="_blank" >变更与取消</a>
+                <a href="http://www.kaixinbao.com/about/1/index.shtml#yxxg1" target="_blank" >保单寄送</a>
             </dd>
         </dl>
         <dl>
             <dt>理赔服务</dt>
             <dd>
-                <a href="http://www.kaixinbao.com/about/2/index.shtml#lpbz1" target="_blank" rel="nofollow">理赔指南</a>
-                <a href="http://www.kaixinbao.com/lpzs/index.shtml" target="_blank" rel="nofollow">理赔报案</a>
-                <a href="http://www.kaixinbao.com/lpzs/index.shtml" target="_blank" rel="nofollow">理赔案例</a>
+                <a href="http://www.kaixinbao.com/about/2/index.shtml#lpbz1" target="_blank" >理赔指南</a>
+                <a href="http://www.kaixinbao.com/lpzs/index.shtml" target="_blank" >理赔报案</a>
+                <a href="http://www.kaixinbao.com/lpzs/index.shtml" target="_blank" >理赔案例</a>
             </dd>
         </dl>
         <dl>
             <dt>服务中心</dt>
             <dd>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/3/dayizonghui/253398.shtml" target="_blank"
-                   rel="nofollow">发票索取</a>
+                <a  href="http://www.kaixinbao.com/about/3/dayizonghui/253398.shtml" target="_blank"
+                   >发票索取</a>
                 <a href="http://www.kaixinbao.com/about/3/dayizonghui/index.shtml" target="_blank"
-                   rel="nofollow">常见问题</a>
+                   >常见问题</a>
             </dd>
         </dl>
         <div class="track-con-WeChatImg">
@@ -997,22 +995,22 @@
         <div class="footer-con-link">
             <dl>
                 <dt>
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/about/" rel="nofollow">关于开心保</a>|
-                    <a href="http://www.kaixinbao.com/other/news/" rel="nofollow">开心保要闻</a>|
+                    <a  href="http://www.kaixinbao.com/other/about/" >关于开心保</a>|
+                    <a href="http://www.kaixinbao.com/other/news/" >开心保要闻</a>|
                     <a href="http://www.kaixinbao.com/other/sitemap/">网站地图</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/legal/" rel="nofollow">法律声明</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/contact/" rel="nofollow">联系我们</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/jobs/" rel="nofollow">加入我们</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/yxhd/isl-tra/" target="_blank"
-                       rel="nofollow">微信版</a>
+                    <a  href="http://www.kaixinbao.com/other/legal/" >法律声明</a>|
+                    <a  href="http://www.kaixinbao.com/other/contact/" >联系我们</a>|
+                    <a  href="http://www.kaixinbao.com/other/jobs/" >加入我们</a>|
+                    <a  href="http://www.kaixinbao.com/yxhd/isl-tra/" target="_blank"
+                       >微信版</a>
                 </dt>
                 <dd>
                     <a href="https://resource.kaixinbao.com/r02/images/common/bxdlywxkz.jpg" target="_blank"
-                       rel="nofollow">保险代理业务许可证</a>&nbsp;&nbsp;
-                    <a href="http://beian.miit.gov.cn" target="_blank" rel="nofollow">辽ICP备12007009号-1</a>&nbsp;&nbsp;
+                       >保险代理业务许可证</a>&nbsp;&nbsp;
+                    <a href="http://beian.miit.gov.cn" target="_blank" >辽ICP备12007009号-1</a>&nbsp;&nbsp;
                     <a href="https://resource.kaixinbao.com/r02/images/common/qyfryyzz.jpg" target="_blank"
-                       rel="nofollow">企业营业执照</a>&nbsp;&nbsp;
-                    <a href="https://resource.kaixinbao.com/r02/images/common/icp.jpg" target="_blank" rel="nofollow">ICP经营许可证(辽B2-20120076)</a>
+                       >企业营业执照</a>&nbsp;&nbsp;
+                    <a href="https://resource.kaixinbao.com/r02/images/common/icp.jpg" target="_blank" >ICP经营许可证(辽B2-20120076)</a>
                 </dd>
                 <dd>Copyright 2012-2019 版权所有 网金保险销售服务有限公司</dd>
             </dl>
@@ -1022,19 +1020,19 @@
 
 
                 <li><a href="http://www.circ.gov.cn/tabid/5171/InfoID/210753/frtid/4491/Default.aspx" target="_blank"
-                       rel="nofollow"><img src="picture/2582921308.png" width="90" height="37"/></a></li>
+                       ><img src="picture/2582921308.png" width="90" height="37"/></a></li>
 
 
-                <li><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088" target="_blank" rel="nofollow"><img
+                <li><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088" target="_blank" ><img
                         src="picture/2582937061.png" width="37" height="37"/></a></li>
 
 
                 <li><a href="http://wljg.lngs.gov.cn/iciaicweb/dzbscheck.do?method=change&id=E2014111300054343"
-                       target="_blank" rel="nofollow"><img src="picture/298851182.png" width="37" height="37"/></a></li>
+                       target="_blank" ><img src="picture/298851182.png" width="37" height="37"/></a></li>
 
 
                 <li><a href="http://si.trustutn.org/info?sn=618161121025629572164&certType=1" target="_blank"
-                       rel="nofollow"><img src="picture/3061644601.png" width="90" height="37"/></a></li>
+                       ><img src="picture/3061644601.png" width="90" height="37"/></a></li>
 
             </ul>
         </div>
@@ -1046,7 +1044,7 @@
     <div class="toorbar-box">
         <div class="toobar-box-height"></div>
         <a class="toorbar-box-service ntkf-service" data-ntkf="" href="javascript:void(0);" vlpageid="xiaoneng"
-           rel="nofollow" exturl="http://www.kaixinbao.com/xiaoneng" onclick="return(VL_FileDL(this));return false;">
+            exturl="http://www.kaixinbao.com/xiaoneng" onclick="return(VL_FileDL(this));return false;">
             <span class="iconfont icon-kefu1"></span>
             <em class="text ">客服</em>
         </a>
@@ -1109,8 +1107,8 @@
 </div>
 <!-- /公共尾部：后台开发请直接替换 -->
 
-<script type="text/javascript" src="webjars/jquery/3.3.1/jquery.js"></script>
-<script type="text/javascript" src="static/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/static/easyui/jquery.easyui.min.js}"></script>
 <script type="text/javascript">
 
     $(function () {

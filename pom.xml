@@ -8,8 +8,7 @@
         <module>eureka-6001</module>
         <module>consumer-pre</module>
         <module>consumer-back</module>
-        <module>provider-category-9001</module>
-        <module>provider-product-7001</module>
+        <module>provider-product-9001</module>
         <module>provider-user-8001</module>
 
     </modules>
@@ -67,7 +66,7 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
-                <version>1.0.31</version>
+                <version>1.1.18</version>
             </dependency>
 
             <!--mybatis-spring整合包-->
