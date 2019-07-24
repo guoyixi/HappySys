@@ -7,6 +7,8 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -18,17 +20,21 @@ import java.util.Map;
 @Accessors(chain = true)
 @TableName("happysys_product")
 public class HappysysPoduct implements Serializable {
-    //`product_id`，`product_title`，`product_price`，`product_iamge`，`product_level1`，`product_level2`，`product_level3`，`product_output`
+    //`product_id`,`product_title`,`product_price`,`product_iamge`,`product_age`,`product_deadline`
+    // ,`product_schema`,`product_details`,`product_level1`,`product_level2`,`product_level3`
 
     @TableId
     private Integer productId;
-    private String productTitle;
-    private String productPrice;
-    private String productIamge;
-    private Integer productOutput;      //产量
-    private Integer productLevel1;
-    private Integer productLevel2;
-    private Integer productLevel3;
+    private String productTitle;            //标题
+    private Double productPrice;            //价格
+    private String productIamge;            //主图片
+    private Integer productAge;             //年龄
+    private Timestamp productDeadline;      //期限
+    private String productSchema;           //方案
+    private String productDetails;          //描述
+    private Integer productLevel1;          //所属1级标题
+    private Integer productLevel2;          //所属2级标题
+    private Integer productLevel3;          //所属3级标题
 
     @TableField(exist = false)
     private Map<String, Object> mongoData;     //mongodb里的其余杂项
