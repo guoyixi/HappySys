@@ -37,21 +37,33 @@ mybatis-plus:
     auto-mapping-behavior: full
     #配置java驼峰命名法和数据库下划线命名规则互转
     map-underscore-to-camel-case: true
+  global-config:
+      db-config:
+        id-type: auto
+        field-strategy: not_empty
+        logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+        logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+        #表名、是否使用下划线命名，默认数据库表使用下划线命名
+        table-underline: true
+        #列名名、是否使用下划线命名，默认数据库列使用下划线命名
+        column-underline: true
 
+        #逻辑删除是为了方便数据恢复和保护数据本身价值等等的一种方案，但实际就是删除。
+        #如果你需要再查出来就不应使用逻辑删除，而是以一个状态去表示。
 
 
 eureka:
-  instance:
-    #当前提供者在微服务集群中的名字
-    instance-id: happy-product-7001
-    #是否可查看到当前ip
-    prefer-ip-address: true
-
-
-#注册中心配置
-  client:
+  client: #客户端注册进eureka服务列表内
     service-url:
-      defaultZone: http://localhost:6001/eureka/
+      defaultZone: http://localhost:6001/eureka
+  instance:
+    instance-id: HAPPY-CATEGROY-9001
+    prefer-ip-address: true     #访问路径可以显示IP地址
+    leaseRenewalIntervalInSeconds: 10  #租期更新时间间隔（默认30秒）
+    leaseExpirationDurationInSeconds: 30 #租期到期时间（默认90秒）
+feign:
+  httpclient:
+    connection-timeout: 30000
 
 
 #该提供者信息

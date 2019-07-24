@@ -1,13 +1,14 @@
 package com.tj.service;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tj.product.HappysysCategory;
 import com.tj.product.HappysysCommonProblem;
 import com.tj.product.HappysysPoduct;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,15 @@ public interface HappysysProductClientService {
      */
     @RequestMapping("/HappysysComment/getList/{productId}/{currentPage}/{size}")
     Page<Map<String,Object>> getCommentAndUserByProductId(@PathVariable("productId") Integer productId, @PathVariable(value = "currentPage") Integer currentPage, @PathVariable(value = "size") Integer size);
+
+    @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
+    public List<HappysysCategory> get(@PathVariable("id") Integer categoryId);
+
+    @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
+    public List<HappysysCategory> list();
+
+    @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
+    public boolean add(HappysysCategory happysysCategory);
 
 
 

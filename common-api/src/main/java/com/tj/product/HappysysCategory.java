@@ -1,4 +1,4 @@
-package com.tj.category;
+package com.tj.product;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

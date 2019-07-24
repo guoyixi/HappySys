@@ -15,6 +15,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.tj</groupId>
+            <artifactId>common-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
         <!--web核心-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -27,12 +33,6 @@
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <!--thymeleaf模板引擎-->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>-->
-
         <!--mongodb -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -43,13 +43,6 @@
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>-->
-
-        <!--lombol小辣椒-->
-        <!--<dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
         </dependency>-->
 
         <!--mysql驱动-->
@@ -85,11 +78,7 @@
             <version>3.1.2</version>
         </dependency>-->
 
-        <dependency>
-            <groupId>com.tj</groupId>
-            <artifactId>common-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+
 
 
     </dependencies>

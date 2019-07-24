@@ -1,7 +1,7 @@
-package com.tj.category.controller;
+package com.tj.product.controller;
 
-import com.tj.category.HappysysCategory;
-import com.tj.service.HappysysCategoryClientService;
+import com.tj.product.HappysysCategory;
+import com.tj.service.HappysysProductClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +19,12 @@ import java.util.List;
 public class CategoryController {
 
  @Autowired
- private HappysysCategoryClientService happysysCategoryClientService;
+ private HappysysProductClientService happysysProductClientService;
 
  @RequestMapping("category/list")
  @ResponseBody
  public List<HappysysCategory> category(){
-  return this.happysysCategoryClientService.list();
+  return this.happysysProductClientService.list();
  }
 
 }

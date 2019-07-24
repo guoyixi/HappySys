@@ -1,7 +1,7 @@
 package com.tj.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.tj.category.HappysysCategory;
+import com.tj.product.HappysysCategory;
 
 /**
  * 1:为了把mapper这个DAO交給Spring管理
