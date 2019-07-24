@@ -17,9 +17,9 @@ spring:
   #redis配置
   redis:
       database: 0
-      host: 192.168.153.133
+      host: 118.25.13.168
       port: 6379
-      password: 123456
+      password: 856856
       timeout: 20000
 
 #Thymeleaf配置
@@ -66,11 +66,11 @@ hystrix:
 
 
 #ribbon的超时时间
-#ribbon:
-#  ReadTimeout: 30000
-#  ConnectTimeout: 30000
-#  eureka:
-#    enabled: true
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  eureka:
+    enabled: true
 
 info:
   app.name: tj-happy
