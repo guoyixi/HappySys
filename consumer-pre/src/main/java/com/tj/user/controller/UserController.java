@@ -5,11 +5,20 @@ package com.tj.user.controller;
 
 import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
+import com.tj.user.shiro.MD5Pwd;
 import com.tj.user.util.HttpClientUtil;
+import org.apache.el.parser.TokenMgrError;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresGuest;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,10 +32,12 @@ public class UserController {
     @Autowired
     private HappysysUserClientService userClientService;
 
+
     @RequestMapping("/add/user")
+    @ResponseBody
     public String addUser(HappysysUser user, String phone, String password){
         user.setUserName(phone);
-        user.setUserPassword(password);
+        user.setUserPassword(MD5Pwd.MD5Pwd(phone,password));
         user.setUserIsadmin(1);
         boolean b = userClientService.addUser(user);
         return "login";
@@ -69,6 +80,31 @@ public class UserController {
         System.out.println("dianhua:"+account+","+password);
         user.setUserName(account);
         user.setUserPassword(password);
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getUserPassword());
+        try {
+            //登录
+            System.out.println("登录。。。");
+            subject.login(token);
+            System.out.println("token:"+token.getUsername());
+            HappysysUser findbyname = userClientService.findbyname(token.getUsername());
+            System.out.println("findbyname:"+findbyname.getUserIsadmin());
+            if(findbyname.getUserIsadmin()==0){
+                //进入后台
+                return "houtai";
+            }
+            return "index";
+        }catch (UnknownAccountException e){
+            //用户不存在
+            model.addAttribute("mess","用户不存在");
+            return "login";
+        }catch (IncorrectCredentialsException e){
+            //密码不正确
+            model.addAttribute("mess","密码不正确");
+            return "login";
+        }
+      /*  user.setUserName(account);
+        user.setUserPassword(password);
         ServletContext application=session.getServletContext();
         List<HappysysUser> lists=(List<HappysysUser>) application.getAttribute("users");
         for (HappysysUser hsu :lists){
@@ -92,7 +128,7 @@ public class UserController {
         }
         System.out.println("失败了");
         model.addAttribute("mess","用户名或密码错误");
-        return "login";
+        return "login";*/
 
     }
 
@@ -106,5 +142,14 @@ public class UserController {
     private String  userIndex(){
         System.out.println("进入index主页。。。");
         return "index";
+    }
+
+    @RequestMapping("user/nameisExists")
+    @ResponseBody
+    public int nameisExists(String phone){
+        System.out.println("phone:"+phone);
+        int count=userClientService.isexists(phone);
+        System.out.println("count:+"+count);
+        return count;
     }
 }

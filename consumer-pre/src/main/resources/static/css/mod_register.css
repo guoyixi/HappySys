@@ -139,8 +139,8 @@
     line-height: 42px;
     text-align: center;
     background: #f8f8f8;
-    color: #666;
-    cursor: pointer;
+/*    color: #666;
+    cursor: pointer;*/
 }
 .validate  .imgcode{
     display: block;
