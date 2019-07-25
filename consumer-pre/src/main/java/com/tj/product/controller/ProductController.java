@@ -2,7 +2,7 @@ package com.tj.product.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tj.product.HappysysPoduct;
+import com.tj.product.HappysysProduct;
 import com.tj.service.HappysysProductClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class ProductController {
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
     @ResponseBody
-    public HappysysPoduct getById(@PathVariable("productId") Integer productId){
+    public HappysysProduct getById(@PathVariable("productId") Integer productId){
         return happysysProductClientService.getProductById(productId);
     }
 
@@ -41,7 +41,7 @@ public class ProductController {
 
     @RequestMapping(value = "/HappysysProduct/getByMap")
     @ResponseBody
-    public IPage<HappysysPoduct> loadShoppingCart(@RequestParam(required = false) Map<String,Object> condtions){
+    public IPage<HappysysProduct> loadShoppingCart(@RequestParam(required = false) Map<String,Object> condtions){
         System.out.println("ProductController      getByMap：");
         System.out.println(condtions);
 

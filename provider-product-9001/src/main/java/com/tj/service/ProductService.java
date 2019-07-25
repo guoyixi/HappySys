@@ -2,14 +2,14 @@ package com.tj.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.tj.product.HappysysPoduct;
+import com.tj.product.HappysysProduct;
 
 import java.util.Map;
 
-public interface ProductService extends IService<HappysysPoduct> {
+public interface ProductService extends IService<HappysysProduct> {
 
 
-    IPage<HappysysPoduct> getByMap(Map<String,Object> conditons, Integer currentPage, Integer size);
+    IPage<HappysysProduct> getByMap(Map<String,Object> conditons, Integer currentPage, Integer size);
 
 
 }

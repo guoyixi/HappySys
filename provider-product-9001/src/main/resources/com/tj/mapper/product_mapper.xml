@@ -5,9 +5,9 @@
 <mapper namespace="com.tj.mapper.ProductMapper">
 
     <!--看不懂的地方不要管，要加条件直接加！！-->
-    <select id="getByMap" resultType="com.tj.product.HappysysPoduct">
-        SELECT `product_id`,`product_title`,`product_price`,`product_image`,`product_age`,`product_deadline`
-                ,`product_schema`,`product_details`,`product_level1`,`product_level2`,`product_level3`
+    <select id="getByMap" resultType="com.tj.product.HappysysProduct">
+        SELECT `product_id`,`product_title`,`product_price`,`product_image`,`product_details`,`product_deadline`
+        ,`product_section_id`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
 
                 <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`

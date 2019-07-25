@@ -1,11 +1,10 @@
 package com.tj.service;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.HappysysCategory;
 import com.tj.product.HappysysCommonProblem;
-import com.tj.product.HappysysPoduct;
+import com.tj.product.HappysysProduct;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +22,7 @@ public interface HappysysProductClientService {
      * @return              根据商品id查询商品
      */
     @RequestMapping("/HappysysProduct/getById/{productId}")
-    HappysysPoduct getProductById(@PathVariable("productId") Integer productId);
+    HappysysProduct getProductById(@PathVariable("productId") Integer productId);
 
 
     /**
@@ -54,7 +53,7 @@ public interface HappysysProductClientService {
      * @return              返回page信息，和商品list
      */
     @RequestMapping(value = "/HappysysProduct/getByMap",method = RequestMethod.POST)
-    Page<HappysysPoduct> getProductByMap(@RequestBody(required = false) Map<String,Object> condtions);
+    Page<HappysysProduct> getProductByMap(@RequestBody(required = false) Map<String,Object> condtions);
 
 
 

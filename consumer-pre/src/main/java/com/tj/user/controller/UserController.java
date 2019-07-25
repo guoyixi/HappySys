@@ -3,7 +3,6 @@ package com.tj.user.controller;
 
 
 
-import com.tj.service.HappysysProductClientService;
 import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
 import com.tj.user.shiro.MD5Pwd;
@@ -32,8 +31,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private HappysysUserClientService userClientService;
-    @Autowired
-    private HappysysProductClientService happysysProductClientService;
+
 
     @RequestMapping("/add/user")
     @ResponseBody
@@ -167,4 +165,11 @@ public class UserController {
         return count;
     }
 
+    @RequestMapping("user/loadUserInfoShow")
+    @ResponseBody
+    public HappysysUser loadUserInfoShow(String userName){
+        System.out.println("UserController      loadUserInfoShow");
+
+        return userClientService.findbyname(userName);
+    }
 }

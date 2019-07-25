@@ -14,8 +14,8 @@ import java.io.Serializable;
 @Accessors(chain = true)
 public class HappysysSection implements Serializable {
 
-
-
-
+    private Integer sectionId;
+    private Integer sectionMin;
+    private Integer sectionMax;
 
 }
