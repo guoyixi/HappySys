@@ -27,7 +27,7 @@ public class ProductController {
         HappysysProduct product = productService.getById(productId);
 
         Map<String,Object> mongoData = mongoTemplate.findById(productId, Map.class, "happysys_product");
-        product.setMongoData(mongoData);
+        product.setProductMongoData(mongoData);
 
         return product;
     }
