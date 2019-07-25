@@ -8,7 +8,6 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +26,7 @@ public class HappysysPoduct implements Serializable {
     private Integer productId;
     private String productTitle;            //标题
     private Double productPrice;            //价格
-    private String productIamge;            //主图片
+    private String productImage;            //主图片
     private Integer productAge;             //年龄
     private Timestamp productDeadline;      //期限
     private String productSchema;           //方案
