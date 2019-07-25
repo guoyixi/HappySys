@@ -4,6 +4,39 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tj.mapper.ProductMapper">
 
+    <!--看不懂的地方不要管，要加条件直接加！！-->
+    <select id="getByMap" resultType="com.tj.product.HappysysPoduct">
+        SELECT `product_id`,`product_title`,`product_price`,`product_image`,`product_age`,`product_deadline`
+                ,`product_schema`,`product_details`,`product_level1`,`product_level2`,`product_level3`
+
+                <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
+                    ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
+                        WHERE `product_id` = `shopping_cart_product_id`
+                        AND `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}) product_shopping_cart_id
+                </if>
+        FROM `happysys_product` p
+        <where>
+            <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
+                `product_id` IN (
+                    SELECT `shopping_cart_product_id` FROM `happysys_shopping_cart`
+                    WHERE `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}
+                )
+            </if>
+
+            <if test="conditions.product_level1 != null and conditions.product_level1 != ''">
+                AND `product_level1` = #{conditions.product_level1}
+            </if>
+            <if test="conditions.product_level2 != null and conditions.product_level2 != ''">
+                AND `product_level2` = #{conditions.product_level2}
+            </if>
+            <if test="conditions.product_level3 != null and conditions.product_level3 != ''">
+                AND `product_level3` = #{conditions.product_level3}
+            </if>
+        </where>
+
+    </select>
+
+
 </mapper>
 
 

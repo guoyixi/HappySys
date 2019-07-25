@@ -52,6 +52,7 @@ eureka:
 feign:
   httpclient:
     connection-timeout: 30000
+    enabled: true
 
 #hystrix的超时时间
 hystrix:

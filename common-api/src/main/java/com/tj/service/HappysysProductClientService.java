@@ -1,12 +1,14 @@
 package com.tj.service;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.HappysysCategory;
 import com.tj.product.HappysysCommonProblem;
 import com.tj.product.HappysysPoduct;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,8 +41,20 @@ public interface HappysysProductClientService {
      * @return              返回page信息，和评论+用户的Map<String,Object>
      */
     @RequestMapping("/HappysysComment/getList/{productId}/{currentPage}/{size}")
-    Page<Map<String,Object>> getCommentAndUserByProductId(@PathVariable("productId") Integer productId, @PathVariable(value = "currentPage") Integer currentPage, @PathVariable(value = "size") Integer size);
+    Page<Map<String,Object>> getCommentAndUserByProductId(
+            @PathVariable("productId") Integer productId,
+            @PathVariable(value = "currentPage") Integer currentPage,
+            @PathVariable(value = "size") Integer size);
 
+
+    /* *
+     * @param condtions     条件map 要加条件把键值put即可 然后就去product_mapper.xml中加条件
+     *                       (ps：现已有：product_level1、product_level2、product_level3、shopping_cart_user_id
+     *                                  、currentPage:默认为1、size:默认为6、  )
+     * @return              返回page信息，和商品list
+     */
+    @RequestMapping(value = "/HappysysProduct/getByMap",method = RequestMethod.POST)
+    Page<HappysysPoduct> getProductByMap(@RequestBody(required = false) Map<String,Object> condtions);
 
 
 
@@ -52,6 +66,7 @@ public interface HappysysProductClientService {
 
     @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
     boolean add(HappysysCategory happysysCategory);
+
 
 
 
