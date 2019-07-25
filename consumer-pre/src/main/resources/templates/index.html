@@ -9,8 +9,8 @@
     <!-- /公共头部：静态资源路径与工程路径 -->
 
     <title>开心保保险网-好保险,聪明选.网上买保险推荐平台!</title>
-    <link th:href="@{/css/mod_common.css}">
-    <link th:href="@{/css/mod_home.css}">
+    <link rel="stylesheet" th:href="@{css/mod_common.css}">
+    <link rel="stylesheet" th:href="@{css/mod_home.css}">
 
 
 
@@ -25,12 +25,12 @@
             <!-- 登陆状态 -->
             <div class="header-nav-login" id="loginMemberState">
                 <!-- 未登录状态-->
-                <div id="notLogin" class="login_out" style="display: none">
-                    <div class="user-head">您好，请<a href="javascript:void(0);" id="headerShowLoginWindow"
+                    <div id="notLogin" class="login_out" >
+                    <div class="user-head">您好，请<a href="login.html" id="headerShowLoginWindow"
                                                   onclick="javascript:void(0);return(VL_FileDL(this));return false;"
                                                   exturl="http://www.kaixinbao.com/toplogin"
                                                   vlpageid="toplogin">登录</a><span>|</span>
-                        <a  href="http://www.kaixinbao.com/wj/shop/member!newLogin.action?tagid=regtag"
+                        <a  href="register.html"
                            onclick="javascript:void(0);return(VL_FileDL(this));return false;"
                            exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">免费注册</a></div>
                     <div class="user-box">
@@ -48,10 +48,10 @@
                 </div>
                 <!-- 未登录状态-->
                 <!-- 已登录状态-->
-                <div id="yesLogin" class="login_in" style="display: none">
+                <div id="yesLogin" class="login_in" style="display: none" th:if="${session.user}!=null">
                     <div class="user-head"><span class="i_user"></span><a
                             href="http://www.kaixinbao.com/member/center/index.shtml" id="headerLoginMemberUsername"
-                            class="name"></a><span id="headerLoginMemGradeIcon" class=""></span><span
+                            class="name"></a><span id="headerLoginMemGradeIcon" class=""  th:text="${session.user.userName}"></span><span
                             class="iconfont icon-xiangxia"></span>
                     </div>
                     <div class="user-box">
@@ -59,12 +59,12 @@
                             <div class="info">
                                 <p class="avatar"><img id="headPicPath" src="picture/icon_avatar.png" alt=""/></p>
                                 <p class="level"><span id="headerLoginMemGradeIcon" class=""></span></p>
-                                <p class="text" id="gradeinfo"></p>
-                                <p class="out" id="headerLogout"><span>退出</span></p>
+                                <p class="text" id="gradeinfo">消费升级K1会员，享更多福利</p>
+                                <p class="out" id="headerLogout"><span onclick="userclose()">退出</span></p>
                             </div>
                             <ul class="btns">
                                 <li><a href="http://www.kaixinbao.com/member/myPoints/init"><span>积分</span><span
-                                        id="memberPointsCount"></span></a></li>
+                                        id="memberPointsCount">45</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     </dd>
                 </dl>
                 <dl>
-                    <dt><a href="http://www.kaixinbao.com/jifen/">积分商城</a></dt>
+                    <dt><a href="http://www.kaixinbao.com/jifen/">积分商城[[${session.user}]]</a></dt>
                 </dl>
                 <dl>
                     <dt><a href="javascript:void(0);">保单服务</a><i class="iconfont icon-xiangxia"></i></dt>
@@ -153,7 +153,7 @@
                     </dt>
 
 
-                    <dd class="child" style="display: block">
+                    <dd class="child" style="display: none">
 
 
                         <div class="case">
@@ -1104,14 +1104,24 @@
         </div>
         -->
     </div>
+    <span id="aab" hidden="hidden" th:text="${session.user}"></span>
 </div>
 <!-- /公共尾部：后台开发请直接替换 -->
-
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
-<script type="text/javascript" th:src="@{/static/easyui/jquery.easyui.min.js}"></script>
+<!--<script type="text/javascript" th:src="@{/static/easyui/jquery.easyui.min.js}"></script>-->
 <script type="text/javascript">
 
+
     $(function () {
+        var happyuser=$("#aab").text();
+
+        if(happyuser.length>0){
+            $("#notLogin").css("display","none");
+            $("#yesLogin").css("display","block");
+        }
+
+
 
         var sel = $('.main-nav-box > dl');
 

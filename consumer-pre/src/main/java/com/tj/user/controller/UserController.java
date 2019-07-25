@@ -3,6 +3,7 @@ package com.tj.user.controller;
 
 
 
+import com.tj.service.HappysysProductClientService;
 import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
 import com.tj.user.shiro.MD5Pwd;
@@ -31,7 +32,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private HappysysUserClientService userClientService;
-
+    @Autowired
+    private HappysysProductClientService happysysProductClientService;
 
     @RequestMapping("/add/user")
     @ResponseBody
@@ -85,6 +87,14 @@ public class UserController {
         try {
             //登录
             System.out.println("登录。。。");
+            ServletContext application=session.getServletContext();
+            List<HappysysUser> lists=(List<HappysysUser>) application.getAttribute("users");
+            for (HappysysUser hsu :lists){
+                if(hsu.getUserName().contains(user.getUserName())){
+                    model.addAttribute("mess","该用户已在线");
+                    return "login";
+                }
+            }
             subject.login(token);
             System.out.println("token:"+token.getUsername());
             HappysysUser findbyname = userClientService.findbyname(token.getUsername());
@@ -93,6 +103,10 @@ public class UserController {
                 //进入后台
                 return "houtai";
             }
+            model.addAttribute("categoryList",happysysProductClientService.list());
+            session.setAttribute("user",findbyname);
+            //添加到在线用户集合
+            lists.add(findbyname);
             return "index";
         }catch (UnknownAccountException e){
             //用户不存在
@@ -152,4 +166,5 @@ public class UserController {
         System.out.println("count:+"+count);
         return count;
     }
+
 }
