@@ -28,9 +28,9 @@ public class HappysysPoduct implements Serializable {
     private String productTitle;            //标题
     private Double productPrice;            //价格
     private String productImage;            //主图片
-    private Integer productAge;             //年龄
+    private Integer productSection;          //年龄
     private Timestamp productDeadline;      //期限
-    private String productSchema;           //方案
+    private String productFeature;           //方案
     private String productDetails;          //描述
     private Integer productLevel1;          //所属1级标题
     private Integer productLevel2;          //所属2级标题
