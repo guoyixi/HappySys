@@ -27,7 +27,7 @@ public class HappysysPoduct implements Serializable {
     private Integer productId;
     private String productTitle;            //标题
     private Double productPrice;            //价格
-    private String productIamge;            //主图片
+    private String productImage;            //主图片
     private Integer productAge;             //年龄
     private Timestamp productDeadline;      //期限
     private String productSchema;           //方案
@@ -35,6 +35,9 @@ public class HappysysPoduct implements Serializable {
     private Integer productLevel1;          //所属1级标题
     private Integer productLevel2;          //所属2级标题
     private Integer productLevel3;          //所属3级标题
+
+    @TableField(exist = false)
+    private Integer productShoppingCartId;   //购物车表的id
 
     @TableField(exist = false)
     private Map<String, Object> mongoData;     //mongodb里的其余杂项
