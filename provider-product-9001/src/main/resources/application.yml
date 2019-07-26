@@ -27,8 +27,8 @@ spring:
 
 #mybatisplus配置
 mybatis-plus:
-  type-aliases-package: com.tj.entity
-  mapper-locations: classpath*:com/**/*mapper.xml
+  type-aliases-package: com.tj.product
+  mapper-locations: classpath*:com/tj/mapper/*mapper.xml
   configuration:
     use-generated-keys: true
     auto-mapping-behavior: full
