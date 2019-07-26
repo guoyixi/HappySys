@@ -27,7 +27,6 @@ public class HappysysProduct implements Serializable {
     private String productTitle;            //标题
     private Double productPrice;            //价格
     private String productImage;            //主图片
-    private Integer productAge;             //年龄
     private Timestamp productDeadline;      //期限
 
     private Integer productSectionId;       //年龄
@@ -38,6 +37,10 @@ public class HappysysProduct implements Serializable {
     private Integer productLevel1;          //所属1级标题
     private Integer productLevel2;          //所属2级标题
     private Integer productLevel3;          //所属3级标题
+    private Integer classify;
+
+    @TableField(exist = false)
+    private HappysysSection happysysSection;
 
     @TableField(exist = false)
     private List<HappysysFeature> productFeatureList;           //特色列表
@@ -53,10 +56,5 @@ public class HappysysProduct implements Serializable {
 
     @TableField(exist = false)
     private List<HappysysCommonProblem> productCommonProblemList;         //常见问题列表
-
-
-
-
-
 
 }
