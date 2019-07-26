@@ -14,7 +14,6 @@ public interface ProductMapper extends BaseMapper<HappysysProduct> {
 
     List<HappysysProduct> getByMap(@Param("conditions") Map<String, Object> conditions, IPage page);
 
-    List<HappysysFeature> getFeature(Integer productId);
-    List<HappysysInsurance> getInsurance(Integer productId);
+
 
 }

@@ -27,13 +27,14 @@ spring:
 
 #mybatisplus配置
 mybatis-plus:
-  type-aliases-package: com.tj.entity
+  type-aliases-package: com.tj.product
   mapper-locations: classpath*:com/**/*mapper.xml
   configuration:
     use-generated-keys: true
     auto-mapping-behavior: full
     #配置java驼峰命名法和数据库下划线命名规则互转
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
   global-config:
       db-config:
         id-type: auto

@@ -1,13 +1,16 @@
 package com.tj.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysProduct;
+import com.tj.service.FeatureService;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -17,6 +20,8 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private MongoTemplate mongoTemplate;
+    @Autowired
+    private FeatureService featureMapper;
 
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
@@ -48,6 +53,14 @@ public class ProductController {
         return productPage;
     }
 
+
+    @RequestMapping("/HappsysProduct/getFeature/{product_id}")
+    @ResponseBody
+    public List<HappysysFeature> productsFeature(@PathVariable Integer product_id){
+        System.out.println("nihao product_id"+product_id);
+        List<HappysysFeature> feature = featureMapper.getFeature(product_id);
+        return feature;
+    }
 
 
 }

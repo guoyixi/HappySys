@@ -2,9 +2,7 @@ package com.tj.service;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tj.product.HappysysCategory;
-import com.tj.product.HappysysCommonProblem;
-import com.tj.product.HappysysProduct;
+import com.tj.product.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -67,6 +65,11 @@ public interface HappysysProductClientService {
     boolean add(HappysysCategory happysysCategory);
 
 
+    @RequestMapping("/classify/list")
+    List<HappysysClassify> classifyList();
+
+    @RequestMapping(value = "/HappsysProduct/getFeature/{product_id}")
+    List<HappysysFeature> productFeature(@PathVariable("product_id") Integer product_id);
 
 
 }

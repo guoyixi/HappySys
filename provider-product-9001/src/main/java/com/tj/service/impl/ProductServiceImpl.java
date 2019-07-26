@@ -31,12 +31,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
         return resultPage;
     }
 
-    public List<HappysysFeature> getFeature(Integer productId){
-        return productMapper.getFeature(productId);
-    }
-    public List<HappysysInsurance> getInsurance(Integer productId){
-        return productMapper.getInsurance(productId);
-    }
+
 
 
 

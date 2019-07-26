@@ -54,7 +54,8 @@ public class HappysysProduct implements Serializable {
     @TableField(exist = false)
     private List<HappysysCommonProblem> productCommonProblemList;         //常见问题列表
 
-
+    @TableField(exist = false)
+    private List<HappysysFeature> HappysysFeature;       //特色列表
 
 
 
