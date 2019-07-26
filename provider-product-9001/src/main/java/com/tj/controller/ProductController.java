@@ -7,13 +7,12 @@ import com.tj.service.FeatureService;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class ProductController {
 
     @Autowired
@@ -25,7 +24,6 @@ public class ProductController {
 
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
-    @ResponseBody
     public HappysysProduct getById(@PathVariable Integer productId){
         System.out.println("ProductController      getProductById");
 
@@ -38,7 +36,6 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/HappysysProduct/getByMap" ,method = RequestMethod.POST)
-    @ResponseBody
     public IPage<HappysysProduct> getByMap(@RequestBody(required = false) Map<String,Object> condtions){
         System.out.println("CommentController      getListComment");
 

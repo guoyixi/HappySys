@@ -57,7 +57,7 @@
         INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
         WHERE product_id = #{productId}
-    </select>-->
+    </select>
 
 
 </mapper>
