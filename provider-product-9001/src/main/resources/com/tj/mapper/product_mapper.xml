@@ -36,6 +36,14 @@
 
     </select>
 
+    <select id="getSection" resultType="HappysysSection">
+        SELECT section.section_id,section_min,section_max,section_price FROM happysys_product product
+        INNER JOIN happysys_section_list slist ON product.product_section = slist.`section_list_id`
+        INNER JOIN happysys_section_center scenter ON scenter.`section_list_id` = slist.`section_list_id`
+        INNER JOIN happysys_section section ON  scenter.`section_id`= section.`section_id`
+        WHERE product_id = #{productId}
+    </select>
+
     <select id="getFeature" resultType="HappysysFeature" >
         SELECT feature.`feature_name` FROM happysys_product product
         INNER JOIN happysys_feature_list flist ON product.product_feature = flist.`feature_list_id`

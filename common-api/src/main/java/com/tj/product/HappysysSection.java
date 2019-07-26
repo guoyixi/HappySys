@@ -16,5 +16,6 @@ public class HappysysSection implements Serializable {
     private Integer sectionId;
     private Integer sectionMin;
     private Integer sectionMax;
+    private Integer sectionPrice;
 
 }

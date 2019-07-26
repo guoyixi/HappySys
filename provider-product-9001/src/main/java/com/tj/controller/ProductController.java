@@ -25,7 +25,7 @@ public class ProductController {
         //根据ID查询商品
         HappysysProduct product = productService.getById(productId);
         //根据ID参训年龄
-
+        product.setProductSectionList(productService.getSection(productId));
         //根据ID查询特色
         product.setProductFeatureList(productService.getFeature(productId));
         //根据ID查询保险
