@@ -4,6 +4,56 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tj.mapper.ProductMapper">
 
+    <!--看不懂的地方不要管，要加条件直接加！！-->
+    <select id="getByMap" resultType="com.tj.product.HappysysProduct">
+        SELECT `product_id`,`product_title`,`product_price`,`product_image`,`product_details`,`product_deadline`
+        ,`product_section_id`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
+
+                <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
+                    ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
+                        WHERE `product_id` = `shopping_cart_product_id`
+                        AND `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}) product_shopping_cart_id
+                </if>
+        FROM `happysys_product` p
+        <where>
+            <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
+                `product_id` IN (
+                    SELECT `shopping_cart_product_id` FROM `happysys_shopping_cart`
+                    WHERE `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}
+                )
+            </if>
+
+            <if test="conditions.product_level1 != null and conditions.product_level1 != ''">
+                AND `product_level1` = #{conditions.product_level1}
+            </if>
+            <if test="conditions.product_level2 != null and conditions.product_level2 != ''">
+                AND `product_level2` = #{conditions.product_level2}
+            </if>
+            <if test="conditions.product_level3 != null and conditions.product_level3 != ''">
+                AND `product_level3` = #{conditions.product_level3}
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="getFeature" resultType="HappysysFeature" >
+        SELECT feature.`feature_name` FROM happysys_product product
+        INNER JOIN happysys_feature_list flist ON product.product_feature = flist.`feature_list_id`
+        INNER JOIN happysys_feature_center fcenter ON fcenter.`feature_list_id` = flist.`feature_list_id`
+        INNER JOIN happysys_feature feature ON feature.`feature_id` = fcenter.`feature_id`
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="getInsurance" resultType="HappysysInsurance" >
+        SELECT insurance_name FROM happysys_product product
+        INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
+        INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
+        INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
+        WHERE product_id = #{productId}
+    </select>
+
+
 </mapper>
 
 

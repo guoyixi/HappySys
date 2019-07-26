@@ -22,6 +22,7 @@ public class CategoryController {
   System.out.println("----------------List------------------");
 
   return categoryService.findCategoryAndChild(0);
+
  }
 
 

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+<!--    <link rel="stylesheet" href="css/redesign/re_header.css">
+    <link rel="stylesheet" type="text/css" href="css/skins/default.css">
+    <link rel="stylesheet" href="css/wj_kxb/mod_intro.css">
+    <link rel="stylesheet" href="css/wj_kxb/calendar.css">
+    <link rel="stylesheet" href="css/new_logo.css">
+    <link rel="shortcut icon" href="css/favicon.css">-->
+
+    <link rel="stylesheet" href="../../css/redesign/re_header.css">
+    <link rel="stylesheet" type="text/css" href="../../css/skins/default.css">
+    <link rel="stylesheet" href="../../css/wj_kxb/mod_intro.css">
+    <link rel="stylesheet" href="../../css/wj_kxb/calendar.css">
+    <link rel="stylesheet" href="../../css/new_logo.css">
+    <link rel="shortcut icon" href="../../css/favicon.css">
+
+</head>
+<body>
+
+<script type="text/javascript">
+    function getPageByPageIndex(pageIndex){
+    }
+
+    function getPlPage(pageIndex) {
+        if ((null==pageIndex) || (pageIndex == '')) {
+            return;
+        }
+        if (pageIndex < 1) {
+            return;
+        }
+        getPageByPageIndex(pageIndex);
+    }
+</script>
+
+<form name="GetCommentPage" id="GetCommentPage"
+      action="http://www.kaixinbao.com/wj/shop/comment!ajaxGetPage.action" method="post">
+    <input type="hidden" id="RelaID" name="RelaID" value="277623" />
+    <input type="hidden" id="CatalogID" name="CatalogID" value="9385" />
+    <input type="hidden" id="CatalogType" name="CatalogType" value="1" />
+    <input type="hidden" id="SiteID" name="SiteID" value="221" />
+    <input type="hidden" id="cmntPageIndex" name="cmntPageIndex" value="1" />
+    <input type="hidden" id="cmntPageSize" name="cmntPageSize" value="10" />
+    <input type="hidden" id="cmntPageNum" name="cmntPageNum" value="8" />
+</form>
+<div class="area_assess">
+    <h3 class="ttl"><span>商品评论</span></h3>
+    <p class="num">
+        <span><em class="icon"></em>满意度</span>
+        <span class="nbr">95%</span>
+    </p>
+
+</div>
+<div class="list_assess" id="commentlist">
+
+    <div class="list_conts " th:each="commentAndUser:${commentAndUserPage.getRecords()}">
+        <div class="tj_icon" style="display:">????</div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>
+                    <span th:text="${commentAndUser.user_name}">asdas</span>
+                    <img height="25px" width="25px" th:src="${'/images/usericon/'+commentAndUser.user_icon}">
+                </p>
+                <p class="user_info">
+                    <span class="as_date" th:text="${commentAndUser.comment_time}">2016-07-18 11:46 </span>
+                    <span class="as_stars_04" th:text="${commentAndUser.comment_grade}">******</span>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p>
+                    <span class="icon_p"></span>
+                    <span th:text="${commentAndUser.comment_content}">内容呀</span>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+<!--    <div class="list_conts ">
+        <div class="tj_icon" style="display:"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>hap**</p>
+                <p class="user_info"><span class="as_date">2016-01-11 17:20 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_29353">2</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#24110;&#29240;&#22920;&#20080;&#30340;&#20445;&#38505;&#65292;&#19981;&#36149;&#20294;&#23454;&#29992;&#12290;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:block">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p>您好，本计划的投保年龄为18-75周岁，承保多种交通工具意外，全年最高保费只要109元，非常实惠，您不仅可以为父母投保也可以为自己投保一份哦~欢迎您继续关注开心保网，祝您生活愉快！
+            </p>
+        </div>
+    </div>
+    <div class="list_conts ">
+        <div class="tj_icon" style="display:"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>150**</p>
+                <p class="user_info"><span class="as_date">2016-03-14 15:24 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_30230">1</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#21448;&#24555;&#21448;&#20415;&#25463;&#65292;&#30495;&#24515;&#25512;&#33616;&#65281;&#65281;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:block">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p>感谢您对开心保的肯定，好保险好产品好服务，快推荐给身边的小伙伴们吧！欢迎您继续关注开心保网，祝您生活愉快！
+            </p>
+        </div>
+    </div>
+    <div class="list_conts ">
+        <div class="tj_icon" style="display:none"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>亲爱的**</p>
+                <p class="user_info">目的：航空意外<span class="as_date">2019-02-03 19:46 </span>
+                    <span class="as_stars_04"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_70626">0</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#36824;&#21487;&#20197;&#21543;&#65292;&#26053;&#28216;&#20080;&#20010;&#25918;&#24515;&#65292;&#20132;&#36890;&#24037;&#20855;&#24847;&#22806;&#38505;&#36824;&#26159;&#38750;&#24120;&#26377;&#24517;&#35201;&#30340;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:none">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p></p>
+        </div>
+    </div>
+    <div class="list_conts ">
+        <div class="tj_icon" style="display:none"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>150**</p>
+                <p class="user_info">目的：短期保障<span class="as_date">2017-09-20 08:41 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_51913">0</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#20415;&#23452;&#65292;&#20445;&#38556;&#39069;&#24230;&#36275;&#22815;&#29992;&#65292;&#20080;&#23436;&#25918;&#24515;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:none">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p></p>
+        </div>
+    </div>
+    <div class="list_conts ">
+        <div class="tj_icon" style="display:none"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>150**</p>
+                <p class="user_info">目的：航空意外<span class="as_date">2017-09-20 08:39 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_51912">0</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#20415;&#23452;&#65292;&#20445;&#38556;&#39069;&#24230;&#22815;&#29992;&#20102;&#65292;&#20080;&#23436;&#25918;&#24515;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:block">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p>您好！很高兴您有这么高的保险意识，感谢您对开心保的肯定和认可，希望以后能为您提供更优质的产品和服务！</p>
+        </div>
+    </div>
+    <div class="list_conts ">
+        <div class="tj_icon" style="display:none"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>138**</p>
+                <p class="user_info">目的：日常保障<span class="as_date">2017-09-01 20:10 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_51146">0</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#20445;&#38556;&#33539;&#22260;&#38754;&#38754;&#20465;&#21040;&#65292;&#20215;&#26684;&#21512;&#29702;&#65292;&#36866;&#29992;&#32769;&#24180;&#20154;&#12290;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:none">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p></p>
+        </div>
+    </div>
+    <div class="list_conts ">
+        <div class="tj_icon" style="display:none"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>138**</p>
+                <p class="user_info">目的：日常保障<span class="as_date">2017-09-01 20:08 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_51145">0</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#20445;&#38505;&#20869;&#23481;&#28085;&#30422;&#24191;&#27867;&#65292;&#20215;&#26684;&#21512;&#36866;&#12290;&#25237;&#20445;&#24180;&#40836;&#32500;&#25252;&#20102;&#32769;&#24180;&#20154;&#26435;&#30410;&#12290;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:none">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p></p>
+        </div>
+    </div>-->
+    <div class="list_conts ">
+        <div class="tj_icon" style="display:none">sad</div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k3"></em>138**</p>
+                <p class="user_info">目的：航空意外<span class="as_date">2017-08-06 23:47 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_50027">0</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p><span class="icon_p"></span>&#24320;&#24515;&#20445;&#30340;&#20135;&#21697;&#19968;&#30452;&#26159;&#39318;&#36873;&#65292;&#20135;&#21697;&#24615;&#20215;&#27604;&#37117;&#24456;&#39640;&#65292;&#20445;&#38556;&#20840;&#38754;</p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:none">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p></p>
+        </div>
+    </div>
+    <div class="list_conts clear_btn_bor">
+        <div class="tj_icon" style="display:none"></div>
+        <div class="cont_show">
+            <div class="list_row_03">
+                <p class="user_name"><em class="level_k1"></em>138**</p>
+                <p class="user_info">目的：日常保障<span class="as_date">2017-05-22 10:44 </span>
+                    <span class="as_stars_05"></span></p>
+                <p title="有用" count="0" aria-pressed="false" class="zan_active ">
+                    <i class="icon vote-arrow"></i>
+                    <em class="label-span">有用</em>
+                    <em class="count-num">（<i id="praised_46828">0</i>）</em>
+                </p>
+            </div>
+            <div class="list_row_01">
+                <p>
+                    <span class="icon_p"></span>
+                    &#38750;&#24120;&#22909;&#30340;&#20445;&#38505;&#20135;&#21697;&#65292;&#29289;&#32654;&#20215;&#24265;&#65292;&#20986;&#34892;&#24517;&#22791;&#12290;
+                </p>
+            </div>
+        </div>
+        <div class="cont_answer" style="display:none">
+            <p class="ans_ttl">开心保客服 回复：</p>
+            <p></p>
+        </div>
+    </div>
+
+</div>
+
+<div class='page_area'>
+    <div id='pagination'><ul>
+        <li class='page_prev'><a href='javascript:void(0);'><span class='default'>上一页</span></a></li>
+        <li class='now'><a href='javascript:getPlPage(1);'><span>1</span></a></li>
+        <li class=''><a href='javascript:getPlPage(8);'><span>8</span></a></li>
+        <li class='page_next'><a href='javascript:getPlPage(2);'><span>下一页</span></a></li>
+    </ul></div>
+</div>
+
+
+
+</body>
+</html>
