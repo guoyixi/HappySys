@@ -71,9 +71,9 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, HappysysCat
     category.setCategoryType(happysysCategory.getCategoryType());
     category.setCategoryParentId(happysysCategory.getCategoryParentId());
 
+    List<HappysysCategory> happysysCategories = this.list(new QueryWrapper<HappysysCategory>().eq("category_parent_id", happysysCategory.getCategoryId()));
 
-    if (happysysCategory.getCategoryParentId() == parentId) {
-     List<HappysysCategory> happysysCategories = this.list(new QueryWrapper<HappysysCategory>().eq("category_parent_id", happysysCategory.getCategoryId()));
+    if (happysysCategories.size()>0) {
      category.setHappysysCategories(this.findChild(happysysCategories, happysysCategory.getCategoryId()));
     }
 
