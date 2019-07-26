@@ -38,6 +38,10 @@ public class HappysysProduct implements Serializable {
     private Integer productLevel1;          //所属1级标题
     private Integer productLevel2;          //所属2级标题
     private Integer productLevel3;          //所属3级标题
+    private Integer classify_id;            //快选id
+
+    @TableField(exist = false)
+    private HappysysSection happysysSection;
 
     @TableField(exist = false)
     private List<HappysysFeature> productFeatureList;           //特色列表
