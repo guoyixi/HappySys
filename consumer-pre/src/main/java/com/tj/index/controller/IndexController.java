@@ -25,8 +25,17 @@ public class IndexController {
     @RequestMapping("/kuaixun")
     public String kuaixuan(Model model){
         System.out.println("进入Quickly");
-        model.addAttribute("categoryList",happysysProductClientService.list());
+        model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
         model.addAttribute("classifyList",happysysProductClientService.classifyList());
+        //加载页面时显示产品和方案
+        Map<String,Object> map=new HashMap<>();
+        map.put("classify_id",13);
+        Page<HappysysProduct> productByMap = happysysProductClientService.getProductByMap(map);
+        List<HappysysProduct> records = productByMap.getRecords();
+        for (HappysysProduct ph:records){
+            ph.setProductFeatureList(happysysProductClientService.productFeature(ph.getProductId()));
+        }
+        model.addAttribute("productz",productByMap);
         return "Quickly";
     }
     @RequestMapping("/kuaixun/id/{classify_id}")
@@ -38,7 +47,7 @@ public class IndexController {
         Page<HappysysProduct> productByMap = happysysProductClientService.getProductByMap(map);
         List<HappysysProduct> records = productByMap.getRecords();
         for (HappysysProduct ph:records){
-            ph.setHappysysFeature(happysysProductClientService.productFeature(ph.getProductId()));
+            ph.setProductFeatureList(happysysProductClientService.productFeature(ph.getProductId()));
         }
         String json=JSON.toJSONString(productByMap);
         System.out.println("json:"+json);

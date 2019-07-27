@@ -3,7 +3,6 @@ package com.tj.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysProduct;
-import com.tj.service.FeatureService;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -19,8 +18,7 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private MongoTemplate mongoTemplate;
-    @Autowired
-    private FeatureService featureMapper;
+
 
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
@@ -29,8 +27,10 @@ public class ProductController {
 
         //根据ID查询商品
         HappysysProduct product = productService.getById(productId);
-        //根据ID参训年龄
-
+        //根据ID查询期限
+        product.setProductDeadlineList(productService.getDeadline(productId));
+        //根据ID查询年龄
+        product.setProductSectionList(productService.getSection(productId));
         //根据ID查询特色
         product.setProductFeatureList(productService.getFeature(productId));
         //根据ID查询保险
@@ -59,7 +59,7 @@ public class ProductController {
     @ResponseBody
     public List<HappysysFeature> productsFeature(@PathVariable Integer product_id){
         System.out.println("nihao product_id"+product_id);
-        List<HappysysFeature> feature = featureMapper.getFeature(product_id);
+        List<HappysysFeature> feature = productService.getFeature(product_id);
         return feature;
     }
 

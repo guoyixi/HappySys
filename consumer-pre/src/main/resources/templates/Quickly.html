@@ -198,7 +198,7 @@
             //点击二级分类 加载产品
             jcase.click(function (e) {
                 e.preventDefault();
-                $(this).addClass('sel').siblings().removeClass('sel')
+                $(this).addClass('sel').siblings().removeClass('sel');
                 var obj = {
                     _this: this
                 }
@@ -216,14 +216,13 @@
                     {
                        str = '<dl><dt ><a id="hrefA1" href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank">'+obj.records[i].productTitle+'</a><img id="srcImg1" src="http://resource.kaixinbao.com/r02/images/insuranceCompany/2280.gif" alt=""></dt><dd><ul class="d_list_con">';
 
-                       for(var j=0;j<obj.records[0].happysysFeature.length;j++) {
-                           str += '<li><span>'+obj.records[i].happysysFeature[j].featureName+'</span></li>';
+                       for(var j=0;j<obj.records[0].productFeatureList.length;j++) {
+                           str += '<li><span>'+obj.records[i].productFeatureList[j].featureName+'</span></li>';
                        }
-                       str+='</ul></dd><dd><ul class="at_list" id="yhinfo"><li><span class=" tb_icon active_03">惠一</span><span class="tb_text">7.24-7.26，每日下单享健康生活好礼，详情请咨询客服。</span></li></ul><div class="shop-buy"><span>￥<em id="initpremEm">'+obj.records[i].productPrice+'</em><i>起</i></span><a id="hrefA2" href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank">查看详情</a></div></dd><dd class="shopnums"><span>已有<em id="salesVolumeEm" >5491+</em>人购买</span></dd></dl>';
+                       str+='</ul></dd><dd><ul class="at_list" id="yhinfo"><li><span class=" tb_icon active_03">惠一</span><span class="tb_text">7.24-7.26，每日下单享健康生活好礼，详情请咨询客服。</span></li></ul><div class="shop-buy"><span>￥<em id="initpremEm">'+obj.records[i].productPrice+'</em><i>起</i></span><a id="hrefA2" href="HappysysProduct/getById/'+obj.records[i].productId+'" target="_blank">查看详情</a></div></dd><dd class="shopnums"><span>已有<em id="salesVolumeEm" >5491+</em>人购买</span></dd></dl>';
                     }
                     console.log(str);
-                  /*  $(str).insertBefore($("#quick-con-shop-id"));*/
-                    $("#quick-con-shop-id").prepend(str)
+                    $("#quick-con-shop-id").prepend(str);
                 })
                 res.caseshopFun(obj);
             })
@@ -561,11 +560,11 @@
 		<div class="quick-con-shop" id="quick-con-shop-id">
 			<dl>
 				<dt >
-					<a id="hrefA1" href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank">昆仑健康保重大疾病保险（2.0版）</a>
+					<a id="hrefA1" href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank">[[${productz.records[0].productTitle}]]</a>
 					<img id="srcImg1" src="http://resource.kaixinbao.com/r02/images/insuranceCompany/2280.gif" alt="">
 				</dt>
 				<dd>
-					<ul class="d_list_con"><li><span>覆盖185种疾病</span></li><li><span>恶性肿瘤二次赔付</span></li><li><span>重疾医疗津贴</span></li></ul>
+					<ul class="d_list_con"><li th:each="featurea ,i:${productz.records[0].productFeatureList}"><span th:text="${featurea.featureName}"></span></li></ul>
 				</dd>
 				<dd>
 					<ul class="at_list" id="yhinfo">
@@ -573,8 +572,8 @@
 						<li><span class=" tb_icon active_03">惠一</span><span class="tb_text">7.24-7.26，每日下单享健康生活好礼，详情请咨询客服。</span></li>
 					</ul>
 					<div class="shop-buy">
-						<span>￥<em id="initpremEm">681.00</em><i>起</i></span>
-						<a id="hrefA2" href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank">查看详情</a>
+						<span>￥<em id="initpremEm">[[${productz.records[0].productPrice}]]</em><i>起</i></span>
+						<a id="hrefA2" th:href="@{'HappysysProduct/getById/'+${productz.records[0].productId}}"+ target="_blank">查看详情</a>
 					</div>
 				</dd>
 				<dd class="shopnums">

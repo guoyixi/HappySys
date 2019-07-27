@@ -12,7 +12,7 @@
 
 
 
-        <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
+                <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
                         WHERE `product_id` = `shopping_cart_product_id`
                         AND `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}) product_shopping_cart_id
@@ -42,9 +42,24 @@
 
     </select>
 
+    <select id="getDeadline" resultType="HappysysDeadline">
+        SELECT deadline.deadline_id,deadline_time,deadline_price FROM happysys_product product
+        INNER JOIN happysys_deadline_list dlist ON product.`product_deadline` = dlist.`deadline_list_id`
+        INNER JOIN happysys_deadline_center dcenter ON dcenter.`deadline_list_id` = dlist.`deadline_list_id`
+        INNER JOIN happysys_deadline deadline ON deadline.`deadline_id` = dcenter.`deadline_id`
+        WHERE product_id = #{productId}
+    </select>
 
-   <select id="getFeature" resultType="HappysysFeature" >
-        SELECT feature.`feature_name` FROM happysys_product product
+    <select id="getSection" resultType="HappysysSection">
+        SELECT section.section_id,section_min,section_max,section_price FROM happysys_product product
+        INNER JOIN happysys_section_list slist ON product.product_section = slist.`section_list_id`
+        INNER JOIN happysys_section_center scenter ON scenter.`section_list_id` = slist.`section_list_id`
+        INNER JOIN happysys_section section ON  scenter.`section_id`= section.`section_id`
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="getFeature" resultType="HappysysFeature" >
+        SELECT feature.`feature_id`,feature.`feature_name`,feature.`feature_category` FROM happysys_product product
         INNER JOIN happysys_feature_list flist ON product.product_feature = flist.`feature_list_id`
         INNER JOIN happysys_feature_center fcenter ON fcenter.`feature_list_id` = flist.`feature_list_id`
         INNER JOIN happysys_feature feature ON feature.`feature_id` = fcenter.`feature_id`
@@ -52,7 +67,7 @@
     </select>
 
     <select id="getInsurance" resultType="HappysysInsurance" >
-        SELECT insurance_name FROM happysys_product product
+        SELECT insurance.insurance_id,insurance_name,insurance_price FROM happysys_product product
         INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
         INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`

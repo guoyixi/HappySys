@@ -1,6 +1,7 @@
 package com.tj.product;
 
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 import lombok.experimental.Accessors;
 
@@ -13,6 +14,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class HappysysInsurance {
 
+    @TableId
     private Integer insuranceId;
     private String insuranceName;
     private Double insurancePrice;
