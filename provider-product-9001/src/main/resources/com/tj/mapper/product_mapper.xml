@@ -36,6 +36,14 @@
 
     </select>
 
+    <select id="getDeadline" resultType="HappysysDeadline">
+        SELECT deadline.deadline_id,deadline_time,deadline_price FROM happysys_product product
+        INNER JOIN happysys_deadline_list dlist ON product.`product_deadline` = dlist.`deadline_list_id`
+        INNER JOIN happysys_deadline_center dcenter ON dcenter.`deadline_list_id` = dlist.`deadline_list_id`
+        INNER JOIN happysys_deadline deadline ON deadline.`deadline_id` = dcenter.`deadline_id`
+        WHERE product_id = #{productId}
+    </select>
+
     <select id="getSection" resultType="HappysysSection">
         SELECT section.section_id,section_min,section_max,section_price FROM happysys_product product
         INNER JOIN happysys_section_list slist ON product.product_section = slist.`section_list_id`
