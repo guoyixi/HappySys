@@ -14,6 +14,7 @@ public interface ProductService extends IService<HappysysProduct> {
 
     IPage<HappysysProduct> getByMap(Map<String,Object> conditons, Integer currentPage, Integer size);
 
-
+    public List<HappysysFeature> getFeature(Integer productId);
+    public List<HappysysInsurance> getInsurance(Integer productId);
 
 }

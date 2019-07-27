@@ -7,7 +7,7 @@
     <!--看不懂的地方不要管，要加条件直接加！！-->
     <select id="getByMap" resultType="com.tj.product.HappysysProduct">
         SELECT `product_id`,`product_title`,`product_price`,`product_image`,`product_details`,`product_deadline`
-        ,`product_section_id`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
+        ,`product_section`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
 
 
 
@@ -43,7 +43,7 @@
     </select>
 
 
-    <!--<select id="getFeature" resultType="HappysysFeature" >
+   <select id="getFeature" resultType="HappysysFeature" >
         SELECT feature.`feature_name` FROM happysys_product product
         INNER JOIN happysys_feature_list flist ON product.product_feature = flist.`feature_list_id`
         INNER JOIN happysys_feature_center fcenter ON fcenter.`feature_list_id` = flist.`feature_list_id`

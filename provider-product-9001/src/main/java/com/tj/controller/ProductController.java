@@ -27,10 +27,14 @@ public class ProductController {
     public HappysysProduct getById(@PathVariable Integer productId){
         System.out.println("ProductController      getProductById");
 
+        //根据ID查询商品
         HappysysProduct product = productService.getById(productId);
+        //根据ID参训年龄
 
-        Map<String,Object> mongoData = mongoTemplate.findById(productId, Map.class, "happysys_product");
-        product.setProductMongoData(mongoData);
+        //根据ID查询特色
+        product.setProductFeatureList(productService.getFeature(productId));
+        //根据ID查询保险
+        product.setProductInsuranceList(productService.getInsurance(productId));
 
         return product;
     }
