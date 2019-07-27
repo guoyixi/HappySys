@@ -146,13 +146,14 @@ public class UserController {
 
     /*直接进入主页*/
     @RequestMapping("/")
-    public String index(){
-       return  userIndex();
+    public String index(Model model){
+        return  userIndex(model);
     }
 
 
-    private String  userIndex(){
+    private String  userIndex(Model model){
         System.out.println("进入index主页。。。");
+        model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
         return "index";
     }
 
