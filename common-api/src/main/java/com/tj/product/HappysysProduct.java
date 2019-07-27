@@ -7,7 +7,6 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +24,8 @@ public class HappysysProduct implements Serializable {
     private String productTitle;            //标题
     private Double productPrice;            //价格
     private String productImage;            //主图片
-    private Timestamp productDeadline;      //期限
 
+    private Integer productDeadline;        //期限列表ID
     private Integer productSection;         //年龄区间ID
     private Integer productFeature;         //特色列表ID
     private Integer productInsurance;       //保障列表ID
@@ -36,6 +35,9 @@ public class HappysysProduct implements Serializable {
     private Integer productLevel2;          //所属2级标题
     private Integer productLevel3;          //所属3级标题
     private Integer productClassifyId;               //快选ID
+
+    @TableField(exist = false)
+    private List<HappysysDeadline> productDeadlineList;           //年龄区间
 
     @TableField(exist = false)
     private List<HappysysSection> productSectionList;           //年龄区间
