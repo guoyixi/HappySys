@@ -10,7 +10,7 @@ spring:
       prefix: /
       suffix: .html
 
-#映射静态资源       （映射所有，static-locations下的所有东西都放过static-path-pattern: /**）
+    #映射静态资源
     static-path-pattern: /**
   resources:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/

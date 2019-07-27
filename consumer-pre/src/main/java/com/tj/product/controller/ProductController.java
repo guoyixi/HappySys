@@ -6,6 +6,7 @@ import com.tj.product.HappysysProduct;
 import com.tj.service.HappysysProductClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,9 +22,9 @@ public class ProductController {
     private HappysysProductClientService happysysProductClientService;
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
-    @ResponseBody
-    public HappysysProduct getById(@PathVariable("productId") Integer productId){
-        return happysysProductClientService.getProductById(productId);
+    public String getById(@PathVariable("productId") Integer productId,Model model){
+        model.addAttribute("product",this.happysysProductClientService.getProductById(productId));
+        return "product_details";
     }
 
 

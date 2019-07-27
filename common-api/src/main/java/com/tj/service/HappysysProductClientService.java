@@ -58,13 +58,13 @@ public interface HappysysProductClientService {
 
 
     @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
-    List<HappysysCategory> get(@PathVariable("id") Integer categoryId);
+    List<HappysysCategory> getCategoryById(@PathVariable("id") Integer categoryId);
 
     @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
-    List<HappysysCategory> list();
+    List<HappysysCategory> getCategoryAll();
 
     @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
-    boolean add(HappysysCategory happysysCategory);
+    boolean addCategory(HappysysCategory happysysCategory);
 
 
 
