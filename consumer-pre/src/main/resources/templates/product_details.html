@@ -161,7 +161,7 @@
                                                                                                                             lay-key="1"
                                                                                                                             style="cursor: pointer;">
                                                             <em class="i-shop i-rili"></em>--><!--class="selected"-->
-                                <span th:each="section:${product.getProductSectionList()}"></span>
+                                <span th:each="section:${product.getProductSectionList()}" th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"></span>
                             </div>
                         </li>
                         <li>
@@ -172,7 +172,7 @@
                         </li>
 
 
-                        <li class="dline" th:each="insurance:${product.getProductInsuranceList()}">
+                        <li class="dline" th:style="${insuranceStat.index!=0}?'border:0px':''" th:each="insurance:${product.getProductInsuranceList()}">
                             <div class="item" th:text="${insurance.getInsuranceName()}"></div>
                             <div class="text dup" data-id="228001001004">
                                 <span class="selected" data-value="0">不投保</span>
@@ -810,6 +810,479 @@
 
 <script type="text/javascript" src="https://resource.kaixinbao.com/r02/js/require.js"></script>
 <script type="text/javascript" src="https://resource.kaixinbao.com/r02/js/require.config.js"></script>
+<script type="text/javascript">
+    'use strict';
 
+    /**
+     * @des: 模拟select
+     * @maker: SongZairan
+     * @date: 2019.03.01
+     */
+    !function(factory, support) {
+        if(typeof define === 'function' && define.amd) {
+            define(support, factory());
+        } else {
+            window['ReSelect'] = factory();
+        }
+    }(function() {
+
+        var _opts, oStorage = {};
+
+        return {
+
+            config: function(opt) {
+                if(fCheckJs()) return;
+
+                _opts = $.extend({
+                    objJson: null,                        //选项数据集合
+                    inputElm: '[class^=elm-sel]',         //选项选择器
+                    theme: window['release__theme']||'',  //插件主题颜色
+                    bCasDef: false,                       //级联默认第一选项
+                    callback: function() {}               //选中项的回调函数
+                }, opt);
+
+                _initDom();         //初始化DOM并绑定选项数据函数
+                _addEvent();        //事件绑定函数
+                _placeHolder();     //兼容IE8/9的placeholder函数
+
+            },
+
+            render: _initDom
+
+        }
+
+        /* 初始化DOM并绑定选项数据函数 */
+        /* <% 参数{arrKey[数组类型]为指定dom元素对应的数据Key(data-id值) %> */
+        /* <% bFlag[布尔类型]为false清空默认项，为true保留默认项} %> */
+        function _initDom(arrKey, bFlag) {
+            if(!_opts.objJson) {
+                console.warn('[ReSelect] need JSON data!');
+                return;
+            }
+
+            var bFlag = bFlag ? true : false;
+            var bInit = $.isEmptyObject(oStorage);
+            var jDiv, jSelect;
+
+            if(bInit) { //初始化执行
+                jSelect = $(_opts.inputElm);
+                jSelect.each(function() {
+                    var jPar = $(this).parents('[data-id]');
+                    var jClone = jPar.clone();
+                    var sId = jPar.attr('data-id');
+
+                    jClone.find(_opts.inputElm)
+                        .removeAttr('value')
+                        .removeAttr('data-value');
+                    oStorage[sId] = jClone.html();
+                });
+            } else {
+                if(arrKey) { //指定DOM重新渲染
+                    var aStr = $.map(arrKey, function(n) { return '[data-id="' + n + '"]' });
+                    jDiv = $(aStr.toString());
+                } else {    //全局重新渲染
+                    jDiv = $(_opts.inputElm).parent().filter(':first-child').parent();
+                }
+
+                jDiv.each(function(i, v) {
+                    var sKey = $(v).attr('data-id');
+                    var jElm = $(v).find(_opts.inputElm);
+
+                    if(jElm.length == 1) {
+                        jElm.siblings().remove();
+                        jElm.unwrap();
+                    } else if(jElm.length > 1) {
+                        $(v).empty().append(oStorage[sKey]);
+                    }
+                });
+
+                jSelect = arrKey ? jDiv.find(_opts.inputElm) : $(_opts.inputElm);
+            }
+
+            jSelect.each(function(i, v) {
+                var jPar = $(v).parents('[data-id]');
+                var aName = ($(v).attr('value')||'').split(' ');
+                var aValue = ($(v).attr('data-value')||'').split(',');
+                var sId = jPar.attr('data-id');
+                var sTheme = _opts.theme ? 'border-top-color:' + _opts.theme : '';
+                var oSels = _opts.objJson[sId]['selects'];
+                var nFloor = fGrepArr(oSels);
+
+                //初始化包装input的模拟选择项
+                $(v).wrap('<div class="rs-wrap"></div>');
+                $(v).siblings().remove();
+                $(v).after('<i class="rs-edge" style="' + sTheme + '"></i><dl class="rs-select"></dl>');
+                $(v).attr({
+                    'readonly': 'readonly',
+                    'unselectable': 'on',
+                    'onfocus':'this.blur()',
+                }).css('cursor', 'pointer');
+
+                //根据数据的级联层级动态划分input的模拟选择项
+                if(nFloor > 1) {
+                    var nWidth = jPar.outerWidth() - 10*(nFloor - 1);
+                    var jWrap = $(v).css('width', '100%')
+                        .val('')
+                        .removeAttr('data-value')
+                        .parent()
+                        .css('width', nWidth/nFloor + 'px');
+
+                    jWrap.find('dl.rs-select').css('min-width', jWrap.outerWidth());
+
+                    for(var a=0; a<nFloor-1; a++) {
+                        jPar.find('input[type=hidden]').before(jWrap.clone());
+                    }
+                } else {
+                    var nWidth = $(v).outerWidth();
+                    $(v).siblings('dl.rs-select').css('min-width', nWidth);
+                }
+
+                if(oSels.length == 1) {
+                    if(nFloor > 3) return;
+                    if(nFloor > 1) {
+                        var aNam = [];
+                        var aVal = [];
+                        var fTextWidth = function(text){
+                            var sensor = $('<pre>' + text + '</pre>').css({'display': 'none'});
+                            $('body').append(sensor);
+                            var width = sensor.width();
+                            sensor.remove();
+                            return width;
+                        };
+
+                        if(nFloor == 2) {
+                            aNam.push(oSels[0].name);
+                            aNam.push(oSels[0].children[0].name);
+                            aVal.push(oSels[0].value);
+                            aVal.push(oSels[0].children[0].value);
+                        } else if(nFloor == 3) {
+                            aNam.push(oSels[0].name);
+                            aNam.push(oSels[0].children[0].name);
+                            aNam.push(oSels[0].children[0].children[0].name);
+                            aVal.push(oSels[0].value);
+                            aVal.push(oSels[0].children[0].value);
+                            aVal.push(oSels[0].children[0].children[0].value);
+                        }
+
+                        jPar.find(_opts.inputElm).each(function(i, v) {
+                            $(v).css({
+                                'border': 'none',
+                                'padding': '0',
+                                'cursor': 'default',
+                                'text-overflow': 'inherit'
+                            })
+                                .attr({
+                                    'data-value': aVal[i],
+                                    'data-disabled': 1
+                                })
+                                .val(aNam[i])
+                                .siblings('.rs-edge')
+                                .hide()
+                                .parent()
+                                .css('width', fTextWidth(aNam[i]));
+                        });
+
+                        jPar.find('input[type=hidden]').val(aVal.toString());
+                    } else {
+                        $(v).addClass('rs-only')
+                            .attr('data-value', oSels[0].value)
+                            .val(oSels[0].name)
+                            .siblings('.rs-edge')
+                            .hide()
+                            .parent()
+                            .siblings('input[type=hidden]')
+                            .val(oSels[0].value);
+                    }
+                    return;
+                } else {
+                    $(v).removeClass('rs-only');
+                }
+
+                var jList = jPar.find('dl.rs-select');
+                var jHidden = jPar.find('input[type=hidden]');
+                /*【递归函数】动态渲染选择项数据 */
+                var fRender = function(oData, nIndex) {
+                    var nIndex = nIndex ? nIndex : 0;
+                    var jDl = jList.eq(nIndex).empty();
+
+                    $.each(oData, function(j, w) {
+                        var sCls = 'class="rs-this" style="' + (_opts.theme ? 'background-color: ' + _opts.theme : '') + '"';
+                        var sClass = w.value == aValue[nIndex] && w.name == aName[nIndex] ? sCls : '';
+
+                        jDl.append('<dd ' + sClass + ' data-value="' + w.value + '" data-index="' + j + '">' + w.name + '</dd>');
+
+                        if(w.value == aValue[nIndex] && w.name == aName[nIndex]) {
+                            jDl.siblings(_opts.inputElm).val(w.name).attr('data-value', w.value);
+                            nIndex > 0 && w.grade && jDl.siblings(_opts.inputElm).attr('data-grade', w.grade);
+
+                            if(w.children) {
+                                fRender(w.children, ++nIndex);
+                            } else {
+                                var aVal = [];
+
+                                jList.each(function(x, z) {
+                                    var sVal = $(z).siblings(_opts.inputElm).attr('data-value')||'';
+                                    aVal.push(sVal);
+                                });
+                                jHidden.val(aVal.toString());
+                            }
+                        }
+                    });
+                };
+
+                oSels ? fRender(oSels) : console.warn('数据错误');
+
+                if(!bInit) {
+                    if(bFlag) {
+                        if(nFloor == 1) {
+                            var jElm = jPar.find(_opts.inputElm);
+                            var sN = jElm.val();
+                            var sV = jElm.attr('data-value');
+                            var arr = $.grep(oSels, function(v) {
+                                return v.name == sN && v.value == sV;
+                            });
+
+                            if(sN && sV && arr.length == 0) {
+                                jElm.val(oSels[0].name)
+                                    .attr('data-value', oSels[0].value)
+                                    .siblings('dl.rs-select')
+                                    .children(':first-child')
+                                    .addClass('rs-this')
+                                    .attr('style', _opts.theme ? 'background-color: ' + _opts.theme : '');
+                                jElm.parent()
+                                    .siblings('input[type=hidden]')
+                                    .val(oSels[0].value);
+                            }
+                        }
+                    } else {
+                        jPar.find(_opts.inputElm)
+                            .val('')
+                            .removeAttr('data-value')
+                            .parent()
+                            .siblings('input[type=hidden]')
+                            .val('');
+                        jPar.find('dl.rs-select')
+                            .children()
+                            .removeClass('rs-this')
+                            .removeAttr('style');
+                    }
+                }
+            });
+        }
+
+        /* 事件绑定函数 */
+        function _addEvent() {
+            $(document).delegate(_opts.inputElm, 'click', function(e) {
+                e.preventDefault();
+
+                var jDl = $(this).siblings('.rs-select');
+                var jEdge = $(this).siblings('.rs-edge');
+                var sDisd = $(this).attr('data-disabled');
+
+                if(sDisd == 1||$(this).hasClass('rs-only')) return;
+
+                if(jDl.is(':visible')) {
+                    jDl.hide();
+                    jEdge.removeClass('up');
+                    return;
+                }
+
+                $('.rs-select').hide();
+                $('.rs-edge').removeClass('up');
+
+                if(jDl.children().length > 0) {
+                    jDl.show();
+                    jEdge.addClass('up');
+                }
+            });
+
+            $(document).delegate('i.rs-edge', 'click', function() {
+                var jError = $(this).siblings('.error');
+                var jInput = $(this).siblings(_opts.inputElm);
+                jError.length > 0 && jError.remove();
+                jInput.trigger('click');
+            });
+
+            $(document).delegate('dl.rs-select dd', 'click', function() {
+                if($(this).hasClass('rs-this')) return;
+
+                var jPar = $(this).parents('div.rs-wrap').parent();
+                var jInput = $(this).parent().siblings(_opts.inputElm);
+                var jList = jPar.find(_opts.inputElm);
+                var jHidden = jPar.find('input[type=hidden]');
+                var sId = jPar.attr('data-id');
+                var sName = $(this).text();
+                var sValue = $(this).attr('data-value');
+                var oSels = _opts.objJson[sId]['selects'];
+
+                $(this).addClass('rs-this')
+                    .attr('style', _opts.theme ? 'background-color: ' + _opts.theme : '')
+                    .siblings()
+                    .removeClass('rs-this')
+                    .removeAttr('style');
+
+                jInput.val(sName)
+                    .attr('data-value', sValue)
+                    .removeAttr('data-grade')
+                    .siblings('.wrap-placeholder')
+                    .hide();
+
+                if(jList.length > 1) {
+                    var sNum = $.inArray(jInput[0], jList);
+                    var jChild = jList.eq(sNum + 1).siblings('dl.rs-select');
+                    var oChild;
+                    var aNam = [];
+                    var aVal = [];
+
+                    jList.slice(0, sNum + 1).each(function(i, v) {
+                        var jDl = $(v).siblings('dl.rs-select');
+                        var sInx = jDl.find('.rs-this').attr('data-index');
+
+                        if(i > 0) {
+                            oChild = oChild.children[sInx];
+                        } else {
+                            oChild = oSels[sInx];
+                        }
+                    });
+
+                    jList.slice(sNum + 1).each(function(i, v) {
+                        var jDl = $(v).siblings('dl.rs-select');
+                        jDl.empty();
+                        $(v).val('').removeAttr('data-value').siblings('.wrap-placeholder').show();
+                    });
+
+
+                    if(oChild.children) {
+                        if(_opts.bCasDef) {
+                            var jInputChild = jChild.siblings(_opts.inputElm);
+
+                            $.each(oChild.children, function(i, v) {
+                                var sCls = '';
+
+                                if(i == 0) {
+                                    sCls = 'class="rs-this" style="' + (_opts.theme ? 'background-color: ' + _opts.theme : '') + '"';
+
+                                    jInputChild.val(v.name)
+                                        .attr('data-value', v.value)
+                                        .siblings('.wrap-placeholder')
+                                        .hide();
+
+                                    v.grade ? jInputChild.attr('data-grade', v.grade) : jInputChild.removeAttr('data-grade');
+
+                                    if(v.children) {
+                                        var jInputLast = jList.last();
+                                        var jChildLast = jInputLast.siblings('dl.rs-select');
+
+                                        $.each(v.children, function(j, w) {
+                                            var sClsLast = '';
+
+                                            if(j == 0) {
+                                                sClsLast = 'class="rs-this" style="' + (_opts.theme ? 'background-color: ' + _opts.theme : '') + '"';
+
+                                                jInputLast.val(w.name)
+                                                    .attr('data-value', w.value)
+                                                    .siblings('.wrap-placeholder')
+                                                    .hide();
+
+                                                w.grade ? jInputLast.attr('data-grade', w.grade) : jInputLast.removeAttr('data-grade');
+                                            }
+
+                                            jChildLast.append('<dd ' + sClsLast + ' data-value="' + w.value + '" data-index="' + j + '">' + w.name + '</dd>');
+                                        });
+                                    }
+                                }
+
+                                jChild.append('<dd ' + sCls + ' data-value="' + v.value + '" data-index="' + i + '">' + v.name + '</dd>');
+                            });
+                        } else {
+                            $.each(oChild.children, function(i, v) {
+                                jChild.append('<dd data-value="' + v.value + '" data-index="' + i + '">' + v.name + '</dd>');
+                            });
+                        }
+                    }
+
+                    oChild.grade && jInput.attr('data-grade', oChild.grade);
+
+                    jList.each(function(i, v) {
+                        var sNam = $(v).val();
+                        var sVal = $(v).attr('data-value');
+
+                        sNam && aNam.push(sNam);
+                        sVal && aVal.push(sVal);
+                    });
+
+                    if(aVal.length == jList.length) {
+                        jPar.find('div[class^="error"]').remove();
+                        jHidden.val(aVal.toString());
+
+                        _opts.callback({
+                            'elm': jPar.find(_opts.inputElm).toArray(),
+                            'name': aNam.toString(),
+                            'value': aVal.toString()
+                        });
+                    } else {
+                        jHidden.val('');
+                    }
+                } else {
+                    jPar.find('div[class^="error"]').remove();
+                    jHidden.val(sValue);
+
+                    _opts.callback({
+                        'elm': jInput[0],
+                        'name': sName,
+                        'value': sValue
+                    });
+                }
+
+            });
+
+            $(document).on('click', function(e) {
+                if($(e.target).is(_opts.inputElm)) return;
+                if($(e.target).is('dl.rs-select')) return;
+                if($(e.target).is('i.rs-edge')) return;
+
+                $('.rs-select').hide();
+                $('.rs-edge').removeClass('up');
+            });
+        }
+
+        /* 兼容IE8/9的placeholder函数 */
+        function _placeHolder() {
+            $(_opts.inputElm).placeholder();
+        }
+
+        //检查JS依赖
+        function fCheckJs() {
+            if (typeof($) === 'undefined') {
+                console.warn('[ReSelect] need "jquery.js" help!');
+                return true;
+            }
+
+            return false;
+        }
+
+        //判断级联数据的层级函数
+        function fGrepArr(array) {
+            var aArr = [];
+            $.grep(array, function(o1, i) {
+                var nNum = 1;
+                if(o1.children) {
+                    nNum = 2;
+                    $.grep(o1.children, function(o2, j) {
+                        if(o2.children) {
+                            nNum = 3;
+                            return false;
+                        }
+                    });
+                }
+                aArr.push(nNum);
+            });
+            return Math.max.apply(null, aArr);
+        }
+
+    }, [
+        'css!https://common.kaixinbao.com/release/www/ReSelect/v1.0/index.css'
+    ]);
+</script>
 </body>
 </html>
