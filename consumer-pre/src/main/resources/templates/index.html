@@ -25,14 +25,14 @@
             <!-- 登陆状态 -->
             <div class="header-nav-login" id="loginMemberState">
                 <!-- 未登录状态-->
-                    <div id="notLogin" class="login_out" >
+                <div id="notLogin" class="login_out" >
                     <div class="user-head">您好，请<a href="login.html" id="headerShowLoginWindow"
                                                   onclick="javascript:void(0);return(VL_FileDL(this));return false;"
                                                   exturl="http://www.kaixinbao.com/toplogin"
                                                   vlpageid="toplogin">登录</a><span>|</span>
                         <a  href="register.html"
-                           onclick="javascript:void(0);return(VL_FileDL(this));return false;"
-                           exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">免费注册</a></div>
+                            onclick="javascript:void(0);return(VL_FileDL(this));return false;"
+                            exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">免费注册</a></div>
                     <div class="user-box">
                         <div class="user-box-cont">
                             <div class="info">
@@ -97,7 +97,7 @@
 
                 <dl id="vipBtn">
                     <dt><a  href="http://www.kaixinbao.com/member/center/index.shtml"
-                           onclick="wxsend('memlogin');">会员中心</a><i class="iconfont icon-xiangxia"></i></dt>
+                            onclick="wxsend('memlogin');">会员中心</a><i class="iconfont icon-xiangxia"></i></dt>
                     <dd class="list child" style="display:none;">
                         <a href="http://www.kaixinbao.com/member/center/noPayOrder.shtml" >待支付订单</a>
                         <a href="http://www.kaixinbao.com/member/collection/init" >我的收藏</a>
@@ -145,7 +145,7 @@
             <h2>所有保险产品</h2>
             <div class="main-nav-box" >
 
-                 <dl th:each="first:${categoryList}">
+                <dl th:each="first:${categoryList}">
 
                     <dt>
                         <em class="navicon icon3"></em><a class="tit"  th:text="${first.categoryName}"></a><span class="arrows"></span>
@@ -286,69 +286,69 @@
                 <div><img src="images/show5.jpg"/></div>
             </div>
         </div>
-       <!-- <div class="imgModule-swiper ">
-            <div class="swiper-container">
-                <div class="swiper-wrapper">
+        <!-- <div class="imgModule-swiper ">
+             <div class="swiper-container">
+                 <div class="swiper-wrapper">
 
-                    <div class="swiper-slide">
-                        <a href="http://www.kaixinbao.com/jiankang-baoxian/320053.shtml?banner_id=sysj_hhb"
-                           target="_blank">
+                     <div class="swiper-slide">
+                         <a href="http://www.kaixinbao.com/jiankang-baoxian/320053.shtml?banner_id=sysj_hhb"
+                            target="_blank">
 
-                            <img class="swiper-lazy" src="picture/3200947369.jpg" alt="百年慧惠保重疾险"/>
+                             <img class="swiper-lazy" src="picture/3200947369.jpg" alt="百年慧惠保重疾险"/>
 
-                        </a>
-                    </div>
+                         </a>
+                     </div>
 
-                    <div class="swiper-slide">
-                        <a href="http://www.kaixinbao.com/renshou-baoxian/319396.shtml?banner_id=sysj_rtrh"
-                           target="_blank">
+                     <div class="swiper-slide">
+                         <a href="http://www.kaixinbao.com/renshou-baoxian/319396.shtml?banner_id=sysj_rtrh"
+                            target="_blank">
 
-                            <img class="swiper-lazy" src=""
-                                 data-src="http://resource.kaixinbao.com/upload/Image/pptj/2019/06/3195779150.jpg"
-                                 alt="瑞泰瑞和升级版定期寿险"/>
-
-
-                        </a>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <a href="http://www.kaixinbao.com/jiankang-baoxian/315704.shtml?banner_id=sysj_zhen"
-                           target="_blank">
-
-                            <img class="swiper-lazy" src=""
-                                 data-src="http://resource.kaixinbao.com/upload/Image/pptj/2019/05/3188477558.jpg"
-                                 alt="康惠保旗舰版"/>
+                             <img class="swiper-lazy" src=""
+                                  data-src="http://resource.kaixinbao.com/upload/Image/pptj/2019/06/3195779150.jpg"
+                                  alt="瑞泰瑞和升级版定期寿险"/>
 
 
-                        </a>
-                    </div>
+                         </a>
+                     </div>
 
-                    <div class="swiper-slide">
-                        <a href="http://www.kaixinbao.com/sem/001/?banner_id=sysj-lxx" target="_blank">
+                     <div class="swiper-slide">
+                         <a href="http://www.kaixinbao.com/jiankang-baoxian/315704.shtml?banner_id=sysj_zhen"
+                            target="_blank">
 
-                            <img class="swiper-lazy" src=""
-                                 data-src="http://resource.kaixinbao.com/upload/Image/pptj/2019/07/3201657898.jpg"
-                                 alt=""/>
+                             <img class="swiper-lazy" src=""
+                                  data-src="http://resource.kaixinbao.com/upload/Image/pptj/2019/05/3188477558.jpg"
+                                  alt="康惠保旗舰版"/>
 
 
-                        </a>
-                    </div>
+                         </a>
+                     </div>
 
-                </div>
-            </div>
-        </div>-->
+                     <div class="swiper-slide">
+                         <a href="http://www.kaixinbao.com/sem/001/?banner_id=sysj-lxx" target="_blank">
 
-      <!--  <div class="swiper-nav" style="display: none">
+                             <img class="swiper-lazy" src=""
+                                  data-src="http://resource.kaixinbao.com/upload/Image/pptj/2019/07/3201657898.jpg"
+                                  alt=""/>
 
-            <span>新品发布</span>
 
-            <span>全面升级</span>
+                         </a>
+                     </div>
 
-            <span>惊喜福利</span>
+                 </div>
+             </div>
+         </div>-->
 
-            <span>出行钜惠</span>
+        <!--  <div class="swiper-nav" style="display: none">
 
-        </div>-->
+              <span>新品发布</span>
+
+              <span>全面升级</span>
+
+              <span>惊喜福利</span>
+
+              <span>出行钜惠</span>
+
+          </div>-->
         <!-- 图片轮播-->
         <!-- 首焦底部三联广告-->
         <div class="imgModule-list clearfix">
@@ -1145,7 +1145,7 @@
 
     $(function () {
 
-       //头部显示用户信息
+        //头部显示用户信息
         var happyuser=$("#aab").text();
 
         if(happyuser.length>0){

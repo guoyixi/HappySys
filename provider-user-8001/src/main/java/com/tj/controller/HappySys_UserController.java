@@ -58,4 +58,11 @@ public class HappySys_UserController {
         return userservice.getOne(new QueryWrapper<HappysysUser>().eq("user_name",username));
     }
 
+    @RequestMapping("/HappysysUser/updateUserById")
+    @ResponseBody
+    public boolean updateUserById(@RequestBody HappysysUser user){
+        System.out.println("HappySys_UserController      updateUserById");
+        return userservice.updateById(user);
+    }
+
 }

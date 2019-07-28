@@ -45,4 +45,13 @@ public interface HappysysUserClientService {
      */
     @RequestMapping("user/findbyname")
     public HappysysUser findbyname(String username);
+
+    /**
+     *  根据userId修改用户
+     * @param user
+     * @return
+     */
+    @RequestMapping("/HappysysUser/updateUserById")
+    boolean updateUserById(HappysysUser user);
+
 }

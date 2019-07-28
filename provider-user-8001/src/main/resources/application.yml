@@ -14,6 +14,18 @@ spring:
      name: Happy-user
 
 
+   jackson:
+     date-format: yyyy-MM-dd HH:mm:ss
+     time-zone: GMT+8
+
+
+  #redis配置
+   redis:
+     database: 0
+     host: 118.25.13.168
+     port: 6379
+     password: 856856
+     timeout: 20000
 
 eureka:
   client: #客户端注册进eureka服务列表内
