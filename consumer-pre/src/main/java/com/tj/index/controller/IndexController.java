@@ -2,6 +2,7 @@ package com.tj.index.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysInsurance;
@@ -57,9 +58,26 @@ public class IndexController {
     }
 
 
-    @RequestMapping("/productlist/{productLevel3}")
-    public String productList(@PathVariable(value="productLevel3") Integer productLevel3,Model model){
-        model.addAttribute("productList",happysysProductClientService.productList(productLevel3));
-        return "/product_list";
+    @RequestMapping("/productlist/{productLevel3}/{pageIndex}")
+    public String productList(@PathVariable(value="productLevel3") Integer productLevel3,Model model,@PathVariable(value="pageIndex") Integer pageIndex){
+        System.out.println("nihao:"+productLevel3);
+        if(pageIndex==0){
+            pageIndex=1;
+        }
+        Page<HappysysProduct> productList = happysysProductClientService.productList2(productLevel3,pageIndex);
+        model.addAttribute("productList",productList);
+
+            for (HappysysProduct hp:productList.getRecords()) {
+                System.out.println("hp:" + hp.getProductTitle());
+                for (HappysysFeature f : hp.getProductFeatureList()) {
+                    System.out.println("fL:" + f.getFeatureName());
+                }
+                for (HappysysInsurance i : hp.getProductInsuranceList()) {
+                    System.out.println("i:" + i.getInsuranceName());
+                }
+            }
+
+        System.out.println("page:"+productList.getPages()+":"+productList.getSize()+":"+productList.getTotal());
+        return "forward://product_list.html";
     }
 }

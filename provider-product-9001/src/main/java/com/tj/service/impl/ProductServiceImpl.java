@@ -25,6 +25,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
         IPage page = new Page<>(currentPage,size);
 
         IPage<HappysysProduct> resultPage = new Page<>();
+        resultPage = page;
         resultPage.setRecords(productMapper.getByMap(conditons,page));
         return resultPage;
     }

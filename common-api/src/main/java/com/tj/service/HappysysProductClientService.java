@@ -2,6 +2,7 @@ package com.tj.service;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tj.product.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,19 +51,19 @@ public interface HappysysProductClientService {
      *                                  、currentPage:默认为1、size:默认为6、  )
      * @return              返回page信息，和商品list
      */
-    @RequestMapping(value = "/HappysysProduct/getByMap",method = RequestMethod.POST)
+    @RequestMapping(value = "/HappysysProduct/getByMap")
     Page<HappysysProduct> getProductByMap(@RequestBody(required = false) Map<String,Object> condtions);
 
 
 
     @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
-    List<HappysysCategory> get(@PathVariable("id") Integer categoryId);
+    List<HappysysCategory> getCategoryById(@PathVariable("id") Integer categoryId);
 
     @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
-    List<HappysysCategory> list();
+    List<HappysysCategory> getCategoryAll();
 
     @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
-    boolean add(HappysysCategory happysysCategory);
+    boolean addCategory(HappysysCategory happysysCategory);
 
 
     @RequestMapping("/classify/list")
@@ -71,6 +72,8 @@ public interface HappysysProductClientService {
     @RequestMapping(value = "/HappsysProduct/getFeature/{product_id}")
     List<HappysysFeature> productFeature(@PathVariable("product_id") Integer product_id);
 
+    @RequestMapping("/product/list/{productLevel3}/{pageIndex}")
+    Page<HappysysProduct> productList2(@PathVariable("productLevel3") Integer productLevel3,@PathVariable("pageIndex") Integer pageIndex);
     /**
      *                          根据购物车id删除单条购物车记录
      * @param shoppingCartId    购物车id
