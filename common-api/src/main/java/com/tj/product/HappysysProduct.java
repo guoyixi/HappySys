@@ -40,14 +40,10 @@ public class HappysysProduct implements Serializable {
     private Integer classify_id;             //快选ID
 
     @TableField(exist = false)
-    private List<HappysysDeadline> productDeadlineList;           //年龄区间
+    private List<HappysysDeadline> productDeadlineList;         //年龄区间
 
     @TableField(exist = false)
     private List<HappysysSection> productSectionList;           //年龄区间
-
-
-    @TableField(exist = false)
-    private HappysysSection happysysSection;
 
     @TableField(exist = false)
     private List<HappysysFeature> productFeatureList;           //特色列表
