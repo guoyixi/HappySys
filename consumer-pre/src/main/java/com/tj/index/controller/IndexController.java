@@ -4,6 +4,7 @@ package com.tj.index.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.HappysysFeature;
+import com.tj.product.HappysysInsurance;
 import com.tj.product.HappysysProduct;
 import com.tj.service.HappysysProductClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import rx.observables.SyncOnSubscribe;
 
 import java.util.HashMap;
 import java.util.List;
@@ -52,5 +54,12 @@ public class IndexController {
         String json=JSON.toJSONString(productByMap);
         System.out.println("json:"+json);
         return json;
+    }
+
+
+    @RequestMapping("/productlist/{productLevel3}")
+    public String productList(@PathVariable(value="productLevel3") Integer productLevel3,Model model){
+        model.addAttribute("productList",happysysProductClientService.productList(productLevel3));
+        return "/product_list";
     }
 }
