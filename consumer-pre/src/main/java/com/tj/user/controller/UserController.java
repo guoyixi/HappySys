@@ -8,18 +8,15 @@ import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
 import com.tj.user.shiro.MD5Pwd;
 import com.tj.user.util.HttpClientUtil;
-import org.apache.el.parser.TokenMgrError;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -113,7 +110,7 @@ public class UserController {
                 //进入后台
                 return "houtai";
             }
-            model.addAttribute("categoryList",happysysProductClientService.list());
+            model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
             session.setAttribute("user",findbyname);
             //添加到在线用户集合
             lists.add(findbyname);
@@ -158,13 +155,14 @@ public class UserController {
 
     /*直接进入主页*/
     @RequestMapping("/")
-    public String index(){
-       return  userIndex();
+    public String index(Model model){
+        return  userIndex(model);
     }
 
 
-    private String  userIndex(){
+    private String  userIndex(Model model){
         System.out.println("进入index主页。。。");
+        model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
         return "index";
     }
 

@@ -4,12 +4,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tj.mapper.ProductMapper;
-import com.tj.product.HappysysProduct;
+import com.tj.product.*;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -27,6 +28,25 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
         resultPage.setRecords(productMapper.getByMap(conditons,page));
         return resultPage;
     }
+
+
+    @Override
+    public List<HappysysDeadline> getDeadline(Integer productId) {
+        return productMapper.getDeadline(productId);
+    }
+    @Override
+    public List<HappysysSection> getSection(Integer productId) {
+        return productMapper.getSection(productId);
+    }
+    @Override
+    public List<HappysysFeature> getFeature(Integer productId){
+       return productMapper.getFeature(productId);
+    }
+    @Override
+    public List<HappysysInsurance> getInsurance(Integer productId){
+       return productMapper.getInsurance(productId);
+    }
+
 
 
 

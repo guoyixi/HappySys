@@ -1,6 +1,7 @@
 package com.tj.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysProduct;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class ProductController {
 
     @Autowired
@@ -24,10 +26,16 @@ public class ProductController {
     public HappysysProduct getById(@PathVariable Integer productId){
         System.out.println("ProductController      getProductById");
 
+        //根据ID查询商品
         HappysysProduct product = productService.getById(productId);
-
-        Map<String,Object> mongoData = mongoTemplate.findById(productId, Map.class, "happysys_product");
-        product.setProductMongoData(mongoData);
+        //根据ID查询期限
+        product.setProductDeadlineList(productService.getDeadline(productId));
+        //根据ID查询年龄
+        product.setProductSectionList(productService.getSection(productId));
+        //根据ID查询特色
+        product.setProductFeatureList(productService.getFeature(productId));
+        //根据ID查询保险
+        product.setProductInsuranceList(productService.getInsurance(productId));
 
         return product;
     }
@@ -42,13 +50,18 @@ public class ProductController {
 
         IPage<HappysysProduct> productPage = productService.getByMap(condtions,currentPage,size);
 
-        productPage.getRecords();
-        System.out.println();
-
         System.out.println(condtions);
         //查询mongodb  ！！！！！！
 
         return productPage;
+    }
+
+    @RequestMapping("/HappsysProduct/getFeature/{product_id}")
+    @ResponseBody
+    public List<HappysysFeature> productsFeature(@PathVariable Integer product_id){
+        System.out.println("nihao product_id"+product_id);
+        List<HappysysFeature> feature = productService.getFeature(product_id);
+        return feature;
     }
 
 

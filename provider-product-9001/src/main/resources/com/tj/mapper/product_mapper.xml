@@ -7,7 +7,10 @@
     <!--看不懂的地方不要管，要加条件直接加！！-->
     <select id="getByMap" resultType="com.tj.product.HappysysProduct">
         SELECT `product_id`,`product_title`,`product_price`,`product_image`,`product_details`,`product_deadline`
-        ,`product_section_id`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
+        ,`product_section`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
+
+
+
 
                 <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
@@ -32,8 +35,43 @@
             <if test="conditions.product_level3 != null and conditions.product_level3 != ''">
                 AND `product_level3` = #{conditions.product_level3}
             </if>
+            <if test="conditions.classify_id != null and conditions.classify_id != ''">
+                AND `product_classify_id` = #{conditions.classify_id}
+            </if>
         </where>
 
+    </select>
+
+    <select id="getDeadline" resultType="HappysysDeadline">
+        SELECT deadline.deadline_id,deadline_time,deadline_price FROM happysys_product product
+        INNER JOIN happysys_deadline_list dlist ON product.`product_deadline` = dlist.`deadline_list_id`
+        INNER JOIN happysys_deadline_center dcenter ON dcenter.`deadline_list_id` = dlist.`deadline_list_id`
+        INNER JOIN happysys_deadline deadline ON deadline.`deadline_id` = dcenter.`deadline_id`
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="getSection" resultType="HappysysSection">
+        SELECT section.section_id,section_min,section_max,section_price FROM happysys_product product
+        INNER JOIN happysys_section_list slist ON product.product_section = slist.`section_list_id`
+        INNER JOIN happysys_section_center scenter ON scenter.`section_list_id` = slist.`section_list_id`
+        INNER JOIN happysys_section section ON  scenter.`section_id`= section.`section_id`
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="getFeature" resultType="HappysysFeature" >
+        SELECT feature.`feature_id`,feature.`feature_name`,feature.`feature_category` FROM happysys_product product
+        INNER JOIN happysys_feature_list flist ON product.product_feature = flist.`feature_list_id`
+        INNER JOIN happysys_feature_center fcenter ON fcenter.`feature_list_id` = flist.`feature_list_id`
+        INNER JOIN happysys_feature feature ON feature.`feature_id` = fcenter.`feature_id`
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="getInsurance" resultType="HappysysInsurance" >
+        SELECT insurance.insurance_id,insurance_name,insurance_price FROM happysys_product product
+        INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
+        INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
+        INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
+        WHERE product_id = #{productId}
     </select>
 
 

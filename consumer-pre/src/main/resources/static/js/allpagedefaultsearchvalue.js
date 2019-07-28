@@ -1,1 +1,0 @@
-var allPageDefaultSearchValue="健康保2.0-重新定义重疾险性价比";
