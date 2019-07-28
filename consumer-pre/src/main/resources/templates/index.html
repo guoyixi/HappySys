@@ -162,7 +162,8 @@
                                 <b th:text="${second.categoryName}"></b>
                                 <p>
                                     <!--循环：friendlink count：30-->
-                                    <a th:each="third:${second.happysysCategories}" th:text="${third.categoryName}" th:href="@{'productlist/'+${third.categoryId}}" target="_blank"></a>
+                                    <a th:each="third:${second.happysysCategories}" th:text="${third.categoryName}"
+                                       target="_blank"></a>
 
                                 </p>
                             </div>
