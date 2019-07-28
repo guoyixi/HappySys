@@ -1,5 +1,6 @@
 package com.tj.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysProduct;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -63,5 +65,16 @@ public class ProductController {
         return feature;
     }
 
+    @RequestMapping("/product/list/{productLevel3}")
+    @ResponseBody
+    public List<HappysysProduct> productList2(@PathVariable Integer productLevel3){
+
+        List<HappysysProduct> product_level3 = productService.list(new QueryWrapper<HappysysProduct>().eq("product_level3", productLevel3));
+        for (HappysysProduct hp:product_level3) {
+           hp.setProductFeatureList(productService.getFeature(hp.getProductId()));
+           hp.setProductInsuranceList(productService.getInsurance(hp.getProductId()));
+        }
+       return product_level3;
+    }
 
 }
