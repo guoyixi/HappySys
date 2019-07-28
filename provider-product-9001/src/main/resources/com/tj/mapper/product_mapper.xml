@@ -12,7 +12,7 @@
                 <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
                         WHERE `product_id` = `shopping_cart_product_id`
-                        AND `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}) product_shopping_cart_id
+                        AND `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}) `product_shopping_cart_id`
                 </if>
         FROM `happysys_product` p
         <where>

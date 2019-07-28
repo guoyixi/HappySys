@@ -22,7 +22,12 @@ spring:
       password: 856856
       timeout: 20000
 
-#Thymeleaf配置
+
+  servlet:
+    multipart:
+      enabled: true       # 开启 multipart 上传功能
+
+  #Thymeleaf配置
   thymeleaf:
     encoding: UTF-8
     #开发时关闭缓存,不然没法看到实时页面(要重启)

@@ -67,6 +67,14 @@ public interface HappysysProductClientService {
     boolean add(HappysysCategory happysysCategory);
 
 
+    /**
+     *                          根据购物车id删除单条购物车记录
+     * @param shoppingCartId    购物车id
+     * @return                  返回是否成功
+     */
+    @RequestMapping(value = "/HappysysShoppingCart/delShoppingCartByShoppingCartId/{shoppingCartId}")
+    boolean delShoppingCartByShoppingCartId(@PathVariable("shoppingCartId") Integer shoppingCartId);
+
 
 
 }

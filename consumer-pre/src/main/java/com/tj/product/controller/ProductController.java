@@ -39,15 +39,16 @@ public class ProductController {
     }
 
 
-    @RequestMapping(value = "/HappysysProduct/getByMap")
-    @ResponseBody
-    public IPage<HappysysProduct> loadShoppingCart(@RequestParam(required = false) Map<String,Object> condtions){
-        System.out.println("ProductController      getByMap：");
+    @RequestMapping(value = "/HappysysProduct/loadShoppingCart")
+    public ModelAndView loadShoppingCart(@RequestParam(required = false) Map<String,Object> condtions){
+        System.out.println("ProductController      loadShoppingCart：");
         System.out.println(condtions);
 
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("productPage", happysysProductClientService.getProductByMap(condtions));
+        mav.setViewName("shopping_cart");
 
-
-        return happysysProductClientService.getProductByMap(condtions);
+        return mav;
     }
 
 
