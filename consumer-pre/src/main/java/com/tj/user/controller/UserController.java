@@ -18,11 +18,20 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @RefreshScope
 @Controller
@@ -166,11 +175,70 @@ public class UserController {
         return count;
     }
 
-    @RequestMapping("user/loadUserInfoShow")
-    @ResponseBody
+
+
+    @RequestMapping("/user/loadUserInfoShow")
     public HappysysUser loadUserInfoShow(String userName){
         System.out.println("UserController      loadUserInfoShow");
 
         return userClientService.findbyname(userName);
     }
+
+    @RequestMapping(value = "/user/updateUserById")
+    public ModelAndView updateUserById(HappysysUser user,@RequestParam(required = false) MultipartFile file,HttpSession session) {
+        System.out.println("UserController      updateUserById");
+        HappysysUser prototypeUser = (HappysysUser)session.getAttribute("user");
+
+        System.out.println(user);
+
+        //把session中的userId 赋值给要修改的id
+        user.setUserId(prototypeUser.getUserId());
+
+        boolean result = false;
+        String resultMess = "修改用户资料失败，请联系管理员！";
+
+        if (file.isEmpty()) {
+            System.out.println("文件为空空哦");
+            result = userClientService.updateUserById(user);
+        }else {
+            System.out.println("文件不为空空");
+            //获取全文件名
+            String fileName = file.getOriginalFilename();
+            //截取后缀 ：.xxx
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+
+            List<String> suffixList = Arrays.asList(".png",".jpg",".jpeg",".webp",".bmp",".gif");
+            if(!suffixList.contains(suffixName)){//判断是否不存在该后缀
+                resultMess = "图片文件后缀必须为：.png、.jpg、.jpeg、.webp、.bmp、.gif、";
+            }else{
+                //把原来的userIon删除
+
+                String filePath = "D:/S1S2Y2/Y2/IdeaWorkspace/happysys/consumer-pre/src/main/resources/static/images/usericon/"; // 上传后的路径
+                // 新文件名
+                fileName = UUID.randomUUID() + suffixName;
+                File dest = new File(filePath + fileName);
+                if (!dest.getParentFile().exists()) {
+                    dest.getParentFile().mkdirs();
+                }
+                try {
+                    file.transferTo(dest);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                user.setUserIcon(fileName);
+                result = userClientService.updateUserById(user);
+            }
+        }
+        if(result){ //如果修改成功就去数据库重新查出来
+            session.setAttribute("user",userClientService.findbyname(prototypeUser.getUserName()));
+            resultMess = "修改用户资料成功！";
+        }
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("resultMess",resultMess);
+        mav.setViewName("user_info_show");
+
+        return mav;
+    }
+
+
 }

@@ -7,6 +7,7 @@ import com.tj.product.HappysysProduct;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class ProductController {
     private MongoTemplate mongoTemplate;
 
 
-
     @RequestMapping("/HappysysProduct/getById/{productId}")
+    @ResponseBody
     public HappysysProduct getById(@PathVariable Integer productId){
         System.out.println("ProductController      getProductById");
 
@@ -42,6 +43,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/HappysysProduct/getByMap" ,method = RequestMethod.POST)
+    @ResponseBody
     public IPage<HappysysProduct> getByMap(@RequestBody(required = false) Map<String,Object> condtions){
         System.out.println("CommentController      getListComment");
 
@@ -55,7 +57,6 @@ public class ProductController {
 
         return productPage;
     }
-
 
     @RequestMapping("/HappsysProduct/getFeature/{product_id}")
     @ResponseBody

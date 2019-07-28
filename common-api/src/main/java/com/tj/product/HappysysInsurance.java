@@ -18,6 +18,6 @@ public class HappysysInsurance {
     private Integer insuranceId;
     private String insuranceName;
     private Double insurancePrice;
-
+    private String insuranceDetails;
 
 }

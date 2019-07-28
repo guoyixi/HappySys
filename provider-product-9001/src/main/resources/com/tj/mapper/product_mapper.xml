@@ -15,7 +15,7 @@
                 <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
                         WHERE `product_id` = `shopping_cart_product_id`
-                        AND `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}) product_shopping_cart_id
+                        AND `shopping_cart_user_id` = #{conditions.shopping_cart_user_id}) `product_shopping_cart_id`
                 </if>
         FROM `happysys_product` p
         <where>
@@ -67,7 +67,7 @@
     </select>
 
     <select id="getInsurance" resultType="HappysysInsurance" >
-        SELECT insurance.insurance_id,insurance_name,insurance_price FROM happysys_product product
+        SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details FROM happysys_product product
         INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
         INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`

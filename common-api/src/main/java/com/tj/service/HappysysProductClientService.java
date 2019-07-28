@@ -56,13 +56,13 @@ public interface HappysysProductClientService {
 
 
     @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
-    List<HappysysCategory> getCategoryById(@PathVariable("id") Integer categoryId);
+    List<HappysysCategory> get(@PathVariable("id") Integer categoryId);
 
     @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
-    List<HappysysCategory> getCategoryAll();
+    List<HappysysCategory> list();
 
     @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
-    boolean addCategory(HappysysCategory happysysCategory);
+    boolean add(HappysysCategory happysysCategory);
 
 
     @RequestMapping("/classify/list")
@@ -70,6 +70,14 @@ public interface HappysysProductClientService {
 
     @RequestMapping(value = "/HappsysProduct/getFeature/{product_id}")
     List<HappysysFeature> productFeature(@PathVariable("product_id") Integer product_id);
+
+    /**
+     *                          根据购物车id删除单条购物车记录
+     * @param shoppingCartId    购物车id
+     * @return                  返回是否成功
+     */
+    @RequestMapping(value = "/HappysysShoppingCart/delShoppingCartByShoppingCartId/{shoppingCartId}")
+    boolean delShoppingCartByShoppingCartId(@PathVariable("shoppingCartId") Integer shoppingCartId);
 
 
 }

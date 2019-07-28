@@ -3,6 +3,7 @@ package com.tj.user;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -22,8 +23,10 @@ public class HappysysUser implements Serializable{
     private Integer userId;
     private String userName;            //用户名
     private String userPassword;        //密码
-    private String userSex;             //性别
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userBirthday;          //出生日期
+    private String userSex;             //性别
     private String userIcon;            //图标图片
     private Integer userIsadmin;        //是否是管理员
 

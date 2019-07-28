@@ -24,6 +24,13 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+  #redis配置
+  redis:
+    database: 0
+    host: 118.25.13.168
+    port: 6379
+    password: 856856
+    timeout: 20000
 
 #mybatisplus配置
 mybatis-plus:
