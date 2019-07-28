@@ -5,24 +5,24 @@
     <meta charset="UTF-8"/>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
-    <title >[[${product.productTitle}]]-开心保保险网</title>
+    <title>[[${product.productTitle}]]-开心保保险网</title>
 
-    <link rel="stylesheet" th:href="@{/css/mod_cm_kxb.css}" />
-    <link rel="stylesheet" th:href="@{/css/mod_detail.css}" />
+    <link rel="stylesheet" th:href="@{/css/mod_cm_kxb.css}"/>
+    <link rel="stylesheet" th:href="@{/css/mod_detail.css}"/>
     <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
 
 </head>
 <body>
 
 <!--商品详情头-->
-<!--<div th:replace="~{header/ProductDetailsHeader::#header-box}"></div>-->
-<div id="header-box">
-    <!---top导航-->
+<div th:replace="~{header/ProductDetailsHeader::#header-box}"></div>
+<!--<div id="header-box">
+    &lt;!&ndash;-top导航&ndash;&gt;
     <div class="header-nav">
         <div class="header-nav-cont clearfix">
-            <!-- 登陆状态 -->
+            &lt;!&ndash; 登陆状态 &ndash;&gt;
             <div class="header-nav-login" id="loginMemberState">
-                <!-- 未登录状态-->
+                &lt;!&ndash; 未登录状态&ndash;&gt;
                 <div id="notLogin" class="login_out" style="display: none">
                     <div class="user-head">您好，请<a href="javascript:void(0);" id="headerShowLoginWindow" onclick="javascript:void(0);" >登录</a><span>|</span>
                         <a  href="http://www.kaixinbao.com/wj/shop/member!newLogin.action?tagid=regtag" onclick="javascript:void(0);"  >免费注册</a></div>
@@ -38,8 +38,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- 未登录状态-->
-                <!-- 已登录状态-->
+                &lt;!&ndash; 未登录状态&ndash;&gt;
+                &lt;!&ndash; 已登录状态&ndash;&gt;
                 <div id="yesLogin" class="login_in" style="display: none">
                     <div class="user-head"><span class="i_user"></span><a href="http://www.kaixinbao.com/member/center/index.shtml" id="headerLoginMemberUsername" class="name"></a><span id="headerLoginMemGradeIcon" class=""></span><span class="iconfont icon-xiangxia"></span>
                     </div>
@@ -57,10 +57,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- 已登录状态-->
+                &lt;!&ndash; 已登录状态&ndash;&gt;
             </div>
-            <!-- 登陆状态模块-->
-            <!-- 功能入口 -->
+            &lt;!&ndash; 登陆状态模块&ndash;&gt;
+            &lt;!&ndash; 功能入口 &ndash;&gt;
             <div class="header-nav-link">
                 <dl>
                     <dt>4009-789-789</dt>
@@ -92,19 +92,19 @@
                     </dd>
                 </dl>
             </div>
-            <!-- 功能入口 -->
+            &lt;!&ndash; 功能入口 &ndash;&gt;
         </div>
     </div>
-    <!-- /top导航 -->
+    &lt;!&ndash; /top导航 &ndash;&gt;
 
-    <!-- 购买流程头部 -->
+    &lt;!&ndash; 购买流程头部 &ndash;&gt;
     <div class="header-top">
         <div class="header-top-cont">
-            <!-- LOGO -->
+            &lt;!&ndash; LOGO &ndash;&gt;
             <a href="http://www.kaixinbao.com" class="logo"><img src="/picture/logo_kxb.png" alt="开心保保险网" /></a>
-            <!-- /LOGO -->
+            &lt;!&ndash; /LOGO &ndash;&gt;
 
-            <!-- 搜索-->
+            &lt;!&ndash; 搜索&ndash;&gt;
             <div class="main-nav-search">
                 <form id="form" action="http://www.kaixinbao.com/Search/Search.jsp">
                     <input type="text" name="query" autocomplete="off" id="searchContent" growing-track='true' />
@@ -114,14 +114,14 @@
                     </div>
                 </form>
 
-                <!-- 搜索数据 -->
+                &lt;!&ndash; 搜索数据 &ndash;&gt;
                 <input type="hidden" id="keywordList"
                        value='{"hotkeyword":[{"key":"康惠保旗舰版"},{"key":"瑞泰瑞和升级"},{"key":"康惠保"},{"key":"京彩一生防癌"},{"key":"安享一生"},{"key":"复星联合妈咪保贝"},{"key":"安联臻爱"},{"key":"慧惠保"},{"key":"康惠保"},{"key":"瑞泰瑞盈"},{"key":"安联申根签证"},{"key":"百万医疗"},{"key":"航延险"},{"key":"交通意外"},{"key":"人保申根"},{"key":"少儿意外"},{"key":"住院医疗"}],"keyword":[],"keywordlist":[{"key":"安联臻爱医疗保险-感恩版"},{"key":"安联臻爱医疗保险2018（重疾版）"},{"key":"阿拉蕾少儿住院综合保2019高端版"},{"key":"阿拉蕾少儿住院综合保2019升级版"},{"key":"爱自由-星享境外旅行保障计划"},{"key":"安联“致青春”重疾保险计划"},{"key":"安联安途欧洲（含申根）旅行-必备计划"},{"key":"安联安途欧洲（含申根）旅行-少儿计划"},{"key":"安联安途欧洲（含申根）旅行-尊贵计划"},{"key":"安联安途全球旅行险计划二"},{"key":"安联安途全球旅行险计划三"},{"key":"安联安途全球旅行险计划一"},{"key":"安联碧海蓝天邮轮旅行保险计划"},{"key":"安联畅享神州境内旅行保障计划"},{"key":"安联畅享亚洲旅行保障计划"},{"key":"安联畅享亚洲旅行保障全年计划"},{"key":"安联防癌医疗保险"},{"key":"安联防癌医疗保险"},{"key":"安联防癌医疗保险"},{"key":"安联防癌医疗保险"},{"key":"安联防癌医疗保险"},{"key":"安联防癌医疗保险"},{"key":"安联防癌医疗保险"},{"key":"安联防癌医疗保险"},{"key":"安联国际旅行全球保障计划"},{"key":"安联国际旅行亚洲保障计划"},{"key":"安联好大夫防癌险男性计划"},{"key":"安联好大夫防癌险女性计划"},{"key":"安联境内畅享自驾意外保障计划"},{"key":"安联境外留学保障计划"},{"key":"安联境外留学保障计划二"},{"key":"安联境外留学保障计划三"},{"key":"安联境外留学保障计划一"},{"key":"安联居无忧（自住型）基本版"},{"key":"安联乐享人生个人意外重疾高额保障计划B款"},{"key":"安联乐享人生个人意外重疾基本保障计划A款"},{"key":"安联乐享人生幼儿意外健康计划二"},{"key":"安联乐享人生幼儿意外健康计划一"},{"key":"安联商旅通-商务旅行保障全年海外停留计划"},{"key":"安联商旅通-商务旅行保障全年计划（最长停留183天）"},{"key":"安联臻爱医疗保险-感恩版（续保专用）"},{"key":"安联臻爱医疗保险-甲状腺版（无社保）"},{"key":"安联臻爱医疗保险-甲状腺版（有社保）"},{"key":"安联臻爱医疗保险标准计划无社保"},{"key":"安联臻爱医疗保险升级计划无社保"},{"key":"安联臻爱医疗保险升级计划有社保"},{"key":"安联臻爱医疗保险尊贵计划无社保"},{"key":"安联臻爱医疗保险尊贵计划有社保"},{"key":"安联住院宝保障计划"},{"key":"安盛户外高风险旅游保险经典计划"},{"key":"安盛智行天下（含休闲运动）境外旅行申根签证全年计划-全球保障"},{"key":"安盛智行天下全球境外旅行含申根签证保险计划（全年）"},{"key":"安盛卓越旅行家境内保险计划"},{"key":"安享一生（赴美版）续保专用"},{"key":"安享一生（赴美版）续保专用"},{"key":"安享一生（尊享版）续保专用"},{"key":"安享一生（尊享版）续保专用"},{"key":"安享一生癌症医疗保险（赴美版无社保）"},{"key":"安享一生癌症医疗保险（赴美版有社保）"},{"key":"安享一生癌症医疗保险（国内版无社保）"},{"key":"安享一生癌症医疗保险（国内版有社保）"},{"key":"安享一生癌症医疗保险（续保专用）"},{"key":"安心1号百万医疗（药神版无社保）"},{"key":"安心1号百万医疗（药神版有社保）"},{"key":"安心1号百万医疗（中美版无社保）"},{"key":"安心1号百万医疗（中美版有社保）"},{"key":"安心境外旅游保险计划二"},{"key":"安心综合百万医疗保险（2017无社保款）"},{"key":"安心综合百万医疗保险（2017有社保款）"},{"key":"百年定惠保定期寿险"},{"key":"百年附加聚福保两全保险"},{"key":"百年慧惠保重大疾病保险"},{"key":"百年加惠保重大疾病保险"},{"key":"百年聚福保终身年金保险"},{"key":"百年康惠保（多倍版）重疾险"},{"key":"百年康惠保（多倍版）重疾险"},{"key":"百年康惠保（尊享版）重大疾病保险"},{"key":"百年康惠保旗舰版重大疾病保险升级版"},{"key":"百年康惠保重大疾病保险(少儿版）"},{"key":"百年乐行交通工具意外险"},{"key":"诚泰团体意外险"},{"key":"诚泰团体意外险（2019版）"},{"key":"大地保险天地关爱百万医疗保障计划"},{"key":"德华安顾孝亲宝老年恶性肿瘤险"},{"key":"德华安顾孝亲宝老年恶性肿瘤险（交10年保20年）"},{"key":"德华安顾孝亲宝老年恶性肿瘤险（交20年保20年）"},{"key":"电话医生基础版"},{"key":"顶梁柱-成人综合意外险"},{"key":"复星保德信星悦重疾险"},{"key":"复星保德信星悦重疾险（不含身故版）"},{"key":"复星保德信星悦重疾险（不含身故版）"},{"key":"复星保德信星悦重疾险（含身故版）"},{"key":"复星保德信星悦重疾险（含身故版）"},{"key":"复星保德信星悦重疾险（含投保人豁免）"},{"key":"复星乐享一生长期百万医疗险（5年期）"},{"key":"复星联合康乐一生（2019版）重大疾病保险"},{"key":"复星联合康乐一生（加倍保）重疾险"},{"key":"复星联合康乐一生重大疾病保险C款（升级版）"},{"key":"复星联合妈咪保贝少儿重大疾病保险"},{"key":"复星联合药神一号疾病保险（测试勿买）"},{"key":"国寿团意意外险（只支持保全操作）"},{"key":"合众福享金生年金保险"},{"key":"弘康多倍保附加投保人豁免保险费重大疾病保险"},{"key":"弘康多倍保重大疾病保险"},{"key":"弘康多倍保重大疾病医疗保险"},{"key":"弘康附加轻症疾病保险B款"},{"key":"弘康健康一生重大疾病保险A款"},{"key":"弘康相伴一生年金保险（第5年领取）"},{"key":"华安“满堂福”家庭财产保险"},{"key":"华安个人账户资金损失保险"},{"key":"华安一路平安交通工具意外保险"},{"key":"华安一路平安交通工具意外保险安心款"},{"key":"华贵大麦定期寿险"},{"key":"华贵守护e家优选定期寿险"},{"key":"华泰全年千万航意险（带延误保障）"},{"key":"华泰疫苗接种意外险"},{"key":"惠加保恶性肿瘤多倍保"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生百万医疗保险"},{"key":"京彩一生防癌保险"},{"key":"京彩一生防癌保险"},{"key":"京彩一生防癌保险"},{"key":"京彩一生防癌保险"},{"key":"京彩一生防癌保险"},{"key":"京彩一生防癌保险"},{"key":"京彩一生防癌保险"},{"key":"京彩一生防癌保险"},{"key":"开心保1-6类职业意外险"},{"key":"开心保爱至臻定期寿险"},{"key":"开心保爱至臻终身寿险"},{"key":"开心保安联“亚洲”豪华保障计划"},{"key":"开心保安联国内旅游保险"},{"key":"开心保安联境外自驾车保险"},{"key":"开心保安心境内旅游计划二"},{"key":"开心保安心境内旅游计划三"},{"key":"开心保安心境内旅游计划一"},{"key":"开心保安心无忧保障计划"},{"key":"开心保安心住院医疗综合保障计划一"},{"key":"开心保成人住院保青年款（高端计划）"},{"key":"开心保成人住院保青年款（基础计划）"},{"key":"开心保成人住院保青年款（升级计划）"},{"key":"开心保成人住院保中年款（高端计划）"},{"key":"开心保成人住院保中年款（基础计划）"},{"key":"开心保成人住院保中年款（升级计划）"},{"key":"开心保诚泰百万航空意外保障A"},{"key":"开心保诚泰百万航空意外保障B"},{"key":"开心保诚泰综合交通意外保障"},{"key":"开心保出行无忧保（15天）"},{"key":"开心保出行无忧保（7天）"},{"key":"开心保短期境内度假游特惠A"},{"key":"开心保短期境内度假游特惠B"},{"key":"开心保短期境内度假游特惠C"},{"key":"开心保恶性肿瘤保险（成人版）"},{"key":"开心保恶性肿瘤保险（中老年版）"},{"key":"开心保环球旅游保障计划"},{"key":"开心保健身意外保险"},{"key":"开心保美亚申根宝境外旅行保障短期计划"},{"key":"开心保美亚申根宝境外旅行保障全年计划"},{"key":"开心保人保短期旅游保障计划"},{"key":"开心保人保国内自驾游保障计划"},{"key":"开心保人保航空意外险"},{"key":"开心保人保境外计划"},{"key":"开心保人保全年海外停留旅游保险-全球计划"},{"key":"开心保人保全年海外停留旅游保险-申根计划"},{"key":"开心保人保全年海外停留旅游保险-亚洲计划"},{"key":"开心保人保随车行李险"},{"key":"开心保人保随人行李险（国内版）"},{"key":"开心保人保随人行李险（全球通用版）"},{"key":"开心保人保台湾游保险"},{"key":"开心保少儿过敏险"},{"key":"开心保少儿麻疹险"},{"key":"开心保少儿门诊守护星（无社保）"},{"key":"开心保少儿门诊守护星（有社保）"},{"key":"开心保少儿门诊住院卫士升级版（无社保）"},{"key":"开心保少儿门诊住院卫士实用版（无社保）"},{"key":"开心保少儿门诊住院卫士实用版（有社保）"},{"key":"开心保少儿湿疹险"},{"key":"开心保少儿手足口病险"},{"key":"开心保少儿意外险"},{"key":"开心保太平洋境外（非申根）旅行险"},{"key":"开心保太平洋境外（含申根）旅行险"},{"key":"开心保泰康重疾宝（成人款）"},{"key":"开心保泰康重疾宝（少儿款）"},{"key":"开心保泰然无忧百万医疗险（0免赔）"},{"key":"开心保童乐保少儿重大疾病保险"},{"key":"开心保意百万身故保障计划"},{"key":"开心保意百万身故保障计划"},{"key":"开心保意百万身故保障计划"},{"key":"开心保意百万身故保障计划"},{"key":"开心保中华为爱保定期寿险（中华怡恒定期寿险）"},{"key":"昆仑健康保重大疾病保险（2.0版）"},{"key":"昆仑健康保重大疾病保险（趸交.5年.10年）"},{"key":"昆仑健康保重大疾病保险期缴计划（30年.20年.15年）"},{"key":"昆仑健康保重大疾病保险至尊版"},{"key":"昆仑健康树终身重大疾病保险"},{"key":"昆仑健康树终身重大疾病保险（10年缴计划）"},{"key":"昆仑健康树终身重大疾病保险（20年缴）"},{"key":"昆仑健康树终身重大疾病保险（30年缴计划）"},{"key":"昆仑健康树终身重大疾病保险（5年缴）"},{"key":"昆仑健康树终身重大疾病保险（趸缴计划）"},{"key":"昆仑康爱保恶性肿瘤疾病保险"},{"key":"美行保安联高校因公差旅保障计划二"},{"key":"美行保安联高校因公差旅保障计划一"},{"key":"美行保安联申根之王-玛瑙计划"},{"key":"美行保安联申根之王珍珠计划"},{"key":"美行保安联申根之王钻石计划"},{"key":"美行保安联夏冬令营保障计划二"},{"key":"美行保安联夏冬令营保障计划一"},{"key":"美行保个人银行账户资金安全保险（1.6万保额）"},{"key":"美行保个人银行账户资金安全保险（10万保额）"},{"key":"美行保个人银行账户资金安全保险（15万保额）"},{"key":"美行保个人银行账户资金安全保险（2.4万保额）"},{"key":"美行保个人银行账户资金安全保险（20万保额）"},{"key":"美行保个人银行账户资金安全保险（30万保额）"},{"key":"美行保个人银行账户资金安全保险（40万保额）"},{"key":"美行保个人银行账户资金安全保险（50万保额）"},{"key":"美行保个人银行账户资金安全保险（5万保额）"},{"key":"美行保人保航空意外险"},{"key":"美行保人保综合交通工具意外险"},{"key":"美行保永诚环球旅游保障计划二（申根）"},{"key":"美行保永诚环球旅游保障计划三（申根）"},{"key":"美行保永诚环球旅游保障计划四（申根）"},{"key":"美亚宝岛游踪境外旅行意外伤害保险"},{"key":"美亚畅游神州境内旅行保障计划"},{"key":"美亚畅游神州境内旅行保障全年计划"},{"key":"美亚乐悠游海外旅行保障计划二"},{"key":"美亚万国游踪境外旅行保障-美澳计划二"},{"key":"美亚万国游踪境外旅行保障-全球标准计划二"},{"key":"美亚万国游踪境外旅行保障-全球标准计划一"},{"key":"美亚万国游踪境外旅行保障-全球高端计划二"},{"key":"美亚万国游踪境外旅行保障-全球高端计划一"},{"key":"美亚万国游踪境外旅行保障-申根标准计划二"},{"key":"美亚万国游踪境外旅行保障-申根标准计划一"},{"key":"美亚万国游踪境外旅行保障-申根高端计划二"},{"key":"美亚万国游踪境外旅行保障-申根高端计划一"},{"key":"美亚小探险家少儿境外旅游保险计划"},{"key":"平安财险健康相伴个人意外险含健康服务"},{"key":"平安短期7天交通意外保险"},{"key":"平安急性肠胃炎健康保险"},{"key":"平安急性肠胃炎健康保险积分商城"},{"key":"平安驾驶无忧驾驶员人身意外保险"},{"key":"平安快乐旅程申根签证境外旅游保险计划"},{"key":"平安商旅护航欧洲申根签证境外行基础计划"},{"key":"平安商旅护航全球申根签证境外行全面计划"},{"key":"情迷欧亚-安联境外旅行保障计划"},{"key":"人保慧选心安综合意外保险"},{"key":"人保开心保货车司机驾意险"},{"key":"人保开心保家政服务人员意外险"},{"key":"人保寿险手术安康意外伤害保险老年高端版"},{"key":"人保寿险手术安康意外伤害保险老年基础版"},{"key":"人保寿险手术安康意外伤害保险老年升级版"},{"key":"人保寿险手术安康意外伤害保险中青年高端版"},{"key":"人保寿险手术安康意外伤害保险中青年基础版"},{"key":"人保寿险手术安康意外伤害保险中青年升级版"},{"key":"瑞泰成长卫士青少年重大疾病保险"},{"key":"瑞泰瑞和（升级版）定期寿险"},{"key":"瑞泰瑞和定期寿险10年缴"},{"key":"瑞泰瑞和定期寿险期缴计划"},{"key":"瑞泰瑞康重大疾病保险"},{"key":"史带爱自由-境内旅游险"},{"key":"史带安享中老年意外保险"},{"key":"史带海外务工境外旅游保障计划"},{"key":"史带海外务工境外旅游豪华保障"},{"key":"史带户外无忧领队意外险"},{"key":"史带境外旅游自选全球含申根签证保障计划"},{"key":"史带境外旅游自选申根签证保障计划"},{"key":"史带开心赛事含高风险运动"},{"key":"史带开心赛事综合运动"},{"key":"史带全年海外停留申根签证旅游保险-全球保障"},{"key":"史带众悦人生白领健康保障计划"},{"key":"史带众悦人生女性健康保障计划"},{"key":"手机碎屏险-标准版含iPhone8"},{"key":"手机碎屏险-官修或换新机尊享版"},{"key":"手机碎屏险-苹果X全面屏新旧机版"},{"key":"太平洋境内境外旅游基本保障计划"},{"key":"太平洋境内旅游保障计划"},{"key":"泰康成人门急诊"},{"key":"泰康疾病综合保障（成人男性版）"},{"key":"泰康疾病综合保障（成人女性版）"},{"key":"泰康疾病综合保障（少儿版）"},{"key":"泰康少儿门急诊"},{"key":"泰康在线住院宝2018少儿基础计划"},{"key":"泰康在线住院宝2018少儿升级计划二"},{"key":"泰康在线住院宝2018少儿升级计划一"},{"key":"泰康在线住院宝成人计划"},{"key":"泰康在线住院宝基础版老年计划"},{"key":"泰康综合意外险基础版"},{"key":"泰康综合意外险升级版"},{"key":"泰康综合意外险尊贵版"},{"key":"淘气保少儿意外险"},{"key":"淘气保少儿意外险"},{"key":"退休乐-老人综合意外险（61-70周岁）"},{"key":"退休乐-老人综合意外险（61-70周岁）"},{"key":"退休乐-老人综合意外险（71-80周岁）"},{"key":"退休乐-老人综合意外险（71-80周岁）"},{"key":"退休乐-老人综合意外险（81-90周岁）"},{"key":"退休乐-老人综合意外险（81-90周岁）"},{"key":"汪星人意外医疗险"},{"key":"网金传财保终身寿险（金樽享）"},{"key":"网金意外无忧（含自费药）"},{"key":"网络支付账户资金损失保险"},{"key":"小宝贝-少儿综合意外险"},{"key":"小天使门诊住院保"},{"key":"信泰 i 立方恶性肿瘤疾病保险"},{"key":"信泰及时雨重大疾病保险"},{"key":"信泰健康无忧重大疾病保险"},{"key":"异乡优享 安联出国培训保障计划二"},{"key":"异乡优享 安联出国培训保障计划三"},{"key":"异乡优享 安联出国培训保障计划一"},{"key":"易安家居意外综合险"},{"key":"易安蓝精灵住院保2019高端版"},{"key":"易安蓝精灵住院保2019基础版"},{"key":"易安蓝精灵住院保2019升级版"},{"key":"易安住院无忧成人保障优选款"},{"key":"易安住院无忧成人保障尊享款"},{"key":"易安住院无忧中老年保障优选款"},{"key":"易安住院无忧中老年保障尊享款"},{"key":"至尊保安联境外旅行保障计划二"},{"key":"至尊保安联境外旅行保障计划二美行保"},{"key":"至尊保安联境外旅行保障计划三"},{"key":"至尊保安联境外旅行保障计划三美行保"},{"key":"至尊保安联境外旅行保障计划一"},{"key":"至尊保安联境外旅行保障计划一美行保"},{"key":"中国平安团体人身意外险"},{"key":"中国人寿开学无忧保险（白银版）"},{"key":"中国人寿开学无忧保险（黄金版）"},{"key":"中国人寿幼儿学平险（白银版）"},{"key":"中国人寿幼儿学平险（黄金版）"},{"key":"中荷顾家保（升级版）定期寿险"},{"key":"中荷人寿房贷宝定期寿险"},{"key":"中荷人寿房贷宝定期寿险（15年缴）"},{"key":"中荷人寿房贷宝定期寿险（20年缴）"},{"key":"中荷人寿房贷宝定期寿险（25年缴）"},{"key":"中荷人寿房贷宝定期寿险（30年缴）"},{"key":"中荷人寿房贷宝定期寿险（5年缴）"},{"key":"中宏宏创e行自驾意外保障（180天）"},{"key":"中宏宏创e行自驾意外保障（1年）"},{"key":"安联臻爱医疗保险2017（重疾版）"},{"key":"开心保平安e生保（2017版）"},{"key":"史带安享中老年重疾健康保障计划"},{"key":"开心保少儿门诊住院卫士升级版（有社保）"},{"key":"安联臻爱医疗保险标准计划有社保"},{"key":"华泰全年航空延误保险"},{"key":"美亚乐悠游海外旅行保障计划一"},{"key":"人保航空延误无忧计划"},{"key":"瑞泰成长卫士少儿重大疾病保险"},{"key":"安意保综合意外险"},{"key":"开心保安联境外旅游保险"},{"key":"安享一生癌症百万医疗险"},{"key":"复星联合康乐一生重疾保险"},{"key":"美亚万国游踪境外旅行保障-美澳计划一"},{"key":"中宏宏创驾享自驾车意外保障"},{"key":"开心保安联申根签证保险-全球保障"},{"key":"开心保百万守护金刚保长期意外险"},{"key":"开心保华海个人意外险"},{"key":"开心保昆仑健康保重大疾病保险"},{"key":"开心保人保全球旅行境外申根计划"},{"key":"瑞泰瑞盈重大疾病保险"},{"key":"瑞泰瑞和定期寿险"},{"key":"百年康惠保重大疾病保险"},{"key":"瑞泰瑞和定期寿险20年缴"}]}'>
-                <!-- /搜索数据 -->
+                &lt;!&ndash; /搜索数据 &ndash;&gt;
             </div>
-            <!-- 搜索-->
+            &lt;!&ndash; 搜索&ndash;&gt;
 
-            <!-- 导航-->
+            &lt;!&ndash; 导航&ndash;&gt;
             <div class="main-nav-list">
                 <ul>
                     <li><a href="http://www.kaixinbao.com">首页</a></li>
@@ -133,7 +133,7 @@
                             <li><a href="http://www.kaixinbao.com/yxhd/2018old/" target="_blank">老人保障</a></li>
                         </ul>
                     </li>
-                    <!--循环：friendlink count：30-->
+                    &lt;!&ndash;循环：friendlink count：30&ndash;&gt;
 
 
                     <li><a href="http://www.kaixinbao.com/daogou/" target="_blank">保险快选</a></li>
@@ -152,13 +152,13 @@
 
                 </ul>
             </div>
-            <!-- 导航-->
+            &lt;!&ndash; 导航&ndash;&gt;
 
         </div>
     </div>
-    <!-- /购买流程头部 -->
+    &lt;!&ndash; /购买流程头部 &ndash;&gt;
 
-</div>
+</div>-->
 
 <input type="hidden" id="productid" value="228001001"/>
 <input type="hidden" id="articleid" value="320065"/>
@@ -173,11 +173,13 @@
                 <div class="nav-tree-box">
                     <span><a href="http://www.kaixinbao.com/" target="_self">首页</a></span>
 
-                    <span class="separator">&gt;</span><a href="http://www.kaixinbao.com/jiankang-baoxian/" target="_self">健康保险</a>
+                    <span class="separator">&gt;</span><a href="http://www.kaixinbao.com/jiankang-baoxian/"
+                                                          target="_self">健康保险</a>
                     <span class="separator">&gt;</span>
 
 
-                    <span><a href="http://www.kaixinbao.com/jiankang-baoxian/zhongdajibing/" target="_self">重大疾病险</a></span>
+                    <span><a href="http://www.kaixinbao.com/jiankang-baoxian/zhongdajibing/"
+                             target="_self">重大疾病险</a></span>
                     <span class="separator">&gt;</span>
 
                     <span class="separator1">昆仑健康保重大疾病保险（2.0版）</span>
@@ -191,19 +193,11 @@
                     <li class="active" data-att="bzxq">保障详情</li>
                     <li data-att="cjwt">常见问题</li>
                     <li data-att="lpfw">理赔服务</li>
-                    <li data-att="yhpj">用户评价
-
-
-
-                        (4)
-
-
-
-
-                    </li>
+                    <li data-att="yhpj">用户评价（4）</li>
                 </ul>
                 <div class="fun-nav">
-                    <div class="shop-buy-compared" data-value={"img":"","money":"681.00","name":"昆仑健康保重大疾病保险（2.0版）","link":"http://www.kaixinbao.com/jiankang-baoxian/320065.shtml","trait":["覆盖185种疾病"],"typetext":"健康","id":"228001001","type":"D"}>
+                    <div class="shop-buy-compared"
+                         data-value={"img":"","money":"681.00","name":"昆仑健康保重大疾病保险（2.0版）","link":"http://www.kaixinbao.com/jiankang-baoxian/320065.shtml","trait":["覆盖185种疾病"],"typetext":"健康","id":"228001001","type":"D"}>
                         <em class="i-shop i-jiaruduibi1"></em>
                         加入对比
                     </div>
@@ -212,12 +206,13 @@
                         <em class="i-shop i-fenxiang"></em>分享
                         <div class="share-box">
                             <p>微信扫一扫分享给好友</p>
-                            <img src="/picture/228001001.jpg" alt="" />
+                            <img src="/picture/228001001.jpg" alt=""/>
                             <i class="icon-arrow2"></i>
                         </div>
                     </div>
                 </div>
-                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;&nbsp;&nbsp;<i>681.00</i>元</span><span class="base">立即投保</span></div>
+                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;&nbsp;&nbsp;<i>681.00</i>元</span><span
+                        class="base">立即投保</span></div>
             </div>
         </div>
     </div>
@@ -227,7 +222,7 @@
 
             <p class="subhead">适合人群：出生满28日至60周岁的健康人群</p>
 
-            <img class="company-logo" src="/picture/2280.gif" alt="" />
+            <img class="company-logo" src="/picture/2280.gif" alt=""/>
         </div>
     </div>
     <div class="center-box">
@@ -266,25 +261,17 @@
 
                         <!-- 产品特色 -->
                         <div class="flex-wrap">
-                            <span th:each="feature:${product.getProductFeatureList()}" th:class="'live'+${featureStat.count}" th:text="${feature.getFeatureName()}"></span>
+                            <span th:each="feature:${product.getProductFeatureList()}"
+                                  th:class="'live'+${featureStat.count}" th:text="${feature.getFeatureName()}"></span>
                         </div>
 
 
-                        <span class="insure-filter"><i class="i-shop i-jisuan"></i>保障详情<i class="rs-edge"
+                        <span class="insure-filter"><i class="i-shop i-jisuan">
 
-                                                                                          style="border-top-color:#fd8824"></i></span>
+                        </i>保障详情<i class="rs-edge" style="border-top-color:#fd8824"></i></span>
                         <ul class="filter-temp">
                             <li class="icon-arrow"></li>
-                            <li><span class="descript">重大疾病保险金</span><span class="money">30万</span></li>
-                            <li><span class="descript">中症疾病保险金</span><span class="money">15万*2次</span></li>
-                            <li><span class="descript">轻症疾病保险金</span><span class="money">基本保额*30%/40%/50%</span></li>
-                            <li><span class="descript">少儿特定疾病保险金</span><span class="money">不投保</span></li>
-                            <li><span class="descript">成人特定疾病保险金</span><span class="money">不投保</span></li>
-                            <li><span class="descript">恶性肿瘤保险金</span><span class="money">不投保</span></li>
-                            <li><span class="descript">重大疾病医疗津贴保险金</span><span class="money">不投保</span></li>
-                            <li><span class="descript">身故、全残及疾病终末期保险金</span><span class="money">不投保</span></li>
-                            <li><span class="descript">中、轻症豁免保险费</span><span class="money">不投保</span></li>
-                        </ul>
+                            <li th:each="insurance:${product.getProductInsuranceList()}"><span class="descript" th:text="${insurance.getInsuranceName()}"></span><span class="money" th:text="${insurance.getInsurancePrice()}"></span></li>
                     </div>
                     <ul class="appnt">
                         <li>
@@ -304,22 +291,25 @@
                                                                                                                             lay-key="1"
                                                                                                                             style="cursor: pointer;">
                                                             <em class="i-shop i-rili"></em>--><!--class="selected"-->
-                                <span th:each="section:${product.getProductSectionList()}" th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"></span>
+                                <span th:each="section:${product.getProductSectionList()}"
+                                      th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"></span>
                             </div>
                         </li>
                         <li>
                             <div class="item">保险期限</div>
                             <div data-id="BTsc0020000000024552_Period" class="text">
-                                <span th:each="deadline:${product.getProductDeadlineList()}" th:text="${deadline.getDeadlineTime()}"></span>
+                                <span th:each="deadline:${product.getProductDeadlineList()}"
+                                      th:text="${deadline.getDeadlineTime()}"></span>
                             </div>
                         </li>
 
 
-                        <li class="dline" th:style="${insuranceStat.index!=0}?'border:0px':''" th:each="insurance:${product.getProductInsuranceList()}">
+                        <li class="dline" th:style="${insuranceStat.index!=0}?'border:0px':''"
+                            th:each="insurance:${product.getProductInsuranceList()}">
                             <div class="item" th:text="${insurance.getInsuranceName()}"></div>
                             <div class="text dup" data-id="228001001004">
                                 <span class="selected" data-value="0">不投保</span>
-                                <span  data-value="100000">投保</span>
+                                <span data-value="100000">投保</span>
                             </div>
                         </li>
 
@@ -332,7 +322,8 @@
                     class="red" id="amnt-value" style="display:none;"><b class="split-line"></b></span>
 
             </p>
-            <ul class="activity">
+
+            <!--            <ul class="activity">
                 <li>
                     <div class="act-btn act-8">搭配</div>
                     <div class="text">
@@ -343,7 +334,7 @@
                                 color="red">马上配置</font></a></p>
                     </div>
                 </li>
-            </ul>
+            </ul>-->
 
             <!-- 活动信息 -->
 
@@ -404,180 +395,24 @@
                                         详细保障
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>重大疾病保险金</b></span></td>
-                                    <td class="dutyCol2" data-title="重大疾病保险金" data-tip="">
-                                        <div data-id="228001001001">
-                                            <div class="rs-wrap"><input type="text" value="10万" data-value="300000"
-                                                                        class="elm-sel rs-only" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer;"><i class="rs-edge"
-                                                                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 185px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，本公司按本合同约定的基本保险金额的100%给付重大疾病保险金，本合同的现金价值自重大疾病确诊之日起降低为零。若投保人选择本合同“可选责任重大疾病医疗津贴保险金”和“可选责任恶性肿瘤保险金”，给付重大疾病保险金后，除“重大疾病医疗津贴保险金”和“恶性肿瘤保险金”外的其他保险责任终止，本公司将豁免本合同自被保险人确诊初次患有本合同约定的重大疾病之日以后的剩余各期保险费，被豁免的保险费视为已交纳，同时本合同继续有效。若投保人未选择本合同“重大疾病医疗津贴保险金”和“恶性肿瘤保险金”，给付重大疾病保险金后本合同终止。
-                                        若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，本公司向投保人无息退还已交保险费，本合同终止。
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>中症疾病保险金</b></span></td>
-                                    <td class="dutyCol2" data-title="中症疾病保险金" data-tip="">
-                                        <div data-id="228001001002">
-                                            <div class="rs-wrap"><input type="text" value="5万*2次" data-value="300000"
-                                                                        class="elm-sel rs-only" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer;"><i class="rs-edge"
-                                                                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 185px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病，本公司按本合同约定的基本保险金额的50%给付中症疾病保险金。对于同一种中症疾病只给付一次中症疾病保险金，给付后该种中症疾病保险金保险责任终止，本合同的中症疾病保险金给付以两次为限，当累计给付的中症疾病保险金次数达到两次时，本项保险责任终止。
-                                        如果被保险人因同一原因或在同一事故中导致其发生本合同所指的两种或两种以上的中症疾病，本公司仅按一种中症疾病给付中症疾病保险金。如本公司已给付过重大疾病保险金，对于重大疾病确诊日之后确诊的中症疾病，本公司不再承担给付中症疾病保险金责任。
-                                        若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病，本公司向投保人无息退还已交保险费，本合同终止。
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>轻症疾病保险金</b></span></td>
-                                    <td class="dutyCol2" data-title="轻症疾病保险金" data-tip="">
-                                        <div data-id="228001001003">
-                                            <div class="rs-wrap"><input type="text" value="基本保额*30%/40%/50%"
-                                                                        data-value="300000" class="elm-sel rs-only"
-                                                                        placeholder="请选择" readonly="readonly"
-                                                                        unselectable="on" onfocus="this.blur()"
-                                                                        style="cursor: pointer;"><i class="rs-edge"
-                                                                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 185px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的轻症疾病，本公司按本合同约定的基本保险金额的一定比例给付轻症疾病保险金。对于同一种轻症疾病只给付一次轻症疾病保险金，给付后该种轻症疾病保险金保险责任终止，本合同的轻症疾病保险金给付以三次为限，每次的给付比例分别为30%、40%、50%，当累计给付的轻症疾病保险金次数达到三次时，本项保险责任终止。
-                                        如果被保险人因同一原因或在同一事故中导致其发生本合同所指的两种或两种以上的轻症疾病，本公司仅按一种轻症疾病给付轻症疾病保险金。如被保险人确诊时同时符合轻症疾病和重大疾病定义的，本公司仅给付重大疾病保险金，不承担给付轻症疾病保险金责任。如被保险人确诊时同时符合轻症疾病和中症疾病定义的，本公司仅给付中症疾病保险金，不承担给付轻症疾病保险金责任。如本公司已给付过重大疾病保险金，对于重大疾病确诊日之后确诊的轻症疾病，本公司不再承担给付轻症疾病保险金责任。
-                                        若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的轻症疾病，本公司向投保人无息退还已交保险费，本合同终止。
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>少儿特定疾病保险金</b></span></td>
-                                    <td class="dutyCol2" data-title="少儿特定疾病保险金" data-tip="">
-                                        <div data-id="228001001004">
-                                            <div class="rs-wrap"><input type="text" value="不投保" data-value="0"
-                                                                        class="elm-sel" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;"><i
-                                                    class="rs-edge"
-                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        被保险人因意外伤害或自本合同生效或最后复效起90日后，且在年满18周岁前经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的少儿特定疾病，本公司除给付重大疾病保险金外，还将按本合同约定的基本保险金额的100%给付少儿特定疾病保险金，本项保险责任终止。
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>成人特定疾病保险金</b></span></td>
-                                    <td class="dutyCol2" data-title="成人特定疾病保险金" data-tip="">
-                                        <div data-id="228001001005">
-                                            <div class="rs-wrap"><input type="text" value="不投保" data-value="0"
-                                                                        class="elm-sel" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;"><i
-                                                    class="rs-edge"
-                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        被保险人因意外伤害或自本合同生效或最后复效起90日后，且在年满18周岁（含18周岁生日当天）后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的男、女特定疾病（无论一种或多种），本公司除给付重大疾病保险金外，还将按本合同约定的基本保险金额的50%给付成人特定疾病保险金，本项保险责任终止。
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>恶性肿瘤保险金</b></span></td>
+                                <tr th:each="insurance:${product.getProductInsuranceList()}">
+                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b th:text="${insurance.getInsuranceName()}"></b></span></td>
                                     <td class="dutyCol2" data-title="恶性肿瘤保险金" data-tip="">
                                         <div data-id="228001001006">
-                                            <div class="rs-wrap"><input type="text" value="不投保" data-value="0"
+                                            <div class="rs-wrap">
+                                                <input type="text" value="不投保" data-value="0"
                                                                         class="elm-sel" placeholder="请选择"
                                                                         readonly="readonly" unselectable="on"
                                                                         onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;"><i
-                                                    class="rs-edge"
-                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
+                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;">
+                                                <i class="rs-edge"style="border-top-color: rgb(253, 136, 36); display: none;"></i>
                                                 <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="dutyCol3">
-                                        如被保险人首次发生的重大疾病为恶性肿瘤，被保险人生存至首次恶性肿瘤确诊之日起满三年后，经本公司指定或认可的医院由专科医生确诊仍患有本合同约定的恶性肿瘤，本公司按本合同约定的基本保险金额的100%给付恶性肿瘤保险金，本项保险责任终止。如被保险人首次发生的重大疾病为非恶性肿瘤重大疾病，被保险人生存至首次非恶性肿瘤重大疾病确诊之日起满180日后，经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的恶性肿瘤，本公司按本合同约定的基本保险金额的100%给付恶性肿瘤保险金，本项保险责任终止。
-                                    </td>
+                                    <td class="dutyCol3" th:text="${insurance.getInsuranceDetails()}"></td>
                                 </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>重大疾病医疗津贴保险金</b></span></td>
-                                    <td class="dutyCol2" data-title="重大疾病医疗津贴保险金" data-tip="">
-                                        <div data-id="228001001007">
-                                            <div class="rs-wrap"><input type="text" value="不投保" data-value="0"
-                                                                        class="elm-sel" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;"><i
-                                                    class="rs-edge"
-                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，被保险人因重大疾病在本公司指定或认可的医院接受本合同约定的治疗行为的，本公司对实际实施的治疗，按本合同约定的基本保险金额的10%给付一次重大疾病医疗津贴保险金。在本合同保险期间内的每一保单年度内，本合同的重大疾病医疗津贴保险金给付以一次为限；该项责任持续至首次重大疾病确诊之日起第五个保单周年日，累计给付以五次为限。当累积给付的重大疾病医疗津贴保险金达到五次时，本项保险责任终止。
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>身故、全残及疾病终末期保险金</b></span>
-                                    </td>
-                                    <td class="dutyCol2" data-title="身故、全残及疾病终末期保险金" data-tip="">
-                                        <div data-id="228001001008">
-                                            <div class="rs-wrap"><input type="text" value="不投保" data-value="0"
-                                                                        class="elm-sel" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;"><i
-                                                    class="rs-edge"
-                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        在保险期间内，若被保险人身故、全残或经诊断因疾病发生并经本公司指定或认可的医院由专科医生确诊达到疾病终末期阶段，本公司按被保险人身故、全残或被确诊达到疾病终末期阶段时累计已交保险费的100%给付身故保险金，本合同终止。如本公司已给付重大疾病保险金，则不再承担给付身故保险金责任。身故保险金、全残保险金与疾病终末期保险金，本公司仅给付其中一项。
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b>中、轻症豁免保险费</b></span></td>
-                                    <td class="dutyCol2" data-title="中、轻症豁免保险费" data-tip="">
-                                        <div data-id="228001001009">
-                                            <div class="rs-wrap"><input type="text" value="不投保" data-value="0"
-                                                                        class="elm-sel" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;"><i
-                                                    class="rs-edge"
-                                                    style="border-top-color: rgb(253, 136, 36); display: none;"></i>
-                                                <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="dutyCol3">
-                                        被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病或轻症疾病，本公司将豁免本合同自被保险人确诊初次患有本合同约定的中症疾病或轻症疾病之日以后的剩余各期保险费。被豁免的保险费视为已交纳，同时本合同继续有效。
-                                    </td>
-                                </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -954,101 +789,168 @@
 <script type="text/javascript" rel="script" th:src="@{/js/CommonHeader.js}"></script>
 <script type="text/javascript">
 
-    $(function(){
+    $(function () {
 
-            //导航滚动固定
-            var top = $('.top2').offset().top;
-            $(window).scroll(function() {
-                var winPos = $(window).scrollTop();
-                if (winPos > top) {
-                    $('.fix-wraper').addClass('fix-top');
-                } else {
-                    $('.fix-wraper').removeClass('fix-top');
-                }
-            });
+        //导航滚动固定
+        var top = $('.top2').offset().top;
+        $(window).scroll(function () {
+            var winPos = $(window).scrollTop();
+            if (winPos > top) {
+                $('.fix-wraper').addClass('fix-top');
+            } else {
+                $('.fix-wraper').removeClass('fix-top');
+            }
+        });
 
-            $('.tabbar').on('click', 'li', function() {
-                $(this)
-                    .addClass('active')
-                    .siblings()
-                    .removeClass('active');
+        $('.tabbar').on('click', 'li', function () {
+            $(this)
+                .addClass('active')
+                .siblings()
+                .removeClass('active');
 
-                var flag = $(this).attr('data-att');
-                var sTop = 0;
+            var flag = $(this).attr('data-att');
+            var sTop = 0;
 
-                switch (flag) {
-                    case 'yhpj':
-                        sTop = $('.comment').offset().top - 50;
+            switch (flag) {
+                case 'yhpj':
+                    sTop = $('.comment').offset().top - 50;
 
-                        $('html,body').animate({ scrollTop: sTop }, 0);
+                    $('html,body').animate({scrollTop: sTop}, 0);
 
-                        break;
+                    break;
 
-                    case 'cpjs':
-                        sTop = $('.cpxq').offset().top - 50;
-                        $('.pro-info').trigger('click');
-                        $('html,body').animate({ scrollTop: sTop }, 0);
+                case 'cpjs':
+                    sTop = $('.cpxq').offset().top - 50;
+                    $('.pro-info').trigger('click');
+                    $('html,body').animate({scrollTop: sTop}, 0);
 
-                        break;
+                    break;
 
-                    case 'bzxq':
-                        sTop = $('.tit-box').offset().top - 50;
-                        $('html,body').animate({ scrollTop: sTop }, 0);
-                        break;
+                case 'bzxq':
+                    sTop = $('.tit-box').offset().top - 50;
+                    $('html,body').animate({scrollTop: sTop}, 0);
+                    break;
 
-                    case 'cjwt':
-                        if (!$('.cjwt').offset()) {
-                            return;
-                        }
-                        sTop = $('.cjwt').offset().top - 50;
-                        $('html,body').animate({ scrollTop: sTop }, 0);
-
-                        break;
-
-                    case 'lpfw':
-                        sTop = $('.lpfw').offset().top - 50;
-                        $('html,body').animate({ scrollTop: sTop }, 0);
-
-                        break;
-                    default:
-                }
-
-                return false;
-            });
-
-            $(window).scroll(function() {
-                var wst = $(document).scrollTop();
-
-                if (wst >= $('.comment').offset().top - 100) {
-                    $('.tabbar li').removeClass('active');
-                    $('[data-att=yhpj]').addClass('active');
-                    return;
-                }
-                if (wst >= $('.lpfw').offset().top - 100) {
-                    $('.tabbar li').removeClass('active');
-                    $('[data-att=lpfw]').addClass('active');
-                    return;
-                }
-
-                if ($('.cjwt').offset()) {
-                    if (wst >= $('.cjwt').offset().top - 100) {
-                        $('.tabbar li').removeClass('active');
-                        $('[data-att=cjwt]').addClass('active');
+                case 'cjwt':
+                    if (!$('.cjwt').offset()) {
                         return;
                     }
-                }
+                    sTop = $('.cjwt').offset().top - 50;
+                    $('html,body').animate({scrollTop: sTop}, 0);
 
-                if (wst >= $('.cpxq').offset().top - 100) {
+                    break;
+
+                case 'lpfw':
+                    sTop = $('.lpfw').offset().top - 50;
+                    $('html,body').animate({scrollTop: sTop}, 0);
+
+                    break;
+                default:
+            }
+
+            return false;
+        });
+
+        $(window).scroll(function () {
+            var wst = $(document).scrollTop();
+
+            if (wst >= $('.comment').offset().top - 100) {
+                $('.tabbar li').removeClass('active');
+                $('[data-att=yhpj]').addClass('active');
+                return;
+            }
+            if (wst >= $('.lpfw').offset().top - 100) {
+                $('.tabbar li').removeClass('active');
+                $('[data-att=lpfw]').addClass('active');
+                return;
+            }
+
+            if ($('.cjwt').offset()) {
+                if (wst >= $('.cjwt').offset().top - 100) {
                     $('.tabbar li').removeClass('active');
-                    $('[data-att=cpjs]').addClass('active');
+                    $('[data-att=cjwt]').addClass('active');
                     return;
                 }
-                if (wst >= $('.tit-box').offset().top - 100) {
-                    $('.tabbar li').removeClass('active');
-                    $('[data-att=bzxq]').addClass('active');
-                    return;
-                }
-            });
+            }
+
+            if (wst >= $('.cpxq').offset().top - 100) {
+                $('.tabbar li').removeClass('active');
+                $('[data-att=cpjs]').addClass('active');
+                return;
+            }
+            if (wst >= $('.tit-box').offset().top - 100) {
+                $('.tabbar li').removeClass('active');
+                $('[data-att=bzxq]').addClass('active');
+                return;
+            }
+        });
+
+
+        //保障预览
+        $('.insure-filter').click(function () {
+            $(this).toggleClass('active');
+            $('.filter-temp').toggle();
+            $(this)
+                .find('.rs-edge')
+                .toggleClass('rot');
+        });
+
+
+        /* 常见问题 */
+
+        $('.q-cont').on('mouseover', function () {
+            $(this)
+                .parent()
+                .siblings()
+                .find('.i-zhankai1')
+                .removeClass('trans');
+            $(this)
+                .parent()
+                .siblings()
+                .find('.a-cont')
+                .hide();
+            $(this)
+                .find('.i-zhankai1')
+                .toggleClass('trans');
+            $(this)
+                .siblings('.a-cont')
+                .slideDown(100);
+        });
+
+        $('.comment').delegate('.good', 'click', function () {
+            $(this).toggleClass('active');
+            var gflag = 'N';
+            var gid = $(this).attr('data-commentid');
+            if ($(this).is('.active')) {
+                gflag = 'Y';
+            }
+            res.good(gid, gflag);
+        });
+
+        $('.head-commen li').click(function () {
+            $(this)
+                .addClass('active')
+                .siblings()
+                .removeClass('active');
+            res.changeComment($(this));
+        });
+
+        $('.more-area').click(function () {
+            $('.view-more em').toggleClass('i-xiangshang');
+            $('.view-more em').toggleClass('i-xiangxia');
+            if ($('.view-more em').is('.i-xiangshang')) {
+                $(this)
+                    .find('.spread')
+                    .html('收起全部');
+            } else {
+                $(this)
+                    .find('.spread')
+                    .html('展开全部');
+            }
+            $('.notice-list li')
+                .not('.static')
+                .toggle();
+        });
 
     })
 
