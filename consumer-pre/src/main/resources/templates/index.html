@@ -46,7 +46,7 @@
                 </div>
                 <!-- 未登录状态-->
                 <!-- 已登录状态-->
-                <div id="yesLogin" class="login_in" style="display: none" >
+                <div id="yesLogin" class="login_in" style="display: none" th:if="${session.user}!=null">
                     <div class="user-head"><span class="i_user"></span><a
                             href="http://www.kaixinbao.com/member/center/index.shtml" id="headerLoginMemberUsername"
                             class="name"></a><span id="headerLoginMemGradeIcon" class=""  th:text="${session.user.userName}"></span><span

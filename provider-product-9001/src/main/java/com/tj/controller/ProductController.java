@@ -42,12 +42,14 @@ public class ProductController {
 
         IPage<HappysysProduct> productPage = productService.getByMap(condtions,currentPage,size);
 
+        productPage.getRecords();
+        System.out.println();
+
         System.out.println(condtions);
         //查询mongodb  ！！！！！！
 
         return productPage;
     }
-
 
 
 }
