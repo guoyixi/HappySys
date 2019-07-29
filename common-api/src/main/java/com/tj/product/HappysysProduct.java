@@ -59,7 +59,7 @@ public class HappysysProduct implements Serializable {
     private List<HappysysInsuranceSum> productInsuranceSumList; //保障保额列表
 
     @TableField(exist = false)
-    private List<HappysysPaymentList> productPaymentList;       //缴费年限列表
+    private List<HappysysPayment> productPaymentList;       //缴费年限列表
 
     @TableField(exist = false)
     private Integer productShoppingCartId;                      //购物车表的id

@@ -21,7 +21,7 @@ public class HappysysPayment {
 
  @TableId
  private Integer paymentId;
- private Integer paymentTime;
+ private String paymentTime;
  private Integer paymentCategory;
 
 }
