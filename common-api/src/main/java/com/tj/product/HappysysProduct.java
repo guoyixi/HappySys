@@ -29,6 +29,9 @@ public class HappysysProduct implements Serializable {
     private Integer productSection;         //年龄区间ID
     private Integer productFeature;         //特色列表ID
     private Integer productInsurance;       //保障列表ID
+    private Integer productInsuranceSum;    //保障保额列表ID
+    private Integer productPayment;         //缴费期限列表ID
+
 
     private String productDetails;          //产品描述
     private Integer productLevel1;          //所属1级标题
@@ -51,6 +54,12 @@ public class HappysysProduct implements Serializable {
 
     @TableField(exist = false)
     private List<HappysysInsurance> productInsuranceList;       //保障列表
+
+    @TableField(exist = false)
+    private List<HappysysInsuranceSum> productInsuranceSumList; //保障保额列表
+
+    @TableField(exist = false)
+    private List<HappysysPaymentList> productPaymentList;       //缴费年限列表
 
     @TableField(exist = false)
     private Integer productShoppingCartId;                      //购物车表的id
