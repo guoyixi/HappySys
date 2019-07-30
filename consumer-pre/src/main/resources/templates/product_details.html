@@ -1,4 +1,4 @@
-<!DOCTYPE html >
+﻿<!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -6,10 +6,6 @@
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     <title>[[${product.productTitle}]]-开心保保险网</title>
-<!--    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
     <link rel="stylesheet" th:href="@{/css/mod_cm_kxb.css}"/>
     <link rel="stylesheet" th:href="@{/css/mod_detail.css}"/>
@@ -54,17 +50,15 @@
                     <li class="active" data-att="bzxq">保障详情</li>
                     <li data-att="cjwt">常见问题</li>
                     <li data-att="lpfw">理赔服务</li>
-                    <li data-att="yhpj" class="user_commont">用户评价（4）</li>
+                    <li data-att="yhpj">用户评价（4）</li>
                 </ul>
                 <div class="fun-nav">
                     <div class="shop-buy-compared"
                          data-value={"img":"","money":"681.00","name":"昆仑健康保重大疾病保险（2.0版）","link":"http://www.kaixinbao.com/jiankang-baoxian/320065.shtml","trait":["覆盖185种疾病"],"typetext":"健康","id":"228001001","type":"D"}>
-                        <em class="i-shop i-jiaruduibi1"></em>加入对比
+                        <em class="i-shop i-jiaruduibi1"></em>
+                        加入对比
                     </div>
-                    <div class="store">
-                        <a href="javascript:addAndDelShoppingCart()" style="color: white">
-                                            <!--i-shoucang-weidian-->
-                        <em id="add_shopping_cart" class="i-shop i-shoucang-weidian"></em>加入购物车</a></div>
+                    <div class="store"><em class="i-shop i-shoucang-weidian"></em>收藏</div>
                     <div class="share">
                         <em class="i-shop i-fenxiang"></em>分享
                         <div class="share-box">
@@ -74,7 +68,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i>681.00</i>元</span><span
+                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;&nbsp;&nbsp;<i th:text="${product.getProductPrice()}"></i>元</span><span
                         class="base">立即投保</span></div>
             </div>
         </div>
@@ -97,7 +91,7 @@
                 </div>
                 <div class="sales">
                     <span>好评率</span>
-                    <span class="num commentSatisfaction">100%</span>
+                    <span class="num">100%</span>
                 </div>
             </div>
             <ul class="description">
@@ -128,53 +122,72 @@
                                   th:class="'live'+${featureStat.count}" th:text="${feature.getFeatureName()}"></span>
                         </div>
 
-
                         <span class="insure-filter"><i class="i-shop i-jisuan">
 
                         </i>保障详情<i class="rs-edge" style="border-top-color:#fd8824"></i></span>
                         <ul class="filter-temp">
                             <li class="icon-arrow"></li>
-                            <li th:each="insurance:${product.getProductInsuranceList()}">
+
+                            <li class="insuranceTotal" th:each="insurance:${product.getProductInsuranceList()}" th:value="${insurance.getInsuranceId()}" >
                                 <span class="descript" th:text="${insurance.getInsuranceName()}"></span>
-                                <span class="money" th:text="${insurance.getInsurancePrice()}"></span></li>
+                                <span class="money" th:value="${insurance.getInsuranceSum()}">不投保</span>
+                            </li>
+
+                        </ul>
                     </div>
                     <ul class="appnt">
+
+                        <!--投保年龄 Section-->
                         <li>
                             <div class="item">投保年龄</div>
-                            <div data-id="BTsc0020000000024550_TextAge" class="text sel">
-    <!--                                <input type="text"
-                            readonly="readonly"
-                            value="2019-06-29"
-                            data-correct="0"
-                            placeholder="请选择日期"
-                            class="date-sel"
-                            data-min="1958-07-27"
-                            data-max="2019-06-29"
-                            unselectable="on"
-                            onfocus="this.blur()"
-                            data-value="0Y"
-                            lay-key="1"
-                            style="cursor: pointer;">
-                        <em class="i-shop i-rili"></em>--><!--class="selected"-->
+                            <div data-id="BTsc0020000000024550_TextAge" class="text">
                                 <span th:each="section:${product.getProductSectionList()}"
-                                      th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"></span>
+                                      th:value="${section.getSectionPrice()}"
+                                      th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"
+                                      th:class="${sectionStat.count==1}?'selected'" ></span>
                             </div>
                         </li>
+
+                        <!--保险期限 Deadline-->
                         <li>
                             <div class="item">保险期限</div>
-                            <div data-id="BTsc0020000000024552_Period" class="text">
+                            <div id="BTsc0020000000024552_Period" class="text">
                                 <span th:each="deadline:${product.getProductDeadlineList()}"
-                                      th:text="${deadline.getDeadlineTime()}"></span>
+                                      th:value="${deadline.getDeadlinePrice()}"
+                                      th:text="${deadline.getDeadlineTime()}"
+                                      th:class="${deadlineStat.count==1}?'selected'"></span>
+                            </div>
+                        </li>
+
+                        <!--缴费年限 Payment-->
+                        <!--                        <li>
+                                                    <div class="item">缴费年期</div>
+                                                    <div id="BTsc0020000000024553_FeeYear" class="text"><span>趸缴</span><span class="disable" th:each="payment:${product.getProductPaymentList()}"
+                                                              th:text="${payment.getPaymentTime()}"></span>
+                                                    </div>
+                                                </li>-->
+
+                        <!--基本保额 InsuranceSum-->
+                        <li>
+                            <div class="item">基本保额</div>
+                            <div id="BTsc0020000000024554_BaseAmnt" class="text">
+                                <span th:each="insuranceSum:${product.getProductInsuranceSumList()}" class=""
+                                      th:value="${insuranceSum.getInsuranceSumPrice()}"
+                                      th:text="${#strings.substring(insuranceSum.getInsuranceSum(),0,2)}+'万'"
+                                      th:class="${insuranceSumStat.count==1}?'selected'"></span>
                             </div>
                         </li>
 
 
-                        <li class="dline" th:style="${insuranceStat.index!=0}?'border:0px':''"
-                            th:each="insurance:${product.getProductInsuranceList()}">
+                        <!--保障详情 Insurance-->
+                        <li  class="insurance dline" th:style="${insuranceStat.index!=0}?'border:0px':''"
+                             th:each="insurance:${product.getProductInsuranceList()}">
+
                             <div class="item" th:text="${insurance.getInsuranceName()}"></div>
                             <div class="text dup" data-id="228001001004">
                                 <span class="selected" data-value="0">不投保</span>
-                                <span data-value="100000">投保</span>
+                                <span th:value="${insurance.getInsurancePrice()}"
+                                      th:text="${#strings.substring(insurance.getInsuranceSum(),0,2)}+'万'"></span>
                             </div>
                         </li>
 
@@ -182,8 +195,8 @@
                 </div>
             </div>
             <p class="bottom-money">
-                <span>保费:</span><span class="red">￥<i>681.00</i><b class="split-line"></b></span><span id="amnt-dom"
-                                                                                                       style="display:none;">基本保额:</span><span
+                <span>保费:</span><span class="red">￥<i th:text="${product.getProductPrice()}">/i><b class="split-line"></b></span><span id="amnt-dom"
+                                                                                                                                       style="display:none;">基本保额:</span><span
                     class="red" id="amnt-value" style="display:none;"><b class="split-line"></b></span>
 
             </p>
@@ -239,9 +252,13 @@
                                     <span class="icon-wrap"><em class="i-shop i-xiazai1"></em></span>
                                 </a>
                             </li>
+
+
                             <li class="cashValue">
                                 <a>现金价值计算<span class="icon-wrap"><em class="i-shop i-xiazai1"></em></span></a>
                             </li>
+
+
                         </ul>
                         <div class="boxtable">
                             <table id="duty-list" width="100%" border="0">
@@ -257,16 +274,18 @@
                                     </td>
                                 </tr>
                                 <tr th:each="insurance:${product.getProductInsuranceList()}">
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b th:text="${insurance.getInsuranceName()}"></b></span></td>
+                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b
+                                            th:text="${insurance.getInsuranceName()}"></b></span></td>
                                     <td class="dutyCol2" data-title="恶性肿瘤保险金" data-tip="">
                                         <div data-id="228001001006">
                                             <div class="rs-wrap">
                                                 <input type="text" value="不投保" data-value="0"
-                                                                        class="elm-sel" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;">
-                                                <i class="rs-edge"style="border-top-color: rgb(253, 136, 36); display: none;"></i>
+                                                       class="elm-sel" placeholder="请选择"
+                                                       readonly="readonly" unselectable="on"
+                                                       onfocus="this.blur()"
+                                                       style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;">
+                                                <i class="rs-edge"
+                                                   style="border-top-color: rgb(253, 136, 36); display: none;"></i>
                                                 <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
                                             </div>
                                         </div>
@@ -330,6 +349,7 @@
                     <p class="view-more"><span class="more-area"><span class="spread">展开全部</span><em
                             class="i-shop i-xiangxia"></em></span></p>
 
+
                     <!-- 条款信息 -->
                     <div class="area-cont notice-termlist">
                         <h2 class="de-tit">条款信息</h2>
@@ -383,17 +403,68 @@
                     <h2 class="de-tit">常见问题</h2>
                     <div class="qa-up">
                         <ul class="qa-list">
-                            <li th:each="commonProblem:${product.getProductCommonProblemList()}">
-                                <p class="q-cont"><span class="i-q"></span><span th:text="${commonProblem.commonpTitle}"></span><span class="i-shop i-zhankai1"></span></p>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>我是否可以给我的配偶投保？<span
+                                        class="i-shop i-zhankai1"></span></p>
                                 <p class="a-cont">
-                                    <span class="i-da"></span><span th:text="${commonProblem.commonpAnswer}"></span>
+                                    <span class="i-da"></span>可以的。这款产品，只要投保人年满18周岁，投保人就可以为父母、配偶、子女及本人投保。
+                                </p>
+                            </li>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>附加了重大疾病医疗津贴保险金也附加了恶性肿瘤责任，如果首次重疾之后，再换恶性肿瘤，符合5年之内范围，可否获赔津贴责任？<span
+                                        class="i-shop i-zhankai1"></span></p>
+                                <p class="a-cont">
+                                    <span class="i-da"></span>不能，重大疾病医疗津贴保险金只对因首次重疾产生住院医疗的行为进行补偿，无论是否投保恶性肿瘤责任，再患其他疾病都不能享受该津贴。
+                                </p>
+                            </li>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>如何进行保单验真？<span
+                                        class="i-shop i-zhankai1"></span></p>
+                                <p class="a-cont">
+                                    <span class="i-da"></span>为保证您的合法权益，您可拨打昆仑健康客服热线400-811-8899查询保单信息或验证保单；或登录昆仑健康官方网站进行保单验真（http://www.kunlunhealth.com/）。若您有任何的意见或建议，请随时拨打开心保客服电话4009789789。
+                                </p>
+                            </li>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>线上产品是否提供纸质保单？<span
+                                        class="i-shop i-zhankai1"></span></p>
+                                <p class="a-cont">
+                                    <span class="i-da"></span>您好，所有在线投保产品都统一发送电子保单，我们向您出具的是电子保单，在投保成功即时发送到您的电子邮箱，电子保单具有同等法律效应，其效力等同于纸质保单。依据《中华人民共和国合同法》第十一条规定，数字电文是合同的合法展现形式，请您放心投保。如果您需要，我司提倡节约用纸，鼓励环保，您可以自行打印并保存，感谢支持！
+                                </p>
+                            </li>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>线上产品如何进行回访？<span
+                                        class="i-shop i-zhankai1"></span></p>
+                                <p class="a-cont">
+                                    <span class="i-da"></span>昆仑健康保险已开通电子化回访，如您购买了合同期超过一年的个人新单，回执回销后即时生成电子回访任务。我们会短信通知您进行回访服务，您可关注“昆仑健康保险”微信公众号，点击保单查询-保单验真，输入保单号进行自助回访。如线下电子化回访未成功，我们会转为电话回访方式，新契约回访统一呼出号码为010-65500202，请您及时接受回访。
+                                </p>
+                            </li>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>线上产品如何进行理赔？<span
+                                        class="i-shop i-zhankai1"></span></p>
+                                <p class="a-cont">
+                                    <span class="i-da"></span>请您登陆昆仑健康保险官网https://www.kunlunhealth.com.cn，在个人中心-我的保障中申请理赔，或拨打我司全国统一客服热线400-811-8899进行报案，按照客服指引，快递相关理赔材料到我们的分公司即可获得理赔。地址为：北京市朝阳区建华南路6号院1号楼卓明大厦1层北京分公司业务管理部
+                                    邮编：100022。我们有专人来受理、审核、下达理赔通知书
+                                </p>
+                            </li>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>少儿特定疾病都有哪些？<span
+                                        class="i-shop i-zhankai1"></span></p>
+                                <p class="a-cont">
+                                    <span class="i-da"></span>白血病、重症手足口病、严重心肌病、瑞氏综合症、严重脊髓灰质炎、严重类风湿性关节炎、严重川崎病、全身性重症肌无力、严重Ⅰ型糖尿病、严重脑损伤、严重Ⅲ度烧伤、重型再生障碍性贫血、原发性骨髓纤维化、自体造血干细胞移植术、严重幼年型类风湿性关节炎、成骨不全症、严重哮喘、肝豆状核变性、肺淋巴管肌瘤病、严重获得性或继发性肺泡蛋白质沉积症。
+                                </p>
+                            </li>
+                            <li>
+                                <p class="q-cont"><span class="i-q"></span>男性、女性特定疾病都有哪些？<span
+                                        class="i-shop i-zhankai1"></span></p>
+                                <p class="a-cont">
+                                    <span class="i-da"></span>男性13种：前列腺恶性肿瘤、肺恶性肿瘤、食管恶性肿瘤、胃恶性肿瘤、肝恶性肿瘤、结肠恶性肿瘤、直肠恶性肿瘤、阴茎恶性肿瘤、睾丸恶性肿瘤、急性心肌梗塞、脑中风后遗症、重大器官移植术或造血干细胞移植术、多个肢体缺失；女性8种：乳腺恶性肿瘤、子宫颈恶性肿瘤、子宫恶性肿瘤、卵巢恶性肿瘤、输卵管恶性肿瘤、阴道恶性肿瘤、系统性红斑狼疮
+                                    －（并发） III型或以上狼疮性肾炎、终末期肾病（或称慢性肾功能衰竭尿毒症期）。
                                 </p>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
 
             <div class="detail-box lpfw">
                 <h2 class="de-tit">理赔服务</h2>
@@ -423,28 +494,164 @@
 
             <!-- 评价 -->
             <div class="comment">
-                <h3 class="common-num user_commont">用户评价(4)</h3>
+                <h3 class="common-num">用户评价
+
+
+                    (4)
+
+
+                </h3>
                 <div class="head-commen">
                     <div class="degree">
-                        <span class="num commentSatisfaction">100%</span>
+                        <span class="num">100%</span>
                         <span class="agree">满意度</span>
                     </div>
-                    <!--<ul>
+
+                    <ul>
+
                         <li data-value="日常保障">日常保障（<span class="num">4</span>）</li>
-                    </ul>-->
+
+                    </ul>
+
                 </div>
-                <!--用户评价  -->
                 <div id="comment">
                     <div id="commentlist">
-
-                        <ul id="biuuu_city_list"></ul>
-
+                        <div class="user-comment">
+                            <div class="cont-show">
+                                <p class="user">
+                                    <img src="https://resource.kaixinbao.com/r02/images/common/hader_kxb.jpg" alt="">
+                                    <span class="user-name">熊2***</span>
+                                    <span class="i_k i_k0"></span>
+                                </p>
+                                <div class="tit">
+                                    <span class="star5"></span>
+                                </div>
+                                <div class="read">
+                                    我是通过一些渠道了解到这款产品，费率和保障范围内容都很不错支持~
+                                </div>
+                                <div class="goal">
+                                    <span>目的：</span>
+                                    <span class="long">日常保障</span>
+                                    <span class="date">2019-07-09 13:22</span>
+                                    <p class="good
+							active
+						" data-commentid="177303">
+                                        <em class="i-shop i-kongxin1"></em>
+                                        <span>有用（<i id="praise-177303">6</i>）</span>
+                                    </p>
+                                </div>
+                                <div class="cont-answer">
+                                    <p class="ans_ttl">开心保回复：<span>您好！很高兴您在充分了解市场产品的情况下，选择了这款产品！我们会继续努力，给新老客户提供更优质的产品和服务！</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bottom-bor"></div>
+                        </div>
+                        <div class="user-comment">
+                            <div class="cont-show">
+                                <p class="user">
+                                    <img src="https://resource.kaixinbao.com/r02/images/common/hader_kxb.jpg" alt="">
+                                    <span class="user-name">135***</span>
+                                    <span class="i_k i_k0"></span>
+                                </p>
+                                <div class="tit">
+                                    <span class="star5"></span>
+                                </div>
+                                <div class="read">
+                                    保障范围广，价格低廉，性价比超高
+                                </div>
+                                <div class="goal">
+                                    <span>目的：</span>
+                                    <span class="long">日常保障</span>
+                                    <span class="date">2019-07-05 22:22</span>
+                                    <p class="good
+							active
+						" data-commentid="177302">
+                                        <em class="i-shop i-kongxin1"></em>
+                                        <span>有用（<i id="praise-177302">3</i>）</span>
+                                    </p>
+                                </div>
+                                <div class="cont-answer">
+                                    <p class="ans_ttl">
+                                        开心保回复：<span>您好，正如您所说，这款产品确实价位做的很低，跟同类产品比也有绝对优势，是一款货真价实的亲民保险。</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-bor"></div>
+                        </div>
+                        <div class="user-comment">
+                            <div class="cont-show">
+                                <p class="user">
+                                    <img src="https://resource.kaixinbao.com/r02/images/common/hader_kxb.jpg" alt="">
+                                    <span class="user-name">aho***</span>
+                                    <span class="i_k i_k0"></span>
+                                </p>
+                                <div class="tit">
+                                    <span class="star5"></span>
+                                </div>
+                                <div class="read">
+                                    对比了很多家重疾险，这款重疾性价比确实很高，价格便宜，值得购买
+                                </div>
+                                <div class="goal">
+                                    <span>目的：</span>
+                                    <span class="long">日常保障</span>
+                                    <span class="date">2019-07-01 22:22</span>
+                                    <p class="good
+							active
+						" data-commentid="177300">
+                                        <em class="i-shop i-kongxin1"></em>
+                                        <span>有用（<i id="praise-177300">1</i>）</span>
+                                    </p>
+                                </div>
+                                <div class="cont-answer">
+                                    <p class="ans_ttl">开心保回复：<span>希望您继续对我们开心保保持关注，在此祝您和您的家人平安、幸福、快乐！</span></p>
+                                </div>
+                            </div>
+                            <div class="bottom-bor"></div>
+                        </div>
+                        <div class="user-comment">
+                            <div class="cont-show">
+                                <p class="user">
+                                    <img src="https://resource.kaixinbao.com/r02/images/common/hader_kxb.jpg" alt="">
+                                    <span class="user-name">138***</span>
+                                    <span class="i_k i_k0"></span>
+                                </p>
+                                <div class="tit">
+                                    <span class="star5"></span>
+                                </div>
+                                <div class="read">
+                                    前几天朋友推荐，说这个产品特别好，一直等着上线
+                                </div>
+                                <div class="goal">
+                                    <span>目的：</span>
+                                    <span class="long">日常保障</span>
+                                    <span class="date">2019-07-01 13:22</span>
+                                    <p class="good
+							active
+						" data-commentid="177301">
+                                        <em class="i-shop i-kongxin1"></em>
+                                        <span>有用（<i id="praise-177301">1</i>）</span>
+                                    </p>
+                                </div>
+                                <div class="cont-answer">
+                                    <p class="ans_ttl">开心保回复：<span>您好！我们很多客户都是朋友推荐找来的呢！非常感谢新老顾客对开心保的厚爱，我们一定更加努力，为朋友们提供更多精心优选产品，满足大家的保障需求。</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="bottom-bor"></div>
+                        </div>
                     </div>
                     <input type="hidden" id="purpose" value="">
                 </div>
                 <!-- 分页组件 -->
-                <div id="page_btn" align="center"></div>
-
+                <div class="pgbox">
+                    <div class="m-box __page-box">
+                        <div data-page="1" style="display: none;"><span class="prev disabled">上一页</span><span
+                                class="active"
+                                style="color: rgb(253, 136, 36); border-color: rgb(253, 136, 36);">20</span><span
+                                class="next disabled">下一页</span></div>
+                    </div>
+                </div>
+                <!-- 分页组件 -->
             </div>
         </div>
     </div>
@@ -460,96 +667,7 @@
 
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
 <script type="text/javascript" rel="script" th:src="@{/js/CommonHeader.js}"></script>
-<script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript" th:inline="javascript">
-
-    //ajax 查询user评价
-    $.get("/HappysysComment/getCommentAndUserByProductId/"+[[${product.productId}]],function (result) {
-        var commentAndUserListData = result.commentAndUser;
-
-        $(".commentSatisfaction").html(result.commentSatisfaction+"%");
-        $(".user_commont").html("用户评价（"+commentAndUserListData.length+"）");
-
-        layui.use(['laypage', 'layer'], function(){
-            var laypage = layui.laypage
-                ,layer = layui.layer;
-
-            //自定义首页、尾页、上一页、下一页文本
-            laypage.render({
-                elem: 'page_btn'
-                ,first: '首页'
-                ,last: '尾页'
-                ,prev: '<em>上一页</em>'
-                ,next: '<em>下一页</em>'
-                ,theme: '#FFB800'
-                ,limit : 6
-                ,count: commentAndUserListData.length
-                ,jump: function(obj){
-                    //模拟渲染
-                    document.getElementById('biuuu_city_list').innerHTML = function(){
-                        var arr = []
-                            ,thisData = commentAndUserListData.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                        layui.each(thisData, function(index, item){
-                            //item:当前json对象
-                            arr.push('<div class="user-comment">'
-                                +'<div class="cont-show">'
-                                +'<p class="user">'
-                                +'<img src="/images/usericon/'+item.user_icon+'" alt="'+item.user_name+'" title="'+item.user_name+'" />'
-                                +'<span class="user-name">'+item.user_name+'</span>'
-                                +'<span class="i_k i_k0"></span>'
-                                +'</p>'
-                                +'<div class="tit">'
-                                +'<span class="star'+item.comment_grade+'"></span>'
-                                +'</div>'
-                                +'<div class="read">'+item.comment_content+'</div>'
-                                +'<div class="goal"><span>'+item.comment_time+'</span></div>'
-                                +'</div>'
-                                +'<div class="bottom-bor"></div>'
-                                +'</div>');
-                        });
-                        return arr.join('');
-                    }();
-                }
-            });
-        });
-
-    },"json");
-
-    var addOrDel = 0;
-    //检测当前user是否已经收藏此商品
-    if([[${session.user}]] != null){
-        $.get("/HappysysShoppingCart/getShoppingCartByProductIdAndUserId/"+[[${product.productId}]],function (result) {
-            if ($.isEmptyObject(result) == false){
-                $("#add_shopping_cart").prop("class","i-shop i-shoucang-yidian");
-                addOrDel = 1;
-            }
-        },"json");
-    }
-
-
-    //加入和删除购物车
-    function addAndDelShoppingCart(){
-        if([[${session.user}]] != null){
-            if(addOrDel == 0){//加入
-                $.get("/HappysysShoppingCart/addShoppingCart",{productId:[[${product.productId}]]},function (result) {
-                    if (result == true){
-                        $("#add_shopping_cart").prop("class","i-shop i-shoucang-yidian");
-                        addOrDel = 1;
-                    }
-                },"json");
-            }else if(addOrDel == 1){//删除
-                $.get("/HappysysShoppingCart/delShoppingCartByProductIdAndUserId/"+[[${product.productId}]],function (result) {
-                    if (result == true){
-                        $("#add_shopping_cart").prop("class","i-shop i-shoucang-weidian");
-                        addOrDel = 0;
-                    }
-                },"json");
-            }
-        }else {
-            alert("请先登录！");
-        }
-
-    };
+<script th:inline="javascript">
 
     $(function () {
 
@@ -569,36 +687,47 @@
                 .addClass('active')
                 .siblings()
                 .removeClass('active');
+
             var flag = $(this).attr('data-att');
             var sTop = 0;
 
             switch (flag) {
                 case 'yhpj':
                     sTop = $('.comment').offset().top - 50;
+
                     $('html,body').animate({scrollTop: sTop}, 0);
+
                     break;
+
                 case 'cpjs':
                     sTop = $('.cpxq').offset().top - 50;
                     $('.pro-info').trigger('click');
                     $('html,body').animate({scrollTop: sTop}, 0);
+
                     break;
+
                 case 'bzxq':
                     sTop = $('.tit-box').offset().top - 50;
                     $('html,body').animate({scrollTop: sTop}, 0);
                     break;
+
                 case 'cjwt':
                     if (!$('.cjwt').offset()) {
                         return;
                     }
                     sTop = $('.cjwt').offset().top - 50;
                     $('html,body').animate({scrollTop: sTop}, 0);
+
                     break;
+
                 case 'lpfw':
                     sTop = $('.lpfw').offset().top - 50;
                     $('html,body').animate({scrollTop: sTop}, 0);
+
                     break;
                 default:
             }
+
             return false;
         });
 
@@ -686,6 +815,7 @@
             res.changeComment($(this));
         });
 
+        // 投保须知
         $('.more-area').click(function () {
             $('.view-more em').toggleClass('i-xiangshang');
             $('.view-more em').toggleClass('i-xiangxia');
@@ -703,7 +833,56 @@
                 .toggle();
         });
 
-    })
+        // 所有标签项的点击时间
+        $("span").click(function(){
+            $(this).addClass("selected");
+            $(this).siblings().removeClass("selected");
+
+            var price =  $(this).attr("value");
+            alert(price);
+
+        });
+
+
+
+
+
+    });
+
+
+
+
+    /*  $.ajax({
+          "url" : "",
+          "type" : "post",
+          "data" : {"":""},
+          "dataType" : "text",
+          "success" : function(rs) {
+
+
+
+
+          },
+          "errer" : function() {
+              alert("数据测试中...");
+          }
+      });
+*/
+
+
+
+
+    //立即购买
+    $(document).on('click', '.buy-btn', function (e) {
+        alert("sss");
+        e.preventDefault();
+        //res.buyNow();
+    });
+    $(document).on('click', '.base', function (e) {
+        alert("sss");
+        e.preventDefault();
+        //res.buyNow();
+    });
 
 </script>
 
