@@ -3,18 +3,24 @@ package com.tj.user.controller;
 
 
 
+import com.tj.product.HappysysCategory;
 import com.tj.service.HappysysProductClientService;
 import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
 import com.tj.user.shiro.MD5Pwd;
 import com.tj.user.util.HttpClientUtil;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,9 +44,9 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private HappysysUserClientService userClientService;
-
     @Autowired
     private HappysysProductClientService happysysProductClientService;
+
 
     @RequestMapping("/add/user")
     @ResponseBody
@@ -162,7 +168,8 @@ public class UserController {
 
     private String  userIndex(Model model){
         System.out.println("进入index主页。。。");
-        model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
+        List<HappysysCategory> categoryAll = happysysProductClientService.getCategoryAll();
+        model.addAttribute("categoryList",categoryAll);
         return "index";
     }
 

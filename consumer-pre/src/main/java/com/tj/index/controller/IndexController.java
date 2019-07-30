@@ -14,8 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import rx.observables.SyncOnSubscribe;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,25 +62,29 @@ public class IndexController {
 
 
     @RequestMapping("/productlist/{productLevel3}/{pageIndex}")
-    public String productList(@PathVariable(value="productLevel3") Integer productLevel3,Model model,@PathVariable(value="pageIndex") Integer pageIndex){
+    public ModelAndView productList(@PathVariable(value="productLevel3") Integer productLevel3,  @PathVariable(value="pageIndex") Integer pageIndex){
         System.out.println("nihao:"+productLevel3);
         if(pageIndex==0){
             pageIndex=1;
         }
+        ModelAndView model=new ModelAndView();
         Page<HappysysProduct> productList = happysysProductClientService.productList2(productLevel3,pageIndex);
-        model.addAttribute("productList",productList);
+        model.addObject("productLista",productList);
+        model.addObject("categoryList",happysysProductClientService.getCategoryAll());
+        model.addObject("productLevel3",productLevel3);
+        model.setViewName("product_list");
+        return model;
+    }
 
-            for (HappysysProduct hp:productList.getRecords()) {
-                System.out.println("hp:" + hp.getProductTitle());
-                for (HappysysFeature f : hp.getProductFeatureList()) {
-                    System.out.println("fL:" + f.getFeatureName());
-                }
-                for (HappysysInsurance i : hp.getProductInsuranceList()) {
-                    System.out.println("i:" + i.getInsuranceName());
-                }
-            }
-
-        System.out.println("page:"+productList.getPages()+":"+productList.getSize()+":"+productList.getTotal());
-        return "forward://product_list.html";
+    @RequestMapping("/ajax/productlist/{productLevel3}/{pageIndex}")
+    @ResponseBody
+    public String ajaxPage(@PathVariable(value="productLevel3") Integer productLevel3,  @PathVariable(value="pageIndex") Integer pageIndex){
+        if(pageIndex==0){
+            pageIndex=1;
+        }
+        Page<HappysysProduct> productList = happysysProductClientService.productList2(productLevel3,pageIndex);
+        String json=JSON.toJSONString(productList);
+        System.out.println("json2:"+json);
+        return json;
     }
 }
