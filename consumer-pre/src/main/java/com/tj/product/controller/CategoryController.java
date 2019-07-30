@@ -21,7 +21,7 @@ public class CategoryController {
  @RequestMapping("category/list")
  public String category(Model model){
 
-  model.addAttribute("categoryList",this.happysysProductClientService.getCategoryAll());
+  model.addAttribute("categoryList",this.happysysProductClientService.list());
 
   System.out.println("成功进入首页：Index");
   return "index";

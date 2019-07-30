@@ -20,6 +20,10 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CommonProblemService commonProblemService;
+
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -47,6 +51,8 @@ public class ProductController {
         Integer insuranceSumPrice = product.getProductInsuranceSumList().get(0).getInsuranceSumPrice();
         product.setProductPrice(product.getProductPrice()+deadlinePrice+insuranceSumPrice);
 
+        //根据ID查询常见问题
+        product.setProductCommonProblemList(commonProblemService.getCommonProblemByProductId(productId));
 
         return product;
     }
@@ -69,7 +75,6 @@ public class ProductController {
         IPage<HappysysProduct> productPage = productService.getByMap(condtions,currentPage,size);
 
         System.out.println(condtions);
-        //查询mongodb  ！！！！！！
 
         return productPage;
     }
