@@ -3,6 +3,7 @@ package com.tj.user.controller;
 
 
 
+import com.tj.product.HappysysCategory;
 import com.tj.service.HappysysProductClientService;
 import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
@@ -162,7 +163,8 @@ public class UserController {
 
     private String  userIndex(Model model){
         System.out.println("进入index主页。。。");
-        model.addAttribute("categoryList",happysysProductClientService.list());
+        List<HappysysCategory> categoryAll = happysysProductClientService.list();
+        model.addAttribute("categoryList",categoryAll);
         return "index";
     }
 
