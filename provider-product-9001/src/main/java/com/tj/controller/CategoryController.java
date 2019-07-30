@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tj.product.HappysysCategory;
 import com.tj.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ public class CategoryController {
 
  @RequestMapping( value = "/HappysysCategory/list",method = RequestMethod.GET)
  @ResponseBody
+ @Cacheable(value = "user",key = "1")
  public List<HappysysCategory> list() {
 
   System.out.println("----------------List------------------");
