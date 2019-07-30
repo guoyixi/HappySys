@@ -67,13 +67,29 @@
     </select>
 
     <select id="getInsurance" resultType="HappysysInsurance" >
-        SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details FROM happysys_product product
+        SELECT insurance.insurance_id,insurance_name,insurance_price,isum.`insurance_sum`,insurance_details FROM happysys_product product
         INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
         INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
+        INNER JOIN happysys_insurance_sum isum ON isum.`insurance_sum_id` = insurance.`insurance_sum`
         WHERE product_id = #{productId}
     </select>
 
+    <select id="getInsuranceSum" resultType="HappysysInsuranceSum" >
+        SELECT insurance_sum.`insurance_sum_id`,insurance_sum.`insurance_sum`,insurance_sum.`insurance_sum_price` FROM happysys_product product
+        INNER JOIN happysys_insurance_sum_list ilist ON product.`product_insurance_sum` =  ilist.`insurance_sum_list_id`
+        INNER JOIN happysys_insurance_sum_center icenter ON icenter.`insurance_sum_list_id` = ilist.`insurance_sum_list_id`
+        INNER JOIN happysys_insurance_sum insurance_sum ON  icenter.`insurance_sum_id` = insurance_sum.`insurance_sum_id`
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="getPayment" resultType="HappysysPayment" >
+        SELECT payment.`payment_id`,payment.`payment_time`,payment.`payment_category` FROM happysys_product product
+        INNER JOIN happysys_payment_list plist ON plist.`paymnet_list_id` = product.`product_payment`
+        INNER JOIN happysys_payment_center pcenter ON pcenter.`payment_list_id` = plist.`paymnet_list_id`
+        INNER JOIN happysys_payment payment ON payment.`payment_id` = pcenter.`payment_id`
+        WHERE product_id = #{productId}
+    </select>
 
 </mapper>
 

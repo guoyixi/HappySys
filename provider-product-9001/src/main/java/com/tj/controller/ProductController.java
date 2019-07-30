@@ -1,17 +1,16 @@
 package com.tj.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysProduct;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,8 +39,24 @@ public class ProductController {
         product.setProductFeatureList(productService.getFeature(productId));
         //根据ID查询保险
         product.setProductInsuranceList(productService.getInsurance(productId));
+        //根据ID查询保险保额
+        product.setProductInsuranceSumList(productService.getInsuranceSum(productId));
+
+
+        Integer deadlinePrice = product.getProductDeadlineList().get(0).getDeadlinePrice();
+        Integer insuranceSumPrice = product.getProductInsuranceSumList().get(0).getInsuranceSumPrice();
+        product.setProductPrice(product.getProductPrice()+deadlinePrice+insuranceSumPrice);
+
 
         return product;
+    }
+
+    public Double imputedPirce(){
+
+
+
+
+        return 0.0;
     }
 
     @RequestMapping(value = "/HappysysProduct/getByMap")
