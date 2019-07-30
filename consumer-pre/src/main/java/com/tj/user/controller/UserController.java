@@ -25,11 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -111,7 +109,7 @@ public class UserController {
                 //进入后台
                 return "houtai";
             }
-            model.addAttribute("categoryList",happysysProductClientService.list());
+            model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
             session.setAttribute("user",findbyname);
             //添加到在线用户集合
             lists.add(findbyname);
@@ -163,7 +161,7 @@ public class UserController {
 
     private String  userIndex(Model model){
         System.out.println("进入index主页。。。");
-        List<HappysysCategory> categoryAll = happysysProductClientService.list();
+        List<HappysysCategory> categoryAll = happysysProductClientService.getCategoryAll();
         model.addAttribute("categoryList",categoryAll);
         return "index";
     }
