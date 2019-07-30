@@ -60,7 +60,7 @@ public interface HappysysProductClientService {
     List<HappysysCategory> getCategoryById(@PathVariable("id") Integer categoryId);
 
     @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
-    List<HappysysCategory> getCategoryAll();
+    List<HappysysCategory> list();
 
     @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
     boolean addCategory(HappysysCategory happysysCategory);
