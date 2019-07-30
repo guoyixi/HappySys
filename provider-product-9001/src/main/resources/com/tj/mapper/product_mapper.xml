@@ -67,11 +67,10 @@
     </select>
 
     <select id="getInsurance" resultType="HappysysInsurance" >
-        SELECT insurance.insurance_id,insurance_name,insurance_price,isum.`insurance_sum`,insurance_details FROM happysys_product product
+        SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details FROM happysys_product product
         INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
         INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
-        INNER JOIN happysys_insurance_sum isum ON isum.`insurance_sum_id` = insurance.`insurance_sum`
         WHERE product_id = #{productId}
     </select>
 
