@@ -28,7 +28,7 @@ public class IndexController {
     @RequestMapping("/kuaixun")
     public String kuaixuan(Model model){
         System.out.println("进入Quickly");
-        model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
+        model.addAttribute("categoryList",happysysProductClientService.list());
         model.addAttribute("classifyList",happysysProductClientService.classifyList());
         //加载页面时显示产品和方案
         Map<String,Object> map=new HashMap<>();

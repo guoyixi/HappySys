@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysProduct;
+import com.tj.service.CommonProblemService;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -21,6 +22,10 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CommonProblemService commonProblemService;
+
     @Autowired
     private MongoTemplate mongoTemplate;
 
@@ -40,6 +45,8 @@ public class ProductController {
         product.setProductFeatureList(productService.getFeature(productId));
         //根据ID查询保险
         product.setProductInsuranceList(productService.getInsurance(productId));
+        //根据ID查询常见问题
+        product.setProductCommonProblemList(commonProblemService.getCommonProblemByProductId(productId));
 
         return product;
     }
@@ -54,7 +61,6 @@ public class ProductController {
         IPage<HappysysProduct> productPage = productService.getByMap(condtions,currentPage,size);
 
         System.out.println(condtions);
-        //查询mongodb  ！！！！！！
 
         return productPage;
     }

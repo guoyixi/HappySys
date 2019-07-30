@@ -28,6 +28,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, HappysysComme
         IPage page = new Page<>(currentPage,size);
 
         IPage<Map<String,Object>> resultPage = new Page<>();
+        resultPage = page;
         resultPage.setRecords(commentMapper.getCommentAndUserByProductId(productId,page));
         return resultPage;
     }

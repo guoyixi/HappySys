@@ -110,7 +110,7 @@ public class UserController {
                 //进入后台
                 return "houtai";
             }
-            model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
+            model.addAttribute("categoryList",happysysProductClientService.list());
             session.setAttribute("user",findbyname);
             //添加到在线用户集合
             lists.add(findbyname);
@@ -162,7 +162,7 @@ public class UserController {
 
     private String  userIndex(Model model){
         System.out.println("进入index主页。。。");
-        model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
+        model.addAttribute("categoryList",happysysProductClientService.list());
         return "index";
     }
 

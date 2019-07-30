@@ -82,5 +82,31 @@ public interface HappysysProductClientService {
     @RequestMapping(value = "/HappysysShoppingCart/delShoppingCartByShoppingCartId/{shoppingCartId}")
     boolean delShoppingCartByShoppingCartId(@PathVariable("shoppingCartId") Integer shoppingCartId);
 
+    /**
+     *                      根据productId和userId删除购物车
+     * @param productId
+     * @param userId
+     * @return
+     */
+    @RequestMapping(value = "/HappysysShoppingCart/delShoppingCartByProductIdAndUserId/{productId}/{userId}")
+    boolean delShoppingCartByProductIdAndUserId(@PathVariable("productId") Integer productId,@PathVariable("userId") Integer userId);
+
+
+    /**
+     *                      检测用户是否已经把此商品加入了购物车
+     * @param productId
+     * @param userId
+     * @return              返回是否成功
+     */
+    @RequestMapping("/HappysysShoppingCart/getShoppingCartByProductIdAndUserId/{productId}/{userId}")
+    HappysysShoppingCart getShoppingCartByProductIdAndUserId(@PathVariable("productId")Integer productId,@PathVariable("userId") Integer userId);
+
+    /**
+     *                          用户加入购物车（插入数据库）
+     * @param shoppingCart
+     * @return                  返回是否成功
+     */
+    @RequestMapping("/HappysysShoppingCart/addShoppingCart")
+    boolean addShoppingCart(HappysysShoppingCart shoppingCart);
 
 }

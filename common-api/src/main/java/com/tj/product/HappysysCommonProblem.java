@@ -20,8 +20,8 @@ public class HappysysCommonProblem implements Serializable {
 
     @TableId
     private Integer commonpId;
-    private Integer commonpProductId;
-    private String commonpTitle;
+    private Integer commonpProductId;      //商品id
+    private String commonpTitle;           //问题标题
     private String commonpAnswer;         //答复
 
 
