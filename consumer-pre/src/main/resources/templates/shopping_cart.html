@@ -4,31 +4,33 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="keywords" content="" />
-    <title>开心保 - 我的收藏</title>
+    <title>开心保 - 我的购物车</title>
     <link id="static-path" rel="dns-prefetch" href="https://mresource.kaixinbao.com/member/pc/r02/" />
     <link id="dynamic-path" rel="dns-prefetch" href="https://vipm.kaixinbao.com" />
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/common/mod_common.css">
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_collect.css">
     <link rel="shortcut icon" href="https://mresource.kaixinbao.com/member/pc/r02/images/common/favicon.ico"/>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
 </head>
-<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+
 <script type="text/javascript">
     /*删除购物车中的商品*/
     function delShoppingCartByShoppingCartId(shoppingCartId,currentObj) {
-        if(confirm("快没数据了，求求你别删了。确定要删除嘛")){
-            $.post("/HappysysShoppingCart/delShoppingCartByShoppingCartId/"+shoppingCartId,
-                function(result){
-                    if(result == true){
-                        alert("删除成功！");
-                        $(currentObj).parent().parent().remove();
-                    }else {
-                        alert("删除失败，请联系管理员！");
-                    }
+        alert(shoppingCartId);
+        $.post("/HappysysShoppingCart/delShoppingCartByShoppingCartId/"+shoppingCartId,
+
+            function(result){
+                if(result == true){
+                    alert("删除成功！");
+                    $(".product"+shoppingCartId).remove();
+                }else {
+                    alert("删除失败，请联系管理员！");
                 }
-            );
-        }
+            }
+        );
+
 
     };
 
@@ -678,7 +680,7 @@
             <dd><a href="http://www.kaixinbao.com/member/center/evaluateOrder.shtml">待评价<span>2</span></a></dd>
             <dt><i class="iconsnav iconnav2"></i>我的</dt>
             <dd><a href="http://www.kaixinbao.com/member/myPoints/init">我的积分</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/collection/init">我的收藏</a></dd>
+            <dd><a href="http://www.kaixinbao.com/member/collection/init">我的购物车</a></dd>
             <dd><a href="http://www.kaixinbao.com/member/record/init">我的足迹</a></dd>
             <dd><a href="http://www.kaixinbao.com/member/server/init">我的服务</a></dd>
             <dt><i class="iconsnav iconnav3"></i>账户管理</dt>
@@ -694,38 +696,22 @@
     <!-- 会员中心 内容区域 -->
     <div class="member-content">
         <div class="member-order-nav">
-            <h2 class="title"><span></span>我的收藏</h2>
+            <h2 class="title"><span></span>我的购物车</h2>
         </div>
-        <!-- 我的收藏列表 -->
+        <!-- 我的购物车列表 -->
         <div class="member-collect-con" id="collectPage">
             <div id="collect-box">
 
-                <dl th:each="product:${productPage.getRecords()}">
-                    <dt>
-                        <a href="http://www.kaixinbao.com/lvyou-baoxian/265820.shtml" target="_blank">
-                            <img src="http://resource.kaixinbao.com/r02/images/logo/max/2034.gif" th:src="@{'/images/product/'+${product.productImage}}" alt=""/>
-                        </a>
-                    </dt>
-                    <dd class="des">
-                        <a class="title" href="http://www.kaixinbao.com/lvyou-baoxian/265820.shtml" target="_blank" th:text="${product.productTitle}"></a>
-                    </dd>
-                    <dd class="active">
-                        <a href="http://www.kaixinbao.com/lvyou-baoxian/265820.shtml" target="_blank" class="gotoshop">立即购买</a>
-                        <a th:href="'javascript:delShoppingCartByShoppingCartId('+${product.productShoppingCartId}+',this);'" class="encollect" >取消收藏</a>
-                    </dd>
-                </dl>
+                <ul id="biuuu_city_list"></ul>
+
             </div>
 
             <!-- 分页组件 -->
-            <div class="pgbox">
-                <div class="m-box">
-                    <div  data-page="2"></div>
-                </div>
-            </div>
+            <div id="page_btn" align="center"></div>
             <!-- 分页组件 -->
 
         </div>
-        <!-- /我的收藏列表 -->
+        <!-- /我的购物车列表 -->
 
     </div>
     <!-- /会员中心 内容区域 -->
@@ -1091,6 +1077,52 @@
 
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.js"></script>
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.config.js"></script>
-<script type="text/javascript">require(['member/mod_collect']);</script>
+<script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" th:inline="javascript">
+    require(['member/mod_collect']);
+
+    //ajax 查询用户的所有购物车商品
+    $.get("/HappysysShoppingCart/getCurrentUserShoppingCartProduct",function (result) {
+
+        layui.use(['laypage', 'layer'], function(){
+            var laypage = layui.laypage
+                ,layer = layui.layer;
+
+            //自定义首页、尾页、上一页、下一页文本
+            laypage.render({
+                elem: 'page_btn'
+                ,first: '首页'
+                ,last: '尾页'
+                ,prev: '<em>上一页</em>'
+                ,next: '<em>下一页</em>'
+                ,theme: '#FFB800'
+                ,limit : 6
+                ,count: result.length
+                ,jump: function(obj){
+                    //模拟渲染
+                    document.getElementById('biuuu_city_list').innerHTML = function(){
+                        var arr = []
+                            ,thisData = result.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                        layui.each(thisData, function(index, item){
+                            //item:当前json对象
+                            arr.push('<dl class="product'+item.productShoppingCartId+'">'
+                                +'<dt><a href="/HappysysProduct/getById/'+item.productId+'" target="_blank">'
+                                +'<img src="/images/product/'+item.productImage+'" alt=""/></a></dt><dd class="des">'
+                                +'<a class="title" href="/HappysysProduct/getById/'+item.productId+'" target="_blank" >'+item.productTitle+'</a></dd>'
+                                +'<dd class="active">'
+                                +'<a href="/HappysysProduct/getById/'+item.productId+'" target="_blank" class="gotoshop">立即购买</a>'
+                                +'<a href="javascript:delShoppingCartByShoppingCartId('+item.productShoppingCartId+',this);" class="encollect" >取消加入购物车</a>'
+                            +'</dd>'
+                            +'</dl>');
+                        });
+                        return arr.join('');
+                    }();
+                }
+            });
+        });
+
+    },"json");
+
+</script>
 </body>
 </html>

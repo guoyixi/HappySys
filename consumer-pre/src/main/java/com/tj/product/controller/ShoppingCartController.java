@@ -1,5 +1,6 @@
 package com.tj.product.controller;
 
+import com.tj.product.HappysysProduct;
 import com.tj.product.HappysysShoppingCart;
 import com.tj.service.HappysysProductClientService;
 import com.tj.user.HappysysUser;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ShoppingCartController {
@@ -53,6 +57,28 @@ public class ShoppingCartController {
         Integer userId = ((HappysysUser)session.getAttribute("user")).getUserId();
 
         return happysysProductClientService.delShoppingCartByProductIdAndUserId(productId,userId);
+    }
+
+
+    @RequestMapping(value = "/HappysysShoppingCart/getCurrentUserShoppingCartProduct")
+    @ResponseBody
+    public List<HappysysProduct> getCurrentUserShoppingCartProduct(HttpSession session){
+        System.out.println("ShoppingCartController      loadShoppingCart：");
+        Integer userId = ((HappysysUser)session.getAttribute("user")).getUserId();
+
+        Map<String,Object> condtions = new HashMap<String,Object>();
+        condtions.put("shopping_cart_user_id",userId);
+        condtions.put("size",999);
+
+        return happysysProductClientService.getProductByMap(condtions).getRecords();
+    }
+
+
+    @RequestMapping(value = "/HappysysShoppingCart/loadShoppingCart")
+    public String loadShoppingCart(){
+        System.out.println("ShoppingCartController      loadShoppingCart");
+
+        return "shopping_cart";
     }
 
 

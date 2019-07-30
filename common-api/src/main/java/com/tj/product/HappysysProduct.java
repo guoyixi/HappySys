@@ -29,6 +29,7 @@ public class HappysysProduct implements Serializable {
     private Integer productSection;         //年龄区间ID
     private Integer productFeature;         //特色列表ID
     private Integer productInsurance;       //保障列表ID
+
     private Integer productInsuranceSum;    //保障保额列表ID
     private Integer productPayment;         //缴费期限列表ID
 

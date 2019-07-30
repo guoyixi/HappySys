@@ -10,8 +10,6 @@
         ,`product_section`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
 
 
-
-
                 <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
                         WHERE `product_id` = `shopping_cart_product_id`

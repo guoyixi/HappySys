@@ -29,7 +29,7 @@ public class ProductController {
     }
 
 
-    @RequestMapping("/HappysysProduct/loadProductDetailsById/{productId}")
+/*    @RequestMapping("/HappysysProduct/loadProductDetailsById/{productId}")
     public ModelAndView loadProductDetailsById(@PathVariable("productId") Integer productId){
         System.out.println("ProductController      loadProductDetailsById");
 
@@ -38,20 +38,7 @@ public class ProductController {
         mav.addObject("commentAndUserPage", commentAndUserPage);
         mav.setViewName("user_comment");
         return mav;
-    }
-
-
-    @RequestMapping(value = "/HappysysProduct/loadShoppingCart")
-    public ModelAndView loadShoppingCart(@RequestParam(required = false) Map<String,Object> condtions){
-        System.out.println("ProductController      loadShoppingCart：");
-        System.out.println(condtions);
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("productPage", happysysProductClientService.getProductByMap(condtions));
-        mav.setViewName("shopping_cart");
-
-        return mav;
-    }
+    }*/
 
 
 

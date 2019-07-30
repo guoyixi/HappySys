@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html >
+﻿<!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -54,15 +54,17 @@
                     <li class="active" data-att="bzxq">保障详情</li>
                     <li data-att="cjwt">常见问题</li>
                     <li data-att="lpfw">理赔服务</li>
-                    <li data-att="yhpj">用户评价（4）</li>
+                    <li data-att="yhpj" class="user_commont">用户评价（4）</li>
                 </ul>
                 <div class="fun-nav">
                     <div class="shop-buy-compared"
                          data-value={"img":"","money":"681.00","name":"昆仑健康保重大疾病保险（2.0版）","link":"http://www.kaixinbao.com/jiankang-baoxian/320065.shtml","trait":["覆盖185种疾病"],"typetext":"健康","id":"228001001","type":"D"}>
-                        <em class="i-shop i-jiaruduibi1"></em>
-                        加入对比
+                        <em class="i-shop i-jiaruduibi1"></em>加入对比
                     </div>
-                    <div class="store"><em class="i-shop i-shoucang-weidian"></em>收藏</div>
+                    <div class="store">
+                        <a href="javascript:addAndDelShoppingCart()" style="color: white">
+                                            <!--i-shoucang-weidian-->
+                        <em id="add_shopping_cart" class="i-shop i-shoucang-weidian"></em>加入购物车</a></div>
                     <div class="share">
                         <em class="i-shop i-fenxiang"></em>分享
                         <div class="share-box">
@@ -72,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;&nbsp;&nbsp;<i th:text="${product.getProductPrice()}"></i>元</span><span
+                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i>681.00</i>元</span><span
                         class="base">立即投保</span></div>
             </div>
         </div>
@@ -95,7 +97,7 @@
                 </div>
                 <div class="sales">
                     <span>好评率</span>
-                    <span class="num">100%</span>
+                    <span class="num commentSatisfaction">100%</span>
                 </div>
             </div>
             <ul class="description">
@@ -126,72 +128,53 @@
                                   th:class="'live'+${featureStat.count}" th:text="${feature.getFeatureName()}"></span>
                         </div>
 
+
                         <span class="insure-filter"><i class="i-shop i-jisuan">
 
                         </i>保障详情<i class="rs-edge" style="border-top-color:#fd8824"></i></span>
                         <ul class="filter-temp">
                             <li class="icon-arrow"></li>
-
-                            <li class="insuranceTotal" th:each="insurance:${product.getProductInsuranceList()}" th:value="${insurance.getInsuranceId()}" >
+                            <li th:each="insurance:${product.getProductInsuranceList()}">
                                 <span class="descript" th:text="${insurance.getInsuranceName()}"></span>
-                                <span class="money" th:value="${insurance.getInsuranceSum()}">不投保</span>
-                            </li>
-
-                        </ul>
+                                <span class="money" th:text="${insurance.getInsurancePrice()}"></span></li>
                     </div>
                     <ul class="appnt">
-
-                        <!--投保年龄 Section-->
                         <li>
                             <div class="item">投保年龄</div>
-                            <div data-id="BTsc0020000000024550_TextAge" class="text">
+                            <div data-id="BTsc0020000000024550_TextAge" class="text sel">
+    <!--                                <input type="text"
+                            readonly="readonly"
+                            value="2019-06-29"
+                            data-correct="0"
+                            placeholder="请选择日期"
+                            class="date-sel"
+                            data-min="1958-07-27"
+                            data-max="2019-06-29"
+                            unselectable="on"
+                            onfocus="this.blur()"
+                            data-value="0Y"
+                            lay-key="1"
+                            style="cursor: pointer;">
+                        <em class="i-shop i-rili"></em>--><!--class="selected"-->
                                 <span th:each="section:${product.getProductSectionList()}"
-                                      th:value="${section.getSectionPrice()}"
-                                      th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"
-                                      th:class="${sectionStat.count==1}?'selected'" ></span>
+                                      th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"></span>
                             </div>
                         </li>
-
-                        <!--保险期限 Deadline-->
                         <li>
                             <div class="item">保险期限</div>
-                            <div id="BTsc0020000000024552_Period" class="text">
+                            <div data-id="BTsc0020000000024552_Period" class="text">
                                 <span th:each="deadline:${product.getProductDeadlineList()}"
-                                      th:value="${deadline.getDeadlinePrice()}"
-                                      th:text="${deadline.getDeadlineTime()}"
-                                      th:class="${deadlineStat.count==1}?'selected'"></span>
-                            </div>
-                        </li>
-
-                        <!--缴费年限 Payment-->
-<!--                        <li>
-                            <div class="item">缴费年期</div>
-                            <div id="BTsc0020000000024553_FeeYear" class="text"><span>趸缴</span><span class="disable" th:each="payment:${product.getProductPaymentList()}"
-                                      th:text="${payment.getPaymentTime()}"></span>
-                            </div>
-                        </li>-->
-
-                        <!--基本保额 InsuranceSum-->
-                        <li>
-                            <div class="item">基本保额</div>
-                            <div id="BTsc0020000000024554_BaseAmnt" class="text">
-                                <span th:each="insuranceSum:${product.getProductInsuranceSumList()}" class=""
-                                      th:value="${insuranceSum.getInsuranceSumPrice()}"
-                                      th:text="${#strings.substring(insuranceSum.getInsuranceSum(),0,2)}+'万'"
-                                      th:class="${insuranceSumStat.count==1}?'selected'"></span>
+                                      th:text="${deadline.getDeadlineTime()}"></span>
                             </div>
                         </li>
 
 
-                        <!--保障详情 Insurance-->
-                        <li  class="insurance dline" th:style="${insuranceStat.index!=0}?'border:0px':''"
+                        <li class="dline" th:style="${insuranceStat.index!=0}?'border:0px':''"
                             th:each="insurance:${product.getProductInsuranceList()}">
-
                             <div class="item" th:text="${insurance.getInsuranceName()}"></div>
                             <div class="text dup" data-id="228001001004">
                                 <span class="selected" data-value="0">不投保</span>
-                                <span th:value="${insurance.getInsurancePrice()}"
-                                      th:text="${#strings.substring(insurance.getInsuranceSum(),0,2)}+'万'"></span>
+                                <span data-value="100000">投保</span>
                             </div>
                         </li>
 
@@ -199,7 +182,7 @@
                 </div>
             </div>
             <p class="bottom-money">
-                <span>保费:</span><span class="red">￥<i th:text="${product.getProductPrice()}">/i><b class="split-line"></b></span><span id="amnt-dom"
+                <span>保费:</span><span class="red">￥<i>681.00</i><b class="split-line"></b></span><span id="amnt-dom"
                                                                                                        style="display:none;">基本保额:</span><span
                     class="red" id="amnt-value" style="display:none;"><b class="split-line"></b></span>
 
@@ -256,13 +239,9 @@
                                     <span class="icon-wrap"><em class="i-shop i-xiazai1"></em></span>
                                 </a>
                             </li>
-
-
                             <li class="cashValue">
                                 <a>现金价值计算<span class="icon-wrap"><em class="i-shop i-xiazai1"></em></span></a>
                             </li>
-
-
                         </ul>
                         <div class="boxtable">
                             <table id="duty-list" width="100%" border="0">
@@ -278,18 +257,16 @@
                                     </td>
                                 </tr>
                                 <tr th:each="insurance:${product.getProductInsuranceList()}">
-                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b
-                                            th:text="${insurance.getInsuranceName()}"></b></span></td>
+                                    <td class="dutyCol1"><em class="xiangmu"></em><span><b th:text="${insurance.getInsuranceName()}"></b></span></td>
                                     <td class="dutyCol2" data-title="恶性肿瘤保险金" data-tip="">
                                         <div data-id="228001001006">
                                             <div class="rs-wrap">
                                                 <input type="text" value="不投保" data-value="0"
-                                                       class="elm-sel" placeholder="请选择"
-                                                       readonly="readonly" unselectable="on"
-                                                       onfocus="this.blur()"
-                                                       style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;">
-                                                <i class="rs-edge"
-                                                   style="border-top-color: rgb(253, 136, 36); display: none;"></i>
+                                                                        class="elm-sel" placeholder="请选择"
+                                                                        readonly="readonly" unselectable="on"
+                                                                        onfocus="this.blur()"
+                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;">
+                                                <i class="rs-edge"style="border-top-color: rgb(253, 136, 36); display: none;"></i>
                                                 <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
                                             </div>
                                         </div>
@@ -352,7 +329,6 @@
                     </div>
                     <p class="view-more"><span class="more-area"><span class="spread">展开全部</span><em
                             class="i-shop i-xiangxia"></em></span></p>
-
 
                     <!-- 条款信息 -->
                     <div class="area-cont notice-termlist">
@@ -417,6 +393,7 @@
                     </div>
                 </div>
             </div>
+
 
             <div class="detail-box lpfw">
                 <h2 class="de-tit">理赔服务</h2>
@@ -709,7 +686,6 @@
             res.changeComment($(this));
         });
 
-        // 投保须知
         $('.more-area').click(function () {
             $('.view-more em').toggleClass('i-xiangshang');
             $('.view-more em').toggleClass('i-xiangxia');
@@ -727,56 +703,6 @@
                 .toggle();
         });
 
-        // 所有标签项的点击时间
-        $("span").click(function(){
-            $(this).addClass("selected");
-            $(this).siblings().removeClass("selected");
-
-            var price =  $(this).attr("value");
-            alert(price);
-
-        });
-
-
-
-
-
-    });
-
-
-
-
-    /*  $.ajax({
-          "url" : "",
-          "type" : "post",
-          "data" : {"":""},
-          "dataType" : "text",
-          "success" : function(rs) {
-
-
-
-
-          },
-          "errer" : function() {
-              alert("数据测试中...");
-          }
-      });
-*/
-
-
-
-
-    //立即购买
-    $(document).on('click', '.buy-btn', function (e) {
-        alert("sss");
-        e.preventDefault();
-        //res.buyNow();
-    });
-    $(document).on('click', '.base', function (e) {
-        alert("sss");
-        e.preventDefault();
-        //res.buyNow();
-    });
     })
 
 </script>
