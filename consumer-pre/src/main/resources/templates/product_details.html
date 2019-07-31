@@ -134,7 +134,7 @@
 
                             <li class="insuranceTotal" th:each="insurance:${product.getProductInsuranceList()}" th:value="${insurance.getInsuranceId()}" >
                                 <span class="descript" th:text="${insurance.getInsuranceName()}"></span>
-                                <span class="money" th:value="${insurance.getInsuranceSum()}">不投保</span>
+                                <span class="money" th:value="${insurance.getInsurancePrice()}">不投保</span>
                             </li>
 
                         </ul>
@@ -190,8 +190,7 @@
                             <div class="item" th:text="${insurance.getInsuranceName()}"></div>
                             <div class="text dup" data-id="228001001004">
                                 <span class="selected" data-value="0">不投保</span>
-                                <span th:value="${insurance.getInsurancePrice()}"
-                                      th:text="${#strings.substring(insurance.getInsuranceSum(),0,2)}+'万'"></span>
+                                <span th:value="${insurance.getInsurancePrice()}"></span>
                             </div>
                         </li>
 
@@ -777,7 +776,6 @@
         e.preventDefault();
         //res.buyNow();
     });
-    })
 
 </script>
 
