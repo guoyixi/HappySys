@@ -19,7 +19,7 @@ public class HappysysDeadline {
 
  @TableId
  private Integer deadlineId;
- private String deadlineTime;
+ private Integer deadlineTime;
  private Integer deadlinePrice;
 
 }

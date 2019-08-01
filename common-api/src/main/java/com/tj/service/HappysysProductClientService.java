@@ -80,7 +80,7 @@ public interface HappysysProductClientService {
      * @return 用户选择不同标签计算后的价格
      */
     @RequestMapping(value = "/HappysysProduct/getCaluelatePrice",method = RequestMethod.POST)
-    public Double calculatePrice(@RequestParam("map") Map<String,Object> map);
+    public Double calculatePrice(@RequestParam Map<String,Object> map);
 
 
     /**
