@@ -4,10 +4,7 @@ package com.tj.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -54,23 +51,59 @@ public interface HappysysProductClientService {
     Page<HappysysProduct> getProductByMap(@RequestBody(required = false) Map<String,Object> condtions);
 
 
-
+    /**
+     *
+     * @param categoryId 分类ID
+     * @return 返回子集
+     */
     @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
     List<HappysysCategory> getCategoryById(@PathVariable("id") Integer categoryId);
 
+    /**
+     *
+     * @return 递归查询所有分类
+     */
     @RequestMapping(value = "/HappysysCategory/list",method = RequestMethod.GET)
     List<HappysysCategory> getCategoryAll();
 
+    /**
+     *
+     * @param happysysCategory 需要添加的对象
+     * @return 是否添加成功
+     */
     @RequestMapping(value = "/HappysysCategory/add",method = RequestMethod.POST)
     boolean addCategory(HappysysCategory happysysCategory);
 
+    /**
+     *-
+     * @param map 价格条件集合
+     * @return 用户选择不同标签计算后的价格
+     */
+    @RequestMapping(value = "/HappysysProduct/getCaluelatePrice",method = RequestMethod.POST)
+    public Double calculatePrice(@RequestParam("map") Map<String,Object> map);
 
+
+    /**
+     *
+     * @return 保险快选分类
+     */
     @RequestMapping("/classify/list")
     List<HappysysClassify> classifyList();
 
+    /**
+     *
+     * @param product_id
+     * @return 保险特色集合
+     */
     @RequestMapping(value = "/HappsysProduct/getFeature/{product_id}")
     List<HappysysFeature> productFeature(@PathVariable("product_id") Integer product_id);
 
+    /**
+     *
+     * @param productLevel3
+     * @param pageIndex
+     * @return 查询所有商品列表
+     */
     @RequestMapping("/product/list/{productLevel3}/{pageIndex}")
     Page<HappysysProduct> productList2(@PathVariable("productLevel3") Integer productLevel3,@PathVariable("pageIndex") Integer pageIndex);
     /**

@@ -5,14 +5,13 @@ import com.tj.user.HappysysUser;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebListener
+//@WebListener
 public class MyListener implements ServletContextListener,HttpSessionListener {
     //application只有一个
     private ServletContext application;

@@ -48,6 +48,7 @@ mybatis-plus:
     #配置java驼峰命名法和数据库下划线命名规则互转
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.log4j.Log4jImpl
+    cache-enabled: false
   global-config:
       db-config:
         id-type: auto

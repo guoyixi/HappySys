@@ -88,6 +88,28 @@
         WHERE product_id = #{productId}
     </select>
 
+    <select id="calculatePrice" resultType="Double">
+        SELECT SUM(s) s FROM
+        (
+         SELECT SUM(product_price) s FROM happysys_product
+         WHERE product_id = #{product_id}
+         UNION ALL
+         SELECT SUM(section_price) s FROM happysys_section
+         WHERE section_id = #{section_id}
+         UNION ALL
+         SELECT SUM(deadline_price) s FROM happysys_deadline
+         WHERE deadline_id = #{deadline_id}
+         UNION ALL
+         SELECT SUM(insurance_sum_price) s FROM happysys_insurance_sum
+         WHERE insurance_sum_id = #{insurance_sum_id}
+            <if test="insurances!=null and insurances!=''">
+             UNION ALL
+             SELECT SUM(insurance_price) s FROM happysys_insurance
+             WHERE insurance_id IN (${insurances})
+            </if>
+        ) AS total
+    </select>
+
 </mapper>
 
 

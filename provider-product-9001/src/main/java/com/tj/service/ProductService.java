@@ -19,6 +19,6 @@ public interface ProductService extends IService<HappysysProduct> {
     List<HappysysInsuranceSum> getInsuranceSum(Integer productId);
     List<HappysysPayment> getPayment(Integer productId);
 
-
+    Double calculatePrice(Map<String,Object> map);
 
 }
