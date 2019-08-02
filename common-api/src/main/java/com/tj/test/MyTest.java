@@ -1,11 +1,16 @@
 package com.tj.test;
 
+import org.apache.commons.lang.time.DateUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class MyTest {
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         String fileName = "asdfg.gif";
 
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -17,6 +22,7 @@ public class MyTest {
         }else {
             System.out.println("存在！！");
         }
-    }
+    }*/
+
 
 }

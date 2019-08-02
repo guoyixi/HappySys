@@ -19,7 +19,8 @@ public class HappysysDeadline {
 
  @TableId
  private Integer deadlineId;
- private String deadlineTime;
- private Integer deadlinePrice;
+ private Integer deadlineDays;         //真实天数
+ private String deadlineTime;          //显示的值
+ private Integer deadlinePrice;        //价格
 
 }

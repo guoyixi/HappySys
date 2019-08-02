@@ -20,8 +20,8 @@ import lombok.experimental.Accessors;
 public class HappysysInsuranceSum {
 
  @TableId
- private Integer insuranceSumId;
- private Integer insuranceSum;
- private Integer insuranceSumPrice;
+ private Integer insuranceSumId;          //
+ private Double insuranceSum;             //保额
+ private Double insuranceSumPrice;        //不同保额需要缴纳的费用
 
 }

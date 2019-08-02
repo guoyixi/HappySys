@@ -29,17 +29,5 @@ public class ProductController {
     }
 
 
-/*    @RequestMapping("/HappysysProduct/loadProductDetailsById/{productId}")
-    public ModelAndView loadProductDetailsById(@PathVariable("productId") Integer productId){
-        System.out.println("ProductController      loadProductDetailsById");
-
-        ModelAndView mav = new ModelAndView();
-        Page<Map<String,Object>> commentAndUserPage = happysysProductClientService.getCommentAndUserByProductId(productId,1,3);
-        mav.addObject("commentAndUserPage", commentAndUserPage);
-        mav.setViewName("user_comment");
-        return mav;
-    }*/
-
-
 
 }
