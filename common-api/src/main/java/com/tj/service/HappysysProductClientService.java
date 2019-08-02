@@ -172,5 +172,9 @@ public interface HappysysProductClientService {
 
 
 
+    @RequestMapping("/HappysysOrder/getInsuranceByOrderId/{orderId}")
+    List<HappysysInsurance> getInsuranceByOrderId(@PathVariable("orderId") Integer orderId);
+
+
 
 }

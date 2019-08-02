@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
-public class CommonProblemServiceImpl extends ServiceImpl<CommonProblemMapper, HappysysCommonProblem> implements CommonProblemService {
+public class CommonProblemServiceImpl extends ServiceImpl<CommonProblemMapper, HappysysCommonProblem> implements CommonProblemService{
 
     @Autowired
     private CommonProblemMapper commonProblemMapper;

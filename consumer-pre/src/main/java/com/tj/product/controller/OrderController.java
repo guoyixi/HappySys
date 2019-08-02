@@ -1,6 +1,7 @@
 package com.tj.product.controller;
 
 import com.tj.product.HappysysApplicantInfo;
+import com.tj.product.HappysysInsurance;
 import com.tj.service.HappysysProductClientService;
 import com.tj.user.HappysysUser;
 import com.tj.util.DateUtil;
@@ -54,6 +55,7 @@ public class OrderController {
     public ModelAndView loadOrderDetailsByOrderId(@PathVariable("orderId") Integer orderId){
         ModelAndView mav = new ModelAndView();
 
+        //获取订单
         Map<String,Object> orderDetails = happysysProductClientService.getOrderByOrderId(orderId);
 
         Integer applicantId = Integer.parseInt(orderDetails.get("order_applicant_id")+"");
@@ -66,19 +68,24 @@ public class OrderController {
         HappysysApplicantInfo recognizeeInfo = new HappysysApplicantInfo();
 
         if(applicantAndrecognizeeList != null){
-            for (HappysysApplicantInfo applicantAndrecognizee : applicantAndrecognizeeList) {
-                if(applicantId.equals(applicantAndrecognizee.getApplicantId()) ) {
-                    applicantInfo = applicantAndrecognizee;
-                }else {
-                    recognizeeInfo = applicantAndrecognizee;
+            if(applicantAndrecognizeeList.size() == 1){//如果size等于1那就代表投保人和被保人是同一个人
+                applicantInfo = applicantAndrecognizeeList.get(0);
+                recognizeeInfo = applicantAndrecognizeeList.get(0);
+            }else {
+                for (HappysysApplicantInfo applicantAndrecognizee : applicantAndrecognizeeList) {
+                    if(applicantId.equals(applicantAndrecognizee.getApplicantId()) ) {
+                        applicantInfo = applicantAndrecognizee;
+                    }else {
+                        recognizeeInfo = applicantAndrecognizee;
+                    }
                 }
             }
         }
 
         //根据 orderid获取所有的投保项
+        List<HappysysInsurance> insuranceList =  happysysProductClientService.getInsuranceByOrderId(orderId);
 
-
-
+        mav.addObject("insuranceList",insuranceList);
         mav.addObject("orderDetails",orderDetails);
         mav.addObject("applicantInfo",applicantInfo);
         mav.addObject("recognizeeInfo",recognizeeInfo);

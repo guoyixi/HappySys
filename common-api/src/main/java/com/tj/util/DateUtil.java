@@ -16,6 +16,20 @@ public class DateUtil {
         return ft.format(currentDate);
     }
 
+    /**
+     * @return          格式化日期
+     */
+    public static Date getFormatDate(String date, String pattern){
+        SimpleDateFormat ft = new SimpleDateFormat(pattern);
+        Date date1 = new Date();
+        try {
+            date1 = ft.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date1;
+    }
+
 
     /**
      * @return          获取两个时间相差天数

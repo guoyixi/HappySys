@@ -1135,7 +1135,7 @@ function reloadOrder(result) {
                                 +'<td>'+orderStatusvarVal+'</td>'
                                 +'<td class="order-list-action">'
                                 +'<a href="/HappysysProduct/getById/'+item.product_id+'" class="againpay">再次购买</a>'
-                                +'<a href="" class="seeorder">查看订单</a>'+isEvaluatedVal+''
+                                +'<a href="/HappysysOrder/loadOrderDetailsByOrderId/'+item.order_id+'" class="seeorder">查看订单</a>'+isEvaluatedVal+''
                                 +'</td></table></div>');
                     });
                     return arr.join('');
