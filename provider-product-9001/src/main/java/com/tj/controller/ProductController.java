@@ -45,10 +45,6 @@ public class ProductController {
         product.setProductInsuranceSumList(productService.getInsuranceSum(productId));
 
 
-        Integer deadlinePrice = product.getProductDeadlineList().get(0).getDeadlinePrice();
-        Integer insuranceSumPrice = product.getProductInsuranceSumList().get(0).getInsuranceSumPrice();
-        product.setProductPrice(product.getProductPrice()+deadlinePrice+insuranceSumPrice);
-
         //根据ID查询常见问题
         product.setProductCommonProblemList(commonProblemService.getCommonProblemByProductId(productId));
 
@@ -57,7 +53,7 @@ public class ProductController {
 
 
     @RequestMapping(value = "/HappysysProduct/getCaluelatePrice",method = RequestMethod.POST)
-    public Double caluelatePrice(@RequestParam Map<String,Object> map){
+    public Double caluelatePrice(@RequestBody Map<String,Object> map){
         return productService.calculatePrice(map);
     }
 
