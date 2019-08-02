@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i class="product_id">请选择</i>元</span><span
+                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i class="product_id"></i>元</span><span
                         class="base">立即投保</span></div>
             </div>
         </div>
@@ -90,11 +90,11 @@
             <div class="top-con">
                 <div class="sales bor">
                     <span>销量</span>
-                    <span class="num">5588</span>
+                    <span class="num"></span>
                 </div>
                 <div class="sales">
                     <span>好评率</span>
-                    <span class="num commentSatisfaction">100%</span>
+                    <span class="num commentSatisfaction"></span>
                 </div>
             </div>
             <ul class="description">
@@ -634,25 +634,6 @@
                         .toggleClass('rot');
                 });
 
-                /* 常见问题 */
-                $('.q-cont').on('mouseover', function () {
-                    $(this)
-                        .parent()
-                        .siblings()
-                        .find('.i-zhankai1')
-                        .removeClass('trans');
-                    $(this)
-                        .parent()
-                        .siblings()
-                        .find('.a-cont')
-                        .hide();
-                    $(this)
-                        .find('.i-zhankai1')
-                        .toggleClass('trans');
-                    $(this)
-                        .siblings('.a-cont')
-                        .slideDown(100);
-                });
 
                 $('.comment').delegate('.good', 'click', function () {
                     $(this).toggleClass('active');
@@ -713,24 +694,7 @@
                     //下述内容相当于判断price!=""、price!=null、price != undefined、price!=0
                     //if(price) {
                     //}
-                        $.ajax({
-                            "url": "/HappysysProduct/getCaluelatePrice",
-                            "type": "post",
-                            "data": JSON.stringify({"product_id":$("#product_id").attr("value"),
-                                "section_id":$("#section_id>.selected").attr("value"),
-                                "deadline_id":$("#deadline_id>.selected").attr("value"),
-                                "insurance_sum_id":$("#insurance_sum_id>.selected").attr("value"),
-                                "insurances":_list
-                            }),
-                            "contentType":"application/json",
-                            "dataType": "text",
-                            "success": function (rs) {
-                                $(".product_id").text(rs);
-                            },
-                            "errer": function () {
-                                alert("数据测试中...");
-                            }
-                        });
+                    calculatePrice(_list);
 
                 });
 
@@ -748,9 +712,56 @@
         //res.buyNow();
     });
 
+    $(document).on('mouseover', '.q-cont', function(){
+        $(this)
+            .parent()
+            .siblings()
+            .find('.i-zhankai1')
+            .removeClass('trans');
+        $(this)
+            .parent()
+            .siblings()
+            .find('.a-cont')
+            .hide();
+        $(this)
+            .find('.i-zhankai1')
+            .toggleClass('trans');
+        $(this)
+            .siblings('.a-cont')
+            .slideDown(100);
+    })
+
+
     function payment(){
 
     }
+
+    calculatePrice(null);
+
+    function calculatePrice(_list){
+        $.ajax({
+            "url": "/HappysysProduct/getCaluelatePrice",
+            "type": "post",
+            "data": JSON.stringify({"product_id":$("#product_id").attr("value"),
+                "section_id":$("#section_id>.selected").attr("value"),
+                "deadline_id":$("#deadline_id>.selected").attr("value"),
+                "insurance_sum_id":$("#insurance_sum_id>.selected").attr("value"),
+                "insurances":_list
+            }),
+            "contentType":"application/json",
+            "dataType": "text",
+            "success": function (rs) {
+                $(".product_id").text(rs);
+            },
+            "errer": function () {
+                alert("数据测试中...");
+            }
+        });
+    }
+
+
+
+
 
 
 </script>
