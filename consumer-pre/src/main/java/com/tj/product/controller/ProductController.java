@@ -28,6 +28,12 @@ public class ProductController {
         return "product_details";
     }
 
+    @RequestMapping(value = "/HappysysProduct/getCaluelatePrice",method = RequestMethod.POST)
+    @ResponseBody
+    public Double caluelatePrice(@RequestParam Map<String,Object> map){
+        return this.happysysProductClientService.calculatePrice(map);
+    }
+
 
 
 }

@@ -7,10 +7,7 @@ import com.tj.service.CommonProblemService;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,13 +55,12 @@ public class ProductController {
         return product;
     }
 
-    public Double imputedPirce(){
 
-
-
-
-        return 0.0;
+    @RequestMapping(value = "/HappysysProduct/getCaluelatePrice",method = RequestMethod.POST)
+    public Double caluelatePrice(@RequestParam Map<String,Object> map){
+        return productService.calculatePrice(map);
     }
+
 
     @RequestMapping(value = "/HappysysProduct/getByMap")
     public IPage<HappysysProduct> getByMap(@RequestBody(required = false) Map<String,Object> condtions){

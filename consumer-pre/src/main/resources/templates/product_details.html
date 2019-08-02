@@ -6,9 +6,6 @@
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     <title>[[${product.productTitle}]]-开心保保险网</title>
-<!--    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
     <link rel="stylesheet" th:href="@{/css/mod_cm_kxb.css}"/>
@@ -74,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i>681.00</i>元</span><span
+                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i class="product_id" th:text="${product.getProductPrice()}"></i>元</span><span
                         class="base">立即投保</span></div>
             </div>
         </div>
@@ -121,89 +118,81 @@
             <div class="linkage">
                 <div class="product-head-buy">
                     <div class="sign">
-
                         <!-- 产品特色 -->
                         <div class="flex-wrap">
                             <span th:each="feature:${product.getProductFeatureList()}"
                                   th:class="'live'+${featureStat.count}" th:text="${feature.getFeatureName()}"></span>
                         </div>
 
-
                         <span class="insure-filter"><i class="i-shop i-jisuan">
 
                         </i>保障详情<i class="rs-edge" style="border-top-color:#fd8824"></i></span>
                         <ul class="filter-temp">
                             <li class="icon-arrow"></li>
-                            <li th:each="insurance:${product.getProductInsuranceList()}">
+
+                            <li class="insuranceTotal" th:each="insurance:${product.getProductInsuranceList()}" th:value="${insurance.getInsuranceId()}" >
                                 <span class="descript" th:text="${insurance.getInsuranceName()}"></span>
-                                <span class="money" th:text="${insurance.getInsurancePrice()}"></span></li>
+                                <span class="money" th:value="${insurance.getInsurancePrice()}">不投保</span>
+                            </li>
+
+                        </ul>
                     </div>
-                    <ul class="appnt">
+                    <ul class="appnt" id="operation">
+
+                        <!--投保年龄 Section-->
                         <li>
                             <div class="item">投保年龄</div>
-                            <div data-id="BTsc0020000000024550_TextAge" class="text sel">
-    <!--                                <input type="text"
-                            readonly="readonly"
-                            value="2019-06-29"
-                            data-correct="0"
-                            placeholder="请选择日期"
-                            class="date-sel"
-                            data-min="1958-07-27"
-                            data-max="2019-06-29"
-                            unselectable="on"
-                            onfocus="this.blur()"
-                            data-value="0Y"
-                            lay-key="1"
-                            style="cursor: pointer;">
-                        <em class="i-shop i-rili"></em>--><!--class="selected"-->
+                            <div id="section_id" class="text">
                                 <span th:each="section:${product.getProductSectionList()}"
-                                      th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"></span>
+                                      th:value="${section.getSectionId()}"
+                                      th:text="${section.getSectionMin()}+'-'+${section.getSectionMax()}+'周岁'"
+                                      th:class="${sectionStat.count==1}?'selected'" ></span>
                             </div>
                         </li>
+
+                        <!--保险期限 Deadline-->
                         <li>
                             <div class="item">保险期限</div>
-                            <div data-id="BTsc0020000000024552_Period" class="text">
+                            <div id="deadline_id" class="text">
                                 <span th:each="deadline:${product.getProductDeadlineList()}"
-                                      th:text="${deadline.getDeadlineTime()}"></span>
+                                      th:value="${deadline.getDeadlineId()}"
+                                      th:text="${deadline.getDeadlineTime()}"
+                                      th:class="${deadlineStat.count==1}?'selected'"></span>
                             </div>
                         </li>
 
+                        <!--基本保额 InsuranceSum-->
+                        <li>
+                            <div class="item">基本保额</div>
+                            <div id="insurance_sum_id" class="text">
+                                <span th:each="insuranceSum:${product.getProductInsuranceSumList()}" class=""
+                                      th:value="${insuranceSum.getInsuranceSumId()}"
+                                      th:text="${#strings.substring(insuranceSum.getInsuranceSum(),0,2)}+'万'"
+                                      th:class="${insuranceSumStat.count==1}?'selected'"></span>
+                            </div>
+                        </li>
 
-                        <li class="dline" th:style="${insuranceStat.index!=0}?'border:0px':''"
-                            th:each="insurance:${product.getProductInsuranceList()}">
+                        <!--保障详情 Insurance-->
+                        <li  class="dline" th:style="${insuranceStat.index!=0}?'border:0px':''"
+                             th:each="insurance:${product.getProductInsuranceList()}">
+
                             <div class="item" th:text="${insurance.getInsuranceName()}"></div>
-                            <div class="text dup" data-id="228001001004">
+                            <div class="text insurance_id">
                                 <span class="selected" data-value="0">不投保</span>
-                                <span data-value="100000">投保</span>
+                                <span class="insurance" th:value="${insurance.getInsuranceId()}">投保</span>
                             </div>
                         </li>
 
                     </ul>
+
                 </div>
             </div>
             <p class="bottom-money">
-                <span>保费:</span><span class="red">￥<i>681.00</i><b class="split-line"></b></span><span id="amnt-dom"
+                <span>保费:</span><span class="red">￥<i id="product_id" class="product_id" th:value="${product.getProductId()}" th:text="${product.getProductPrice()}"></i><b class="split-line"></b></span><span id="amnt-dom"
                                                                                                        style="display:none;">基本保额:</span><span
                     class="red" id="amnt-value" style="display:none;"><b class="split-line"></b></span>
 
             </p>
-
-            <!--            <ul class="activity">
-                <li>
-                    <div class="act-btn act-8">搭配</div>
-                    <div class="text">
-                        <p>【定寿】购买大麦定寿，健告更宽松，身故或全残最高额外赔300万。 <a target="_blank"
-                                                               href="http://www.kaixinbao.com/renshou-baoxian/317385.shtml?banner_id=jkb2-dmds"><font
-                                color="red">马上配置</font></a><br> 【医疗】昆仑健康保2.0有效补充，5年住院报销最高400万（含自费药） <a target="_blank"
-                                                                                                       href="http://www.kaixinbao.com/jiankang-baoxian/312348.shtml?banner_id=jkb2-lxys"><font
-                                color="red">马上配置</font></a></p>
-                    </div>
-                </li>
-            </ul>-->
-
-            <!-- 活动信息 -->
-
-            <!-- 产品搭配 -->
 
             <p class="buy-btn">立即投保</p>
         </div>
@@ -463,247 +452,302 @@
 <script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" th:inline="javascript">
 
-    //ajax 查询user评价
-    $.get("/HappysysComment/getCommentAndUserByProductId/"+[[${product.productId}]],function (result) {
-        var commentAndUserListData = result.commentAndUser;
+            //ajax 查询user评价
+            $.get("/HappysysComment/getCommentAndUserByProductId/"+[[${product.productId}]],function (result) {
+                var commentAndUserListData = result.commentAndUser;
 
-        $(".commentSatisfaction").html(result.commentSatisfaction+"%");
-        $(".user_commont").html("用户评价（"+commentAndUserListData.length+"）");
+                $(".commentSatisfaction").html(result.commentSatisfaction+"%");
+                $(".user_commont").html("用户评价（"+commentAndUserListData.length+"）");
 
-        layui.use(['laypage', 'layer'], function(){
-            var laypage = layui.laypage
-                ,layer = layui.layer;
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage
+                        ,layer = layui.layer;
 
-            //自定义首页、尾页、上一页、下一页文本
-            laypage.render({
-                elem: 'page_btn'
-                ,first: '首页'
-                ,last: '尾页'
-                ,prev: '<em>上一页</em>'
-                ,next: '<em>下一页</em>'
-                ,theme: '#FFB800'
-                ,limit : 6
-                ,count: commentAndUserListData.length
-                ,jump: function(obj){
-                    //模拟渲染
-                    document.getElementById('biuuu_city_list').innerHTML = function(){
-                        var arr = []
-                            ,thisData = commentAndUserListData.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                        layui.each(thisData, function(index, item){
-                            //item:当前json对象
-                            arr.push('<div class="user-comment">'
-                                +'<div class="cont-show">'
-                                +'<p class="user">'
-                                +'<img src="/images/usericon/'+item.user_icon+'" alt="'+item.user_name+'" title="'+item.user_name+'" />'
-                                +'<span class="user-name">'+item.user_name+'</span>'
-                                +'<span class="i_k i_k0"></span>'
-                                +'</p>'
-                                +'<div class="tit">'
-                                +'<span class="star'+item.comment_grade+'"></span>'
-                                +'</div>'
-                                +'<div class="read">'+item.comment_content+'</div>'
-                                +'<div class="goal"><span>'+item.comment_time+'</span></div>'
-                                +'</div>'
-                                +'<div class="bottom-bor"></div>'
-                                +'</div>');
-                        });
-                        return arr.join('');
-                    }();
-                }
-            });
-        });
+                    //自定义首页、尾页、上一页、下一页文本
+                    laypage.render({
+                        elem: 'page_btn'
+                        ,first: '首页'
+                        ,last: '尾页'
+                        ,prev: '<em>上一页</em>'
+                        ,next: '<em>下一页</em>'
+                        ,theme: '#FFB800'
+                        ,limit : 6
+                        ,count: commentAndUserListData.length
+                        ,jump: function(obj){
+                            //模拟渲染
+                            document.getElementById('biuuu_city_list').innerHTML = function(){
+                                var arr = []
+                                    ,thisData = commentAndUserListData.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                                layui.each(thisData, function(index, item){
+                                    //item:当前json对象
+                                    arr.push('<div class="user-comment">'
+                                        +'<div class="cont-show">'
+                                        +'<p class="user">'
+                                        +'<img src="/images/usericon/'+item.user_icon+'" alt="'+item.user_name+'" title="'+item.user_name+'" />'
+                                        +'<span class="user-name">'+item.user_name+'</span>'
+                                        +'<span class="i_k i_k0"></span>'
+                                        +'</p>'
+                                        +'<div class="tit">'
+                                        +'<span class="star'+item.comment_grade+'"></span>'
+                                        +'</div>'
+                                        +'<div class="read">'+item.comment_content+'</div>'
+                                        +'<div class="goal"><span>'+item.comment_time+'</span></div>'
+                                        +'</div>'
+                                        +'<div class="bottom-bor"></div>'
+                                        +'</div>');
+                                });
+                                return arr.join('');
+                            }();
+                        }
+                    });
+                });
 
-    },"json");
+            },"json");
 
-    var addOrDel = 0;
-    //检测当前user是否已经收藏此商品
-    if([[${session.user}]] != null){
-        $.get("/HappysysShoppingCart/getShoppingCartByProductIdAndUserId/"+[[${product.productId}]],function (result) {
-            if ($.isEmptyObject(result) == false){
-                $("#add_shopping_cart").prop("class","i-shop i-shoucang-yidian");
-                addOrDel = 1;
-            }
-        },"json");
-    }
-
-
-    //加入和删除购物车
-    function addAndDelShoppingCart(){
-        if([[${session.user}]] != null){
-            if(addOrDel == 0){//加入
-                $.get("/HappysysShoppingCart/addShoppingCart",{productId:[[${product.productId}]]},function (result) {
-                    if (result == true){
+            var addOrDel = 0;
+            //检测当前user是否已经收藏此商品
+            if([[${session.user}]] != null){
+                $.get("/HappysysShoppingCart/getShoppingCartByProductIdAndUserId/"+[[${product.productId}]],function (result) {
+                    if ($.isEmptyObject(result) == false){
                         $("#add_shopping_cart").prop("class","i-shop i-shoucang-yidian");
                         addOrDel = 1;
                     }
                 },"json");
-            }else if(addOrDel == 1){//删除
-                $.get("/HappysysShoppingCart/delShoppingCartByProductIdAndUserId/"+[[${product.productId}]],function (result) {
-                    if (result == true){
-                        $("#add_shopping_cart").prop("class","i-shop i-shoucang-weidian");
-                        addOrDel = 0;
+            }
+
+
+            //加入和删除购物车
+            function addAndDelShoppingCart(){
+                if([[${session.user}]] != null){
+                    if(addOrDel == 0){//加入
+                        $.get("/HappysysShoppingCart/addShoppingCart",{productId:[[${product.productId}]]},function (result) {
+                            if (result == true){
+                                $("#add_shopping_cart").prop("class","i-shop i-shoucang-yidian");
+                                addOrDel = 1;
+                            }
+                        },"json");
+                    }else if(addOrDel == 1){//删除
+                        $.get("/HappysysShoppingCart/delShoppingCartByProductIdAndUserId/"+[[${product.productId}]],function (result) {
+                            if (result == true){
+                                $("#add_shopping_cart").prop("class","i-shop i-shoucang-weidian");
+                                addOrDel = 0;
+                            }
+                        },"json");
                     }
-                },"json");
-            }
-        }else {
-            alert("请先登录！");
-        }
+                }else {
+                    alert("请先登录！");
+                }
 
-    };
+            };
 
-    $(function () {
+            $(function () {
 
-        //导航滚动固定
-        var top = $('.top2').offset().top;
-        $(window).scroll(function () {
-            var winPos = $(window).scrollTop();
-            if (winPos > top) {
-                $('.fix-wraper').addClass('fix-top');
-            } else {
-                $('.fix-wraper').removeClass('fix-top');
-            }
-        });
+                //导航滚动固定
+                var top = $('.top2').offset().top;
+                $(window).scroll(function () {
+                    var winPos = $(window).scrollTop();
+                    if (winPos > top) {
+                        $('.fix-wraper').addClass('fix-top');
+                    } else {
+                        $('.fix-wraper').removeClass('fix-top');
+                    }
+                });
 
-        $('.tabbar').on('click', 'li', function () {
-            $(this)
-                .addClass('active')
-                .siblings()
-                .removeClass('active');
-            var flag = $(this).attr('data-att');
-            var sTop = 0;
+                $('.tabbar').on('click', 'li', function () {
+                    $(this)
+                        .addClass('active')
+                        .siblings()
+                        .removeClass('active');
+                    var flag = $(this).attr('data-att');
+                    var sTop = 0;
 
-            switch (flag) {
-                case 'yhpj':
-                    sTop = $('.comment').offset().top - 50;
-                    $('html,body').animate({scrollTop: sTop}, 0);
-                    break;
-                case 'cpjs':
-                    sTop = $('.cpxq').offset().top - 50;
-                    $('.pro-info').trigger('click');
-                    $('html,body').animate({scrollTop: sTop}, 0);
-                    break;
-                case 'bzxq':
-                    sTop = $('.tit-box').offset().top - 50;
-                    $('html,body').animate({scrollTop: sTop}, 0);
-                    break;
-                case 'cjwt':
-                    if (!$('.cjwt').offset()) {
+                    switch (flag) {
+                        case 'yhpj':
+                            sTop = $('.comment').offset().top - 50;
+                            $('html,body').animate({scrollTop: sTop}, 0);
+                            break;
+                        case 'cpjs':
+                            sTop = $('.cpxq').offset().top - 50;
+                            $('.pro-info').trigger('click');
+                            $('html,body').animate({scrollTop: sTop}, 0);
+                            break;
+                        case 'bzxq':
+                            sTop = $('.tit-box').offset().top - 50;
+                            $('html,body').animate({scrollTop: sTop}, 0);
+                            break;
+                        case 'cjwt':
+                            if (!$('.cjwt').offset()) {
+                                return;
+                            }
+                            sTop = $('.cjwt').offset().top - 50;
+                            $('html,body').animate({scrollTop: sTop}, 0);
+                            break;
+                        case 'lpfw':
+                            sTop = $('.lpfw').offset().top - 50;
+                            $('html,body').animate({scrollTop: sTop}, 0);
+                            break;
+                        default:
+                    }
+                    return false;
+                });
+
+                $(window).scroll(function () {
+                    var wst = $(document).scrollTop();
+
+                    if (wst >= $('.comment').offset().top - 100) {
+                        $('.tabbar li').removeClass('active');
+                        $('[data-att=yhpj]').addClass('active');
                         return;
                     }
-                    sTop = $('.cjwt').offset().top - 50;
-                    $('html,body').animate({scrollTop: sTop}, 0);
-                    break;
-                case 'lpfw':
-                    sTop = $('.lpfw').offset().top - 50;
-                    $('html,body').animate({scrollTop: sTop}, 0);
-                    break;
-                default:
-            }
-            return false;
-        });
+                    if (wst >= $('.lpfw').offset().top - 100) {
+                        $('.tabbar li').removeClass('active');
+                        $('[data-att=lpfw]').addClass('active');
+                        return;
+                    }
 
-        $(window).scroll(function () {
-            var wst = $(document).scrollTop();
+                    if ($('.cjwt').offset()) {
+                        if (wst >= $('.cjwt').offset().top - 100) {
+                            $('.tabbar li').removeClass('active');
+                            $('[data-att=cjwt]').addClass('active');
+                            return;
+                        }
+                    }
 
-            if (wst >= $('.comment').offset().top - 100) {
-                $('.tabbar li').removeClass('active');
-                $('[data-att=yhpj]').addClass('active');
-                return;
-            }
-            if (wst >= $('.lpfw').offset().top - 100) {
-                $('.tabbar li').removeClass('active');
-                $('[data-att=lpfw]').addClass('active');
-                return;
-            }
+                    if (wst >= $('.cpxq').offset().top - 100) {
+                        $('.tabbar li').removeClass('active');
+                        $('[data-att=cpjs]').addClass('active');
+                        return;
+                    }
+                    if (wst >= $('.tit-box').offset().top - 100) {
+                        $('.tabbar li').removeClass('active');
+                        $('[data-att=bzxq]').addClass('active');
+                        return;
+                    }
+                });
 
-            if ($('.cjwt').offset()) {
-                if (wst >= $('.cjwt').offset().top - 100) {
-                    $('.tabbar li').removeClass('active');
-                    $('[data-att=cjwt]').addClass('active');
-                    return;
-                }
-            }
+                //保障预览
+                $('.insure-filter').click(function () {
+                    $(this).toggleClass('active');
+                    $('.filter-temp').toggle();
+                    $(this)
+                        .find('.rs-edge')
+                        .toggleClass('rot');
+                });
 
-            if (wst >= $('.cpxq').offset().top - 100) {
-                $('.tabbar li').removeClass('active');
-                $('[data-att=cpjs]').addClass('active');
-                return;
-            }
-            if (wst >= $('.tit-box').offset().top - 100) {
-                $('.tabbar li').removeClass('active');
-                $('[data-att=bzxq]').addClass('active');
-                return;
-            }
-        });
+                /* 常见问题 */
+                $('.q-cont').on('mouseover', function () {
+                    $(this)
+                        .parent()
+                        .siblings()
+                        .find('.i-zhankai1')
+                        .removeClass('trans');
+                    $(this)
+                        .parent()
+                        .siblings()
+                        .find('.a-cont')
+                        .hide();
+                    $(this)
+                        .find('.i-zhankai1')
+                        .toggleClass('trans');
+                    $(this)
+                        .siblings('.a-cont')
+                        .slideDown(100);
+                });
+
+                $('.comment').delegate('.good', 'click', function () {
+                    $(this).toggleClass('active');
+                    var gflag = 'N';
+                    var gid = $(this).attr('data-commentid');
+                    if ($(this).is('.active')) {
+                        gflag = 'Y';
+                    }
+                    res.good(gid, gflag);
+                });
+
+                $('.head-commen li').click(function () {
+                    $(this)
+                        .addClass('active')
+                        .siblings()
+                        .removeClass('active');
+                    res.changeComment($(this));
+                });
+
+                $('.more-area').click(function () {
+                    $('.view-more em').toggleClass('i-xiangshang');
+                    $('.view-more em').toggleClass('i-xiangxia');
+                    if ($('.view-more em').is('.i-xiangshang')) {
+                        $(this)
+                            .find('.spread')
+                            .html('收起全部');
+                    } else {
+                        $(this)
+                            .find('.spread')
+                            .html('展开全部');
+                    }
+                    $('.notice-list li')
+                        .not('.static')
+                        .toggle();
+                });
+
+                function dynamicSelect(obj) {
+                    $(obj).addClass("selected");
+                    $(obj).siblings().removeClass("selected");
+                };
+
+                // 所有标签项的点击时间
+                $("#operation span").click(function(){
+
+                    dynamicSelect(this);
+
+                    var _list = new Array();
+                    var count = 0;
+
+                    $(".insurance").each(function(i,d) {
+                        if ($(d).attr("class") == "insurance selected") {
+                            _list[count] = $(d).attr("value");
+                            count++;
+                        }
+                    })
+
+                    //var price =  $(this).attr("value");
+                    //下述内容相当于判断price!=""、price!=null、price != undefined、price!=0
+                    //if(price) {
+                    //}
+                        $.ajax({
+                            "url": "/HappysysProduct/getCaluelatePrice",
+                            "type": "post",
+                            "data": {"product_id":$("#product_id").attr("value"),
+                                "section_id":$("#section_id>.selected").attr("value"),
+                                "deadline_id":$("#deadline_id>.selected").attr("value"),
+                                "insurance_sum_id":$("#insurance_sum_id>.selected").attr("value"),
+                                "insurances":_list.join()
+                            },
+                            "dataType": "text",
+                            "success": function (rs) {
+                                $(".product_id").text(rs);
+                            },
+                            "errer": function () {
+                                alert("数据测试中...");
+                            }
+                        });
+
+                });
+
+    });
 
 
-        //保障预览
-        $('.insure-filter').click(function () {
-            $(this).toggleClass('active');
-            $('.filter-temp').toggle();
-            $(this)
-                .find('.rs-edge')
-                .toggleClass('rot');
-        });
 
-
-        /* 常见问题 */
-
-        $('.q-cont').on('mouseover', function () {
-            $(this)
-                .parent()
-                .siblings()
-                .find('.i-zhankai1')
-                .removeClass('trans');
-            $(this)
-                .parent()
-                .siblings()
-                .find('.a-cont')
-                .hide();
-            $(this)
-                .find('.i-zhankai1')
-                .toggleClass('trans');
-            $(this)
-                .siblings('.a-cont')
-                .slideDown(100);
-        });
-
-        $('.comment').delegate('.good', 'click', function () {
-            $(this).toggleClass('active');
-            var gflag = 'N';
-            var gid = $(this).attr('data-commentid');
-            if ($(this).is('.active')) {
-                gflag = 'Y';
-            }
-            res.good(gid, gflag);
-        });
-
-        $('.head-commen li').click(function () {
-            $(this)
-                .addClass('active')
-                .siblings()
-                .removeClass('active');
-            res.changeComment($(this));
-        });
-
-        $('.more-area').click(function () {
-            $('.view-more em').toggleClass('i-xiangshang');
-            $('.view-more em').toggleClass('i-xiangxia');
-            if ($('.view-more em').is('.i-xiangshang')) {
-                $(this)
-                    .find('.spread')
-                    .html('收起全部');
-            } else {
-                $(this)
-                    .find('.spread')
-                    .html('展开全部');
-            }
-            $('.notice-list li')
-                .not('.static')
-                .toggle();
-        });
-
-    })
+    //立即购买
+    $(document).on('click', '.buy-btn', function (e) {
+        alert("sss");
+        e.preventDefault();
+        //res.buyNow();
+    });
+    $(document).on('click', '.base', function (e) {
+        alert("sss");
+        e.preventDefault();
+        //res.buyNow();
+    });
 
 </script>
 

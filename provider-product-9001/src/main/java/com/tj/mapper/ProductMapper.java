@@ -18,4 +18,9 @@ public interface ProductMapper extends BaseMapper<HappysysProduct> {
     List<HappysysInsurance> getInsurance(Integer productId);
     List<HappysysInsuranceSum> getInsuranceSum(Integer productId);
     List<HappysysPayment> getPayment(Integer productId);
+
+    Double calculatePrice(Map<String,Object> map);
+
+
+
 }
