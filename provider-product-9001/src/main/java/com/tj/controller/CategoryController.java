@@ -1,5 +1,6 @@
 package com.tj.controller;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tj.product.HappysysCategory;
 import com.tj.service.CategoryService;
@@ -8,7 +9,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CategoryController {
@@ -16,9 +19,9 @@ public class CategoryController {
  @Autowired
  private CategoryService categoryService;
 
- @RequestMapping( value = "/HappysysCategory/list",method = RequestMethod.GET)
+ @RequestMapping(value = "/HappysysCategory/list", method = RequestMethod.GET)
  @ResponseBody
- @Cacheable(value = "user",key = "1")
+ @Cacheable(value = "user", key = "1")
  public List<HappysysCategory> list() {
 
   System.out.println("----------------List------------------");
@@ -26,16 +29,6 @@ public class CategoryController {
   return categoryService.findCategoryAndChild(0);
 
  }
-
-
-
-
-
-
-
-
-
-
 
 
  @RequestMapping(value = "/HappysysCategory/get/{id}",method = RequestMethod.GET)
@@ -53,6 +46,19 @@ public class CategoryController {
   System.out.println("参数："+happysysCategory);
 
   return categoryService.save(happysysCategory);
+ }
+
+ @RequestMapping(value = "/category/yi/er/{productLevel3}")
+ @ResponseBody
+ public HashMap<String,Object> categoryOne(@PathVariable("productLevel3") Integer productLevel3){
+     System.out.println("productLevel3："+productLevel3);
+     HappysysCategory category_id = categoryService.getOne(new QueryWrapper<HappysysCategory>().eq("category_id", productLevel3));
+     HappysysCategory category_id1 = categoryService.getOne(new QueryWrapper<HappysysCategory>().eq("category_id", category_id.getCategoryParentId()));
+     HappysysCategory category_id2 = categoryService.getOne(new QueryWrapper<HappysysCategory>().eq("category_id", category_id1.getCategoryParentId()));
+     HashMap<String,Object> map=new HashMap<>();
+     map.put("sanName",category_id.getCategoryName());
+     map.put("yiName",category_id2.getCategoryName());
+     return map;
  }
 
 }

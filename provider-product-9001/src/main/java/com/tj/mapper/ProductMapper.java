@@ -23,4 +23,24 @@ public interface ProductMapper extends BaseMapper<HappysysProduct> {
 
 
 
+    /**
+     * 评论数
+     * @param productId
+     * @return
+     */
+    Integer commentCount(Integer productId);
+
+    /**
+     * 订单数
+     * @param productId
+     * @return
+     */
+    Integer OrderCount(Integer productId);
+
+    /**
+     * 查询多个商品的保障去重复值
+     * @param map
+     * @return
+     */
+    List<HappysysInsurance> insuranceAll(@Param("conditions") Map<Object,String> map);
 }
