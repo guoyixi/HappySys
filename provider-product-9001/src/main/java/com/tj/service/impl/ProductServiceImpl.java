@@ -22,6 +22,21 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
     private ProductMapper productMapper;
 
     @Override
+    public Integer commentCount(Integer productId) {
+        return productMapper.commentCount(productId);
+    }
+
+    @Override
+    public List<HappysysInsurance> insuranceAll(Map<Object, String> map) {
+        return productMapper.insuranceAll(map);
+    }
+
+    @Override
+    public Integer OrderCount(Integer productId) {
+        return productMapper.OrderCount(productId);
+    }
+
+    @Override
     public IPage<HappysysProduct> getByMap(Map<String,Object> conditons, Integer currentPage, Integer size){
         IPage page = new Page<>(currentPage,size);
 

@@ -10,6 +10,8 @@
         ,`product_section`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
 
 
+
+
                 <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
                         WHERE `product_id` = `shopping_cart_product_id`
@@ -71,7 +73,43 @@
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
         WHERE product_id = #{productId}
     </select>
+    <select id="commentCount" resultType="Integer">
+         SELECT COUNT(comment_content) FROM happysys_comment c
+        INNER JOIN happysys_product p ON p.product_id=c.comment_product_id
+        WHERE p.product_id=#{productId}
+    </select>
 
+    <select id="OrderCount" resultType="Integer">
+         SELECT COUNT(order_number) FROM happysys_order o
+         INNER JOIN happysys_product p ON o.order_product_id=p.product_id
+         WHERE p.product_id=#{productId}
+    </select>
+    <select id="insuranceAll" resultType="HappysysInsurance">
+        SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details,product.product_id FROM happysys_product product
+        INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
+        INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
+        INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
+        WHERE product_id =#{conditions.productId0}
+        UNION SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details,product.product_id FROM happysys_product product
+        INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
+        INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
+        INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
+        WHERE product_id =#{conditions.productId1}
+        <if test="conditions.productId2 != null and conditions.productId2 != ''">
+            UNION SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details,product.product_id FROM happysys_product product
+            INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
+            INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
+            INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
+            WHERE product_id =#{conditions.productId2}
+        </if>
+        <if test="conditions.productId3 != null and conditions.productId3 != ''">
+            UNION SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details,product.product_id FROM happysys_product product
+            INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
+            INNER JOIN happysys_insurance_center icenter ON icenter.`insurance_list_id` = ilist.`insurance_list_id`
+            INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
+            WHERE product_id =#{conditions.productId3}
+        </if>
+    </select>
     <select id="getInsuranceSum" resultType="HappysysInsuranceSum" >
         SELECT insurance_sum.`insurance_sum_id`,insurance_sum.`insurance_sum`,insurance_sum.`insurance_sum_price` FROM happysys_product product
         INNER JOIN happysys_insurance_sum_list ilist ON product.`product_insurance_sum` =  ilist.`insurance_sum_list_id`

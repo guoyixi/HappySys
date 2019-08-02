@@ -14,10 +14,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class HappysysInsurance {
 
+
     @TableId
     private Integer insuranceId;
-    private String insuranceName;
-    private Double insurancePrice;
-    private String insuranceDetails;
+    private String insuranceName;                   //保险名
+    private Double insurancePrice;                  //保险价格
+    private Double insuranceCompensatePrice;        //保险赔偿价格
+    private String insuranceDetails;                //保险详情
 
 }

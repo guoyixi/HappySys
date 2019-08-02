@@ -16,10 +16,8 @@
         $(function () {
 
             $("#account").blur(function () {
-
                 var value2=$("#account").val();
                 if(value2.length==0){
-
                     $("#te01").after('<div class="error" onclick="dianji2(this)" style="width: 298px; height: 40px; line-height: 39px; left: 1px;"><em class="iconfont i-th"></em><strong>账号不能为空</strong></div>');
                 }else if(value2.length<11 || value2.length>11){
                     $("#te01").after('<div class="error" onclick="dianji2(this)" style="width: 298px; height: 40px; line-height: 39px; left: 1px;"><em class="iconfont i-th"></em><strong>输入账号格式不正确</strong></div>');
@@ -31,11 +29,9 @@
                    $("#te02").after('<div class="error" onclick="dianji2(this)" style="width: 298px; height: 40px; line-height: 39px; left: 1px;"><em class="iconfont i-th"></em><strong>密码不能为空</strong></div>');
                }
             })
-
         })
 
         function queding(){
-
             $("#layui-layer7").hide();
         }
 
@@ -198,7 +194,9 @@
         <div class="pd-content" style="padding-top: 10px; min-height: 38px;">[[${mess}]]</div>
     </div><span class="layui-layer-setwin"><a class="layui-layer-close layui-layer-close1" href="javascript:;">
 
-</a></span><div class="layui-layer-btn"><a class="layui-layer-btn0" onclick="queding()" style="background-color: rgb(253, 136, 36);">确定</a></div><span class="layui-layer-resize"></span></div>
+</a></span><div class="layui-layer-btn"><a class="layui-layer-btn0" onclick="queding()" style="background-color: rgb(253, 136, 36);">确定</a></div><span class="layui-layer-resize"></span>
+</div>
+
 </body>
 
 <script>

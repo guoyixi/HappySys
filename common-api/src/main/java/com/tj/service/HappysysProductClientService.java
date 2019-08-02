@@ -141,4 +141,36 @@ public interface HappysysProductClientService {
     @RequestMapping("/HappysysShoppingCart/addShoppingCart")
     boolean addShoppingCart(HappysysShoppingCart shoppingCart);
 
+    /**
+     * @param userId
+     * @return              返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
+     */
+    @RequestMapping("/HappysysOrder/getAllOrderStatusNumByUserId/{userId}")
+    Map<String,Object> getAllOrderStatusNumByUserId(@PathVariable("userId") Integer userId);
+
+    /**
+     * @return              根据userId查询所有订单list
+     */
+    @RequestMapping("/HappysysOrder/getOrderByMap")
+    List<Map<String,Object>> getOrderByMap(@RequestParam Map<String,Object> conditions);
+
+
+    /**
+     * @param orderId
+     * @return              根据orderId查询order详情
+     */
+    @RequestMapping("/HappysysOrder/getOrderByOrderId/{orderId}")
+    Map<String,Object> getOrderByOrderId(@PathVariable("orderId") Integer orderId);
+
+
+    /**
+     * @param applicantIds
+     * @return                  根据applicantId 列表查询list
+     */
+    @RequestMapping("/HappysysApplicantInfo/getApplicantByIds")
+    List<HappysysApplicantInfo> getApplicantByIds(List<Integer> applicantIds);
+
+
+
+
 }

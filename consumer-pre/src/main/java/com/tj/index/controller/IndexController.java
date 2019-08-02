@@ -1,10 +1,12 @@
 package com.tj.index.controller;
 
-
+import com.tj.product.*;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tj.product.HappysysInsurance;
 import com.tj.product.HappysysProduct;
 import com.tj.service.HappysysProductClientService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,7 +68,13 @@ public class IndexController {
         model.addObject("productLista",productList);
         model.addObject("categoryList",happysysProductClientService.getCategoryAll());
         model.addObject("productLevel3",productLevel3);
+        Map<String, Object> stringObjectMap = happysysProductClientService.categoryOneTow(productLevel3);
+        model.addObject("sanName",stringObjectMap.get("sanName"));
+        model.addObject("yiName",stringObjectMap.get("yiName"));
         model.setViewName("product_list");
+        for (HappysysProduct p:productList.getRecords()){
+            System.out.println("p:"+p.getProductPrice());
+        }
         return model;
     }
 
@@ -80,5 +88,42 @@ public class IndexController {
         String json=JSON.toJSONString(productList);
         System.out.println("json2:"+json);
         return json;
+    }
+    @RequestMapping("productDuibi/{productId}")
+    @ResponseBody
+    public ModelAndView productDuibi(@PathVariable(value = "productId") String productId){
+        System.out.println("productId;/。。。。。。。。。。。。。。。。"+productId);
+      //  productId="2,5,3";
+        String[] productIds= productId.split(",");
+        Map<Object,String> map=new HashMap<>();
+        for(int i=0;i<productIds.length;i++){
+            System.out.println("productId"+i+"\t"+productIds[i]);
+            map.put("productId"+i,productIds[i]);
+        }
+
+        ModelAndView model=new ModelAndView();
+        model.addObject("productdui",happysysProductClientService.productDuibi(productId));
+        model.addObject("categoryList",happysysProductClientService.getCategoryAll());
+        List<HappysysInsurance> happysysInsurances = happysysProductClientService.insuranceAll(map);
+        model.addObject("insuranceduibi",happysysInsurances);
+        model.setViewName("productDuibi");
+        return model;
+    }
+
+    @RequestMapping("productbyIds")
+    @ResponseBody
+    public String productbyIds(String title){
+        String data="";
+        String[] ti = title.split(",");
+        for (int i=0;i<ti.length;i++){
+            System.out.println("ti:"+ti[i]);
+            if(ti[i] !=null && !"".equals(ti[i])){
+                String s = happysysProductClientService.productbyidTitle(ti[i]);
+                System.out.println("s:"+s);
+                data+=","+s;
+            }
+
+        }
+        return data;
     }
 }
