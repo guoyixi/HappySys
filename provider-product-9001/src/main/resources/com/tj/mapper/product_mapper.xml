@@ -73,6 +73,7 @@
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
         WHERE product_id = #{productId}
     </select>
+
     <select id="commentCount" resultType="Integer">
          SELECT COUNT(comment_content) FROM happysys_comment c
         INNER JOIN happysys_product p ON p.product_id=c.comment_product_id
@@ -84,6 +85,7 @@
          INNER JOIN happysys_product p ON o.order_product_id=p.product_id
          WHERE p.product_id=#{productId}
     </select>
+
     <select id="insuranceAll" resultType="HappysysInsurance">
         SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details,product.product_id FROM happysys_product product
         INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id

@@ -2,14 +2,11 @@ package com.tj.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.tj.product.HappysysDeadline;
 import com.tj.product.HappysysFeature;
 import com.tj.product.HappysysInsurance;
 import com.tj.product.HappysysProduct;
 import com.tj.service.CommonProblemService;
 import com.tj.service.ProductService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -49,14 +46,10 @@ public class ProductController {
         product.setProductInsuranceList(productService.getInsurance(productId));
         //根据ID查询保险保额
         product.setProductInsuranceSumList(productService.getInsuranceSum(productId));
-
-
-        Double deadlinePrice = product.getProductDeadlineList().get(0).getDeadlinePrice();
-        Double insuranceSumPrice = product.getProductInsuranceSumList().get(0).getInsuranceSumPrice();
-        product.setProductPrice(product.getProductPrice()+deadlinePrice+insuranceSumPrice);
-
-        //根据ID查询常见问题
+/*        //根据ID查询常见问题
         product.setProductCommonProblemList(commonProblemService.getCommonProblemByProductId(productId));
+        //根据ID查询销量
+        product.setOrderCount(productService.OrderCount(product.getProductId()));*/
 
         return product;
     }
