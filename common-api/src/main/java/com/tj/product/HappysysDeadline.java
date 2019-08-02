@@ -21,6 +21,6 @@ public class HappysysDeadline {
  private Integer deadlineId;
  private Integer deadlineDays;         //真实天数
  private String deadlineTime;          //显示的值
- private Integer deadlinePrice;        //价格
+ private Double deadlinePrice;        //价格
 
 }

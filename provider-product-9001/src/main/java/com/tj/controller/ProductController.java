@@ -45,8 +45,8 @@ public class ProductController {
         product.setProductInsuranceSumList(productService.getInsuranceSum(productId));
 
 
-        Integer deadlinePrice = product.getProductDeadlineList().get(0).getDeadlinePrice();
-        Integer insuranceSumPrice = product.getProductInsuranceSumList().get(0).getInsuranceSumPrice();
+        Double deadlinePrice = product.getProductDeadlineList().get(0).getDeadlinePrice();
+        Double insuranceSumPrice = product.getProductInsuranceSumList().get(0).getInsuranceSumPrice();
         product.setProductPrice(product.getProductPrice()+deadlinePrice+insuranceSumPrice);
 
         //根据ID查询常见问题
