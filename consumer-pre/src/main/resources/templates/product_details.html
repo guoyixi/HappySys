@@ -71,7 +71,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i class="product_id" th:text="${product.getProductPrice()}"></i>元</span><span
+                <div class="fun-nav-fix"><span>保费:</span><span class="red">&nbsp;<i class="product_id">请选择</i>元</span><span
                         class="base">立即投保</span></div>
             </div>
         </div>
@@ -188,7 +188,7 @@
                 </div>
             </div>
             <p class="bottom-money">
-                <span>保费:</span><span class="red">￥<i id="product_id" class="product_id" th:value="${product.getProductId()}" th:text="${product.getProductPrice()}"></i><b class="split-line"></b></span><span id="amnt-dom"
+                <span>保费:</span><span class="red">￥<i id="product_id" class="product_id" th:value="${product.getProductId()}">请选择</i><b class="split-line"></b></span><span id="amnt-dom"
                                                                                                        style="display:none;">基本保额:</span><span
                     class="red" id="amnt-value" style="display:none;"><b class="split-line"></b></span>
 
@@ -716,12 +716,13 @@
                         $.ajax({
                             "url": "/HappysysProduct/getCaluelatePrice",
                             "type": "post",
-                            "data": {"product_id":$("#product_id").attr("value"),
+                            "data": JSON.stringify({"product_id":$("#product_id").attr("value"),
                                 "section_id":$("#section_id>.selected").attr("value"),
                                 "deadline_id":$("#deadline_id>.selected").attr("value"),
                                 "insurance_sum_id":$("#insurance_sum_id>.selected").attr("value"),
-                                "insurances":_list.join()
-                            },
+                                "insurances":_list
+                            }),
+                            "contentType":"application/json",
                             "dataType": "text",
                             "success": function (rs) {
                                 $(".product_id").text(rs);
@@ -736,18 +737,21 @@
     });
 
 
-
     //立即购买
     $(document).on('click', '.buy-btn', function (e) {
-        alert("sss");
         e.preventDefault();
+        location.href="/HappysysPayment/payment1";
         //res.buyNow();
     });
     $(document).on('click', '.base', function (e) {
-        alert("sss");
         e.preventDefault();
         //res.buyNow();
     });
+
+    function payment(){
+
+    }
+
 
 </script>
 

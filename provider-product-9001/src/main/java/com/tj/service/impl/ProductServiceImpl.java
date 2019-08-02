@@ -9,6 +9,7 @@ import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,21 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Override
+    public Integer commentCount(Integer productId) {
+        return productMapper.commentCount(productId);
+    }
+
+    @Override
+    public List<HappysysInsurance> insuranceAll(Map<Object, String> map) {
+        return productMapper.insuranceAll(map);
+    }
+
+    @Override
+    public Integer OrderCount(Integer productId) {
+        return productMapper.OrderCount(productId);
+    }
 
     @Override
     public IPage<HappysysProduct> getByMap(Map<String,Object> conditons, Integer currentPage, Integer size){
@@ -57,9 +73,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
     }
     @Override
     public Double calculatePrice(Map<String, Object> map) {
-
-        System.out.println(map.get("insurances"));
-
         return productMapper.calculatePrice(map);
     }
 

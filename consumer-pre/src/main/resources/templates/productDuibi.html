@@ -1,80 +1,386 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <script type="text/javascript" src="/js/mobile.js"></script>
-    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            //头部显示用户信息
-            var happyuser=$("#aab").text();
-
-            if(happyuser.length>0){
-                $("#NotLogin").css("display","none");
-                $("#YesLogin").css("display","block");
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>产品对比页面</title>
+    <meta name="Author" content="SINOSOFT Team" />
+    <meta name="Copyright" content="SINOSOFT" />
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="http://resource.kaixinbao.com/style/redesign/re_header.css"/>
+    <link rel="stylesheet" type="text/css" href="http://resource.kaixinbao.com/style/new_logo.css"/>
+    <link rel="stylesheet" type="text/css" href="http://resource.kaixinbao.com/style/redesign/re_detail.css" />
+    <style th:inline="css">
+            .bj_4 {
+                width: 1078/[[${productdui.size()}]];
             }
-        })
-        function tijiaoduibi(){
-            var count=0;
-            for(var j=0;j < $(".comparedetail").size();j++){
-                if($(".comparedetail:eq("+j+")").css("display") == "block"){
-                    count++;
+    </style>
+    <script type="text/javascript" src="http://resource.kaixinbao.com/js/jquery-1.4.2.min.js"></script>
+    <script>
+
+        window.onload = function(){
+            var selectTag = document.getElementById("CompareProduct").getElementsByTagName("select");
+            for ( var i = 0; i < selectTag.length; i++) {
+                if(selectTag[i].getAttribute("id").indexOf("SELECT_Plan") != -1){
+                    var st = selectTag[i].getAttribute("id") ;
+                    var factorValue = selectTag[i].options[selectTag[i].selectedIndex].value;
+                    var productCode = st.replace("SELECT_Plan_","");
+                    var spanTag = document.getElementById("CompareProduct").getElementsByTagName("span");
+
+                    for ( var j = 0; j < spanTag.length; j++) {
+
+                        if(spanTag[j].getAttribute("id") == null){
+                            continue;
+                        }
+
+                        if(spanTag[j].getAttribute("id") != null && spanTag[j].getAttribute("id").indexOf("_PLAN1_") != -1){
+                            if(spanTag[j].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[j].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[j].style.display = "block";
+                                }  else {
+                                    spanTag[j].style.display = "none";
+                                }
+                            }
+                        }
+                        if(spanTag[j].getAttribute("id") != null && spanTag[j].getAttribute("id").indexOf("_PLAN2_") != -1){
+                            if(spanTag[j].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[j].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[j].style.display = "block";
+                                }  else {
+                                    spanTag[j].style.display = "none";
+                                }
+                            }
+                        }
+                        if(spanTag[j].getAttribute("id") != null && spanTag[j].getAttribute("id").indexOf("_PLAN3_") != -1){
+                            if(spanTag[j].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[j].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[j].style.display = "block";
+                                }  else {
+                                    spanTag[j].style.display = "none";
+                                }
+                            }
+                        }
+                        if(spanTag[j].getAttribute("id") != null && spanTag[j].getAttribute("id").indexOf("_PLAN4_") != -1){
+                            if(spanTag[j].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[j].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[j].style.display = "block";
+                                }  else {
+                                    spanTag[j].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            var spanTag= document.getElementById("Comparedouble").getElementsByTagName("span");
+            for(var i = 0; i < spanTag.length; i++){
+                if(spanTag[i].getAttribute("id").indexOf("DiscountPrem") != -1){
+                    var productId = spanTag[i].getAttribute("id");
+                    productId = productId.substring(productId.indexOf("DiscountPrem")+12,productId.indexOf("_"));
+                    // 产品详细页活动展示
+                    jQuery.ajax({
+                        type: 'post',
+                        url: '/wj/shop/sales_volume!showActivity.action?productId='+productId+'&flag=compare',
+                        dataType: "json",
+                        async: true,
+                        success: function(data) {
+                            jQuery.each(data, function(index, object) {
+                                if("success"==index){
+                                    jQuery("#yhinfo_"+data.productId).append(data.success);
+                                    var pointtitle = data.pointtitle;
+                                    if (pointtitle != null && pointtitle != '') {
+                                        pointtitle = pointtitle + " ";
+                                    }
+                                    jQuery("#pointtitle_"+data.productId).html(pointtitle);
+                                }
+                            });
+                            // 对比页不显示满减描述
+                            jQuery(".active_04").parent().remove();
+                        }
+                    });
                 }
             }
 
-            if(count<2){
-                alert("最少要有2个商品进行对比！");
-                return false;
-            }else{
-                var title="";
-                $(".compare_name").each(function (i,item) {
-                    if($(this).text() != null && $(".comparedetail:eq("+i+")").css("display")=="block"){
-                        title+=","+$(this).text();
-                    }
-                });
-                $.post("/productbyIds",{"title":title},function (data) {
-                    window.open("/productDuibi/"+data,"_top");
-                })
+        }
 
+        jQuery.fn.fixedNavigation = function(opt) {
+            var _opt, jWin, jNav, nNavOffTop;
+
+            return this.each(function() {
+                _opt = jQuery.extend({
+                    navElm: this,
+                    fixName: "fixed"
+                }, opt);
+
+                _init();
+                _monitor();
+            });
+
+            /* init */
+            function _init() {
+                jWin = jQuery(window);
+                jNav = jQuery(_opt.navElm);
+                nNavOffTop = jNav.offset().top;
             }
 
+            /* bind event */
+            function _monitor() {
+                jWin.bind("scroll", function() {
+                    var nWinTop = jWin.scrollTop();
 
+                    if(nWinTop >= nNavOffTop) {
+                        jNav.addClass(_opt.fixName);
+                    } else{
+                        jNav.removeClass(_opt.fixName);
+                    }
+                });
+
+
+            }
+        };
+
+        function getPremTrial(factorValue,productCode,factortype,flag,amnt,dutyCode,columnNo){
+            jQuery.ajax({
+                type:'get',
+                url:'/wj/shop/non_auto!getPremiumTrial.action?productCode='+productCode+'&factortype='+factortype+'&factorValue='+encodeURIComponent(factorValue)+'&flag='+flag+'&dutyCode='+dutyCode+'&amnt='+amnt,
+                dataType:'json',
+                success:function(de){
+                    fillPrice(de,columnNo);
+                }
+            });
+            if(factortype == 'Plan' || factortype == 'plan'){
+                if(columnNo=='c1'){
+                    var spanTag = document.getElementById("CompareProduct").getElementsByTagName("span");
+                    for ( var i = 0; i < spanTag.length; i++) {
+                        if(spanTag[i].getAttribute("id") == null){
+                            continue;
+                        }
+
+                        if(spanTag[i].getAttribute("id") != null && spanTag[i].getAttribute("id").indexOf("_PLAN1_") != -1){
+                            if(spanTag[i].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[i].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[i].style.display = "block";
+                                }  else {
+                                    spanTag[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                }
+                if(columnNo=='c2'){
+                    var spanTag = document.getElementById("CompareProduct").getElementsByTagName("span");
+                    for ( var i = 0; i < spanTag.length; i++) {
+                        if(spanTag[i].getAttribute("id") == null){
+                            continue;
+                        }
+
+                        if(spanTag[i].getAttribute("id") != null && spanTag[i].getAttribute("id").indexOf("_PLAN2_") != -1){
+                            if(spanTag[i].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[i].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[i].style.display = "block";
+                                }  else {
+                                    spanTag[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                }
+                if(columnNo=='c3'){
+                    var spanTag = document.getElementById("CompareProduct").getElementsByTagName("span");
+                    for ( var i = 0; i < spanTag.length; i++) {
+                        if(spanTag[i].getAttribute("id") == null){
+                            continue;
+                        }
+
+                        if(spanTag[i].getAttribute("id") != null && spanTag[i].getAttribute("id").indexOf("_PLAN3_") != -1){
+                            if(spanTag[i].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[i].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[i].style.display = "block";
+                                }  else {
+                                    spanTag[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                }
+                if(columnNo=='c4'){
+                    var spanTag = document.getElementById("CompareProduct").getElementsByTagName("span");
+                    for ( var i = 0; i < spanTag.length; i++) {
+                        if(spanTag[i].getAttribute("id") == null){
+                            continue;
+                        }
+
+                        if(spanTag[i].getAttribute("id") != null && spanTag[i].getAttribute("id").indexOf("_PLAN4_") != -1){
+                            if(spanTag[i].getAttribute("id").indexOf(productCode) != -1){
+                                if( spanTag[i].getAttribute("id").endsWith("_"+factorValue)){
+                                    spanTag[i].style.display = "block";
+                                }  else {
+                                    spanTag[i].style.display = "none";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+        function fillPrice(de,columnNo){
+            if(de != null && de.prem != 0.0){
+                if(columnNo !=null){
+                    try{
+                        document.getElementById("InitPrem"+de.productCode+"_"+columnNo).innerHTML = de.prem;//原价
+                    }catch(e){}
+                    document.getElementById("DiscountPrem"+de.productCode+"_"+columnNo).innerHTML = de.discountPrem;//折扣价
+                    document.getElementById("Integral"+de.productCode+"_"+columnNo).innerHTML = de.productInt;//积分
+                }else{
+                    try{
+                        document.getElementById("InitPrem"+de.productCode).innerHTML = de.prem;//原价
+                    }catch(e){}
+                    document.getElementById("DiscountPrem"+de.productCode).innerHTML = de.discountPrem;//折扣价
+                    document.getElementById("Integral"+de.productCode).innerHTML = de.productInt;//积分
+                }
+            }
+        }
+
+        //产品信息宽度计算
+        jQuery(document).ready(function() {
+            var _oTdElm = jQuery("#CompareProduct").find("tr:not(:first-child)").first().find(".bj_4");
+            var _oTdTtl = jQuery("#CompareProduct").find(".bj_2");
+            var _width = 760/_oTdElm.length - 1;
+
+            if(_oTdElm.length == 4) {
+                $("#Comparedouble").find(".bj_3").width("14%");
+            } else if(_oTdElm.length == 3) {
+                $("#Comparedouble").find(".bj_3").width("121px");
+            }
+
+            $(".bj_4").each(function(i, v) {
+                jQuery(v).width(_width);
+            });
+
+
+
+            jQuery("#Comparedouble").fixedNavigation({
+                fixName: "fixed"
+            });
+            var spanTag = $("span[id^='DiscountPrem']");
+            for(var i = 0; i < spanTag.length; i++){
+                if(spanTag[i].getAttribute("id").indexOf("DiscountPrem") != -1){
+                    var productId = spanTag[i].getAttribute("id");
+                    productId = productId.substring(productId.indexOf("DiscountPrem")+12,productId.indexOf("_"));
+                    // 产品详细页活动展示
+                    jQuery.ajax({
+                        type: 'post',
+                        url: '/wj/shop/sales_volume!showActivity.action?productId='+productId+'&flag=compare',
+                        dataType: "json",
+                        async: true,
+                        success: function(data) {
+                            jQuery.each(data, function(index, object) {
+                                if("success"==index){
+                                    jQuery("#yhinfo_"+data.productId).append(data.success);
+                                    var pointtitle = data.pointtitle;
+                                    if (pointtitle != null && pointtitle != '') {
+                                        pointtitle = pointtitle + " ";
+                                    }
+                                    jQuery("#pointtitle_"+data.productId).html(pointtitle);
+                                }
+                            });
+                            // 对比页不显示满减描述
+                            //jQuery(".active_04").parent().remove();
+                        }
+                    });
+                }
+            }
+        });
+
 
 
     </script>
+    <style>
+        #Comparedouble.fixed { *width: 978px;}
+        #Comparedouble table { left: 0; }
+        @-moz-document url-prefix() { #Comparedouble table { left: -1px; } }
+    </style>
     <script type="text/javascript">
-        var pageID = '0000000227';
-        var WapServerContext = 'https://wap.kaixinbao.com';
-        if (pageID != null && pageID != '') {
-            uaredirect(WapServerContext + "/mobile/blankpage.ashx?PageType=B&PageID=" + pageID , "list");
+        try {
+            var _paq = _paq || [];
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u="https://analysis.kaixinbao.com/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                if(window.location.hostname=='www.kaixinbao.com'){
+                    _paq.push(['setSiteId', '1']);
+                }
+                else if(window.location.hostname=='wap.kaixinbao.com'){
+                    _paq.push(['setSiteId', '3']);
+                }
+                else if (window.location.hostname=='ketang.kaixinbao.com'){
+                    _paq.push(['setSiteId', '6']);
+                }
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
+        } catch(e) {}
+        try {
+//百度自动推送代码：
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https'){
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                }
+                else{
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                if(window.location.hostname=='www.kaixinbao.com'){
+                    hm.src = "https://hm.baidu.com/hm.js?b0d61b2de58bce03e74718744c2eb82d";
+                }
+                else if(window.location.hostname=='wap.kaixinbao.com'){
+                    hm.src = "https://hm.baidu.com/hm.js?8584ba708bd72b3d2cfa5d3acd91adfe";
+                }
+                else if (window.location.hostname=='ketang.kaixinbao.com'){
+                    hm.src = "https://hm.baidu.com/hm.js?af04bf21044c628e996f831ec2ffdf99";
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+
+        } catch(e) {
 
         }
-    </script>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>中青年健康险_健康保险-开心保保险网</title>
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="http://resource.kaixinbao.com/style/redesign/re_header.css"/>
-    <link rel="stylesheet" href="http://resource.kaixinbao.com/style/new_logo.css"/>
-    <link rel="stylesheet" href="http://resource.kaixinbao.com/style/redesign/re_list.css" />
-    <link rel="stylesheet" type="text/css" href="http://resource.kaixinbao.com/style/redesign/re_detail.css" />
-    <link rel="stylesheet" type="text/css" href="http://resource.kaixinbao.com/style/skins/default.css" />
-    <link rel="stylesheet" href="/layui/css/layui.css"  media="all">
 
-</head>
-<body class="re-bg">
+        // 360自动收录代码：
+        try {
+            (function(){
+                var src="https://jspassport.ssl.qhimg.com/11.0.1.js?5e18d8f47b142d84e3aa9178551f7203";
+                document.write('<script src="' + src + '" id="sozz"><\/script>');
+            })();
+        } catch(e) {
+
+        }
+    </script></head>
+<body>
 <!--top头部-->
-<!--<div id="tou">
-<div class="g-top">
+<div th:replace="~{header/ProductListHeader::#tou}"></div>
+<!--<div class="g-top">
     <div class="g-weaper1200">
         <div class="m-login">
-            <div id="NotLogin"><span class="m-login-p f-ib">您好，欢迎光临开心保 请</span><span class="m-login-a" id="NotLoginSpan"><a href="/login.html" id="headerShowLoginWindow" onclick="javascript:void(0);return(VL_FileDL(this));return false;" exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">登录</a><em>/</em>
-                <a href="/register.html" onclick="javascript:void(0);return(VL_FileDL(this));return false;" exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">免费注册</a>
+            <div id="NotLogin"><span class="m-login-p f-ib">您好，欢迎光临开心保 请</span><span class="m-login-a" id="NotLoginSpan"><a href="javascript:void(0);" id="headerShowLoginWindow" onclick="javascript:void(0);return(VL_FileDL(this));return false;" exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">登录</a><em>/</em>
+                <a href="http://www.kaixinbao.com/wj/shop/member!newLogin.action?tagid=regtag" onclick="javascript:void(0);return(VL_FileDL(this));return false;" exturl="http://www.kaixinbao.com/toplogin" vlpageid="toplogin">免费注册</a>
                 <span class="m-login-x" style="display:none"></span>
                 &lt;!&ndash; 未登录状态 显示图层 &ndash;&gt;
                     <div class="m-login-no" style="display:none;">
                         <div class="m-lo-p">
                             <div class="m-lo-img"></div>
-                            <img src="/picture/photo_06.gif" alt="">
+                            <img src="https://resource.kaixinbao.com/images/redesign/photo_06.gif" alt="">
                         </div>
                         <div class="m-login-jf">
                             <a href="http://www.kaixinbao.com/member/center/index.shtml">会员专享，<br>更多特权！</a>
@@ -87,7 +393,7 @@
                 &lt;!&ndash; 未登录状态 显示图层 end &ndash;&gt;
                 </span></div>
             <div id="YesLogin" style="display: none"><span class="m-login-p f-ib" id="YesLoginSpan">
-                                                         您好<a href="http://www.kaixinbao.com/member/center/index.shtml" id="headerLoginMemberUsername" class="m-loing-name"  th:text="${session.user}==null?'':${session.user.userName}"></a>
+                                                         您好<a href="http://www.kaixinbao.com/member/center/index.shtml" id="headerLoginMemberUsername" class="m-loing-name"></a>
                                                          <i id="headerLoginMemGradeIcon" class="vip_k vip_top vip_k1" title=""></i>
 
                 <span class="m-login-x" style="display:none"></span>
@@ -119,8 +425,8 @@
             <span class="m-fun-span f-ib m-WeChat" id="i-WeChat">
                             <a href="###" class="m-fun-a hover"><em class="i-WeChat"></em>手机版<b class="arrow"></b></a>
                             <div class="m-WeChatImg z-hover-shadow" style="display:none;">
-                                <p><img src="/picture/wechart.gif" alt="">关注微信了解新资讯</p>
-                                <p><img src="/picture/app.png" alt="">下载APP投保快捷省心</p>
+                                <p><img src="https://resource.kaixinbao.com/images/redesign/wechart.gif" alt="">关注微信了解新资讯</p>
+                                <p><img src="https://resource.kaixinbao.com/images/redesign/app.png" alt="">下载APP投保快捷省心</p>
                             </div>
                       </span>
             <em class="m-bor-l f-ib"></em>
@@ -199,9 +505,9 @@
 <div class="g-header ">
     <div class="g-weaper">
         <a href="http://www.kaixinbao.com/" class="m-logo-a">
-            <img src="/picture/logo.gif" height="70px" class="m-logo" alt="开心保保险网">
+            <img src="https://resource.kaixinbao.com/images/redesign/logo.gif" height="70px" class="m-logo" alt="开心保保险网">
         </a>
-        <img src="/picture/f_logo.png" class="m-flogo" height="70px" alt="保险服务">
+        <img src="https://resource.kaixinbao.com/images/redesign/f_logo.png" class="m-flogo" height="70px" alt="保险服务">
         <div class="clear"></div>
         &lt;!&ndash; 导航开始 &ndash;&gt;
         <div class="g-nav">
@@ -713,7 +1019,7 @@
             </div>
         </div>
         <ul class="g-nav-main">
-            <li class="f-ib"><a href="http://www.kaixinbao.com" class="nav_1" >首页</a></li>
+            <li class="f-ib"><a href="http://www.kaixinbao.com" class="nav_1">首页</a></li>
             <li class="f-ib"><a href="http://www.kaixinbao.com/daogou/" class="nav_2">保险快选</a><i class="header-hot"></i></li>
             <li class="f-ib"><a href="http://www.kaixinbao.com/youhui/" class="nav_3" rel="nofollow">限时活动</a></li>
             <li class="f-ib"><a href="http://www.kaixinbao.com/jifen/" class="nav_4" rel="nofollow">积分商城</a></li>
@@ -724,267 +1030,137 @@
             <form action="http://www.kaixinbao.com/Search/Search.jsp">
                 <span class="f-search-i" style="display: none;"></span>
                 <div class="m-search-box"><input type="text" name="query"  onclick="clearSarchQuery()" growing-track="true" class="m-search-input"><i class="i-search"></i><span class="f-search"><input name="" type="submit" value="搜索" onclick="searchEvent();jQuery.ajaxLoadImg.show('searchLoad');"></span></div>
-                <script type="text/javascript" src="/js/allpagedefaultsearchvalue.js"></script>
+                <script type="text/javascript" src="http://www.kaixinbao.com/js/allPageDefaultSearchValue.js"></script>
             </form>
         </div>
     </div>
     &lt;!&ndash; 导航结束 &ndash;&gt;
 
-</div>
 </div>-->
-<div th:replace="~{header/ProductListHeader::#tou}"></div>
+
 <!-- header end -->
 
 <!-- 弹窗添加代码 -->
 
 <input hidden id="microServiceMemberDomain" value="https://vipm.kaixinbao.com/">
 
-<!-- 弹窗添加代码 end -->
-<div class="re-list-banner re_travelbg_2">
-    <div class="weaper g-list-tree">
-        <div class="daohang">
-            <span class="daohang_home"></span>
-            <a target="_self" href="http://www.kaixinbao.com/">您现在的位置：首页</a><span class="separator">&gt;</span><a target="_self" id="aCatalog1" href="http://www.kaixinbao.com/jiankang-baoxian/">[[${yiName}]]</a><span class="separator">&gt;</span><span class="separator1">[[${sanName}]]</span>
-        </div>
-    </div>
-    <div class="weaper">
-        <!-- 栏目介绍 -->
-        <div class="m-list-desc f_mi">
-            <p>
-                <em>[[${sanName}]]</em>保监会批准，放心可信赖！健康险一站式服务省钱更安心！开心保提供全国各大保险公司的重大疾病险、特定疾病险、住院医疗险等多种保险在线投保服务。专业理赔协助,让您后顾无忧！
-            </p>
-        </div>
-        <!-- 栏目推荐 -->
-        <div class="g-list-banner">
-            <span class="m-list-tip"></span>
-            <div class="changeBox_a2" id="change_34">
+<!-- 弹窗添加代码 end --><div class="wrapper">
+    <div class="NonCarMiddArea" style="padding-top:15px" >
+        <table cellpadding="1" cellspacing="1" border="0" width="100%" id="CompareProduct" >
+            <tr>
+                <td class="bj_2" th:colspan="${productdui.size()+1}" >产品信息</td>
+            </tr>
 
-                <div class="changeDiv" style="display: block">
-
-                    <div class="m-banner-box">
-                        <div class="m-ban-left">
-                            <a href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml?link_id=recom" class="f_mi m-ban-tit"
-                               target="_blank"
-                               onclick="javascript:void(0);return(VL_FileDL(this));return false;"
-                               exturl="http://www.kaixinbao.com/recommend"
-                               vlpageid="recommend">昆仑健康保重大疾病保险（2.0版）</a>
-                            <p class="m-ban-p">出生满28日至60周岁的健康人群</p>
-                            <p class="m-tj-list">√首创重疾医疗津贴保险金；<br>
-                                √最高保额70万，重疾+中症+轻症保障更足；<br>
-                                √可附加癌症二次赔付、少儿成人特定疾病。</p>
-                        </div>
-                        <div class="m-abn-right">
-                            <dl class="m-bar-style">
-                                <dd class="m-bar-num">
-                                    <span id="SalesU_228001001">(累计销量：加载中...)</span>
-                                </dd>
-
-                                <dd class="m-bar-rmoney">
-									<span name="Clear_Ajax_Prict_228001001">
-										</span>
-                                </dd>
-                                <dd>
-                                    <a href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml?link_id=recom" target="_blank"
-                                       class="m-bar-go"
-                                       onclick="javascript:void(0);return(VL_FileDL(this));return false;"
-                                       exturl="http://www.kaixinbao.com/recommend"
-                                       vlpageid="recommend" rel="nofollow">去看看&gt;</a>
-                                </dd>
-                            </dl>
-                        </div>
+            <tr>
+                <td th:colspan="${productdui.size()+1}" >
+                    <div id="Comparedouble">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td class="bj_3"  width="150px" >产品名称</td>
+                                <td class="bj_4" th:each="pdui :${productdui}">
+                                    <!--<span class="icon_sale"></span>-->
+                                    <!--<div class="icon_C2071 cp_logos"></div>-->
+                                    <p id='Activity_226401012' ></p><a href='http://www.kaixinbao.com/jiankang-baoxian/316511.shtml' target="_blank" ><div class="icon_C2264 cp_logos" th:style="'backgroundImage: url('+${pdui.productImage}+') '"></div></a><a href='http://www.kaixinbao.com/jiankang-baoxian/316511.shtml' target="_blank" >[[${pdui.productTitle}]]</a>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                </div>
+                </td>
+            </tr>
 
-                <div class="changeDiv">
+            <tr>
+                <td class="bj_3">投保年龄</td>
+                <td class="bj_4" th:each="pdui :${productdui}">
+                    <!--<span class="icon_sale"></span>-->
+                    <!--<div class="icon_C2071 cp_logos"></div>-->
+                    <span th:if="${pdui.productSectionList.size()} == 1">
+                        [[${pdui.productSectionList[0].sectionMin}]]周岁 - [[${pdui.productSectionList[0].sectionMax}]]周岁
+                    </span>
+                    <select th:if="${pdui.productSectionList.size()} > 1" onchange="getPremTrial(this.value,'221701017','TextAge','1','','','c2');" id="SELECT_TextAge_221701017"><option value='28D-0Y' th:each="se:${pdui.productSectionList}">[[${se.sectionMin}]]-[[${se.sectionMax}]]周岁</option></select>
+                </td>
 
-                    <div class="m-banner-box">
-                        <div class="m-ban-left">
-                            <a href="http://www.kaixinbao.com/jiankang-baoxian/318660.shtml?link_id=recom" class="f_mi m-ban-tit"
-                               target="_blank"
-                               onclick="javascript:void(0);return(VL_FileDL(this));return false;"
-                               exturl="http://www.kaixinbao.com/recommend"
-                               vlpageid="recommend">安联防癌医疗保险</a>
-                            <p class="m-ban-p">30天-70周岁符合健康告知的人群</p>
-                            <p class="m-tj-list">√三高、糖尿病可投保；<br>
-                                √患癌后仍可续保，续保免健康告知；<br>
-                                √最高300万医疗垫付额度。</p>
-                        </div>
-                        <div class="m-abn-right">
-                            <dl class="m-bar-style">
-                                <dd class="m-bar-num">
-                                    <span id="SalesU_204901340">(累计销量：加载中...)</span>
-                                </dd>
-                                <dd class="m-bar-money">
-                                    <i>￥</i><span name="R_Ajax_Prict_204901340">41.00</span>
-                                </dd>
-                                <dd class="m-bar-rmoney">
-									<span name="Clear_Ajax_Prict_204901340">
-										</span>
-                                </dd>
-                                <dd>
-                                    <a href="http://www.kaixinbao.com/jiankang-baoxian/318660.shtml?link_id=recom" target="_blank"
-                                       class="m-bar-go"
-                                       onclick="javascript:void(0);return(VL_FileDL(this));return false;"
-                                       exturl="http://www.kaixinbao.com/recommend"
-                                       vlpageid="recommend" rel="nofollow">去看看&gt;</a>
-                                </dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
+            </tr>
+            <tr>
+                <td class="bj_3">保险期限</td>
+                <td class="bj_4" th:each="pdui :${productdui}">
+                    <!--<span class="icon_sale"></span>-->
+                    <!--<div class="icon_C2071 cp_logos"></div>-->
+                    <select>
+                        <option value='28D-0Y' th:each="dl:${pdui.productDeadlineList}">[[${dl.deadlineTime}]]</option>
+                    </select>
+                </td>
 
-                <ul class="ul_change_a3">
+            </tr>
+            <tr>
+                <td class="bj_3">产品价格</td>
+                <td class="bj_4" th:each="pdui :${productdui}">
+                    <!--<span class="icon_sale"></span>-->
+                    <!--<div class="icon_C2071 cp_logos"></div>-->
+                    <font class="DiscountPrice" >￥<span id='DiscountPrem226401012_c1'>[[${pdui.productPrice}]]</span></font><font class="InitPrice" style="display:none" > 原价:￥<s>75.00</s></font>
+                </td>
 
-                    <li><span>&nbsp;</span></li>
-
-                    <li><span>&nbsp;</span></li>
-
-                </ul>
+            </tr>
 
 
-            </div>
-        </div>
-    </div>
-</div>
-<div class="weaper m-list-pos">
-    <div class="content">
-        <div class="grid-c2-s6f">
-            <div class="col-main">
-                <div class="main-wrap">
-                    <div class="top_b">
-                        <div id="load_con" style="display: none;"></div>
-                        <div class="m-jxw"></div>
-                        <div id="radiolist" class="radiolist CsearchConditions"><div class="bznx-z" id="CsearchConditions_fenlei"><span class="CConditionName">产品分类：</span><div class="select_nav"><ul><li  class="jiange"><input type="radio" value="default_fenlei_1" name="fenlei" style="display: none;"><a class="hRadio" href=" http://www.kaixinbao.com/jiankang-baoxian/">不限</a><li><input type="radio"  value="00104" name="fenlei" style="display: none;"><a class="hRadio" href=" http://www.kaixinbao.com/jiankang-baoxian/zhongdajibing/">重大疾病<em class="m-list-tip2"><i class="tagshow" style="display:none">确定重疾即可获准赔付，为治疗提供经济支持</i></em></a><li><input type="radio"  value="00105" name="fenlei" style="display: none;"><a class="hRadio" href=" http://www.kaixinbao.com/jiankang-baoxian/tedingjibing/">特定疾病<em class="m-list-tip2"><i class="tagshow" style="display:none">专注于特定疾病，确诊即可获准赔付，为治疗提供经济支持</i></em></a><li><input type="radio"  value="00106" name="fenlei" style="display: none;"><a class="hRadio" href=" http://www.kaixinbao.com/jiankang-baoxian/zhuyuanyiliao/">住院医疗<em class="m-list-tip2"><i class="tagshow" style="display:none">住院治疗期间必要合理的医疗费用津贴或费用报销</i></em></a></ul></div></div><div class="bznx-no" id="CsearchConditions_renqun"><span class="CConditionName">人群分类：</span><div class="select_nav"><ul><li  class="jiange"><input type="radio" value="default_renqun_1" name="renqun" style="display: none;"><label class="hRadio" >不限</label></li><li><input type="radio"  value="00268" name="renqun" style="display: none;"><label class="hRadio" >男性疾病保险</label></li><li><input type="radio"  value="00109" name="renqun" style="display: none;"><label class="hRadio" >少儿(0-17岁)</label></li><li><input type="radio"  value="00110" name="renqun" style="display: none;"><label class="hRadio" >中青年(18-60岁)</label></li><li><input type="radio"  value="00111" name="renqun" style="display: none;"><label class="hRadio" >老年(60岁以上)</label></li> <li class="jiange"></li><li><input type="radio"  value="00112" name="renqun" style="display: none;"><label class="hRadio" >女性疾病保险</label></li></ul></div></div><div class="chklist" ><div class="bznx-no" id="CsearchConditions_FeaturesRis"><span class="CConditionName">特殊保障：</span><div class="select_nav"><ul><li  class="jiange"><input type="radio" value="default_FeaturesRis_1" name="FeaturesRis" id="FeaturesRis_all"  style="display: none;"><label class="hRadio" >不限</label></li><li><input type="checkbox" name="FeaturesRis" value="00271" style="display: none;"><label class="checkbox" >门急诊医疗</label></li><li><input type="checkbox" name="FeaturesRis" value="00295" style="display: none;"><label class="checkbox" >综合健康</label></li><li><input type="checkbox" name="FeaturesRis" value="00294" style="display: none;"><label class="checkbox" >一般住院</label></li><li><input type="checkbox" name="FeaturesRis" value="00293" style="display: none;"><label class="checkbox" >特定疾病</label></li> <li class="jiange"></li><li><input type="checkbox" name="FeaturesRis" value="00292" style="display: none;"><label class="checkbox" >重大疾病</label></li><li><input type="checkbox" name="FeaturesRis" value="00291" style="display: none;"><label class="checkbox" >高端医疗</label></li><li><input type="checkbox" name="FeaturesRis" value="00279" style="display: none;"><label class="checkbox" >少儿常见疾病</label></li><li><input type="checkbox" name="FeaturesRis" value="00278" style="display: none;"><label class="checkbox" >少儿白血病</label></li> <li class="jiange"></li><li><input type="checkbox" name="FeaturesRis" value="00116" style="display: none;"><label class="checkbox" >专保癌症</label></li><li><input type="checkbox" name="FeaturesRis" value="00117" style="display: none;"><label class="checkbox" >住院津贴</label></li></ul></div></div></div><div class="chklist" ><div class="bznx-no" id="CsearchConditions_baoxiangongsi"><span class="CConditionName">保险公司：</span><div class="select_nav"><ul> <li class="jiange"><input type="radio" id="baoxiangongsi_all" value="default_baoxiangongsi_1" name="baoxiangongsi" style="display: none;"><label class="hRadio" >全部</label></li><li><input type="checkbox" name="baoxiangongsi" value="00316" style="display: none;"><label class="checkbox" >瑞华保险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00314" style="display: none;"><label class="checkbox" >复星保德信</label></li><li><input type="checkbox" name="baoxiangongsi" value="00311" style="display: none;"><label class="checkbox" >中荷人寿</label></li><li><input type="checkbox" name="baoxiangongsi" value="00308" style="display: none;"><label class="checkbox" >德华安顾人寿</label></li> <li class="jiange"></li><li><input type="checkbox" name="baoxiangongsi" value="00299" style="display: none;"><label class="checkbox" >华泰财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00274" style="display: none;"><label class="checkbox" >百年人寿</label></li><li><input type="checkbox" name="baoxiangongsi" value="00283" style="display: none;"><label class="checkbox" >大地财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00285" style="display: none;"><label class="checkbox" >诚泰财险</label></li> <li class="jiange"></li><li><input type="checkbox" name="baoxiangongsi" value="00266" style="display: none;"><label class="checkbox" >泰康在线</label></li><li><input type="checkbox" name="baoxiangongsi" value="00318" style="display: none;"><label class="checkbox" >光大人寿</label></li><li><input type="checkbox" name="baoxiangongsi" value="00307" style="display: none;"><label class="checkbox" >信泰人寿</label></li><li><input type="checkbox" name="baoxiangongsi" value="00305" style="display: none;"><label class="checkbox" >复星健康</label></li> <li class="jiange"></li><li><input type="checkbox" name="baoxiangongsi" value="00288" style="display: none;"><label class="checkbox" >易安财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00120" style="display: none;"><label class="checkbox" >平安财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00203" style="display: none;"><label class="checkbox" >华安财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00253" style="display: none;"><label class="checkbox" >中国人寿</label></li> <li class="jiange"></li><li><input type="checkbox" name="baoxiangongsi" value="00258" style="display: none;"><label class="checkbox" >永安财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00213" style="display: none;"><label class="checkbox" >太平保险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00224" style="display: none;"><label class="checkbox" >安联财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00206" style="display: none;"><label class="checkbox" >新华人寿</label></li> <li class="jiange"></li><li><input type="checkbox" name="baoxiangongsi" value="00269" style="display: none;"><label class="checkbox" >安心保险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00012" style="display: none;"><label class="checkbox" >昆仑健康</label></li><li><input type="checkbox" name="baoxiangongsi" value="00240" style="display: none;"><label class="checkbox" >瑞泰人寿</label></li><li><input type="checkbox" name="baoxiangongsi" value="00264" style="display: none;"><label class="checkbox" >爱立方</label></li> <li class="jiange"></li><li><input type="checkbox" name="baoxiangongsi" value="00296" style="display: none;"><label class="checkbox" >阳光保险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00124" style="display: none;"><label class="checkbox" >史带财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00232" style="display: none;"><label class="checkbox" >富德财险</label></li><li><input type="checkbox" name="baoxiangongsi" value="00238" style="display: none;"><label class="checkbox" >中国人保</label></li> <li class="jiange"></li></ul></div></div></div><input id="hdn_FeaturesRis" type="hidden" value="default_FeaturesRis_1" name="hdn_FeaturesRis" /><input id="hdn_baoxiangongsi" type="hidden" value="default_baoxiangongsi_1" name="hdn_baoxiangongsi" /><input id="hdn_fenlei" type="hidden" value="default_fenlei_1" name="hdn_fenlei" /><input id="hdn_renqun" type="hidden" value="00110" name="hdn_renqun" /></div>
-                        <input id="hdn_page" type="hidden" value="-1" name="hdn_page" />
-                        <input id="prop6" type="hidden" value="http://www.kaixinbao.com/wj" name="prop6" />
-                        <input id="ProductType" type="hidden" value="D00" name="ProductType" />
-                        <input id="ChiProductType" type="hidden" value="D00" name="ChiProductType" />
-                        <input id="FrontServer" type="hidden" value="http://www.kaixinbao.com" name="FrontServer" />
+            <tr>
+                <td class="bj_2" th:colspan="${productdui.size()+1}" >保障信息</td>
+            </tr>
 
-                    </div>
+            <tr th:each="b :${insuranceduibi}">
+                <td class="bj_3" th:text="${b.getInsuranceName()}"></td>
+                <td class="bj_4"  th:each="a,i:${productdui}">
+                    <ul>
+                        <li>
+                            <span th:each="j:${#numbers.sequence(0,a.productInsuranceList.size()-1)}">
 
-                    <div class="g-zd-sx">
-                        <div class="zd_sx_list" id="zd_click" title="展开筛选条件"></div>
-                    </div>
-
-                    <div id="divSearchOrder">
-                        <span id="order_default" class="one" onclick="doOrder1(this);">综合排序</span><span
-                            id="order_Popular" class="two" onclick="doOrder1(this);">人气</span><span
-                            id="order_SalesVolume" class="two" onclick="doOrder1(this);">销量</span><span
-                            id="order_InitPrem" class="two" onclick="doOrder1(this);">价格</span>
-                        <em class="order-sale" id="order_sale" onclick="doOrder1(this);">促销商品</em>
-                        <p class="order-num">
-                            共<i id="searchProductCount">[[${productLista.Total}]]</i>款保险满足条件
-                        </p>
-                    </div>
-
-                    <div id="s_noshop" class="s_noshop cf"></div>
+                                <span id="" th:if="${b.insuranceName} eq ${productdui[i.index].productInsuranceList[j].insuranceName} ">
+                                  [[${b.insurancePrice}]]
+                                </span>
 
 
-                    <DIV id="products" class="shop_img_list cf" >
-
-                        <DIV class="nlist_con cf" th:each="plist:${productLista.records}">
-                            <DIV class="nlist_des">
-                                <DIV class="icon_C2280 m-list-logo"></DIV>
-                                <DIV class="m-list-cn">
-                                    <a href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank" class="nlist_title" th:text="${plist.productTitle}"></a>
-                                    <DIV class="shop_tj_shrq cf">
-                                        <p class="shop_shrd_con">
-                                            <span class="shop_shrq_bg">适合人群</span>
-                                            [[${plist.productDetails}]]
-                                        </p>
-                                    </DIV>
-                                </DIV>
-                                <DIV class="clear"></DIV>
-                                <ul class="d_list_con"><li th:EACH="featrueList:${plist.productFeatureList}"><span>[[${featrueList.featureName}]]</span></li></ul>
-                                <ul class="recommend_list"><li class="rec_list_li" th:EACH="iList:${plist.productInsuranceList}"><span class="rec_list_s" th:title="${iList.insuranceName}" >[[${iList.insuranceName}]]</span> <span class="rec_list_money" th:title="${iList.insurancePrice}">[[${iList.insurancePrice}]] </span></li>   </ul>
-                                <DIV class="price_tj">
-                                    <span class="recom_xl" id="SalesV_228001001">(累计销量：加载中...)</span>
-                                    <span class="recom_xl"><i><a
-                                            href="javascript:void(0)"
-                                            onclick="openCommnet('http://www.kaixinbao.com/jiankang-baoxian/320065.shtml')"
-                                            class="shop_tj_num" id="CommentV_228001001">评论加载中...</a></i></span>
-
-                                </DIV>
-                            </DIV>
-                            <DIV class="nlist_price">
-                                <p class="list_Sale tribe-action" id="Activity_228001001">
-                                    <span id="Diy_Title_Activity_228001001" ></span><em
-                                        id="Diy_Activity_228001001" ></em>
-                                </p>
-                                <span class="nlist_pay moneys" NAME="Ajax_Prict_228001001"><em>￥</em>[[${plist.productPrice}]]</span>
-                                <em class="nlist_pay_t moneys">
-										<span NAME="Clear_Ajax_Prict_228001001">
-										</span>
-                                </em>
-                                <DIV class="remcon_desmore">
-                                    <a target="_blank" th:href="@{'/HappysysProduct/getById/'+${plist.productId}}" rel="nofollow">去看看</a>
-                                    <label class="nlist_add_db" th:onclick="showcp([[${plist.productTitle}]],'http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg',[[${plist.productId}]],'','D','http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg',[[${plist.productPrice}]]);" >加入对比</label>
-                                </DIV>
-                            </DIV>
-                        </DIV>
+                            </span>
 
 
 
-                    </DIV>
-                    <div class="plpage">
-                        <!--    翻页    -->
-                        <div class="page_area" id="productsPageBar">
-                            <div id="demo1"></div>
 
-                            <!-- <div id='pagination'>
-                                 <ul><li class='page_prev'><a href='javascript:void(0)' onClick='doOrder2("1");'><span class='default'>上一页</span></a></li><li class='now'><a href='javascript:void(0)' onClick='doOrder2("1");'><span>1</span></a></li><li><a href='javascript:void(0)' onClick='doOrder2("2");'><span>2</span></a></li><li><a href='javascript:void(0)' onClick='doOrder2("3");'><span>3</span></a></li><li><a href='javascript:void(0)' onClick='doOrder2("4");'><span>4</span></a></li><li class='omit'><span>...</span></li><li><a href='javascript:void(0)' onClick='doOrder2("8");'><span>8</span></a></li><li class='page_next'><a href='javascript:void(0)' onClick='doOrder2("2");'><span>下一页</span></a></li></ul>
-                             </div>-->
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sub">
-                <div class="l_boxss">
-                    <div class="c1">
-                        <em class="l_icon"></em>健康保险热销产品
-                    </div>
-                    <ul id="products" class="usershop_box">
 
-                        <li class="usershop_list">
-                            <p>
-                                <a href="http://www.kaixinbao.com/jiankang-baoxian/312945.shtml" target="_blank">
-                                    <span class="us_title">安享一生癌症百万医疗险</span>
-                                    <span class="us_text">28天-70周岁人群，可续保到105岁。</span>
-                                </a>
-                            </p>
-                            <p>
-                                <span class="shop_m" name="Ajax_Prict_221701017"><em>￥</em>50.00</span><span
-                                    class="sale_num" id="SalesI_221701017"></span>
-                            </p>
                         </li>
-
-                        <li class="usershop_list">
-                            <p>
-                                <a href="http://www.kaixinbao.com/jiankang-baoxian/310719.shtml" target="_blank">
-                                    <span class="us_title">开心保泰康重疾宝（少儿款）</span>
-                                    <span class="us_text">30天-17周岁健康儿童</span>
-                                </a>
-                            </p>
-                            <p>
-                                <span class="shop_m" name="Ajax_Prict_222001008"><em>￥</em>67.00</span><span
-                                    class="sale_num" id="SalesI_222001008"></span>
-                            </p>
-                        </li>
-
                     </ul>
-                </div>
-                <div class="l_boxss">
-                    <script type="text/javascript" src="/js/dynimages.js"></script>
-                </div>
-                <div class="l_boxss" id="guessLike" style="display:none;">
-                    <div class="c1"><em class="l_icon"></em>猜你喜欢</div>
-                    <ul class="hotprodulist">
-                    </ul>
-                </div>
-            </div>
-        </div>
+                </td>
+
+            </tr>
+
+
+
+
+            <tr>
+                <td class="bj_2" th:colspan="${productdui.size()+1}" >销量评价</td>
+            </tr>
+            <tr >
+                <td class="bj_3">销量</td>
+                <td class="bj_4" th:each="pdui :${productdui}">
+                    [[${pdui.commentCount}]]
+                </td>
+
+            </tr>
+            <tr>
+                <td class="bj_3">评论</td>
+                <td class="bj_4" th:each="pdui :${productdui}">
+                    [[${pdui.orderCount}]]人评价
+                </td>
+
+            </tr>
+
+            <tr>
+                <td class="bj_3"></td>
+                <td class=bj_4 th:each="pdui :${productdui}">
+                    <a class="buy_now" target="_blank" th:href="@{'/HappysysProduct/getById/'+${pdui.productId}}">查看详情</a>
+                </td>
+
+            </tr>
+
+        </table>
+
     </div>
 </div>
 <!-- 底部开始 -->
@@ -1061,8 +1237,8 @@
                     </dd>
                 </dl>
                 <div class="m-WeChatImg">
-                    <p><em class="icon_01"></em><span><img src="picture/wechart.gif" alt="">关注微信了解新资讯</span></p>
-                    <p><em class="icon_02"></em><span><img src="picture/app.png" alt="">下载APP投保快捷省心</span></p>
+                    <p><em class="icon_01"></em><span><img src="https://resource.kaixinbao.com/images/redesign/wechart.gif" alt="">关注微信了解新资讯</span></p>
+                    <p><em class="icon_02"></em><span><img src="https://resource.kaixinbao.com/images/redesign/app.png" alt="">下载APP投保快捷省心</span></p>
                 </div>
             </div>
             <div class="clear h20"></div>
@@ -1114,7 +1290,7 @@
                     <li class="sl-floatcenter-item">
                         <a href="https://v.pinpaibao.com.cn/cert/site/?site=www.kaixinbao.com&at=business"
                            target="_blank" rel="nofollow"><img
-                                src="/picture/gw.png"
+                                src="http://resource.kaixinbao.com/upload/Image/xrwz/2012/12/gw.png"
                                 width="83"  height="30"/>
                         </a>
                     </li>
@@ -1122,24 +1298,24 @@
                     <li class="sl-floatcenter-item"><a
                             href="http://www.circ.gov.cn/tabid/5171/InfoID/210753/frtid/4491/Default.aspx"
                             target="_blank" rel="nofollow"><img
-                            src="/picture/2582921308.png" width="90"
+                            src="http://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582921308.png" width="90"
                             height="37"/></a></li>
 
                     <!--                     <li class="sl-floatcenter-item"><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088"
                                                                            target="_blank" rel="nofollow"><img
-                                                src="picture/2582937061.png" width="37"
+                                                src="http://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582937061.png" width="37"
                                                 height="37"/></a></li> -->
 
                     <li class="sl-floatcenter-item"><a
                             href="http://wljg.lngs.gov.cn/iciaicweb/dzbscheck.do?method=change&id=E2014111300054343"
                             target="_blank" rel="nofollow"><img
-                            src="/picture/298851182.png" width="37"
+                            src="http://resource.kaixinbao.com/upload/Image/xrwz/2014/12/298851182.png" width="37"
                             height="37"/></a></li>
 
                     <li class="sl-floatcenter-item"><a
                             href="http://si.trustutn.org/info?sn=618161121025629572164&certType=1" target="_blank"
                             rel="nofollow"><img
-                            src="/picture/3061644601.png" width="90"
+                            src="http://resource.kaixinbao.com/upload/Image/xrwz/2016/11/3061644601.png" width="90"
                             height="37"/></a></li>
                 </ul>
             </div>
@@ -1150,161 +1326,86 @@
 <div id="fix_nav" class="fix_nav">
     <a class="fix-onlineqq " href="javascript:void(0);" vlpageid="xiaoneng" rel="nofollow"
        exturl="http://www.kaixinbao.com/xiaoneng" id="qqwap1" onclick="return(VL_FileDL(this));return false;">
-        <img class="anim_fade_image" src="/picture/icon_isp_01.jpg"/>
-        <img src="/picture/icon_isp_01_on.jpg"/>
+        <img class="anim_fade_image" src="https://resource.kaixinbao.com/images/wj_kxb/icon_isp_01.jpg"/>
+        <img src="https://resource.kaixinbao.com/images/wj_kxb/icon_isp_01_on.jpg"/>
     </a>
     <span class="fix-RichScan">
-                    <img class="anim_fade_image" src="/picture/icon_isp_02.jpg"/>
-                    <img src="/picture/icon_isp_02_on.jpg"/>
+                    <img class="anim_fade_image" src="https://resource.kaixinbao.com/images/wj_kxb/icon_isp_02.jpg"/>
+                    <img src="https://resource.kaixinbao.com/images/wj_kxb/icon_isp_02_on.jpg"/>
                     <div style="display: none;" class="weixinDiv tagshow"><img
-                            src="/picture/wxnew.png">绑微信送积分</div>
+                            src="https://resource.kaixinbao.com/images/wxnew.png">绑微信送积分</div>
                 </span>
     <span class="fix-top" id="gotop">
-                    <img class="anim_fade_image" src="/picture/icon_isp_03.jpg"/>
-                    <img src="/picture/icon_isp_03_on.jpg"/>
+                    <img class="anim_fade_image" src="https://resource.kaixinbao.com/images/wj_kxb/icon_isp_03.jpg"/>
+                    <img src="https://resource.kaixinbao.com/images/wj_kxb/icon_isp_03_on.jpg"/>
                 </span>
 </div>
 
-<!-- 公共底部 -->
-<!-- 底部结束 -->
-<div id="fix_vs" class="fix_vs">
-    <span class="g-vs-num" id="g-vs-num">0</span>
-    <div id="cpdiv" class="cpdiv">
-        <div class="comparediv">
-            <div class="closebtn">
-                <span onclick="close_h()" class="close_compare"></span>
-            </div>
-            <div class="comparedivcont">
-                <div class="comparedetail" style="display: none;" id="cpprodu1">
+<!-- 公共底部 --><script type="text/javascript" src="http://resource.kaixinbao.com/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/jquery.form.js"></script>
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/redesign/re_base.js"></script>
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/login.js"></script>
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/redesign/re_header.js"></script>
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/redesign/re_footer.js"></script>
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/artDialog.js"></script>
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/js/redesign/xiaoneng_CustomerService.js"></script>
+<script type="text/javascript" src="http://dl.ntalker.com/js/xn6/ntkfstat.js?siteid=kf_9401" charset="utf-8"></script>
+<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //头部显示用户信息
+        var happyuser=$("#aab").text();
 
-                    <input type="hidden" name="productCodeA" id="productCodeA" />
-                    <p>
-                        <span id="productnameA" class="compare_name"></span>
-                        <span id="productPremA" class="compare_pric" ></span>
-                        <span class="dblue cpdelico" onclick="closecp1()"></span>
-                    </p>
-                    <div class="clear"></div>
-                </div>
-                <div class="comparedetail" style="display:none;"  id="cpprodu2">
+        if(happyuser.length>0){
+            $("#NotLogin").css("display","none");
+            $("#YesLogin").css("display","block");
+        }
+    })
+</script>
+<script type="">
 
-                    <input type="hidden" name="productCodeB" id="productCodeB" />
+    //满减活动信息
+    function searchProductListAvtivity(){
 
-                    <p>
-                        <span id="productnameB" class="compare_name"></span>
-                        <span id="productPremB" class="compare_pric"></span>
-                        <span class="dblue cpdelico" onclick="closecp2()"></span>
-                    </p>
-                    <div class="clear"></div>
-                </div>
-                <div class="comparedetail"  style="display:none;" id="cpprodu3">
-                    <input type="hidden" name="productCodeC" id="productCodeC" />
+        var list=jQuery('p[id^=Activity_]');
+        var id = new Array(list.length);
+        var idStr="";
+        for (var i = 0; i < list.length; i++) {
+            id[i] = list[i].id ;
+            idStr += list[i].id;
+        }
 
-                    <p>
-                        <span id="productnameC"  class="compare_name"></span>
-                        <span id="productPremC" class="compare_pric"></span>
-                        <span class="dblue cpdelico" onclick="closecp3()"></span>
-                    </p>
-                    <div class="clear"></div>
-                </div>
-                <div class="comparedetail" style="display:none;"  id="cpprodu4">
-                    <input type="hidden" name="productCodeD" id="productCodeD" />
-
-                    <p>
-                        <span id="productnameD" class="compare_name"></span>
-                        <span id="productPremD" class="compare_pric"></span>
-                        <span class="dblue cpdelico" onclick="closecp4()"></span>
-                    </p>
-                    <div class="clear"></div>
-                </div>
-                <div class="comparebtn">
-                    <!--<a class="compare_submit" href="javascript:void(0);" vlpageid="tjdb01" exturl="http://www.kaixinbao.com/tjdb01" onClick="javascript:begincompare('http://www.kaixinbao.com/wj');subclosecp();return(VL_FileDL(this));return false;">提交对比</a>-->
-                    <a class="compare_submit" href="javascript:void(0)" vlpageid="tjdb01" exturl="http://www.kaixinbao.com/tjdb01" onclick="return tijiaoduibi()">提交对比</a>
-                    <span class="compare_none" onclick="close_all();">清空</span>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <span class="cpdiv_jao"></span>
-        </div>
-    </div>
-    <a class="fixVs" href="javascript:void(0);" vlpageid="comp03" exturl="http://www.kaixinbao.com/comp03" onclick="return(VL_FileDL(this));return false;">
-        <img class="anim_fade_image" src="/picture/icon_fix_contrast.jpg" />
-        <img  src="/picture/icon_fix_contrast_on.jpg" />
-    </a>
-</div>
-<!--<span id="aab" hidden="hidden" th:text="${session.user}"></span>-->
-<script type="text/javascript" src="/js/jquery.cookie.js"></script>
-<!-- js加载 -->
-<script type="text/javascript" src="/js/jquery.form.js"></script>
-<script type="text/javascript" src="/js/jqueryupdate.js"></script>
-<!--<script type="text/javascript" src="/js/re_base.js"></script>-->
-<script type="text/javascript" src="/js/re_header.js"></script>
-<script type="text/javascript" src="/js/xiaoneng_customerservice.js"></script>
-<script type="text/javascript" src="/js/artdialog.js"></script>
-<script type="text/javascript" src="/js/login.js"></script>
-<script type="text/javascript" src="/js/iframetools.js"></script>
-<script type="text/javascript" src="/js/re_footer.js"></script>
-<script type="text/javascript" src="/js/jquery.sochange-min.js"></script>
-<script type="text/javascript" src="/js/layer.min.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
-<script type="text/javascript" src="/js/ntkfstat.js" charset="utf-8"></script>
-<script type="text/javascript"
-        src="/js/jquery-hcheckbox.js"></script>
-<script type="text/javascript"
-        src="/js/premcalculate.js"></script>
-<script type="text/javascript"
-        src="/js/re_productcompare.js"></script>
-<script type="text/javascript"
-        src="/js/jquery.sochange-min.js"></script>
-<script type="text/javascript"
-        src="/js/re_productlistv3.js"></script>
-<script src="/layui/layui.js" charset="utf-8"></script>
-<script th:inline="javascript">
-
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-        //总页数大于页码总数
-        laypage.render({
-            elem: 'demo1'
-            ,count: [[${productLista.getTotal()}]] //数据总数
-            ,limit: 2   //每页显示2条数据
-            ,jump: function(obj){
-
-                $("#layui-laypage-1").click(function () {
-                    $.post("/ajax/productlist/"+[[${productLevel3}]]+"/"+obj.curr,function (obj) {
-                        var data=JSON.parse(obj);
-                        console.info(data);
-                        $("#products").find('div').remove();
-                        var str="";
-
-                        for(var i=0;i<data.records.length;i++){
-                             str+='<DIV class="nlist_con cf" ><DIV class="nlist_des"><DIV class="icon_C2280 m-list-logo"></DIV> <DIV class="m-list-cn"><a href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank" class="nlist_title" >'+data.records[i].productTitle+'</a><DIV class="shop_tj_shrq cf"><p class="shop_shrd_con"> <span class="shop_shrq_bg">适合人群</span>'+data.records[i].productDetails+'</p></DIV></DIV><DIV class="clear"></DIV><ul class="d_list_con">';
-                             for(var j=0;j<data.records[i].productFeatureList.length;j++){
-                                 str+='<li><span>'+data.records[i].productFeatureList[j].featureName+'</span></li>';
-                             }
-                             str+='</ul><ul class="recommend_list">';
-                             for(var k=0;k<data.records[i].productInsuranceList.length;k++){
-                                 str+=' <li class="rec_list_li"><span class="rec_list_s" title="'+data.records[i].productInsuranceList[k].insuranceName+'" >'+data.records[i].productInsuranceList[k].insuranceName+'</span> <span class="rec_list_money" title="'+data.records[i].productInsuranceList[k].insurancePrice+'">'+data.records[i].productInsuranceList[k].insurancePrice+' </span></li>';
-
-                             }
-                             str+='</ul><DIV class="price_tj"><span class="recom_xl" id="SalesV_228001001">(累计销量：加载中...)</span> <span class="recom_xl"><i><a  href="javascript:void(0)" onclick="openCommnet(\'http://www.kaixinbao.com/jiankang-baoxian/320065.shtml\')" class="shop_tj_num" id="CommentV_228001001">评论加载中...</a></i></span> </DIV></DIV><DIV class="nlist_price"><p class="list_Sale tribe-action" id="Activity_228001001"><span id="Diy_Title_Activity_228001001" style="display: none;"></span><em id="Diy_Activity_228001001" style="display: none;"></em> </p><span class="nlist_pay moneys" NAME="Ajax_Prict_228001001"><em>￥</em>'+data.records[i].productPrice+'</span> <em class="nlist_pay_t moneys"><span NAME="Clear_Ajax_Prict_228001001"></span> </em> <DIV class="remcon_desmore"><a target="_blank" href="/HappysysProduct/getById/'+data.records[i].productId+'" rel="nofollow">去看看</a> <label class="nlist_add_db" onclick="showcp(\''+data.records[i].productTitle+'\',\'http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg\','+data.records[i].productId+',\'\',\'D\',\'http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg\','+data.records[i].productPrice+');">加入对比</label></DIV></DIV> </DIV></DIV>';
-                        }
-                        $("#products").append(str);
+        if(idStr==""){
+            return;
+        }
+        var cpsUserId = jQuery.cookie('cpsUserId');
+        var channelsn = "wj";
+        if(typeof(cpsUserId)!="undefined" && cpsUserId!=null && cpsUserId!=""){
+            channelsn = "cps";
+        }
 
 
-                    })
-                })
-
+        jQuery.ajax({
+            type: 'post',
+            url: sinosoft.base+'/shop/sales_volume!searchProductListAvtivityRe.action?productId='+id+'&channelSn='+channelsn+"&detailFlag=true",
+            dataType: "json",
+            async: true,
+            success: function(data) {
+                jQuery.each(data, function(index, object) {
+                    index=index.substring(0,index.indexOf("@"));
+                    document.getElementById(index).innerHTML= "<span  class=\"icon_sale\" >" + object.substring(0,object.indexOf("@")) + "</span>";
+                });
             }
         });
+    }
 
+    searchProductListAvtivity();
 
-
-
-
-
-
-    });
+    String.prototype.endsWith = String.prototype.endWith = function(str) {
+        var i = this.lastIndexOf(str);
+        return i>=0 && this.lastIndexOf(str) == this.length-str.length;
+    }
 </script>
+
 </body>
 </html>

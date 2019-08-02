@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
 @ToString
@@ -12,7 +14,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class HappysysInsurance {
+public class HappysysInsurance implements Serializable {
 
 
     @TableId

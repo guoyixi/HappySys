@@ -3,9 +3,12 @@ package com.tj.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,7 +83,7 @@ public interface HappysysProductClientService {
      * @return 用户选择不同标签计算后的价格
      */
     @RequestMapping(value = "/HappysysProduct/getCaluelatePrice",method = RequestMethod.POST)
-    public Double calculatePrice(@RequestParam Map<String,Object> map);
+    public Double calculatePrice(@RequestBody Map<String,Object> map);
 
 
     /**
@@ -140,6 +143,13 @@ public interface HappysysProductClientService {
      */
     @RequestMapping("/HappysysShoppingCart/addShoppingCart")
     boolean addShoppingCart(HappysysShoppingCart shoppingCart);
+    /**
+     * 获取一级和三级名称
+     * @param productLevel3
+     * @return
+     */
+    @RequestMapping(value = "/category/yi/er/{productLevel3}")
+    HashMap<String,Object> categoryOneTow(@PathVariable("productLevel3") Integer productLevel3);
 
     /**
      * @param userId
@@ -177,4 +187,21 @@ public interface HappysysProductClientService {
 
 
 
+    /**
+     * 商品对比
+     * @param productId
+     * @return
+     */
+    @RequestMapping(value="/product/duibi")
+    List<HappysysProduct> productDuibi(@RequestBody String productIds);
+    /**
+     * 查询多个商品的保障去重复值
+     * @param map
+     * @return
+     */
+    @RequestMapping("/product/insurance/duibi")
+    List<HappysysInsurance> insuranceAll(@Param("conditions") Map<Object,String> map);
+
+    @RequestMapping("/product/title/id")
+    String productbyidTitle (String title);
 }
