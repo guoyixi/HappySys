@@ -101,6 +101,7 @@ public class UserController {
                     return "login";
                 }
             }
+
             subject.login(token);
             System.out.println("token:"+token.getUsername());
             HappysysUser findbyname = userClientService.findbyname(token.getUsername());
