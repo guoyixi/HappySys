@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tj.mapper.OrderMapper">
 
-    <!--返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论）各项的数量  -->
+
     <select id="getAllOrderStatusNumByUserId" resultType="map">
         SELECT COUNT(1) order_num,
         (<include refid="getCountByUserId"></include>  AND `order_status` = 1) unpaid,
@@ -29,8 +29,9 @@
     </sql>
 
 
+
     <select id="getOrderByMap" resultType="map">
-        SELECT `order_id`,`order_number`,`order_price`,`order_time`,`order_expire_time`,`order_status`
+        SELECT `order_id`,`order_number`,`order_price`,`order_face_amount`,`order_time`,`order_expire_time`,`order_status`
         ,`order_user_id`,`product_id`,`product_title`,i.`applicant_name`,beibaoi.`applicant_name` recognizee_name
         ,(  SELECT COUNT(1) FROM `happysys_comment`
             WHERE `order_status` = 3 AND `comment_order_id` = o.`order_id`

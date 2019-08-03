@@ -50,11 +50,23 @@ public class OrderController {
         return "order_list";
     }
 
+    @RequestMapping("/HappysysOrder/loadProductPayment2/{orderId}")
+    public ModelAndView loadProductPayment2(@PathVariable("orderId") Integer orderId){
+        ModelAndView mav = getOrderDetailsInfo(orderId);
+        mav.setViewName("product_payment2");
+        return mav;
+    }
 
     @RequestMapping("/HappysysOrder/loadOrderDetailsByOrderId/{orderId}")
     public ModelAndView loadOrderDetailsByOrderId(@PathVariable("orderId") Integer orderId){
-        ModelAndView mav = new ModelAndView();
+        ModelAndView mav = getOrderDetailsInfo(orderId);
+        mav.setViewName("order_details");
+        return mav;
+    }
 
+
+    public ModelAndView getOrderDetailsInfo(Integer orderId){
+        ModelAndView mav = new ModelAndView();
         //获取订单
         Map<String,Object> orderDetails = happysysProductClientService.getOrderByOrderId(orderId);
 
@@ -81,7 +93,6 @@ public class OrderController {
                 }
             }
         }
-
         //根据 orderid获取所有的投保项
         List<HappysysInsurance> insuranceList =  happysysProductClientService.getInsuranceByOrderId(orderId);
 
@@ -89,10 +100,15 @@ public class OrderController {
         mav.addObject("orderDetails",orderDetails);
         mav.addObject("applicantInfo",applicantInfo);
         mav.addObject("recognizeeInfo",recognizeeInfo);
-
-        mav.setViewName("order_details");
-
         return mav;
+    }
+
+    @RequestMapping("/HappysysOrder/getOrderCountByProductId/{productId}")
+    @ResponseBody
+    public Integer getOrderCountByProductId(@PathVariable("productId") Integer productId){
+        System.out.println("OrderController      getOrderCountByProductId");
+
+        return happysysProductClientService.getOrderCountByProductId(productId);
     }
 
 }

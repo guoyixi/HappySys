@@ -174,6 +174,14 @@ public interface HappysysProductClientService {
 
 
     /**
+     * @param productId
+     * @return              根据productId查询销量
+     */
+    @RequestMapping("/HappysysOrder/getOrderCountByProductId/{productId}")
+    Integer getOrderCountByProductId(@PathVariable("productId") Integer productId);
+
+
+    /**
      * @param applicantIds
      * @return                  根据applicantId 列表查询list
      */

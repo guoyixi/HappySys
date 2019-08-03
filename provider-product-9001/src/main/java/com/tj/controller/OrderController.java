@@ -1,6 +1,7 @@
 package com.tj.controller;
 
 import com.tj.service.OrderService;
+import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,8 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private ProductService productService;
 
     @RequestMapping("/HappysysOrder/getAllOrderStatusNumByUserId/{userId}")
     public Map<String,Object> getAllOrderStatusNumByUserId(@PathVariable("userId") Integer userId){
@@ -34,6 +37,14 @@ public class OrderController {
         System.out.println("OrderController      getOrderByOrderId");
 
         return orderService.getOrderByOrderId(orderId);
+    }
+
+
+    @RequestMapping("/HappysysOrder/getOrderCountByProductId/{productId}")
+    public Integer getOrderCountByProductId(@PathVariable("productId") Integer productId){
+        System.out.println("OrderController      getOrderCountByProduct");
+
+        return productService.OrderCount(productId);
     }
 
 

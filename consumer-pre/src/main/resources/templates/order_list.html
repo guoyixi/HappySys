@@ -698,7 +698,7 @@
                 <ul id="otherHeaderShow" class="order-header">
                     <li>产品名称</li>
                     <li>投保人</li>
-                    <li>被保人</li>
+                    <li>基本保额（元）</li>
                     <li>保费（元）</li>
                     <li>状态</li>
                     <li>操作</li>
@@ -1064,10 +1064,15 @@
 </div>
 <!-- /公共尾部：后台开发请直接替换 -->
 
+
+
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.js"></script>
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.config.js"></script>
 <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">require(['member/mod_order']);
+
+
+
 
 getOrder('');
 
@@ -1089,6 +1094,29 @@ function getOrder(orderStatus){
             reloadOrder(result);
         }
     },"json");
+
+}
+function orderComment() {
+    alert("orderComment");
+    var $range_stars = $("#range_stars").val();
+    var $degree_stars = $("#degree_stars").val();
+    var $price_stars = $("#price_stars").val();
+    var $afterSale_stars = $("#afterSale_stars").val();
+
+    if($range_stars == 0 || $degree_stars == 0 || $price_stars == 0 || $afterSale_stars == 0){
+        alert("");
+        return;
+    }
+
+    $.post("",function (result) {
+        if(result == true){
+
+
+        }else {
+
+        }
+
+    });
 
 }
 
@@ -1114,12 +1142,12 @@ function reloadOrder(result) {
                             var orderStatusvarVal = "未支付";
                             if(item.order_status == 2){
                                 orderStatusvarVal = "待生效"
-                            }else {
+                            }else if(item.order_status == 3){
                                 orderStatusvarVal = "已支付"
                             }
                             var isEvaluatedVal = "";
                             if(item.is_evaluated == 0 && item.order_status == 3){
-                                isEvaluatedVal = '<a href="javascript:void(0);" class="evaluate">产品评价</a>';
+                                isEvaluatedVal = '<a href="javascript:void(0);" class="evaluate"><span class="evaluatebtn sel">立即评价<em class="icons"></em></span></a>';
                             }else if(item.is_evaluated > 0 && item.order_status == 3){
                                 isEvaluatedVal = "已评价";
                             }
@@ -1130,13 +1158,76 @@ function reloadOrder(result) {
                                 +'<span class="orderTime">下单时间：'+item.order_time+'</span>'
                                 +'</div><table class="order-list">'
                                 +'<td><a target="view_window" href="/HappysysProduct/getById/'+item.product_id+'">'+item.product_title+'</a></td>'
-                                +'<td>'+item.applicant_name+'</td><td>'+item.recognizee_name+'</td>'
+                                +'<td>'+item.applicant_name+'</td><td>￥'+item.order_face_amount.toFixed(2)+'</td>'
                                 +'<td>￥'+item.order_price.toFixed(2)+'</td>'
                                 +'<td>'+orderStatusvarVal+'</td>'
                                 +'<td class="order-list-action">'
                                 +'<a href="/HappysysProduct/getById/'+item.product_id+'" class="againpay">再次购买</a>'
                                 +'<a href="/HappysysOrder/loadOrderDetailsByOrderId/'+item.order_id+'" class="seeorder">查看订单</a>'+isEvaluatedVal+''
-                                +'</td></table></div>');
+                                +'</td></table>'
+
+                                +'<div class="evaluate-box" id="evaluateBox_2012000002389556">'
+                                +'<div class="evaluate-box-left">'
+                                +'<dl class="star-mod-dl">'
+                                +'<dt>保障范围</dt>'
+                                +'<dd>'
+                                +'<ul class="star">'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                            +'</ul>'
+                                +'<input id="range_stars" type="hidden" value="0">'
+                                +'</dd>'
+                                +'</dl>'
+                                +'<dl class="star-mod-dl" >'
+                                +'<dt>保障程度</dt>'
+                                +'<dd>'
+                                +'<ul class="star">'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'<li class="i-member i-xingxing"></li>'
+                                +'</ul>'
+                                +'<input id="degree_stars" type="hidden" value="0">'
+                                +'</dd>'
+                                +'</dl>'
+                                +'<dl class="star-mod-dl">'
+                                +'<dt>保障价格</dt>'
+                                +'<dd>'
+                            +'<ul class="star">'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'</ul>'
+                            +'<input id="price_stars" type="hidden" value="0">'
+                            +'</dd>'
+                            +'</dl>'
+                            +'<dl class="star-mod-dl">'
+                            +'<dt>售后服务</dt>'
+                            +'<dd>'
+                            +'<ul class="star">'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'<li class="i-member i-xingxing"></li>'
+                            +'</ul>'
+                            +'<input id="afterSale_stars" type="hidden" value="0">'
+                            +'</dd>'
+                            +'</dl>'
+                            +'</div>'
+                            +'<div class="evaluate-box-right">'
+                            +'<em class="jiao"></em>'
+                            +'<textarea class="order-plsf"  name="" value="" placeholder="产品是否给力？分享你的购买心得给大家吧？"></textarea>'
+                            +'<a href="javascript:void(0);" name ="2012000002389556"  class="submit">提交</a>'
+                            +'</div>'
+                            +'</div></div>'
+                            );
                     });
                     return arr.join('');
                 }();
