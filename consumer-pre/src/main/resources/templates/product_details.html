@@ -90,7 +90,7 @@
             <div class="top-con">
                 <div class="sales bor">
                     <span>销量</span>
-                    <span class="num"></span>
+                    <span class="num" id="sales_volume"></span>
                 </div>
                 <div class="sales">
                     <span>好评率</span>
@@ -371,13 +371,13 @@
                 <div class="qa-btm">
                     <h2 class="de-tit">常见问题</h2>
                     <div class="qa-up">
-                        <ul class="qa-list">
-                            <li th:each="commonProblem:${product.getProductCommonProblemList()}">
+                        <ul class="qa-list" id="common_problem">
+                            <!--<li th:each="commonProblem:${product.getProductCommonProblemList()}">
                                 <p class="q-cont"><span class="i-q"></span><span th:text="${commonProblem.commonpTitle}"></span><span class="i-shop i-zhankai1"></span></p>
                                 <p class="a-cont">
                                     <span class="i-da"></span><span th:text="${commonProblem.commonpAnswer}"></span>
                                 </p>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                 </div>
@@ -415,7 +415,7 @@
                 <h3 class="common-num user_commont">用户评价(4)</h3>
                 <div class="head-commen">
                     <div class="degree">
-                        <span class="num commentSatisfaction">100%</span>
+                        <span class="num commentSatisfaction"></span>
                         <span class="agree">满意度</span>
                     </div>
                     <!--<ul>
@@ -452,6 +452,23 @@
 <script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" th:inline="javascript">
 
+
+    // 查询此商品的销量
+    $.get("/HappysysOrder/getOrderCountByProductId/"+[[${product.productId}]],function (result) {
+        $("#sales_volume").html(result);
+    });
+
+
+    // 查询此商品的所有常见问题
+    $.get("/HappysysCommonProblem/getCommonProblemByProductId/"+[[${product.productId}]],function (result) {
+        $(result).each(function(index,obj){
+            $("#common_problem").append('<li>'
+                +'<p class="q-cont"><span class="i-q"></span><span>'+obj.commonpTitle+'</span>'
+                +'<span class="i-shop i-zhankai1"></span></p><p class="a-cont">'
+                +'<span class="i-da"></span><span>'+obj.commonpAnswer+'</span></p></li>');
+        });
+    });
+
             //ajax 查询user评价
             $.get("/HappysysComment/getCommentAndUserByProductId/"+[[${product.productId}]],function (result) {
                 var commentAndUserListData = result.commentAndUser;
@@ -463,7 +480,6 @@
                     var laypage = layui.laypage
                         ,layer = layui.layer;
 
-                    //自定义首页、尾页、上一页、下一页文本
                     laypage.render({
                         elem: 'page_btn'
                         ,first: '首页'
@@ -490,7 +506,7 @@
                                         +'<div class="tit">'
                                         +'<span class="star'+item.comment_grade+'"></span>'
                                         +'</div>'
-                                        +'<div class="read">'+item.comment_content+'</div>'
+                                        +'<div class="read">'+(item.comment_content == undefined ? "此用户未评论！":item.comment_content)+'</div>'
                                         +'<div class="goal"><span>'+item.comment_time+'</span></div>'
                                         +'</div>'
                                         +'<div class="bottom-bor"></div>'

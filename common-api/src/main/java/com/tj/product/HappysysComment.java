@@ -21,7 +21,6 @@ public class HappysysComment implements Serializable {
     @TableId
     private Integer commentId;
     private Integer commentProductId;       //商品id
-    private String commentPurpose;          //目的
     private String commentTime;             //时间
     private Integer commentGrade;           //等级
     private String commentContent;          //内容

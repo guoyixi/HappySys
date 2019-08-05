@@ -4,35 +4,24 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="keywords" content="" />
-    <title>开心保 - 我的购物车</title>
+    <title>开心保 - 用户个人中心</title>
     <link id="static-path" rel="dns-prefetch" href="https://mresource.kaixinbao.com/member/pc/r02/" />
     <link id="dynamic-path" rel="dns-prefetch" href="https://vipm.kaixinbao.com" />
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/common/mod_common.css">
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_collect.css">
+    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_datum.css">
     <link rel="shortcut icon" href="https://mresource.kaixinbao.com/member/pc/r02/images/common/favicon.ico"/>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
+
+    <!--order-->
+    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_unpaid.css">
+
 
 </head>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
 
-<script type="text/javascript">
-    /*删除购物车中的商品*/
-    function delShoppingCartByShoppingCartId(shoppingCartId,currentObj) {
-        alert(shoppingCartId);
-        $.post("/HappysysShoppingCart/delShoppingCartByShoppingCartId/"+shoppingCartId,
-            function(result){
-                if(result == true){
-                    alert("删除成功！");
-                    $(".product"+shoppingCartId).remove();
-                }else {
-                    alert("删除失败，请联系管理员！");
-                }
-            }
-        );
 
-    };
-
-</script>
 <body id="member">
 
 <!-- 公共头部：后台开发请直接替换 -->
@@ -664,58 +653,43 @@
 </div>
 <!-- /公共头部：后台开发请直接替换 -->
 
-<div id="member-box">
-    <!-- 会员中心 公共侧边栏 -->
 
+
+<div id="member-box">
+
+    <!-- 会员中心 公共侧边栏 -->
     <div class="member-siderbar">
-        <a href="http://www.kaixinbao.com/member/center/index.shtml" class="member-nav-tit"><i class="iconsnav iconnav1"></i>会员中心</a>
         <dl class="member-sider-nav">
             <dt><i class="iconsnav iconnav1"></i>订单管理</dt>
-            <dd><a href="">全部订单<span class="order_num"></span></a></dd>
-            <dd><a href="">待支付<span class="unpaid"></span></a></dd>
-            <dd><a href="">待生效<span class="unenforced"></span></a></dd>
-            <dd><a href="">生效中<span class="in_force"></span></a></dd>
-            <dd><a href="">即将到期<span class="soon_expire"></span></a></dd>
-            <dd><a href="">已到期<span class="expired"></span></a></dd>
-            <dd><a href="">待评价<span class="waiting_comment"></span></a></dd>
+            <dd class="sel"><a href="javascript:void(0)" onclick="cententChange(null,this,'')">全部订单<span class="order_num"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,1)">待支付<span class="unpaid"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,2)">待生效<span class="unenforced"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,3)">生效中<span class="in_force"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,4)">即将到期<span class="soon_expire"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,5)">已到期<span class="expired"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,6)">待评价<span class="waiting_comment"></span></a></dd>
             <dt><i class="iconsnav iconnav2"></i>我的</dt>
-            <dd><a href="http://www.kaixinbao.com/member/myPoints/init">我的积分</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/collection/init">我的购物车</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/record/init">我的足迹</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/server/init">我的服务</a></dd>
+            <dd><a href="javascript:void(0)" id="shopping_cart" onclick="cententChange('shopping_cart',this,null)">我的购物车</a></dd>
+            <dd><a href="javascript:void(0)">我的足迹</a></dd>
             <dt><i class="iconsnav iconnav3"></i>账户管理</dt>
-            <dd><a href="http://www.kaixinbao.com/member/info/init">用户资料</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/relation/init">常用投被保人</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/password/init">密码修改</a></dd>
-            <dt><i class="iconsnav iconnav4"></i>发现</dt>
-            <dd><a href="http://www.kaixinbao.com/member/share/init">邀请好友赚积分</a></dd>
+            <dd><a href="javascript:void(0)" id="user_info_show" onclick="cententChange('user_info_show',this,null)">用户资料</a></dd>
+            <dd><a href="javascript:void(0)">常用投被保人</a></dd>
+            <dd><a href="javascript:void(0)">密码修改</a></dd>
         </dl>
     </div>
     <!-- /会员中心 公共侧边栏 -->
 
     <!-- 会员中心 内容区域 -->
-    <div class="member-content">
-        <div class="member-order-nav">
-            <h2 class="title"><span></span>我的购物车</h2>
-        </div>
-        <!-- 我的购物车列表 -->
-        <div class="member-collect-con" id="collectPage">
-            <div id="collect-box">
+    <div class="member-content" id="change_centent">
 
-                <ul id="biuuu_city_list"></ul>
+        <!--要切换的html内容处！-->
 
-            </div>
-
-            <!-- 分页组件 -->
-            <div id="page_btn" align="center"></div>
-            <!-- 分页组件 -->
-
-        </div>
-        <!-- /我的购物车列表 -->
 
     </div>
     <!-- /会员中心 内容区域 -->
 </div>
+
+
 
 <!-- 公共尾部：后台开发请直接替换 -->
 <div id="advantage-box">
@@ -1081,6 +1055,7 @@
 <script type="text/javascript" th:inline="javascript">
     require(['member/mod_collect']);
 
+
     //返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
     $.post("/HappysysOrder/getAllOrderStatusNumByUserId",function (result) {
         $(".order_num").html(result.order_num);
@@ -1092,45 +1067,43 @@
         $(".waiting_comment").html(result.waiting_comment);
     });
 
-    //ajax 查询用户的所有购物车商品
-    $.get("/HappysysShoppingCart/getCurrentUserShoppingCartProduct",function (result) {
-        layui.use(['laypage', 'layer'], function(){
-            var laypage = layui.laypage
-                ,layer = layui.layer;
+    var pageName = [[${pageName}]];
+    cententChange(pageName,null,null);
 
-            //自定义首页、尾页、上一页、下一页文本
-            laypage.render({
-                elem: 'page_btn'
-                ,first: '首页'
-                ,last: '尾页'
-                ,prev: '<em>上一页</em>'
-                ,next: '<em>下一页</em>'
-                ,theme: '#FFB800'
-                ,limit : 6
-                ,count: result.length
-                ,jump: function(obj){
-                    document.getElementById('biuuu_city_list').innerHTML = function(){
-                        var arr = []
-                            ,thisData = result.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                        layui.each(thisData, function(index, item){
-                            //item:当前json对象
-                            arr.push('<dl class="product'+item.productShoppingCartId+'">'
-                                +'<dt><a href="/HappysysProduct/getById/'+item.productId+'" target="_blank">'
-                                +'<img src="/images/product/'+item.productImage+'" alt=""/></a></dt><dd class="des">'
-                                +'<a class="title" href="/HappysysProduct/getById/'+item.productId+'" target="_blank" >'+item.productTitle+'</a></dd>'
-                                +'<dd class="active">'
-                                +'<a href="/HappysysProduct/getById/'+item.productId+'" target="_blank" class="gotoshop">立即购买</a>'
-                                +'<a href="javascript:delShoppingCartByShoppingCartId('+item.productShoppingCartId+',this);" class="encollect" >取消加入购物车</a>'
-                            +'</dd>'
-                            +'</dl>');
-                        });
-                        return arr.join('');
-                    }();
-                }
-            });
-        });
+    if(pageName != null){
+        $("#"+pageName).parent().attr("class","sel").siblings().removeAttr("class","sel");
+    }
 
-    },"json");
+    //用来区分用户点的是那种订单的标记
+    var order_status ;
+
+    function cententChange(pageName,currentObj,order_status_inner){
+        if(pageName == null){
+            pageName = 'order_list';
+        }
+        if(order_status_inner != null){
+            order_status = order_status_inner;
+        }
+        if(currentObj != null){
+            $(currentObj).parent().attr("class","sel").siblings().removeAttr("class","sel");
+        }
+
+        $.ajax({
+            url:"/HappysysUser/userPersonalCenterContentChange/"+pageName,
+            method:"get",
+            success: function (result) {
+                $("#change_centent").html(result);
+            },
+            error:function () {
+                alert("数据正在测试中....");
+            }
+
+        })
+
+
+    }
+
+
 
 </script>
 </body>

@@ -74,12 +74,6 @@ public class ShoppingCartController {
     }
 
 
-    @RequestMapping(value = "/HappysysShoppingCart/loadShoppingCart")
-    public String loadShoppingCart(){
-        System.out.println("ShoppingCartController      loadShoppingCart");
-
-        return "shopping_cart";
-    }
 
 
 }

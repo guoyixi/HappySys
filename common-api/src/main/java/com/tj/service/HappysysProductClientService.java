@@ -43,6 +43,11 @@ public interface HappysysProductClientService {
             @PathVariable(value = "currentPage") Integer currentPage,
             @PathVariable(value = "size") Integer size);
 
+    @RequestMapping("/HappysysComment/addComment")
+    @ResponseBody
+    boolean addComment(@RequestBody HappysysComment comment);
+
+
 
     /* *
      * @param condtions     条件map 要加条件把键值put即可 然后就去product_mapper.xml中加条件
@@ -171,6 +176,14 @@ public interface HappysysProductClientService {
      */
     @RequestMapping("/HappysysOrder/getOrderByOrderId/{orderId}")
     Map<String,Object> getOrderByOrderId(@PathVariable("orderId") Integer orderId);
+
+
+    /**
+     * @param productId
+     * @return              根据productId查询销量
+     */
+    @RequestMapping("/HappysysOrder/getOrderCountByProductId/{productId}")
+    Integer getOrderCountByProductId(@PathVariable("productId") Integer productId);
 
 
     /**

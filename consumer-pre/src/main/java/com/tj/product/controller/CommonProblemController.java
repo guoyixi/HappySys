@@ -16,7 +16,7 @@ public class CommonProblemController {
     @Autowired
     private HappysysProductClientService happysysProductClientService;
 
-    @RequestMapping("/HappysysCommonProblem/getByProductId/{productId}")
+    @RequestMapping("/HappysysCommonProblem/getCommonProblemByProductId/{productId}")
     @ResponseBody
     public List<HappysysCommonProblem> getCommonProblemByProductId(@PathVariable("productId") Integer productId){
         return happysysProductClientService.getCommonProblemByProductId(productId);
