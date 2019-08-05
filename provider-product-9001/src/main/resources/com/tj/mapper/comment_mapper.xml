@@ -6,7 +6,7 @@
 
 
     <select id="getCommentAndUserByProductId" resultType="map">
-        SELECT `comment_id`,`comment_product_id`,`comment_purpose`,`comment_time`,`comment_grade`
+        SELECT `comment_id`,`comment_product_id`,`comment_time`,`comment_grade`
                 ,`comment_content`,`comment_order_id`,`user_id`,`user_name`,`user_icon`
         FROM `happysys_comment` c
         INNER JOIN `happysys_user`  u ON c.`comment_user_id` = user_id

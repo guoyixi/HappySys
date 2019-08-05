@@ -37,6 +37,7 @@ public class OrderController {
     public List<Map<String,Object>> getOrderByMap(@RequestParam Map<String, Object> conditions, HttpSession session){
         System.out.println("OrderController      getOrderByUserId");
         Integer userId = ((HappysysUser)session.getAttribute("user")).getUserId();
+
         conditions.put("user_id",userId);
         System.out.println("getOrderByUserId:"+conditions);
         List<Map<String,Object>> orderList = happysysProductClientService.getOrderByMap(conditions);
@@ -44,11 +45,6 @@ public class OrderController {
         return orderList;
     }
 
-    @RequestMapping("/HappysysOrder/loadOrderList")
-    public String loadOrderList(){
-        System.out.println("OrderController      loadOrderList");
-        return "order_list";
-    }
 
     @RequestMapping("/HappysysOrder/loadProductPayment2/{orderId}")
     public ModelAndView loadProductPayment2(@PathVariable("orderId") Integer orderId){
@@ -110,5 +106,6 @@ public class OrderController {
 
         return happysysProductClientService.getOrderCountByProductId(productId);
     }
+
 
 }

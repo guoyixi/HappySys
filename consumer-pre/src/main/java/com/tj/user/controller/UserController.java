@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -177,15 +178,7 @@ public class UserController {
     }
 
 
-
-    @RequestMapping("/user/loadUserInfoShow")
-    public HappysysUser loadUserInfoShow(String userName){
-        System.out.println("UserController      loadUserInfoShow");
-
-        return userClientService.findbyname(userName);
-    }
-
-    @RequestMapping(value = "/user/updateUserById")
+    @RequestMapping(value = "/HappysysUser/updateUserById")
     public ModelAndView updateUserById(HappysysUser user,@RequestParam(required = false) MultipartFile file,HttpSession session) {
         System.out.println("UserController      updateUserById");
         HappysysUser prototypeUser = (HappysysUser)session.getAttribute("user");
@@ -237,6 +230,24 @@ public class UserController {
         ModelAndView mav = new ModelAndView();
         mav.addObject("resultMess",resultMess);
         mav.setViewName("user_info_show");
+
+        return mav;
+    }
+
+
+    @RequestMapping("/HappysysUser/userPersonalCenterContentChange/{pageName}")
+    public String userPersonalCenterContentChange(@PathVariable("pageName") String pageName){
+        System.out.println("OrderController      userPersonalCenterContentChange");
+
+        return "user_center/"+pageName;
+    }
+
+    @RequestMapping("/HappysysUser/loadUserPersonalCenter")
+    public ModelAndView loadUserPersonalCenter(@RequestParam(required = false) String pageName){
+        System.out.println("OrderController      loadUserPersonalCenter");
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("user_personal_center");
+        mav.addObject("pageName", pageName);
 
         return mav;
     }

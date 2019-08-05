@@ -4,22 +4,25 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="keywords" content="" />
-    <title>开心保-会员中心-全部订单</title>
+    <title>开心保 - 用户个人中心</title>
     <link id="static-path" rel="dns-prefetch" href="https://mresource.kaixinbao.com/member/pc/r02/" />
     <link id="dynamic-path" rel="dns-prefetch" href="https://vipm.kaixinbao.com" />
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/common/mod_common.css">
-    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_unpaid.css">
+    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_collect.css">
+    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_datum.css">
+    <link rel="shortcut icon" href="https://mresource.kaixinbao.com/member/pc/r02/images/common/favicon.ico"/>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
+
+    <!--order-->
+    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_unpaid.css">
+
+
 </head>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+
+
 <body id="member">
-<input type="hidden" id="pageTabId" value='allOrder'>
-<input type="hidden" id="keywordText" value=''>
-<input type="hidden" id="keywordTextAll" value=''>
-<input type="hidden" id="keywordTextExpiredOrder" value=''>
-<input type="hidden" id="WJAppResourcePath" value='http://www.kaixinbao.com/'>
-<input type="hidden" id="siderNav" value='0'>
-<input type="hidden" id="WJImageResourcePath" value='https://resource.kaixinbao.com'>
 
 <!-- 公共头部：后台开发请直接替换 -->
 <div id="header-box">
@@ -650,76 +653,43 @@
 </div>
 <!-- /公共头部：后台开发请直接替换 -->
 
-<div id="member-box">
-    <!-- 会员中心 公共侧边栏 -->
 
+
+<div id="member-box">
+
+    <!-- 会员中心 公共侧边栏 -->
     <div class="member-siderbar">
-        <a href="" class="member-nav-tit"><i class="iconsnav iconnav1"></i>会员中心</a>
         <dl class="member-sider-nav">
             <dt><i class="iconsnav iconnav1"></i>订单管理</dt>
-            <dd><a href="javascript:getOrder('')">全部订单<span class="order_num"></span></a></dd>
-            <dd><a href="javascript:getOrder(1)">待支付<span class="unpaid"></span></a></dd>
-            <dd><a href="javascript:getOrder(2)">待生效<span class="unenforced"></span></a></dd>
-            <dd><a href="javascript:getOrder(3)">生效中<span class="in_force"></span></a></dd>
-            <dd><a href="javascript:getOrder(4)">即将到期<span class="soon_expire"></span></a></dd>
-            <dd><a href="javascript:getOrder(5)">已到期<span class="expired"></span></a></dd>
-            <dd><a href="javascript:getOrder(6)">待评价<span class="waiting_comment"></span></a></dd>
+            <dd class="sel"><a href="javascript:void(0)" onclick="cententChange(null,this,'')">全部订单<span class="order_num"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,1)">待支付<span class="unpaid"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,2)">待生效<span class="unenforced"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,3)">生效中<span class="in_force"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,4)">即将到期<span class="soon_expire"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,5)">已到期<span class="expired"></span></a></dd>
+            <dd><a href="javascript:void(0)" onclick="cententChange(null,this,6)">待评价<span class="waiting_comment"></span></a></dd>
             <dt><i class="iconsnav iconnav2"></i>我的</dt>
-            <dd><a href="http://www.kaixinbao.com/member/myPoints/init">我的积分</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/collection/init">我的购物车</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/record/init">我的足迹</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/server/init">我的服务</a></dd>
+            <dd><a href="javascript:void(0)" id="shopping_cart" onclick="cententChange('shopping_cart',this,null)">我的购物车</a></dd>
+            <dd><a href="javascript:void(0)">我的足迹</a></dd>
             <dt><i class="iconsnav iconnav3"></i>账户管理</dt>
-            <dd><a href="http://www.kaixinbao.com/member/info/init">用户资料</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/relation/init">常用投被保人</a></dd>
-            <dd><a href="http://www.kaixinbao.com/member/password/init">密码修改</a></dd>
-            <dt><i class="iconsnav iconnav4"></i>发现</dt>
-            <dd><a href="http://www.kaixinbao.com/member/share/init">邀请好友赚积分</a></dd>
+            <dd><a href="javascript:void(0)" id="user_info_show" onclick="cententChange('user_info_show',this,null)">用户资料</a></dd>
+            <dd><a href="javascript:void(0)">常用投被保人</a></dd>
+            <dd><a href="javascript:void(0)">密码修改</a></dd>
         </dl>
     </div>
     <!-- /会员中心 公共侧边栏 -->
 
     <!-- 会员中心 内容区域 -->
-    <div class="member-content">
-        <div class="member-order">
-            <!-- 订单列表表头 -->
-            <div class="member-order-nav">
-                <h2 class="title"><span></span>全部订单</h2>
-                <div class="member-order-search">
-                    <div class="inputbox"><span class="icons"></span>
-                        <input id="product_title" type="text" placeholder="输入产品名称搜索保单"/></div>
+    <div class="member-content" id="change_centent">
 
-                    <a href="javascript:getOrder('')" class="submit">查询</a>
-                </div>
-            </div>
-            <!-- 订单列表表头 -->
-            <!--待支付-->
-            <div class="member-order-des">
-                <ul id="otherHeaderShow" class="order-header">
-                    <li>产品名称</li>
-                    <li>投保人</li>
-                    <li>基本保额（元）</li>
-                    <li>保费（元）</li>
-                    <li>状态</li>
-                    <li>操作</li>
-                </ul>
-                <!-- 订单列表 -->
-                <div class="orderDes" id="orderPage">
+        <!--要切换的html内容处！-->
 
 
-                </div>
-                <!-- 订单列表 -->
-
-                <!-- 分页组件 -->
-                <div id="page_btn" align="center"></div>
-
-            </div>
-            <!--待支付-->
-
-        </div>
     </div>
     <!-- /会员中心 内容区域 -->
 </div>
+
+
 
 <!-- 公共尾部：后台开发请直接替换 -->
 <div id="advantage-box">
@@ -807,6 +777,9 @@
 
 
                     <a href="http://www.kaixinbao.com/jiankang-baoxian/309551.shtml" target="_blank">长期重疾险</a>
+
+
+                    <a href="http://ketang.kaixinbao.com/" target="_blank">保险规划</a>
 
 
                     <a href="http://www.dajiabao.com/" target="_blank">买保险网</a>
@@ -913,21 +886,21 @@
 <!--/友情链接-->
 
 <!--快速入口-->
-<!--<div id="fastTrack-box">
+<div id="fastTrack-box">
     <div class="track-con">
         <dl>
             <dt>新手指南</dt>
             <dd>
-                <a rel="nofollow"  href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn1" target="_blank" rel="nofollow">如何注册</a>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn4" target="_blank" rel="nofollow">如何投保</a>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn3" target="_blank" rel="nofollow">找回密码</a>
+                <a rel="nofollow"  href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn1" target="_blank" >如何注册</a>
+                <a rel="nofollow" href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn4" target="_blank" >如何投保</a>
+                <a rel="nofollow" href="http://www.kaixinbao.com/about/xszn/index.shtml#xszn3" target="_blank" >找回密码</a>
             </dd>
         </dl>
         <dl>
             <dt>支付帮助</dt>
             <dd>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/4/index.shtml#zfbz2" target="_blank" rel="nofollow">支付方式</a>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/4/index.shtml#zfbz1" target="_blank" rel="nofollow">支付说明</a>
+                <a rel="nofollow" href="http://www.kaixinbao.com/about/4/index.shtml#zfbz2" target="_blank" >支付方式</a>
+                <a rel="nofollow" href="http://www.kaixinbao.com/about/4/index.shtml#zfbz1" target="_blank" >支付说明</a>
             </dd>
         </dl>
         <dl>
@@ -950,7 +923,7 @@
         <dl>
             <dt>服务中心</dt>
             <dd>
-                <a rel="nofollow" href="http://www.kaixinbao.com/about/3/dayizonghui/253398.shtml" target="_blank" rel="nofollow">发票索取</a>
+                <a rel="nofollow" href="http://www.kaixinbao.com/about/3/dayizonghui/253398.shtml" target="_blank" >发票索取</a>
                 <a href="http://www.kaixinbao.com/about/3/dayizonghui/index.shtml" target="_blank" rel="nofollow">常见问题</a>
             </dd>
         </dl>
@@ -959,22 +932,22 @@
             <p><img src="https://resource.kaixinbao.com/r02/images/common/wechat14_bk.png" alt="关注微信了解更多资讯"></p>
         </div>
     </div>
-</div>-->
+</div>
 <!--快速入口-->
 
 <!--footer-->
-<!--<div id="footer-box">
+<div id="footer-box">
     <div class="footer-con">
         <div class="footer-con-link">
             <dl>
                 <dt>
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/about/" rel="nofollow">关于开心保</a>|
+                    <a rel="nofollow" href="http://www.kaixinbao.com/other/about/" >关于开心保</a>|
                     <a href="http://www.kaixinbao.com/other/news/" rel="nofollow">开心保要闻</a>|
                     <a href="http://www.kaixinbao.com/other/sitemap/">网站地图</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/legal/" rel="nofollow">法律声明</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/contact/" rel="nofollow">联系我们</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/other/jobs/" rel="nofollow">加入我们</a>|
-                    <a rel="nofollow" href="http://www.kaixinbao.com/yxhd/isl-tra/" target="_blank" rel="nofollow">微信版</a>
+                    <a rel="nofollow" href="http://www.kaixinbao.com/other/legal/" >法律声明</a>|
+                    <a rel="nofollow" href="http://www.kaixinbao.com/other/contact/" >联系我们</a>|
+                    <a rel="nofollow" href="http://www.kaixinbao.com/other/jobs/" >加入我们</a>|
+                    <a rel="nofollow" href="http://www.kaixinbao.com/yxhd/isl-tra/" target="_blank" >微信版</a>
                 </dt>
                 <dd>
                     <a href="https://resource.kaixinbao.com/r02/images/common/bxdlywxkz.jpg" target="_blank" rel="nofollow">保险代理业务许可证</a>&nbsp;&nbsp;
@@ -987,15 +960,23 @@
         </div>
         <div class="footer-con-approve">
             <ul>
+
+
                 <li ><a href="http://www.circ.gov.cn/tabid/5171/InfoID/210753/frtid/4491/Default.aspx" target="_blank" rel="nofollow"><img src="https://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582921308.png" width="90" height="37"/></a></li>
+
+
                 <li ><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088" target="_blank" rel="nofollow"><img src="https://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582937061.png" width="37" height="37"/></a></li>
+
+
                 <li ><a href="http://wljg.lngs.gov.cn/iciaicweb/dzbscheck.do?method=change&id=E2014111300054343" target="_blank" rel="nofollow"><img src="https://resource.kaixinbao.com/upload/Image/xrwz/2014/12/298851182.png" width="37" height="37"/></a></li>
+
+
                 <li ><a href="http://si.trustutn.org/info?sn=618161121025629572164&certType=1" target="_blank" rel="nofollow"><img src="https://resource.kaixinbao.com/upload/Image/xrwz/2016/11/3061644601.png" width="90" height="37"/></a></li>
 
             </ul>
         </div>
     </div>
-</div>-->
+</div>
 <!--/footer-->
 
 <div id="toorbar">
@@ -1064,177 +1045,63 @@
 </div>
 <!-- /公共尾部：后台开发请直接替换 -->
 
-
+<input type="hidden" id="PcStaticResourcePath" value="https://mresource.kaixinbao.com/member/pc/r02">
+<input type="hidden" id="WJAppResourcePath" value="http://www.kaixinbao.com/">
+<input type="hidden" id="WJStaticResourcePath" value="http://resource.kaixinbao.com/r02/">
 
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.js"></script>
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.config.js"></script>
 <script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js" charset="utf-8"></script>
-<script type="text/javascript">require(['member/mod_order']);
+<script type="text/javascript" th:inline="javascript">
+    require(['member/mod_collect']);
 
 
+    //返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
+    $.post("/HappysysOrder/getAllOrderStatusNumByUserId",function (result) {
+        $(".order_num").html(result.order_num);
+        $(".unpaid").html(result.unpaid);
+        $(".unenforced").html(result.unenforced);
+        $(".in_force").html(result.in_force);
+        $(".soon_expire").html(result.soon_expire);
+        $(".expired").html(result.expired);
+        $(".waiting_comment").html(result.waiting_comment);
+    });
 
+    var pageName = [[${pageName}]];
+    cententChange(pageName,null,null);
 
-getOrder('');
-
-function getOrder(orderStatus){
-    var $product_title = $("#product_title").val();
-
-    //ajax 查询用户的所有订单
-    $.get("/HappysysOrder/getOrderByMap",{product_title:$product_title,order_status:orderStatus},function (result) {
-        if (result.length == 0 ) {
-            //将分页插件隐藏
-            $("#page_btn").hide();
-
-            $("#orderPage").html('');
-            $("#orderPage").append('<div class="no-message">'
-                +'<img src="https://mresource.kaixinbao.com/member/pc/r02/images/member/no-message.png" alt=""/>'
-                +'<p>暂时没有订单数据</p><a target="view_window" href="" class="no-goto-shop">去逛逛</a>'
-                +'</div></div>');
-        }else {
-            reloadOrder(result);
-        }
-    },"json");
-
-}
-function orderComment() {
-    alert("orderComment");
-    var $range_stars = $("#range_stars").val();
-    var $degree_stars = $("#degree_stars").val();
-    var $price_stars = $("#price_stars").val();
-    var $afterSale_stars = $("#afterSale_stars").val();
-
-    if($range_stars == 0 || $degree_stars == 0 || $price_stars == 0 || $afterSale_stars == 0){
-        alert("");
-        return;
+    if(pageName != null){
+        $("#"+pageName).parent().attr("class","sel").siblings().removeAttr("class","sel");
     }
 
-    $.post("",function (result) {
-        if(result == true){
+    //用来区分用户点的是那种订单的标记
+    var order_status ;
 
-
-        }else {
-
+    function cententChange(pageName,currentObj,order_status_inner){
+        if(pageName == null){
+            pageName = 'order_list';
+        }
+        if(order_status_inner != null){
+            order_status = order_status_inner;
+        }
+        if(currentObj != null){
+            $(currentObj).parent().attr("class","sel").siblings().removeAttr("class","sel");
         }
 
-    });
-
-}
-
-function reloadOrder(result) {
-    layui.use(['laypage', 'layer'], function(){
-        var laypage = layui.laypage
-            ,layer = layui.layer;
-        //自定义首页、尾页、上一页、下一页文本
-        laypage.render({
-            elem: 'page_btn'
-            ,first: '首页'
-            ,last: '尾页'
-            ,prev: '<em>上一页</em>'
-            ,next: '<em>下一页</em>'
-            ,theme: '#FFB800'
-            ,limit : 2
-            ,count: result.length
-            ,jump: function(obj){
-                document.getElementById('orderPage').innerHTML = function(){
-                    var arr = []
-                        ,thisData = result.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
-                    layui.each(thisData, function(index, item){
-                            var orderStatusvarVal = "未支付";
-                            if(item.order_status == 2){
-                                orderStatusvarVal = "待生效"
-                            }else if(item.order_status == 3){
-                                orderStatusvarVal = "已支付"
-                            }
-                            var isEvaluatedVal = "";
-                            if(item.is_evaluated == 0 && item.order_status == 3){
-                                isEvaluatedVal = '<a href="javascript:void(0);" class="evaluate"><span class="evaluatebtn sel">立即评价<em class="icons"></em></span></a>';
-                            }else if(item.is_evaluated > 0 && item.order_status == 3){
-                                isEvaluatedVal = "已评价";
-                            }
-                            //item:当前json对象
-                            arr.push('<div class="orderDes-box">'
-                                +'<div class="titles">'
-                                +'<span class="orderNum">订单编号：<a target="view_window" href="">'+item.order_number+'</a></span>'
-                                +'<span class="orderTime">下单时间：'+item.order_time+'</span>'
-                                +'</div><table class="order-list">'
-                                +'<td><a target="view_window" href="/HappysysProduct/getById/'+item.product_id+'">'+item.product_title+'</a></td>'
-                                +'<td>'+item.applicant_name+'</td><td>￥'+item.order_face_amount.toFixed(2)+'</td>'
-                                +'<td>￥'+item.order_price.toFixed(2)+'</td>'
-                                +'<td>'+orderStatusvarVal+'</td>'
-                                +'<td class="order-list-action">'
-                                +'<a href="/HappysysProduct/getById/'+item.product_id+'" class="againpay">再次购买</a>'
-                                +'<a href="/HappysysOrder/loadOrderDetailsByOrderId/'+item.order_id+'" class="seeorder">查看订单</a>'+isEvaluatedVal+''
-                                +'</td></table>'
-
-                                +'<div class="evaluate-box" id="evaluateBox_2012000002389556">'
-                                +'<div class="evaluate-box-left">'
-                                +'<dl class="star-mod-dl">'
-                                +'<dt>保障范围</dt>'
-                                +'<dd>'
-                                +'<ul class="star">'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                            +'</ul>'
-                                +'<input id="range_stars" type="hidden" value="0">'
-                                +'</dd>'
-                                +'</dl>'
-                                +'<dl class="star-mod-dl" >'
-                                +'<dt>保障程度</dt>'
-                                +'<dd>'
-                                +'<ul class="star">'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'<li class="i-member i-xingxing"></li>'
-                                +'</ul>'
-                                +'<input id="degree_stars" type="hidden" value="0">'
-                                +'</dd>'
-                                +'</dl>'
-                                +'<dl class="star-mod-dl">'
-                                +'<dt>保障价格</dt>'
-                                +'<dd>'
-                            +'<ul class="star">'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'</ul>'
-                            +'<input id="price_stars" type="hidden" value="0">'
-                            +'</dd>'
-                            +'</dl>'
-                            +'<dl class="star-mod-dl">'
-                            +'<dt>售后服务</dt>'
-                            +'<dd>'
-                            +'<ul class="star">'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'<li class="i-member i-xingxing"></li>'
-                            +'</ul>'
-                            +'<input id="afterSale_stars" type="hidden" value="0">'
-                            +'</dd>'
-                            +'</dl>'
-                            +'</div>'
-                            +'<div class="evaluate-box-right">'
-                            +'<em class="jiao"></em>'
-                            +'<textarea class="order-plsf"  name="" value="" placeholder="产品是否给力？分享你的购买心得给大家吧？"></textarea>'
-                            +'<a href="javascript:void(0);" name ="2012000002389556"  class="submit">提交</a>'
-                            +'</div>'
-                            +'</div></div>'
-                            );
-                    });
-                    return arr.join('');
-                }();
+        $.ajax({
+            url:"/HappysysUser/userPersonalCenterContentChange/"+pageName,
+            method:"get",
+            success: function (result) {
+                $("#change_centent").html(result);
+            },
+            error:function () {
+                alert("数据正在测试中....");
             }
-        });
-    });
-}
+
+        })
+
+
+    }
 
 
 

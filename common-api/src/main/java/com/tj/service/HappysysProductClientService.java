@@ -43,6 +43,11 @@ public interface HappysysProductClientService {
             @PathVariable(value = "currentPage") Integer currentPage,
             @PathVariable(value = "size") Integer size);
 
+    @RequestMapping("/HappysysComment/addComment")
+    @ResponseBody
+    boolean addComment(@RequestBody HappysysComment comment);
+
+
 
     /* *
      * @param condtions     条件map 要加条件把键值put即可 然后就去product_mapper.xml中加条件
