@@ -188,7 +188,7 @@
                 </div>
             </div>
             <p class="bottom-money">
-                <span>保费:</span><span class="red">￥<i id="product_id" class="product_id" th:value="${product.getProductId()}">请选择</i><b class="split-line"></b></span><span id="amnt-dom"
+                <span>保费:</span><span class="red">￥<i id="product_id" class="product_id" th:value="${product.getProductId()}"></i><b class="split-line"></b></span><span id="amnt-dom"
                                                                                                        style="display:none;">基本保额:</span><span
                     class="red" id="amnt-value" style="display:none;"><b class="split-line"></b></span>
 
@@ -704,12 +704,11 @@
     //立即购买
     $(document).on('click', '.buy-btn', function (e) {
         e.preventDefault();
-        location.href="/HappysysPayment/payment1";
-        //res.buyNow();
+        payment();
     });
     $(document).on('click', '.base', function (e) {
         e.preventDefault();
-        //res.buyNow();
+        payment();
     });
 
     $(document).on('mouseover', '.q-cont', function(){
@@ -733,11 +732,15 @@
 
 
     function payment(){
-
+        var product = $(".pro-title").text();
+        var totolPrice = $("#product_id").text();
+        var deadline = $("#deadline_id>.selected").text();
+        var insurance = $("#insurance_sum_id>.selected").text();
+        location.href="/HappysysPayment/payment1/"+product+"/"+totolPrice+"/"+deadline+"/"+insurance;
     }
 
+    //载入页面时加载价格
     calculatePrice(null);
-
     function calculatePrice(_list){
         $.ajax({
             "url": "/HappysysProduct/getCaluelatePrice",
@@ -758,11 +761,6 @@
             }
         });
     }
-
-
-
-
-
 
 </script>
 
