@@ -31,7 +31,7 @@ public class MyListener implements ServletContextListener,HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         HttpSession session = se.getSession();
-        session.setMaxInactiveInterval(2*60);
+        session.setMaxInactiveInterval(30);
         System.out.println("创建sessionid:"+session.getId());
     }
 
