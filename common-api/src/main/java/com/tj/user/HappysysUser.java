@@ -1,11 +1,10 @@
 package com.tj.user;
 
+
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.Accessors;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,7 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class HappysysUser implements Serializable{
+public class HappysysUser implements Serializable {
 
     //`user_id`,`user_name`,`user_password`,`user_sex`,`user_birthday`,`user_icon`,`user_isadmin`
 
@@ -34,6 +33,7 @@ public class HappysysUser implements Serializable{
     private String userSex;             //性别
     private String userIcon;            //图标图片
     private Integer userIsadmin;        //是否是管理员
+    private Integer userApplicantInfoId;
 
 
 
