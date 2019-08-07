@@ -2,9 +2,9 @@ package com.tj.product.controller;
 
 import com.tj.service.HappysysProductClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: happysys
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Author: Mr.Deng
  * @Description:
  */
-@Controller
+@RestController
 public class CategoryController {
 
  @Autowired

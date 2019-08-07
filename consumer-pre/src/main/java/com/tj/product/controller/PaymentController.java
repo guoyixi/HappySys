@@ -1,12 +1,17 @@
 package com.tj.product.controller;
 
 import com.tj.product.HappysysApplicantInfo;
+import com.tj.service.ApplicantInfoService;
+import com.tj.user.HappysysUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @program: HappySys
@@ -17,18 +22,24 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class PaymentController {
 
- @RequestMapping(value = "/HappysysPayment/payment1/{product}/{totolPrice}/{section}/{deadline}/{insurance}",method = RequestMethod.GET)
- public String paymentOne(@PathVariable("product") String product,@PathVariable("totolPrice") Double totolPrice,@PathVariable("section") String section,@PathVariable("deadline") String deadline,@PathVariable("insurance") String insurance,  HttpSession session){
+ @Autowired
+ private ApplicantInfoService applicantInfoService;
 
-/*  Object user = session.getAttribute("user");
+ @RequestMapping(value = "/HappysysPayment/payment1",method = RequestMethod.POST)
+ public ModelAndView paymentOne(@RequestParam Map<String,Object> map, HttpSession session){
+
+  ModelAndView modelAndView = new ModelAndView();
+  HappysysUser user = (HappysysUser)session.getAttribute("user");
   if(user==null){
-   return "redirect:/login.html";
-  }*/
- //判断User外键 !=null 查询投保人
-
-
-  //Ajax 查询 被保人列表
-  return "product_payment1.html";
+   modelAndView.setViewName("redirect:/login.html");
+  }else{
+   modelAndView.addObject("map",map);
+   if(user.getUserApplicantInfoId()!=null&&user.getUserApplicantInfoId()!=0){
+    modelAndView.addObject("applicant",applicantInfoService.getById(user.getUserApplicantInfoId()));
+   }
+   modelAndView.setViewName("product_payment1.html");
+  }
+  return modelAndView;
  }
 
 
