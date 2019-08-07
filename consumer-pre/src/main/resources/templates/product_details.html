@@ -458,8 +458,7 @@
         $("#sales_volume").html(result);
     });
 
-
-    // 查询此商品的所有常见问题
+    // 查询此商品的所有常见问题q
     $.get("/HappysysCommonProblem/getCommonProblemByProductId/"+[[${product.productId}]],function (result) {
         $(result).each(function(index,obj){
             $("#common_problem").append('<li>'
@@ -750,9 +749,25 @@
     function payment(){
         var product = $(".pro-title").text();
         var totolPrice = $("#product_id").text();
+        var section = $("#section_id").text();
         var deadline = $("#deadline_id>.selected").text();
         var insurance = $("#insurance_sum_id>.selected").text();
-        location.href="/HappysysPayment/payment1/"+product+"/"+totolPrice+"/"+deadline+"/"+insurance;
+
+        var count = 0;
+        var _list = new Array();
+        $(".insurance").each(function(i,d) {
+            if ($(d).attr("class") == "insurance selected") {
+                _list[count] = $(d).attr("value");
+                count++;
+            }
+        })
+
+        alert(product+"/"+totolPrice+"/"+section+"/"+deadline+"/"+insurance);
+        alert(_list);
+
+
+
+        //location.href="/HappysysPayment/payment1/"+product+"/"+totolPrice+"/"+section+"/"+deadline+"/"+insurance;
     }
 
     //载入页面时加载价格

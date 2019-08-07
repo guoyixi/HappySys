@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" type="text/css" href="http://resource.kaixinbao.com/style/skins/default.css"/>
     <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
+    <link rel="stylesheet" th:href="@{/css/layui.css}" media="all">
 
 
     <script type="text/javascript" src="http://resource.kaixinbao.com/js/iframe.js"></script>
@@ -133,7 +134,7 @@
     </div>
     <div class="clear"></div>
 
-    <form id="orderInfoForm" action="" method="post" enctype="multipart/form-data">
+    <form id="orderInfoForm" action="/HappysysPayment/payment2" method="post">
 
         <div class="clearfix">
             <div class="line_at">产品信息</div>
@@ -181,7 +182,7 @@
                         <div class="tbr_mes">投保人信息 <span class="tbr-b">（填写我的信息）</span></div>
 
                     </div>
-                    <div class="form">
+                    <div id="sdinformationAppnt" class="form">
 
                         <div class="cy_user" id="quick_2" style="display:none;">
                             <dl class="cy_dl_csf">
@@ -217,7 +218,7 @@
                                 <select id="applicantTypeId" class="typeoption"
                                         name="sdinformationAppnt.applicantIdentityType" style="width:105px;"
                                         onchange="changeVerification('applicantTypeId','applicantId');">
-                                    <option id="" value="0">身份证</option>
+                                    <option value="0">身份证</option>
                                 </select>
                             </p>
                             <p class="from_table2">
@@ -225,44 +226,30 @@
                                        type="text" value="" onfocus="verifyShowInf(this.value,this.id);"
                                        verify="证件号码|NOTNULL&amp;BIRAPPAGE"
                                        onblur="idcheck('applicantTypeId','applicantId','applicantBirthday','applicantSex','');">
-                                <label class="requireField"></label><i class="yz_mes_error">一定要填写18位有效身份证号码哟，请仔细检查一下</i>
-                                <font color="#E7AC59" style="display:none"> <i
-                                        class="yz_mes_des">请准确填写有效证件号码，以保障您的权益</i></font>
+                                <label class="requireField"></label>
                             </p>
                         </div>
+
                         <p>
-                            <span class="span_t">*证件有效日期：</span>
-                            <input id="applicantStartID" name="sdinformationAppnt.applicantStartID" type="text"
+                            <span class="span_t">*出生日期：</span>
+                            <input id="applicantBirthday"
+                                   name="sdinformationAppnt.applicantBirthday" type="text"
                                    onclick="WdatePicker({skin:'whyGreen',minDate:'%y-%M-{%d-18000}',maxDate:'%y-%M-{%d-1}'})"
-                                   value="" onblur="verifyElement('证件有效日期|NOTNULL',this.value,this.id)"
-                                   verify="证件有效日期|NOTNULL" class="shop_day">
-                            至
-                            <input id="applicantEndID" name="sdinformationAppnt.applicantEndID" type="text"
-                                   onclick="WdatePicker({skin:'whyGreen',minDate:'%y-%M-{%d+0}',maxDate:'%y-%M-{%d+18000}'})"
-                                   value="" onblur="verifyElement('证件有效日期|NOTNULL',this.value,this.id)"
-                                   verify="证件有效日期|NOTNULL" class="shop_day">
-                            <input type="checkbox" id="Checkzjnum_long"
-                                   onclick="CheckapplicantEndID('#applicantEndID','#Checkzjnum_long')"
-                                   style="width: 20px; border: 0px; padding-right: 0px; vertical-align: middle;">长期
+                                   value="" onblur="verifyElement('出生日期|NOTNULL',this.value,this.id)"
+                                   verify="出生日期|NOTNULL" class="shop_day">
                             <label class="requireField"></label>
                         </p>
-                        <p class="idControl" style="display:none">
+
+                        <p class="idControl">
                             <span class="span_t">*性别：</span>
                             <label><input type="radio" name="sdinformationAppnt.applicantSex" value="M"
-                                          id="applicantSex" class="frome_radio">男</label>
+                                          class="frome_radio">男</label>
                             <label><input type="radio" name="sdinformationAppnt.applicantSex" value="F"
-                                          id="applicantSex" class="frome_radio" checked="checked">女</label>
+                                          class="frome_radio" checked="checked">女</label>
                             <label class="requireField"></label>
                         </p>
-                        <p class="idControl" style="display:none">
-                            <span class="span_t">*出生日期：</span>
-                            <input id="applicantBirthday" name="sdinformationAppnt.applicantBirthday" type="text"
-                                   value="" onchange="verifyElement('出生日期|NOTNULL&amp;APPAGE',this.value,this.id)"
-                                   verify="出生日期|notnull&amp;APPAGE" class="shop_day">
-                            <label class="requireField"></label><i class="yz_mes_error">
-                            18周岁-60周岁成年人才能当长期险的投保人哦</i>
-                            <font id="applicantBirthdayID" color="red" style="display: none;"></font>
-                        </p>
+
+
                         <div class="pos-tb-p">
                             <p>
                                 <span class="span_t">*手机号码：</span>
@@ -292,13 +279,16 @@
                             <label class="app_mobile" for="applicantMail">
                                 填写常用邮箱，接收电子保单邮件</label>
                         </div>
+
                     </div>
+
                     <div class="line_a ">
                         <div class="line_at cf">
                             <div class="tbr_mes">被保人信息 <span class="tbr-b">（我要为ta买保险）</span></div>
 
                         </div>
-                        <div class="form tb-up-from">
+
+                        <div id="sdinformationinsured" class="form tb-up-from">
                             <div id="radiobox" class="radioboxs">
                                 <div style="display:none" id="lookOccuDiv">
                                     <div class="add_zy zy_shows"><label for="sel_zys">
@@ -307,14 +297,6 @@
                                 </div>
                             </div>
                             <div class="dbbr_des">
-                                <div class="cy_user order-user" style="display:none;">
-                                    <dl class="cy_dl_csf">
-                                        <dt class="cy_user_t">一键添加常用被保人：</dt>
-                                        <dd class="cy_user_ch">
-                                        </dd>
-                                    </dl>
-                                    <div class="clear"></div>
-                                </div>
                                 <div id="insurance_0">
                                     <div>
                                         <p>
@@ -330,7 +312,7 @@
                                         <p>
                                             <span class="span_t">*被保人姓名：</span>
                                             <input type="text" id="recognizeeName_0"
-                                                   name="sdinformationinsuredList[0].recognizeeName" value=""
+                                                   name="sdinformationinsured.applicantName" value=""
                                                    onblur="verifyElement('被保人姓名|NOTNULL&amp;UFO&amp;LEN>2&amp;CHANDEH',this.value,this.id)"
                                                    maxlength="60" verify="被保人姓名|NOTNULL&amp;UFO&amp;LEN>2&amp;CHANDEH">
                                             <label class="requireField"></label>
@@ -339,57 +321,71 @@
                                             <p class="from_table" id="testid111">
                                                 <span class="span_t">*证件号码：</span>
                                                 <select id="recognizeeTypeId_0" class="typeoption"
-                                                        name="sdinformationinsuredList[0].recognizeeIdentityType"
+                                                        name="sdinformationAppnt.applicantIdentityType"
                                                         style="width:105px;"
-                                                        onchange="changeVerification('recognizeeTypeId_0','recognizeeId_0');">
+                                                        onchange="changeVerification('applicantTypeId','applicantId');">
                                                     <option id="" value="0">身份证</option>
                                                 </select>
                                             </p>
                                             <p class="from_table2">
                                                 <input id="recognizeeId_0" type="text"
-                                                       name="sdinformationinsuredList[0].recognizeeIdentityId" value=""
+                                                       name="sdinformationinsured.applicantIdentity" value=""
                                                        verify="证件号码|NOTNULL&amp;BIRAGE"
                                                        onblur="idcheck('recognizeeTypeId_0','recognizeeId_0','recognizeeBirthday_0','recognizeeSex_0','sdinformation.InsuranceCompany');">
                                                 <label class="requireField"></label>
                                             </p>
                                         </div>
+
                                         <p>
-                                            <span class="span_t">*证件有效日期：</span>
-                                            <input id="recognizeeStartID_0"
-                                                   name="sdinformationinsuredList[0].recognizeeStartID" type="text"
-                                                   onclick="WdatePicker({skin:'whyGreen',minDate:'%y-%M-{%d-18000}',maxDate:'%y-%M-{%d-1}'})"
-                                                   value="" onblur="verifyElement('证件有效日期|NOTNULL',this.value,this.id)"
-                                                   verify="证件有效日期|NOTNULL" class="shop_day">
-                                            至
-                                            <input id="recognizeeEndID_0"
-                                                   name="sdinformationinsuredList[0].recognizeeEndID" type="text"
-                                                   onclick="WdatePicker({skin:'whyGreen',minDate:'%y-%M-{%d+0}',maxDate:'%y-%M-{%d+18000}'})"
-                                                   value="" onblur="verifyElement('证件有效日期|NOTNULL',this.value,this.id)"
-                                                   verify="证件有效日期|NOTNULL" class="shop_day">
-                                            <input type="checkbox" id="Checkzjnum_long_0"
-                                                   style="width: 20px; border: 0px; padding-right: 0px; vertical-align: middle;"
-                                                   onclick="CheckapplicantEndID('#recognizeeEndID_0','#Checkzjnum_long_0')">长期
+                                            <span class="span_t">*出生日期：</span>
+                                            <input id="sdinformationinsuredBirthday"
+                                                   name="sdinformationinsured.applicantBirthday" type="text"
+                                                   onclick="criteria()"
+                                                   value="" onblur="verifyElement('出生日期|NOTNULL',this.value,this.id)"
+                                                   verify="出生日期|NOTNULL" class="shop_day">
                                             <label class="requireField"></label>
                                         </p>
+
+
+                                        <p class="idControl">
+                                            <span class="span_t">*性别：</span>
+                                            <label><input type="radio" name="sdinformationAppnt.applicantSex" value="M"
+                                                          id="applicantBoy" class="frome_radio">男</label>
+                                            <label><input type="radio" name="sdinformationAppnt.applicantSex" value="F"
+                                                          id="applicantGirl" class="frome_radio"
+                                                          checked="checked">女</label>
+                                            <label class="requireField"></label>
+                                        </p>
+
                                         <p>
                                             <span class="span_t">*手机号码：</span>
                                             <input type="text" id="recognizeeMobile_0"
-                                                   name="sdinformationinsuredList[0].recognizeeMobile" value=""
+                                                   name="sdinformationinsured.recognizeeMobile" value=""
                                                    onblur="verifyElement('手机号码|MOBILENO',this.value,this.id)"
                                                    onfocus="verifyShowInf(this.value,this.id);" verify="手机号码|MOBILENO"
                                                    maxlength="11">
                                             <label class="requireField"></label>
-                                            <font color="#E7AC59" style="display:none"> <i
-                                                    class="yz_mes_des">请填写正确的手机号</i></font>
+                                            <i class="yz_mes_des">请填写正确的手机号</i></font>
                                         </p>
-                                        <p>
-                                            <span class="span_t">*电子邮箱：</span>
-                                            <input type="text" id="recognizeeMail_0"
-                                                   name="sdinformationinsuredList[0].recognizeeMail" value=""
-                                                   onblur="verifyElement('电子邮箱|NOTNULL&amp;EMAIL',this.value,this.id)"
-                                                   verify="电子邮箱|NOTNULL&amp;EMAIL">
-                                            <label class="requireField"></label>
-                                        </p>
+
+                                        <div class="pos-tb-p">
+                                            <p>
+                                                <span class="span_t">*电子邮箱：</span>
+                                                <input type="text" id="sdinformationinsuredMail"
+                                                       name="sdinformationinsured.applicantMail" value=""
+                                                       onblur="verifyElement('电子邮箱|NOTNULL&amp;EMAIL',this.value,this.id)"
+                                                       onfocus="verifyShowInf(this.value,this.id);"
+                                                       onchange="verifyShowInf(this.value,this.id);"
+                                                       verify="电子邮箱|NOTNULL&amp;EMAIL">
+                                                <label class="requireField"></label> <font color="#E7AC59"
+                                                                                           style="display:none"> <i
+                                                    class="yz_mes_des">请填写常用邮箱，以便接收电子保单，此邮箱将自动成为您登录的账号</i></font>
+                                            </p>
+                                            <label class="app_mobile" for="sdinformationinsuredMail">
+                                                填写常用邮箱，接收电子保单邮件</label>
+                                        </div>
+
+
                                     </div>
 
                                 </div>
@@ -673,7 +669,7 @@
 <script type="text/javascript" src="http://resource.kaixinbao.com/js/template/common/js/jquery.jqDnR.js"></script>
 <script type="text/javascript" src="http://resource.kaixinbao.com/js/template/common/js/jquery.jqModal.js"></script>
 <!--表单提交-->
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 
     /**
      * 校验证件号码
@@ -798,26 +794,44 @@
         }
 
     }
-    /**
-     * 根据长期险的证件有效期控制截止日期，当勾选长期时，截止日期为不可编辑并清空内容
-     */
-    function CheckapplicantEndID(applicantEndID,checkid){
-        if(applicantEndID.length && applicantEndID.length>0){
-            if(jQuery(checkid).attr("checked")==true){
-                jQuery(applicantEndID).val("");
-                jQuery(applicantEndID).attr("disabled","disabled");
-                jQuery(applicantEndID).removeAttr("verify");
 
-                if(jQuery(applicantEndID).parent().children("label").next().is('i')){
-                    jQuery(applicantEndID).parent().children("i").remove();
-                }
-                jQuery(applicantEndID).parent().children("label").after(jQuery(" <i class=\"yz_mes_yes\">  </i>"));
-            }else{
-                jQuery(applicantEndID).attr("disabled","");
-                jQuery(applicantEndID).attr("verify","证件有效日期|NOTNULL");
-            }
-        }
+    function criteria() {
+
+        var section = [[${section}]];
+        section = section.split("-");
+        var min = section[0];
+        var max = parseInt(section[1].replace(/[^0-9]/ig, ""));
+
+        var mindate = new Date();
+        var maxdate = new Date();
+        mindate.setFullYear(new Date().getFullYear() - max);
+        maxdate.setFullYear(new Date().getFullYear() - min);
+
+        WdatePicker({skin: 'whyGreen', minDate: mindate.toLocaleDateString(), maxDate: maxdate.toLocaleDateString()});
     }
+
+    function startAndEndDate() {
+
+        var ddd = new Date();
+        var day = ddd.getDate();
+        if (ddd.getMonth() < 10) {
+            var month = "0" + (ddd.getMonth() + 1);
+        }
+        if (ddd.getDate() < 10) {
+            day = "0" + (ddd.getDate() + 1);
+        }
+        var start = ddd.getFullYear() + "-" + month + "-" + day;
+
+        var deadline = parseInt($("#deadline").text().replace(/[^0-9]/ig, ""));
+        var end = ddd.getFullYear() + deadline + "-" + month + "-" + day;
+
+
+        $("#effective").val(start);
+        $("#fail_").val(end);
+        $("#ensureDate_em").text("( 从" + start + " 00时起到" + end + " 24时为止 )");
+
+    }
+
     /**
      * 校验提示信息.
      * @param cId
@@ -943,7 +957,7 @@
         }
     })(jQuery);
     jQuery(document).ready(function () {
-        jQuery('#applicantMail').autoMail({
+        jQuery('#applicantMail,#sdinformationinsuredMail').autoMail({
             emails: ['qq.com', '163.com', '126.com', 'hotmail.com', 'sina.com', '139.com', 'gmail.com', 'sohu.com']
         });
 
@@ -966,7 +980,7 @@
      * 点击邮件提示输入后 出发邮箱失去焦点以验证邮箱是否正确。
      */
     jQuery("#mailBox li").live('click', function () {
-        jQuery("#applicantMail").blur();
+        jQuery("#applicantMail,#sdinformationinsuredMail").blur();
     });
     jQuery(".pos-tb-p input").focus(
         function () {
@@ -989,50 +1003,41 @@
         }
     })
 
-    function startAndEndDate(){
-
-        var ddd = new Date();
-        var day =ddd.getDate();
-        if(ddd.getMonth()<10){
-            var month = "0"+(ddd.getMonth()+1);
-        }
-        if(ddd.getDate()<10){
-            day = "0"+(ddd.getDate()+1);
-        }
-        var start = ddd.getFullYear()+"-"+month+"-"+day;
-
-        var deadline = parseInt($("#deadline").text().replace(/[^0-9]/ig,""));
-        var end = ddd.getFullYear()+deadline+"-"+month+"-"+day;
-
-
-        $("#effective").val(start);
-        $("#fail_").val(end);
-        $("#ensureDate_em").text("( 从"+start+" 00时起到"+end+" 24时为止 )");
-
-    }
-
-
     jQuery(function () {
 
         startAndEndDate();
+
 
         /**
          * Ajax提交Form表单
          */
         jQuery("#confirm").click(function () {
 
-            if (!verifyInput2()) {
-                return false;
+            var flag = true;
+            var form = $("#sdinformationAppnt,#sdinformationinsured");
+
+            if ($("#recognizeeRelation_0").val() == 00) {
+                form = $("#sdinformationAppnt");
             }
-            alert("ssssssssssss");
-            if (!selecttrave()) {
-                return false;
+
+            for (var i = 0; i < form.length; i++) {                               //form, function (i, dom)
+                var text = $(form[i]).find("input[type='text']");
+                text.each(function (i, dom) {
+                    var d = $(dom).val();
+                    if (!d) {
+                        alert("请将信息填写完整！" + d);
+                        flag = false;
+                        return false;
+                    }
+                })
             }
 
+            //document:loginForm.submit()
 
-        });
-
-
+            if(flag){
+                $("#orderInfoForm").submit();
+            }
+        })
 
 
     })
