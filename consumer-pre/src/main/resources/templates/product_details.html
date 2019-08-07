@@ -765,7 +765,9 @@
         alert(product+"/"+totolPrice+"/"+section+"/"+deadline+"/"+insurance);
         alert(_list);
 
-
+        $.post("/HappysysPayment/payment1",{"a":"aa"},fucntion(data){
+            alert("ssssssssss");
+        },"text");
 
         //location.href="/HappysysPayment/payment1/"+product+"/"+totolPrice+"/"+section+"/"+deadline+"/"+insurance;
     }
