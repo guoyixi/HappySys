@@ -55,6 +55,12 @@ spring:
       #允许出现单引号
       allow_single_quotes: true
 
+  # rabbitmq配置
+  rabbitmq:
+    host: 139.196.162.112
+    username: guest
+    password: guest
+
 eureka:
   client:
     #实例是否在eureka服务器上注册自己的信息以供其他服务发现，默认为true

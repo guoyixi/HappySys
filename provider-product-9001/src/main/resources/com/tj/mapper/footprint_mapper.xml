@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tj.mapper.FootprintMapper">
+
+    <select id="getFootprintProductByUserId" resultType="HappysysProduct">
+        SELECT `product_id`,`product_title`,`product_image`,`product_details` FROM `happysys_product`
+        WHERE `product_id` IN (
+            SELECT DISTINCT `footprint_product_id` FROM `happysys_footprint`
+            WHERE `footprint_user_id` = #{userId}
+            ORDER BY `footprint_time` DESC
+        )
+    </select>
+
+</mapper>

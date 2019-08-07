@@ -217,4 +217,15 @@ public interface HappysysProductClientService {
 
     @RequestMapping("/product/title/id")
     String productbyidTitle (String title);
+
+
+     /**
+     * @param userId
+     * @return              根据userId查询此用户的访问商品足迹
+     */
+    @RequestMapping("/HappysysFootprint/getFootprintProductByUserId/{userId}")
+    List<HappysysProduct> getFootprintProductByUserId(@PathVariable("userId") Integer userId);
+
+
+
 }
