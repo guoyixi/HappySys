@@ -1,8 +1,10 @@
 package com.tj.user;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -24,7 +26,10 @@ public class HappysysUser implements Serializable{
     private String userName;            //用户名
     private String userPassword;        //密码
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    //@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     private Date userBirthday;          //出生日期
     private String userSex;             //性别
     private String userIcon;            //图标图片

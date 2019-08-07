@@ -1,8 +1,14 @@
 package com.tj.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.user.HappysysUser;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.xml.bind.ValidationEvent;
+import java.util.Map;
 
 @FeignClient("HAPPY-USER")
 public interface HappysysUserClientService {
@@ -54,4 +60,18 @@ public interface HappysysUserClientService {
     @RequestMapping("/HappysysUser/updateUserById")
     boolean updateUserById(HappysysUser user);
 
+    /**
+     * 查询所有用户带分页
+     */
+    @RequestMapping("/happysysUser/showAll/{pageIndex}/{usernamelike}")
+    Page<Map<String,Object>> showAllUser(@PathVariable(value = "pageIndex") Integer pageIndex,@PathVariable(value = "usernamelike") String usernamelike);
+
+    @RequestMapping("/delbyid")
+    Integer deletebyid(Integer userId);
+
+    @RequestMapping("/userfindbyid")
+    HappysysUser finduserbyid(@RequestBody Integer userId);
+
+    @RequestMapping("/updateUser/{phone}/{riqi}/{sex}")
+    boolean updateUser(@PathVariable(value = "phone") String phone,@PathVariable(value = "riqi")  String riqi,@PathVariable(value = "sex")  String sex,@RequestBody Integer userid);
 }

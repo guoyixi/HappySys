@@ -13,6 +13,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -84,7 +85,7 @@ public class UserController {
         return notecode;
     }
 
-    @RequestMapping("/login")
+    @RequestMapping("/doLogin")
     public String login(String account, String password, HappysysUser user, Model model, HttpSession session){
         System.out.println("dianhua:"+account+","+password);
         user.setUserName(account);
@@ -252,5 +253,13 @@ public class UserController {
         return mav;
     }
 
-
+    @RequestMapping("/liutao")
+    public void liutao(){
+        System.out.println("你好：刘涛");
+    }
+    @RequestMapping("/login")
+    public String login2(){
+        System.out.println("login2:liutao");
+        return "login";
+    }
 }
