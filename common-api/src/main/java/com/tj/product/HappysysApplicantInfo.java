@@ -12,7 +12,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class HappysysApplicantInfo implements Serializable{
+public class HappysysApplicantInfo implements Serializable {
 
     //`applicant_id`,`applicant_name`,`applicant_sex`,`applicant_identity`,`applicant_phone`
     // ,`applicant_birthday`,`applicant_email`,

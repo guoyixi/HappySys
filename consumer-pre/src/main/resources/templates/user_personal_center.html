@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_collect.css">
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_datum.css">
     <link rel="shortcut icon" href="https://mresource.kaixinbao.com/member/pc/r02/images/common/favicon.ico"/>
-    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
+    <link rel="shortcut icon" href="images/favicon.ico"/>
     <!--order-->
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_unpaid.css">
 
+    <!--my_footprint-->
+    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_track.css">
+
+    <!--change_password-->
+    <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_rpassword.css">
 
 </head>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
@@ -670,11 +675,11 @@
             <dd><a href="javascript:void(0)" onclick="cententChange(null,this,6)">待评价<span class="waiting_comment"></span></a></dd>
             <dt><i class="iconsnav iconnav2"></i>我的</dt>
             <dd><a href="javascript:void(0)" id="shopping_cart" onclick="cententChange('shopping_cart',this,null)">我的购物车</a></dd>
-            <dd><a href="javascript:void(0)">我的足迹</a></dd>
+            <dd><a href="javascript:void(0)" id="my_footprint" onclick="cententChange('my_footprint',this,null)">我的足迹</a></dd>
             <dt><i class="iconsnav iconnav3"></i>账户管理</dt>
             <dd><a href="javascript:void(0)" id="user_info_show" onclick="cententChange('user_info_show',this,null)">用户资料</a></dd>
             <dd><a href="javascript:void(0)">常用投被保人</a></dd>
-            <dd><a href="javascript:void(0)">密码修改</a></dd>
+            <dd><a href="javascript:void(0)" id="change_password" onclick="cententChange('change_password',this,null)">密码修改</a></dd>
         </dl>
     </div>
     <!-- /会员中心 公共侧边栏 -->

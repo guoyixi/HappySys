@@ -9,6 +9,7 @@ import com.tj.service.HappysysUserClientService;
 import com.tj.user.HappysysUser;
 import com.tj.user.shiro.MD5Pwd;
 import com.tj.user.util.HttpClientUtil;
+import com.tj.user.util.MailUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -48,16 +49,21 @@ public class UserController {
     public String addUser(HappysysUser user, String phone, String password){
         user.setUserName(phone);
         user.setUserPassword(MD5Pwd.MD5Pwd(phone,password));
+        user.setUserPhone(phone);
         user.setUserIsadmin(1);
         boolean b = userClientService.addUser(user);
         return "login";
     }
     //用户名
-    private static String Uid = "ironman";
-
+    //private static String Uid = "ironman";
     //接口安全秘钥
-    private static String Key = "d41d8cd98f00b204e980";
+    //private static String Key = "d41d8cd98f00b204e980";
 
+
+/*    //用户名
+    private static String Uid = "xiaoll";
+    //接口安全秘钥
+    private static String Key = "d41d8cd98f00b204e980";*/
 
 
     @RequestMapping("/generate/erweima")
@@ -74,9 +80,9 @@ public class UserController {
 
 
 
-        HttpClientUtil client = HttpClientUtil.getInstance();
+/*        HttpClientUtil client = HttpClientUtil.getInstance();
         //UTF发送  还剩2条短信
-      /*  int result = client.sendMsgUtf8(Uid, Key, smsText, smsMob);
+        int result = client.sendMsgUtf8(Uid, Key, smsText, smsMob);
         if(result>0){
             System.out.println("UTF8成功发送条数=="+result);
         }else{
@@ -238,14 +244,14 @@ public class UserController {
 
     @RequestMapping("/HappysysUser/userPersonalCenterContentChange/{pageName}")
     public String userPersonalCenterContentChange(@PathVariable("pageName") String pageName){
-        System.out.println("OrderController      userPersonalCenterContentChange");
+        System.out.println("UserController      userPersonalCenterContentChange");
 
         return "user_center/"+pageName;
     }
 
     @RequestMapping("/HappysysUser/loadUserPersonalCenter")
     public ModelAndView loadUserPersonalCenter(@RequestParam(required = false) String pageName){
-        System.out.println("OrderController      loadUserPersonalCenter");
+        System.out.println("UserController      loadUserPersonalCenter");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("user_personal_center");
         mav.addObject("pageName", pageName);
@@ -253,6 +259,41 @@ public class UserController {
         return mav;
     }
 
+    @RequestMapping("/HappysysUser/loadUserChangePassword")
+    public String loadUserChangePassword(){
+        System.out.println("UserController      loadUserChangePassword");
+
+        return "user_center/change_password";
+    }
+
+    @RequestMapping("/HappysysUser/emailValidate")
+    @ResponseBody
+    public Integer emailValidate(String email){
+        System.out.println("UserController      emailValidate");
+        System.out.println("email："+email);
+        int verificationCode=(int)(Math.random()*(9999-1000+1)+1000);
+        System.out.println("邮箱验证码："+verificationCode);
+
+        //暂时写死,ps:发送邮箱的代码是没错的，163的问题暂时只能发给自己
+        email = "xll1197578609@163.com";
+
+        new Thread(new MailUtil("xll1197578609@163.com", ""+verificationCode)).start();
+        return verificationCode;
+    }
+
+
+    @RequestMapping(value = "/HappysysUser/updatePwd")
+    @ResponseBody
+    public Boolean updatePwd(String userPassword,HttpSession session) {
+        System.out.println("UserController      updatePwd");
+        HappysysUser prototypeUser = ((HappysysUser)session.getAttribute("user"));
+
+        HappysysUser user = new HappysysUser();
+        user.setUserId(prototypeUser.getUserId());
+        user.setUserPassword(MD5Pwd.MD5Pwd(prototypeUser.getUserName(),userPassword));
+
+        return userClientService.updateUserById(user);
+    }
     @RequestMapping("/liutao")
     public void liutao(){
         System.out.println("你好：刘涛");

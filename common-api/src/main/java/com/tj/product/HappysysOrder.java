@@ -3,6 +3,7 @@ package com.tj.product;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Setter
@@ -11,7 +12,7 @@ import java.util.Date;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class HappysysOrder {
+public class HappysysOrder implements Serializable {
 
     //`order_id`,`order_number`,`order_price`,`order_face_amount`,`order_time`,`order_expire_time`,`order_status`
     // ,`order_applicant_id`,`order_recognizee_id`,`order_product_id`,`order_user_id`

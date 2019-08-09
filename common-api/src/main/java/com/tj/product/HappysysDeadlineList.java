@@ -3,6 +3,8 @@ package com.tj.product;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
+import java.io.Serializable;
+
 /**
  * @program: HappySys
  * @Date: 2019/7/27 11:41
@@ -15,7 +17,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class HappysysDeadlineList {
+public class HappysysDeadlineList  implements Serializable {
  @TableId
  private Integer deadlineListId;
  private String deadlineListName;
