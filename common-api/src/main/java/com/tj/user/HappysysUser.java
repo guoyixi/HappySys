@@ -17,16 +17,18 @@ import java.util.Date;
 
 public class HappysysUser implements Serializable{
 
-    //`user_id`,`user_name`,`user_password`,`user_sex`,`user_birthday`,`user_icon`,`user_isadmin`
+    //`user_id`,`user_name`,`user_password`,`user_sex`,user_phone,`user_birthday`,`user_icon`,user_email,`user_isadmin`
 
     @TableId
     private Integer userId;
     private String userName;            //用户名
     private String userPassword;        //密码
+    private String userEmail;          //邮箱
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date userBirthday;          //出生日期
     private String userSex;             //性别
+    private String userPhone;           //电话号码
     private String userIcon;            //图标图片
     private Integer userIsadmin;        //是否是管理员
 
