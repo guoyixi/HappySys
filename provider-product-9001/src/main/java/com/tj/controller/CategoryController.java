@@ -1,6 +1,5 @@
 package com.tj.controller;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tj.product.HappysysCategory;
 import com.tj.service.CategoryService;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CategoryController {

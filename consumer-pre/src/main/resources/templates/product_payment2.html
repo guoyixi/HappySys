@@ -2,9 +2,363 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>确认保单</title>
+
+
+
 </head>
 <body>
+
+<div class="wrapper">
+    <div class="wrapper">
+        <input type="hidden" id="artLoginFlag" name="artLoginFlag" value="1">
+        <input type="hidden" id="orderFlag" name="orderFlag" value="">
+        <input type="hidden" id="submitReportFlag" name="submitReportFlag" value="false">
+        <input type="hidden" id="isHealthyAndIntelligentUnderwriting" name="isHealthyAndIntelligentUnderwriting" value="">
+        <input type="hidden" id="signbycaAndfaceidbyocrFlag" name="signbycaAndfaceidbyocrFlag" value="">
+        <input type="hidden" id="signbycaAndfaceidbyocrHintMsg" name="signbycaAndfaceidbyocrHintMsg" value="">
+        <input type="hidden" id="signbycaAndFaceidbyocrImg" name="signbycaAndFaceidbyocrImg" value="">
+        <div class="re-line-log">
+            <ul class="re-line-ul">
+                <li class="re-line-d"><div class="re-linehead re-linehead1"><span></span></div><h3 class="re-line-h3">1、填写投保信息<p>我们对您填写的信息严格保密</p></h3><span class="re-line-jiao"></span></li>
+                <li class="re-line-s"><div class="re-linehead re-linehead2"><span></span></div><h3 class="re-line-h3">2、确认保单<p>确认信息填写是否正确无误</p></h3><span class="re-line-jiao"></span></li>
+                <li><div class="re-linehead re-linehead3"><span></span></div><h3 class="re-line-h3">3、在线支付<p>
+                    支持多种支付方式</p></h3><span class="re-line-jiao"></span></li>
+            </ul>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="w900 order-bg">
+        <input type="hidden" id="insuranceCompanySn" name="insuranceCompanySn" value="">
+
+        <form id="resultForm" action="/wj/shop/order_config_new!tpyCheckPay.action" method="post">
+            <input type="hidden" id="orderSn" name="orderSn" value="2012000002391851">
+            <input type="hidden" id="order_healthySn" name="order_healthySn" value="2012000002391851">
+            <div class="lay-ins-con pro-con-info">
+                <span class="small_fr f_mi">订单号：2012000002391851</span>
+                <div class="ins-tit un_bot_bor">保单明细</div>
+                <div class="bdmx_table_b">
+                    <table class="bdmx_table">
+                        <tbody><tr>
+                            <th class="bd_t_bg" width="340px;">投保计划</th>
+                            <th class="bd_t_bg">保险期间</th>
+                            <th class="bd_t_bg">保单起保日期</th>
+                            <th class="bd_t_bg">保单终止日期</th>
+                            <th class="bd_t_bg">缴费年期</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                昆仑健康保重大疾病保险（2.0版）
+                            </td>
+                            <td>至70周岁</td>
+                            <td>2019-08-09</td>
+                            <td>2071-08-08</td>
+                            <td>30年</td>
+                        </tr>
+                        </tbody></table>
+                </div>
+            </div>
+
+            <div class="lay-ins-con pro-con-info">
+                <div class="ins-tit un_bot_bor">投保人信息</div>
+                <table class="tbr_mes_table">
+                    <tbody><tr>
+                        <td class="bd_t_bg td_t_w">姓名</td>
+                        <td class="tb_t_ws">胡宁</td>
+                        <td class="bd_t_bg td_t_w">证件类型</td>
+                        <td class="tb_t_ws">身份证</td>
+                        <td class="bd_t_bg td_t_w">证件号码</td>
+                        <td class="tb_t_ws">430105200103276119</td>
+                    </tr>
+                    <tr>
+                        <td class="bd_t_bg td_t_w">证件有效期</td>
+                        <td class="tb_t_ws">2017-05-28  至      2027-05-23</td>
+                        <td class="bd_t_bg td_t_w">性别</td>
+                        <td class="tb_t_ws">男</td>
+                        <td class="bd_t_bg td_t_w">出生日期</td>
+                        <td class="tb_t_ws">2001-03-27</td>
+                    </tr>
+                    <tr>
+                        <td class="bd_t_bg td_t_w">手机号码</td>
+                        <td class="tb_t_ws">17352833408</td>
+                        <td class="bd_t_bg td_t_w">电子邮箱</td>
+                        <td class="tb_t_ws">1804099268@qq.com</td>
+                        <td class="bd_t_bg td_t_w">所在地区</td>
+                        <td class="tb_t_ws">淄川区</td>
+                    </tr>
+                    <tr>
+                        <td class="bd_t_bg td_t_w">联系地址</td>
+                        <td class="tb_t_ws">湖南分四十三是是是</td>
+                        <td class="bd_t_bg td_t_w">税收居民身份</td>
+                        <td class="tb_t_ws">仅为中国大陆税收居民</td>
+                        <td class="bd_t_bg td_t_w"></td>
+                        <td class="tb_t_ws"></td>
+                    </tr>
+
+                    </tbody></table>
+            </div>
+
+
+
+            <div class="lay-ins-con pro-con-info">
+                <div class="ins-tit  ">被保险人信息<em class="ins-tit-b">（共1人）</em></div>
+                <div class="tbr-box">
+                    <span class="tbr-box-num">1</span>
+                    <table class="tbr_mes_table">
+                        <tbody><tr>
+                            <td class="bd_t_bg td_t_w">姓名</td>
+                            <td class="tb_t_ws">胡宁</td>
+
+                            <td class="bd_t_bg td_t_w">性别</td>
+                            <td class="tb_t_ws">男</td>
+                            <td class="bd_t_bg td_t_w">出生日期</td>
+                            <td class="tb_t_ws">2001-03-27</td>
+                        </tr>
+                        <tr>
+                            <td class="bd_t_bg td_t_w">与投保人关系</td>
+                            <td class="tb_t_ws">本人</td>
+
+                            <td class="bd_t_bg td_t_w">证件类型</td>
+                            <td class="tb_t_ws">身份证</td>
+                            <td class="bd_t_bg td_t_w">证件号码</td>
+                            <td class="tb_t_ws">430105200103276119</td>
+                        </tr>
+                        <tr>
+                            <td class="bd_t_bg td_t_w"> 证件有效期</td>
+                            <td class="tb_t_ws">2017-05-28  至     2027-05-23</td>
+
+                            <td class="bd_t_bg td_t_w">所在地区</td>
+                            <td class="tb_t_ws">淄川区</td>
+                            <td class="bd_t_bg td_t_w">手机号码</td>
+                            <td class="tb_t_ws">17352833408</td>
+                        </tr>
+                        <tr>
+                            <td class="bd_t_bg td_t_w">电子邮箱</td>
+                            <td class="tb_t_ws">1804099268@qq.com</td>
+
+                            <td class="bd_t_bg td_t_w">联系地址</td>
+                            <td class="tb_t_ws">湖南分四十三是是是</td>
+                            <td class="bd_t_bg td_t_w">税收居民身份</td>
+                            <td class="tb_t_ws">仅为中国大陆税收居民</td>
+                        </tr>
+
+                        </tbody></table>
+                </div>
+            </div>
+            <div class="lay-ins-con pro-con-info">
+                <div class="ins-tit  ">受益人信息<em class="ins-tit-b">（共1人）</em></div>
+                <div class="box_sbg">
+                    <div class="fdsyr">法定受益人</div>
+                </div>
+            </div>
+            <div class="lay-ins-con pro-con-info">
+                <div class="ins-tit un_bot_bor">续期交费信息</div>
+                <table class="tbr_mes_table">
+                    <tbody><tr>
+                        <td class="bd_t_bg td_t_w">开户银行：</td>
+                        <td class="tb_t_ws">建设银行</td>
+                        <td class="bd_t_bg td_t_w">账户名：</td>
+                        <td class="tb_t_ws">胡宁</td>
+                        <td class="bd_t_bg td_t_w">卡号：</td>
+                        <td class="tb_t_ws">1234567890123456</td>
+                    </tr>
+                    <tr>
+                        <td class="bd_t_bg td_t_w">开户行地区：</td>
+                        <td class="tb_t_ws"> 天津 , 天津 </td>
+                    </tr>
+                    </tbody></table>
+            </div>
+            <div>
+                <div class="lay-ins-con pro-tab">
+                    <div class="ins-tit">保障权益</div>
+                    <table class="tab-bd insurant-tab prod-proj-tab" border="0" cellspacing="0" cellpadding="0">
+                        <colgroup>
+                            <col width="20%">
+                            <col width="10%">
+                            <col width="70%">
+                        </colgroup>
+                        <tbody><tr class="prod-proj-tab-hd">
+                            <td style="text-align: left;">保障项目</td>
+                            <td style="text-align: left;">保险金额</td>
+                            <td>保障内容</td>
+                        </tr>
+                        <tr>
+                            <td>重大疾病保险金</td>
+                            <td>30万</td>
+                            <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，本公司按本合同约定的基本保险金额的100%给付重大疾病保险金，本合同的现金价值自重大疾病确诊之日起降低为零。若投保人选择本合同“可选责任重大疾病医疗津贴保险金”和“可选责任恶性肿瘤保险金”，给付重大疾病保险金后，除“重大疾病医疗津贴保险金”和“恶性肿瘤保险金”外的其他保险责任终止，本公司将豁免本合同自被保险人确诊初次患有本合同约定的重大疾病之日以后的剩余各期保险费，被豁免的保险费视为已交纳，同时本合同继续有效。若投保人未选择本合同“重大疾病医疗津贴保险金”和“恶性肿瘤保险金”，给付重大疾病保险金后本合同终止。
+                                若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，本公司向投保人无息退还已交保险费，本合同终止。</td>
+                        </tr>
+                        <tr>
+                            <td>中症疾病保险金</td>
+                            <td>15万*2次</td>
+                            <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病，本公司按本合同约定的基本保险金额的50%给付中症疾病保险金。对于同一种中症疾病只给付一次中症疾病保险金，给付后该种中症疾病保险金保险责任终止，本合同的中症疾病保险金给付以两次为限，当累计给付的中症疾病保险金次数达到两次时，本项保险责任终止。
+                                如果被保险人因同一原因或在同一事故中导致其发生本合同所指的两种或两种以上的中症疾病，本公司仅按一种中症疾病给付中症疾病保险金。如本公司已给付过重大疾病保险金，对于重大疾病确诊日之后确诊的中症疾病，本公司不再承担给付中症疾病保险金责任。
+                                若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病，本公司向投保人无息退还已交保险费，本合同终止。</td>
+                        </tr>
+                        <tr>
+                            <td>轻症疾病保险金</td>
+                            <td>基本保额*30%/40%/50%</td>
+                            <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的轻症疾病，本公司按本合同约定的基本保险金额的一定比例给付轻症疾病保险金。对于同一种轻症疾病只给付一次轻症疾病保险金，给付后该种轻症疾病保险金保险责任终止，本合同的轻症疾病保险金给付以三次为限，每次的给付比例分别为30%、40%、50%，当累计给付的轻症疾病保险金次数达到三次时，本项保险责任终止。
+                                如果被保险人因同一原因或在同一事故中导致其发生本合同所指的两种或两种以上的轻症疾病，本公司仅按一种轻症疾病给付轻症疾病保险金。如被保险人确诊时同时符合轻症疾病和重大疾病定义的，本公司仅给付重大疾病保险金，不承担给付轻症疾病保险金责任。如被保险人确诊时同时符合轻症疾病和中症疾病定义的，本公司仅给付中症疾病保险金，不承担给付轻症疾病保险金责任。如本公司已给付过重大疾病保险金，对于重大疾病确诊日之后确诊的轻症疾病，本公司不再承担给付轻症疾病保险金责任。
+                                若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的轻症疾病，本公司向投保人无息退还已交保险费，本合同终止。</td>
+                        </tr>
+                        <tr>
+                            <td>少儿特定疾病保险金</td>
+                            <td>不投保</td>
+                            <td>被保险人因意外伤害或自本合同生效或最后复效起90日后，且在年满18周岁前经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的少儿特定疾病，本公司除给付重大疾病保险金外，还将按本合同约定的基本保险金额的100%给付少儿特定疾病保险金，本项保险责任终止。</td>
+                        </tr>
+                        <tr>
+                            <td>成人特定疾病保险金</td>
+                            <td>不投保</td>
+                            <td>被保险人因意外伤害或自本合同生效或最后复效起90日后，且在年满18周岁（含18周岁生日当天）后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的男、女特定疾病（无论一种或多种），本公司除给付重大疾病保险金外，还将按本合同约定的基本保险金额的50%给付成人特定疾病保险金，本项保险责任终止。</td>
+                        </tr>
+                        <tr>
+                            <td>恶性肿瘤保险金</td>
+                            <td>不投保</td>
+                            <td>如被保险人首次发生的重大疾病为恶性肿瘤，被保险人生存至首次恶性肿瘤确诊之日起满三年后，经本公司指定或认可的医院由专科医生确诊仍患有本合同约定的恶性肿瘤，本公司按本合同约定的基本保险金额的100%给付恶性肿瘤保险金，本项保险责任终止。如被保险人首次发生的重大疾病为非恶性肿瘤重大疾病，被保险人生存至首次非恶性肿瘤重大疾病确诊之日起满180日后，经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的恶性肿瘤，本公司按本合同约定的基本保险金额的100%给付恶性肿瘤保险金，本项保险责任终止。</td>
+                        </tr>
+                        <tr>
+                            <td>重大疾病医疗津贴保险金</td>
+                            <td>不投保</td>
+                            <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，被保险人因重大疾病在本公司指定或认可的医院接受本合同约定的治疗行为的，本公司对实际实施的治疗，按本合同约定的基本保险金额的10%给付一次重大疾病医疗津贴保险金。在本合同保险期间内的每一保单年度内，本合同的重大疾病医疗津贴保险金给付以一次为限；该项责任持续至首次重大疾病确诊之日起第五个保单周年日，累计给付以五次为限。当累积给付的重大疾病医疗津贴保险金达到五次时，本项保险责任终止。</td>
+                        </tr>
+                        <tr>
+                            <td>身故、全残及疾病终末期保险金</td>
+                            <td>不投保</td>
+                            <td>在保险期间内，若被保险人身故、全残或经诊断因疾病发生并经本公司指定或认可的医院由专科医生确诊达到疾病终末期阶段，本公司按被保险人身故、全残或被确诊达到疾病终末期阶段时累计已交保险费的100%给付身故保险金，本合同终止。如本公司已给付重大疾病保险金，则不再承担给付身故保险金责任。身故保险金、全残保险金与疾病终末期保险金，本公司仅给付其中一项。</td>
+                        </tr>
+                        <tr>
+                            <td>中、轻症豁免保险费</td>
+                            <td>不投保</td>
+                            <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病或轻症疾病，本公司将豁免本合同自被保险人确诊初次患有本合同约定的中症疾病或轻症疾病之日以后的剩余各期保险费。被豁免的保险费视为已交纳，同时本合同继续有效。</td>
+                        </tr>
+
+                        </tbody></table>
+                </div>
+            </div>
+            <div style="display:none;">
+                <div class="lay-ins-con pro-tab">
+                    <h3 class="ins-tit">保障信息</h3>
+                    <table class="tab-bd insurant-tab prod-proj-tab" border="0" cellspacing="0" cellpadding="0">
+                        <colgroup>
+                            <col width="20%">
+                            <col width="10%">
+                            <col width="70%">
+                        </colgroup><tbody><tr class="prod-proj-tab-hd">
+                        <td style="text-align: left;">保障项目</td>
+                        <td style="text-align: left;">保险金额</td>
+                        <td>保障内容</td>
+                    </tr>
+                    <tr>
+                        <td>重大疾病保险金</td>
+                        <td>30万</td>
+                        <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，本公司按本合同约定的基本保险金额的100%给付重大疾病保险金，本合同的现金价值自重大疾病确诊之日起降低为零。若投保人选择本合同“可选责任重大疾病医疗津贴保险金”和“可选责任恶性肿瘤保险金”，给付重大疾病保险金后，除“重大疾病医疗津贴保险金”和“恶性肿瘤保险金”外的其他保险责任终止，本公司将豁免本合同自被保险人确诊初次患有本合同约定的重大疾病之日以后的剩余各期保险费，被豁免的保险费视为已交纳，同时本合同继续有效。若投保人未选择本合同“重大疾病医疗津贴保险金”和“恶性肿瘤保险金”，给付重大疾病保险金后本合同终止。
+                            若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，本公司向投保人无息退还已交保险费，本合同终止。</td>
+                    </tr>
+                    <tr>
+                        <td>中症疾病保险金</td>
+                        <td>15万*2次</td>
+                        <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病，本公司按本合同约定的基本保险金额的50%给付中症疾病保险金。对于同一种中症疾病只给付一次中症疾病保险金，给付后该种中症疾病保险金保险责任终止，本合同的中症疾病保险金给付以两次为限，当累计给付的中症疾病保险金次数达到两次时，本项保险责任终止。
+                            如果被保险人因同一原因或在同一事故中导致其发生本合同所指的两种或两种以上的中症疾病，本公司仅按一种中症疾病给付中症疾病保险金。如本公司已给付过重大疾病保险金，对于重大疾病确诊日之后确诊的中症疾病，本公司不再承担给付中症疾病保险金责任。
+                            若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病，本公司向投保人无息退还已交保险费，本合同终止。</td>
+                    </tr>
+                    <tr>
+                        <td>轻症疾病保险金</td>
+                        <td>基本保额*30%/40%/50%</td>
+                        <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的轻症疾病，本公司按本合同约定的基本保险金额的一定比例给付轻症疾病保险金。对于同一种轻症疾病只给付一次轻症疾病保险金，给付后该种轻症疾病保险金保险责任终止，本合同的轻症疾病保险金给付以三次为限，每次的给付比例分别为30%、40%、50%，当累计给付的轻症疾病保险金次数达到三次时，本项保险责任终止。
+                            如果被保险人因同一原因或在同一事故中导致其发生本合同所指的两种或两种以上的轻症疾病，本公司仅按一种轻症疾病给付轻症疾病保险金。如被保险人确诊时同时符合轻症疾病和重大疾病定义的，本公司仅给付重大疾病保险金，不承担给付轻症疾病保险金责任。如被保险人确诊时同时符合轻症疾病和中症疾病定义的，本公司仅给付中症疾病保险金，不承担给付轻症疾病保险金责任。如本公司已给付过重大疾病保险金，对于重大疾病确诊日之后确诊的轻症疾病，本公司不再承担给付轻症疾病保险金责任。
+                            若被保险人自本合同生效或最后复效起90日内经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的轻症疾病，本公司向投保人无息退还已交保险费，本合同终止。</td>
+                    </tr>
+                    <tr>
+                        <td>少儿特定疾病保险金</td>
+                        <td>不投保</td>
+                        <td>被保险人因意外伤害或自本合同生效或最后复效起90日后，且在年满18周岁前经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的少儿特定疾病，本公司除给付重大疾病保险金外，还将按本合同约定的基本保险金额的100%给付少儿特定疾病保险金，本项保险责任终止。</td>
+                    </tr>
+                    <tr>
+                        <td>成人特定疾病保险金</td>
+                        <td>不投保</td>
+                        <td>被保险人因意外伤害或自本合同生效或最后复效起90日后，且在年满18周岁（含18周岁生日当天）后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的男、女特定疾病（无论一种或多种），本公司除给付重大疾病保险金外，还将按本合同约定的基本保险金额的50%给付成人特定疾病保险金，本项保险责任终止。</td>
+                    </tr>
+                    <tr>
+                        <td>恶性肿瘤保险金</td>
+                        <td>不投保</td>
+                        <td>如被保险人首次发生的重大疾病为恶性肿瘤，被保险人生存至首次恶性肿瘤确诊之日起满三年后，经本公司指定或认可的医院由专科医生确诊仍患有本合同约定的恶性肿瘤，本公司按本合同约定的基本保险金额的100%给付恶性肿瘤保险金，本项保险责任终止。如被保险人首次发生的重大疾病为非恶性肿瘤重大疾病，被保险人生存至首次非恶性肿瘤重大疾病确诊之日起满180日后，经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的恶性肿瘤，本公司按本合同约定的基本保险金额的100%给付恶性肿瘤保险金，本项保险责任终止。</td>
+                    </tr>
+                    <tr>
+                        <td>重大疾病医疗津贴保险金</td>
+                        <td>不投保</td>
+                        <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的重大疾病，被保险人因重大疾病在本公司指定或认可的医院接受本合同约定的治疗行为的，本公司对实际实施的治疗，按本合同约定的基本保险金额的10%给付一次重大疾病医疗津贴保险金。在本合同保险期间内的每一保单年度内，本合同的重大疾病医疗津贴保险金给付以一次为限；该项责任持续至首次重大疾病确诊之日起第五个保单周年日，累计给付以五次为限。当累积给付的重大疾病医疗津贴保险金达到五次时，本项保险责任终止。</td>
+                    </tr>
+                    <tr>
+                        <td>身故、全残及疾病终末期保险金</td>
+                        <td>不投保</td>
+                        <td>在保险期间内，若被保险人身故、全残或经诊断因疾病发生并经本公司指定或认可的医院由专科医生确诊达到疾病终末期阶段，本公司按被保险人身故、全残或被确诊达到疾病终末期阶段时累计已交保险费的100%给付身故保险金，本合同终止。如本公司已给付重大疾病保险金，则不再承担给付身故保险金责任。身故保险金、全残保险金与疾病终末期保险金，本公司仅给付其中一项。</td>
+                    </tr>
+                    <tr>
+                        <td>中、轻症豁免保险费</td>
+                        <td>不投保</td>
+                        <td>被保险人因意外伤害或自本合同生效或最后复效起90日后经诊断因疾病首次发生并经本公司指定或认可的医院由专科医生确诊初次患有本合同约定的中症疾病或轻症疾病，本公司将豁免本合同自被保险人确诊初次患有本合同约定的中症疾病或轻症疾病之日以后的剩余各期保险费。被豁免的保险费视为已交纳，同时本合同继续有效。</td>
+                    </tr>
+                    </tbody></table>
+                </div>
+            </div>
+            <div class="lay-ins-con pro-con-info">
+                <div class="ins-tit un_bot_bor">费用合计</div>
+                <div class="bdmx_table_b">
+                    <table class="bdmx_table">
+                        <tbody><tr>
+                            <th class="bd_t_bg" width="340px;">起止日期</th>
+                            <th class="bd_t_bg">被保险人数</th>
+                            <th class="bd_t_bg">购买份数</th>
+                            <th class="bd_t_bg">费用合计</th>
+                        </tr>
+                        <tr>
+                            <td>2019-08-09 00时  至
+                                2071-08-08 24时
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>1</td>
+                            <td><font class="yh-oreder-money">￥1311</font>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="order-hd-list" id="result_activity_info">
+                                <div class="at-desp">
+                                    <span class="at-des-p">继续支付满足条件可以享受以下优惠</span>
+                                    <ul class="at_list">
+                                        <li><span class=" tb_icon active_03">惠一</span><span class="tb_text">8.7-8.9，每日下单享健康生活好礼，详情请咨询客服。</span></li><li><span class=" tb_icon active_03">惠二</span><span class="tb_text">8.7-8.9，限时领取5年期日本专家二次诊疗服务，为健康保驾护航。 <a target="_blank" href="http://www.kaixinbao.com/zhishi/goumai/AG20190531005.shtml"><font color="red">点击领取</font></a></span></li><li><span class=" tb_icon active_03">惠三</span><span class="tb_text">8.7-8.9，下单即可获赠价值88元的一年期100万意外身故保障。（长险支付成功后可免费领取）</span></li><li><span class=" tb_icon active_03">搭配</span><span class="tb_text">【定寿】购买大麦定寿，健告更宽松，身故或全残最高额外赔300万。 <a target="_blank" href="http://www.kaixinbao.com/renshou-baoxian/317385.shtml?banner_id=jkb2-dmds"><font color="red">马上配置</font></a><br> 【医疗】昆仑健康保2.0有效补充，5年住院报销最高400万（含自费药） <a target="_blank" href="http://www.kaixinbao.com/jiankang-baoxian/312348.shtml?banner_id=jkb2-lxys"><font color="red">马上配置</font></a></span></li><li style="display: none;"><span class=" tb_icon active_03">顾问</span><span class="tb_text">开心保专业保险顾问，1v1对健康保2.0进行产品解读。<a target="_blank" href="http://www.kaixinbao.com/advisor/securityConsultant.shtml?bg-jkb20"><font color="red">马上预约</font></a></span></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody></table>
+
+                </div>
+                <div style="display:none">
+			<span class="ins-int-con">共<span class="num red">1</span>名被保险人， <span class="num red">1</span>份保单，保费合计：
+							<span class="ui-money"><dfn>￥</dfn>1311</span></span></div>
+            </div>
+            <div class="ins-tit un_bot_bor">投保声明及必读</div><div class="msg-con bdmx_table_b"><ol class="sz_list"><li>我已阅读<a rel="nofollow" target="_blank" href="http://resource.kaixinbao.com/eriskfile/Claims/tbxz.pdf">《投保声明》</a>、<a rel="nofollow" target="_blank" href="https://resource.kaixinbao.com/upload/Attach/dbqm/hljksj/319888314.pdf">《网销人身险投保提示书》</a>、<a rel="nofollow" target="_blank" href="https://resource.kaixinbao.com/upload/Attach/dbqm/hljksj/3198897438.pdf">《转账授权书》、</a><a rel="nofollow" target="_blank" href="https://resource.kaixinbao.com/upload/Attach/dbqm/hljksj/3198872689.pdf">《关于客户信息真实性的相关提示》</a>理解并同意其全部内容。</li></ol></div>
+            <div class="object_btn" style="text-align: center;">
+                <div class="btn-more">
+                    <div class="check_btn"><label><input name="agreeInsure" id="agreeInsure" type="checkbox" value="">&nbsp;我接受以上投保声明及必读内容 </label>
+                    </div>
+                    <div class=" height_s"></div>
+                    <input type="button" id="qrgm_pay" class="qrgm_btn" value="确认无误，去支付">
+
+                    <input type="button" id="addShopCart" class="fhxg_gwc" value="加入购物车">
+                    <a href="/wj/shop/order_config_new!buyNowUpdate.action?orderId=8a2128326c4f0e8d016c563b11dc1c5c&amp;productId=228001001&amp;orderSn=2012000002391851&amp;orderFlag=&amp;KID=f948dd7b1049e181878aa6b8e36e506b&amp;order_healthySn=2012000002391851" class="qrgm_update">返回修改</a>
+                </div>
+            </div>
+            <div id="msg_2" style="display:none" class="londing_mes londing_mes_nolog"><img src="http://resource.kaixinbao.com/images/nloading.gif" width="20px" height="20px" alt=""><span id="msg_2_2">正在处理，请稍等</span></div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

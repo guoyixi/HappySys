@@ -24,7 +24,8 @@ public class HappysysApplicantInfo implements Serializable {
     private String applicantIdentity;
     private String applicantPhone;
     private Date applicantBirthday;
-    private String applicantEmail;              //
+    private String applicantEmail;
+    private Integer applicantUserId;
 
 
 }

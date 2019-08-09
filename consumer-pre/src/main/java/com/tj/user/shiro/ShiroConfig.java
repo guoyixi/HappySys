@@ -37,13 +37,14 @@ public class ShiroConfig {
         Map<String,String> filterMap = new LinkedHashMap<>();
       /*  filterMap.put("register.html","anon");
         filterMap.put("login.html","anon");*/
-        //filterMap.put("/**","authc");
+        filterMap.put("/logout","logout");
+        filterMap.put("/liutao","authc");
         filterMap.put("/**","anon");
         //注意顺序：这里的已经被上面拦截不能过去
         //filterMap.put("/index","anon");
 
         // 6.设置默认登录的url  （没有权限直接跳login页面）
-        //factory.setLoginUrl("/login");
+        factory.setLoginUrl("/login");
         // 7.设置未授权界面
         //factory.setUnauthorizedUrl("/unauth");
         // 8.设置shiroFilterFactoryBean的FilterChainDefinitionMap

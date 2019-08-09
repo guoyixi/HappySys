@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <script type="text/javascript" src="/js/mobile.js"></script>
-    <script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>
+    <!--<script type="text/javascript" src="/js/jquery-1.8.3.min.js"></script>-->
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
     <script type="text/javascript">
         $(function () {
             //头部显示用户信息
@@ -15,7 +16,7 @@
         })
         function tijiaoduibi(){
             var count=0;
-            for(var j=0;j < $(".comparedetail").size();j++){
+            for(var j=0;j < 4;j++){
                 if($(".comparedetail:eq("+j+")").css("display") == "block"){
                     count++;
                 }
@@ -1237,6 +1238,7 @@
 <script type="text/javascript" src="/js/jquery.form.js"></script>
 <script type="text/javascript" src="/js/jqueryupdate.js"></script>
 <!--<script type="text/javascript" src="/js/re_base.js"></script>-->
+<script type="text/javascript" src="http://resource.kaixinbao.com/js/redesign/re_footer.js"></script>
 <script type="text/javascript" src="/js/re_header.js"></script>
 <script type="text/javascript" src="/js/xiaoneng_customerservice.js"></script>
 <script type="text/javascript" src="/js/artdialog.js"></script>

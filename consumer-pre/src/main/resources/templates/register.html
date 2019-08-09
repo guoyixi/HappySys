@@ -32,7 +32,7 @@
                 },
                 success: function (result) {
                     if (result) {
-                        alert("二维码验证成功!");
+                        //alert("二维码验证成功!");
                     } else {
                         alert("二维码验证失败!");
                         getVerify();    //失败了才切换二维码
@@ -62,10 +62,13 @@
         $(function () {
             $("#mobileNo").blur(function () {
                 var value1=$("#mobileNo").val();
+                var headp= value1.substring(0,1);
                 var info='';
                 if(value1.length==0){
                     info="账号不能为空！";
                     $("#shouji").after('<div class="error"   onclick="dianji(this)" style="width: 298px; height: 40px; line-height: 39px; left: 1px;"><em class="iconfont i-th"></em><strong>'+info+'</strong></div>');
+                }else if(headp != "1"){
+                    alert("手机号码必须以1开头！");
                 }else if(value1.length<11 || value1.length>11){
                     info="手机号格式不正确！";
                     $("#shouji").after('<div class="error"  onclick="dianji(this)" style="width: 298px; height: 40px; line-height: 39px; left: 1px;"><em class="iconfont i-th"></em><strong>'+info+'</strong></div>');
@@ -91,10 +94,26 @@
             })
 
             $("#tijiao").click(function () {
+                var value1 = $("#mobileNo").val();
+                var info = '';
+                if (value1.length == 0) {
+                    info = "账号不能为空！";
+                    $("#mobileNo").focus();
+                    $("#shouji").after('<div class="error"   onclick="dianji(this)" style="width: 298px; height: 40px; line-height: 39px; left: 1px;"><em class="iconfont i-th"></em><strong>' + info + '</strong></div>');
 
-                $.post('add/user',{phone: $("#mobileNo").val(),password:$("#password").val()},function (data) {
-                    window.location.href='login.html';
-                })
+                } else if (value1.length < 11 || value1.length > 11) {
+                    info = "手机号格式不正确！";
+                    $("#shouji").after('<div class="error"  onclick="dianji(this)" style="width: 298px; height: 40px; line-height: 39px; left: 1px;"><em class="iconfont i-th"></em><strong>' + info + '</strong></div>');
+
+                } else{
+                    $.post('add/user', {phone: $("#mobileNo").val(), password: $("#password").val()}, function (data) {
+                        window.location.href='login.html';
+                        //window.open("/login.html");
+                    })
+                }
+
+
+
             })
             var time1=60;
             var miao;

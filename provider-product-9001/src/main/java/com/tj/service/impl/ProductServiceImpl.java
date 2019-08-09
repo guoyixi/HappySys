@@ -67,10 +67,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
     public List<HappysysInsuranceSum> getInsuranceSum(Integer productId) {
         return productMapper.getInsuranceSum(productId);
     }
-    @Override
-    public List<HappysysPayment> getPayment(Integer productId) {
-        return productMapper.getPayment(productId);
-    }
+
     @Override
     public Double calculatePrice(Map<String, Object> map) {
         return productMapper.calculatePrice(map);
