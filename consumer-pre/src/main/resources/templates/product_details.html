@@ -40,7 +40,7 @@
                              target="_self">重大疾病险</a></span>
                     <span class="separator">&gt;</span>
 
-                    <span class="separator1">昆仑健康保重大疾病保险（2.0版）</span>
+                    <span class="separator1" id="product_id" th:value="${product.getProductId()}">[[${product.productTitle}]]</span>
                 </div>
             </div>
         </div>
@@ -187,14 +187,30 @@
 
                 </div>
             </div>
-            <p class="bottom-money">
-                <span>保费:</span><span class="red">￥<i id="product_id" class="product_id" th:value="${product.getProductId()}"></i><b class="split-line"></b></span><span id="amnt-dom"
-                                                                                                       style="display:none;">基本保额:</span><span
-                    class="red" id="amnt-value" style="display:none;"><b class="split-line"></b></span>
 
+
+            <p class="bottom-money">
+                <span>保费:</span>
+                <span class="red">￥<i id="totolPrice" class="product_id" ></i>
+                    <b class="split-line"></b></span>
+                <b class="split-line"></b>
+                </span>
             </p>
 
-            <p class="buy-btn">立即投保</p>
+            <form id="Immediately" action="/HappysysPayment/payment1" method="post">
+
+                <input type="hidden" name="productName" value="" />
+                <input type="hidden" name="totolPrice" value="" />
+                <input type="hidden" name="section" value="" />
+                <input type="hidden" name="deadline" value="" />
+                <input type="hidden" name="insuranceSum" value="" />
+                <input type="hidden" name="insuranceList" value=""/>
+
+                <input type="button" class="buy-btn" style="border: none;" value="立即投保" />
+
+            </form>
+
+
         </div>
         <div class="tab-content">
             <div class="tab-box">
@@ -458,7 +474,8 @@
         $("#sales_volume").html(result);
     });
 
-    // 查询此商品的所有常见问题q
+
+    // 查询此商品的所有常见问题
     $.get("/HappysysCommonProblem/getCommonProblemByProductId/"+[[${product.productId}]],function (result) {
         $(result).each(function(index,obj){
             $("#common_problem").append('<li>'
@@ -747,11 +764,14 @@
 
 
     function payment(){
-        var product = $(".pro-title").text();
-        var totolPrice = $("#product_id").text();
-        var section = $("#section_id").text();
-        var deadline = $("#deadline_id>.selected").text();
-        var insurance = $("#insurance_sum_id>.selected").text();
+
+        //商品名称
+        $("input[name=productName]").attr("value",$("#product_id").text().trim());
+        //商品总价格
+        $("input[name=totolPrice]").attr("value",$("#totolPrice").text().trim());
+        $("input[name=section]").attr("value",$("#section_id>.selected").text().trim());
+        $("input[name=deadline]").attr("value",$("#deadline_id>.selected").text().trim());
+        $("input[name=insuranceSum]").attr("value",$("#insurance_sum_id>.selected").text().trim());
 
         var count = 0;
         var _list = new Array();
@@ -761,19 +781,14 @@
                 count++;
             }
         })
+        $("input[name=insuranceList]").attr("value",_list);
 
-        alert(product+"/"+totolPrice+"/"+section+"/"+deadline+"/"+insurance);
-        alert(_list);
+        $("#Immediately").submit();
 
-        $.post("/HappysysPayment/payment1",{"a":"aa"},fucntion(data){
-            alert("ssssssssss");
-        },"text");
-
-        //location.href="/HappysysPayment/payment1/"+product+"/"+totolPrice+"/"+section+"/"+deadline+"/"+insurance;
     }
 
-    //载入页面时加载价格
     calculatePrice(null);
+
     function calculatePrice(_list){
         $.ajax({
             "url": "/HappysysProduct/getCaluelatePrice",
@@ -794,6 +809,11 @@
             }
         });
     }
+
+
+
+
+
 
 </script>
 

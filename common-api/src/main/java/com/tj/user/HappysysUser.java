@@ -15,7 +15,6 @@ import java.util.Date;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class HappysysUser implements Serializable {
 
     //`user_id`,`user_name`,`user_password`,`user_sex`,`user_birthday`,`user_icon`,`user_isadmin`

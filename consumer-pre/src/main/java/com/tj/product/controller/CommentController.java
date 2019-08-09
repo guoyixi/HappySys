@@ -6,7 +6,6 @@ import com.tj.product.HappysysComment;
 import com.tj.product.HappysysCommonProblem;
 import com.tj.service.HappysysProductClientService;
 import com.tj.user.HappysysUser;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

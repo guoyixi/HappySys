@@ -16,14 +16,9 @@ public interface ProductService extends IService<HappysysProduct> {
     List<HappysysSection> getSection(Integer productId);
     List<HappysysFeature> getFeature(Integer productId);
     List<HappysysInsurance> getInsurance(Integer productId);
-
-
     List<HappysysInsuranceSum> getInsuranceSum(Integer productId);
-    List<HappysysPayment> getPayment(Integer productId);
-
 
     Double calculatePrice(Map<String,Object> map);
-
 
     /**
      * 评论数

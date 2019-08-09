@@ -1,16 +1,19 @@
 package com.tj.product.controller;
 
 import com.tj.product.HappysysApplicantInfo;
-import com.tj.service.ApplicantInfoService;
+import com.tj.product.HappysysProduct;
+import com.tj.service.HappysysProductClientService;
 import com.tj.user.HappysysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,23 +26,31 @@ import java.util.Map;
 public class PaymentController {
 
  @Autowired
- private ApplicantInfoService applicantInfoService;
+ private HappysysProductClientService happysysProductClientService;
 
  @RequestMapping(value = "/HappysysPayment/payment1",method = RequestMethod.POST)
- public ModelAndView paymentOne(@RequestParam Map<String,Object> map, HttpSession session){
+ public String paymentOne(@RequestParam Map<String,Object> map, @RequestParam("insuranceList") List<Integer> insuranceList, Model model, HttpSession session){
 
-  ModelAndView modelAndView = new ModelAndView();
-  HappysysUser user = (HappysysUser)session.getAttribute("user");
+  model.addAttribute("map",map);
+  model.addAttribute("insuranceList",insuranceList);
+
+  /*  HappysysUser user = (HappysysUser)session.getAttribute("user");*/
+
+  HappysysUser user = new HappysysUser();
+  user.setUserId(18);
+  user.setUserApplicantInfoId(1);
+
   if(user==null){
-   modelAndView.setViewName("redirect:/login.html");
+   return "redirect:/login.html";
   }else{
-   modelAndView.addObject("map",map);
    if(user.getUserApplicantInfoId()!=null&&user.getUserApplicantInfoId()!=0){
-    modelAndView.addObject("applicant",applicantInfoService.getById(user.getUserApplicantInfoId()));
+    model.addAttribute("applicant",happysysProductClientService.getApplicantByApplicatnId(user.getUserApplicantInfoId()));
+   }else{
+    model.addAttribute("applicant",null);
    }
-   modelAndView.setViewName("product_payment1.html");
+    model.addAttribute("recognizee",happysysProductClientService.getApplicantByUserId(user.getUserId()));
   }
-  return modelAndView;
+  return "product_payment1";
  }
 
 

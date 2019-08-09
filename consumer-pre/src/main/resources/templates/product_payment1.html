@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>[[${product}]]-开心保保险网</title>
+    <title>[[${map.productName}]]-开心保保险网</title>
     <meta name="Author" content="SINOSOFT Team"/>
     <meta name="Copyright" content="SINOSOFT"/>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
@@ -113,6 +113,7 @@
 <input hidden id="microServiceMemberDomain" value="https://vipm.kaixinbao.com/">
 <!-- 弹窗添加代码 end -->
 
+
 <div class="wrapper">
     <input type="hidden" id="artLoginFlag" name="artLoginFlag" value="1">
     <div class="re-line-log">
@@ -141,24 +142,16 @@
             <div class="form up_from_p">
                 <p>
                     <span class="span_t">保险名称：</span>
-                    <span style="width:500px;">[[${product}]]</span>
+                    <span style="width:500px;">[[${map.productName}]]</span>
                 </p>
                 <p>
                     <span class="span_t">保险期限：</span>
-                    <span id="deadline">[[${deadline}]]
-                    <input type="hidden" name="showAppFactorList[0].elementsName" value="保险期限">
-                    <input type="hidden" name="showAppFactorList[0].elementsType" value="Period">
-                    <input type="hidden" name="showAppFactorList[0].elementsValue" value="70A" id="Ensure">
-                    <input type="hidden" name="showAppFactorList[0].elementsDisplayValue" value="至70周岁">
+                    <span id="deadline">[[${map.deadline}]]
                     </span>
                 </p>
                 <p>
                     <span class="span_t">基本保额：</span>
-                    <span id="insurance_sum">[[${insurance}]]
-                        <input type="hidden" name="showAppFactorList[2].elementsName" value="基本保额">
-                        <input type="hidden" name="showAppFactorList[2].elementsType" value="BaseAmnt">
-                        <input type="hidden" name="showAppFactorList[2].elementsValue" value="300000">
-                        <input type="hidden" name="showAppFactorList[2].elementsDisplayValue" value="30万">
+                    <span id="insurance_sum">[[${map.insuranceSum}]]
                     </span>
                 </p>
                 <div class="clearfix">
@@ -166,6 +159,7 @@
                         <span class="span_t">保单起保日期：</span>
                         <input id="effective" name="m_startDate" type="text" pattern="yyyy-MM-dd"
                                readonly="readonly"  class="shop_day_cfs  ">
+                        <em class="from-up-time" >( 次日0点开始生效 )</em>
                     </p>
                     <p class="from_update xg_width">
                         <span class="span_t">保单终止日期：</span>
@@ -184,23 +178,26 @@
                     </div>
                     <div id="sdinformationAppnt" class="form">
 
-                        <div class="cy_user" id="quick_2" style="display:none;">
+                        <div class="cy_user" id="quick_2">
                             <dl class="cy_dl_csf">
-                                <dt id="quick_2_2" class="cy_user_t" style="display:none;">常用投保人：</dt>
-                                <dd id="quick_2_1" class="cy_user_ch" style="">
+                                <dt id="quick_2_2" class="cy_user_t">常用投保人：</dt>
+                                <dd id="quick_2_1" class="cy_user_ch" >
+
+                                    <label th:if="${applicant}==null" ><input type="radio" value="0" onclick="clearText('#sdinformationAppnt');"
+                                                  name="quickappnt" checked >新增</label>
+                                    <label th:if="${applicant}!=null" ><input type="radio" th:value="${applicant.getApplicantId()}"
+                                                  onclick="quickQueryAppnt(this);" name="quickappnt">[[${applicant.getApplicantName()}]]</label>
+
+
                                 </dd>
                             </dl>
                             <div class="clear"></div>
                         </div>
+
                         <div class="h10"></div>
                         <div class="h2"></div>
-                        <input type="hidden" id="productName" name="sdinformation.productName"
-                               value="昆仑健康保重大疾病保险（2.0版）">
-                        <input type="hidden" id="productId" name="sdinformation.productId" value="228001001">
-                        <input type="hidden" id="artLoginFlag" name="artLoginFlag" value="1">
-                        <input type="hidden" id="protectionPeriodTy" name="protectionPeriodTy" value="A">
-                        <input type="hidden" id="protectionPeriodLast" name="protectionPeriodLast" value="70">
-                        <input type="hidden" id="protectionPeriodFlag" name="protectionPeriodFlag" value="true">
+
+                        <p><input type="hidden" id="applicant_Id" value=""/></p>
                         <p>
                             <span class="span_t">*投保人姓名：</span>
                             <input type="text" id="applicantName" name="sdinformationAppnt.applicantName"
@@ -234,18 +231,20 @@
                             <span class="span_t">*出生日期：</span>
                             <input id="applicantBirthday"
                                    name="sdinformationAppnt.applicantBirthday" type="text"
-                                   onclick="WdatePicker({skin:'whyGreen',minDate:'%y-%M-{%d-18000}',maxDate:'%y-%M-{%d-1}'})"
+                                   onclick="applicantDate()"
                                    value="" onblur="verifyElement('出生日期|NOTNULL',this.value,this.id)"
                                    verify="出生日期|NOTNULL" class="shop_day">
                             <label class="requireField"></label>
                         </p>
 
+
+
                         <p class="idControl">
                             <span class="span_t">*性别：</span>
                             <label><input type="radio" name="sdinformationAppnt.applicantSex" value="M"
-                                          class="frome_radio">男</label>
+                                          class="applicantSex frome_radio" checked="checked">男</label>
                             <label><input type="radio" name="sdinformationAppnt.applicantSex" value="F"
-                                          class="frome_radio" checked="checked">女</label>
+                                          class="applicantSex frome_radio" >女</label>
                             <label class="requireField"></label>
                         </p>
 
@@ -289,26 +288,23 @@
                         </div>
 
                         <div id="sdinformationinsured" class="form tb-up-from">
-                            <div id="radiobox" class="radioboxs">
-                                <div style="display:none" id="lookOccuDiv">
-                                    <div class="add_zy zy_shows"><label for="sel_zys">
-                                        <input type="checkbox" id="sel_zys">确认被保人属于可投保职业 </label><i
-                                            onclick="showOccupations();">职业类别表（必看）</i></div>
-                                </div>
-                            </div>
                             <div class="dbbr_des">
+
+                                <div class="cy_user order-user">
+                                    <dl class="cy_dl_csf">
+                                        <dt class="cy_user_t" >一键添加常用被保人：</dt>
+                                        <dd class="cy_user_ch" >
+                                            <label><input type="radio" value="0" onclick="clearText('#insurance_0');"
+                                                          name="quickrecognizee" checked >新增</label>
+                                            <label th:each="re:${recognizee}"><input type="radio" name="quickrecognizee" onclick="quickQueryInsured(this);" th:value="${re.getApplicantId()}">[[${re.getApplicantName()}]]</label>
+                                        </dd>
+                                    </dl>
+                                    <div class="clear"></div>
+                                </div>
+
                                 <div id="insurance_0">
                                     <div>
-                                        <p>
-                                            <span class="span_t">*与投保人关系：</span>
-                                            <select id="recognizeeRelation_0"
-                                                    style="width:125px;">
-                                                <option value="-1">--请选择--</option>
-                                                <option value="00">
-                                                    本人
-                                                </option>
-                                            </select>
-                                        </p>
+                                        <p><input type="hidden" id="recognizeeId" value=""/></p>
                                         <p>
                                             <span class="span_t">*被保人姓名：</span>
                                             <input type="text" id="recognizeeName_0"
@@ -338,9 +334,9 @@
 
                                         <p>
                                             <span class="span_t">*出生日期：</span>
-                                            <input id="sdinformationinsuredBirthday"
+                                            <input id="recognizeeBirthday_0"
                                                    name="sdinformationinsured.applicantBirthday" type="text"
-                                                   onclick="criteria()"
+                                                   onclick="insuredDate()"
                                                    value="" onblur="verifyElement('出生日期|NOTNULL',this.value,this.id)"
                                                    verify="出生日期|NOTNULL" class="shop_day">
                                             <label class="requireField"></label>
@@ -350,10 +346,9 @@
                                         <p class="idControl">
                                             <span class="span_t">*性别：</span>
                                             <label><input type="radio" name="sdinformationAppnt.applicantSex" value="M"
-                                                          id="applicantBoy" class="frome_radio">男</label>
+                                                          class="recognizeeSex_0 frome_radio" checked>男</label>
                                             <label><input type="radio" name="sdinformationAppnt.applicantSex" value="F"
-                                                          id="applicantGirl" class="frome_radio"
-                                                          checked="checked">女</label>
+                                                          class="recognizeeSex_0 frome_radio" >女</label>
                                             <label class="requireField"></label>
                                         </p>
 
@@ -371,7 +366,7 @@
                                         <div class="pos-tb-p">
                                             <p>
                                                 <span class="span_t">*电子邮箱：</span>
-                                                <input type="text" id="sdinformationinsuredMail"
+                                                <input type="text" id="recognizeeMail_0"
                                                        name="sdinformationinsured.applicantMail" value=""
                                                        onblur="verifyElement('电子邮箱|NOTNULL&amp;EMAIL',this.value,this.id)"
                                                        onfocus="verifyShowInf(this.value,this.id);"
@@ -381,10 +376,9 @@
                                                                                            style="display:none"> <i
                                                     class="yz_mes_des">请填写常用邮箱，以便接收电子保单，此邮箱将自动成为您登录的账号</i></font>
                                             </p>
-                                            <label class="app_mobile" for="sdinformationinsuredMail">
+                                            <label class="app_mobile" for="recognizeeMail_0">
                                                 填写常用邮箱，接收电子保单邮件</label>
                                         </div>
-
 
                                     </div>
 
@@ -696,28 +690,7 @@
             jQuery("#" + idCode).parent().children("i").remove();
         }
         if (idType_value.indexOf("身份证") != -1) {
-            if (jQuery("#" + idCode).val() != "") {
-                jQuery("#" + birthdayId).removeAttr("onclick");
-                jQuery("#" + birthdayId).unbind("click").click(function () {
-                });
-                jQuery("#" + birthdayId).attr("readonly", "readonly");
-            } else {
-                jQuery("#" + birthdayId).click(function () {
-                    if (birthdayId == "applicantBirthday") {
-                        WdatePicker({
-                            skin: 'whyGreen',
-                            minDate: '%y-%M-{%d-' + appEndDate + '}',
-                            maxDate: '%y-%M-{%d-' + appStartDate + '}'
-                        });
-                    } else {
-                        WdatePicker({
-                            skin: 'whyGreen',
-                            minDate: '%y-%M-{%d-' + insEndDate + '}',
-                            maxDate: '%y-%M-{%d-' + insStartDate + '}'
-                        });
-                    }
-                });
-            }
+
             if (str.length == 18) {
 
                 if (!checkId(str, "")) {
@@ -743,34 +716,10 @@
                 var strSex = "";
                 if (str.substring(16, 17) % 2 == 0 || str.substring(16, 17).toLowerCase() == 'x') {
                     strSex = "女";
-                    jQuery("input[name=" + sexName + "]").each(function () {
-                        //性别处理，根据汉字匹配证件类型编码appDictionaryCode
-                        jQuery.ajax({
-                            url: sinosoft.base + "/shop/order_config_new!ajaxGetCode.action?supplierCode2=" + companyCode + "&codeType=Sex&codeName=" + encodeURIComponent(encodeURIComponent("女")),
-                            dataType: "json",
-                            type: "GET",
-                            async: false,
-                            success: function (data) {
-                                var appCode = data.appDictionaryCode;
-                                jQuery("input[name=" + sexName + "][value=" + appCode + "]").attr("checked", 'checked');
-                            }
-                        });
-                    });
+
                 } else {
                     strSex = "男";
-                    jQuery("input[name=" + sexName + "]").each(function () {
-                        //性别处理，根据汉字匹配证件类型编码appDictionaryCode
-                        jQuery.ajax({
-                            url: sinosoft.base + "/shop/order_config_new!ajaxGetCode.action?supplierCode2=" + companyCode + "&codeType=Sex&codeName=" + encodeURIComponent(encodeURIComponent("男")),
-                            dataType: "json",
-                            type: "GET",
-                            async: false,
-                            success: function (data) {
-                                var appCode = data.appDictionaryCode;
-                                jQuery("input[name=" + sexName + "][value=" + appCode + "]").attr("checked", 'checked');
-                            }
-                        });
-                    });
+
                 }
                 var year = str.substring(6, 10);
                 var month = str.substring(10, 12);
@@ -795,30 +744,37 @@
 
     }
 
-    function criteria() {
+    function applicantDate(){
+        WdatePicker({skin:'whyGreen',minDate:'1900-1-1',maxDate:'%y-%M-{%d-1}'});
+    }
+    //计算产品到期日期
+    function insuredDate() {
 
-        var section = [[${section}]];
+        var section = [[${map.section}]];
         section = section.split("-");
         var min = section[0];
         var max = parseInt(section[1].replace(/[^0-9]/ig, ""));
 
         var mindate = new Date();
         var maxdate = new Date();
+
         mindate.setFullYear(new Date().getFullYear() - max);
         maxdate.setFullYear(new Date().getFullYear() - min);
 
         WdatePicker({skin: 'whyGreen', minDate: mindate.toLocaleDateString(), maxDate: maxdate.toLocaleDateString()});
     }
-
     function startAndEndDate() {
 
         var ddd = new Date();
-        var day = ddd.getDate();
-        if (ddd.getMonth() < 10) {
-            var month = "0" + (ddd.getMonth() + 1);
+        var mouth = ddd.getMonth()+1;
+        var day = ddd.getDate()+1
+
+        if (mouth < 10) {
+            var month = "0" + (mouth);
         }
-        if (ddd.getDate() < 10) {
-            day = "0" + (ddd.getDate() + 1);
+
+        if (day < 10) {
+            var day = "0" + (day);
         }
         var start = ddd.getFullYear() + "-" + month + "-" + day;
 
@@ -831,6 +787,78 @@
         $("#ensureDate_em").text("( 从" + start + " 00时起到" + end + " 24时为止 )");
 
     }
+
+    /**
+     * 快速查询投保人信息
+     */
+    function quickQueryAppnt(obj) {
+        var object = [[${applicant}]];
+        alert(object);
+        //var element = ["applicant_Id","applicantName","applicantId","applicantBirthday","applicantSex","applicantMobile","applicantMail"]
+
+        eachReadonly("#sdinformationAppnt",true);
+
+    }
+
+    /*        var checkboxName = jQuery(obj).attr("name");
+        jQuery(':checkbox[name=' + checkboxName + ']').removeAttr('checked');
+        jQuery(obj).attr('checked', 'checked');
+
+
+        if (
+            jQuery("#zhm_name")) {
+            jQuery("#zhm_name").html(jQuery("#applicantName").val());
+        }*/
+
+    /**
+     * 快速查询被保人信息
+     */
+    function quickQueryInsured(obj){
+
+        var insuredId = obj.value;
+
+        var objList = [[${recognizee}]];
+
+        var objInsured = ["applicantId","applicantName","applicantSex","applicantIdentity","applicantPhone","applicantBirthday","applicantEmail","applicantUserId",{"applicantId":2,"applicantName":"\u5218\u4E8C","applicantSex":"M","applicantIdentity":"431021200176354786","applicantPhone":"17680648521","applicantBirthday":"2001-12-29T08:00:00.000+08:00","applicantEmail":"1197589624@qq.com","applicantUserId":18}];
+
+        var element = ["recognizeeId","recognizeeName_0","recognizeeSex_0","recognizeeId_0","recognizeeMobile_0","recognizeeBirthday_0","recognizeeMail_0"];
+
+        var
+
+
+        $.each(objList,function(i,dom){
+
+            if(insuredId==dom.applicantId){
+
+                $("#"+element[i]).val("");
+
+                alert(dom.applicantName);
+            }
+
+
+            alert(dom);
+        })
+
+        eachReadonly("#insurance_0",true);
+    }
+
+
+    function eachReadonly(id,flag){
+
+        $(id).find("input[type=text]").attr("readonly",flag);;
+
+/*        $.each(element,function(i,dom){
+            var id = "#"+element[0];
+            $("#"+dom).attr("readonly",flag);
+        })*/
+    }
+
+
+    function clearText(id){
+        $(id).find("input[type=text]").val("");
+
+    }
+
 
     /**
      * 校验提示信息.
@@ -957,7 +985,7 @@
         }
     })(jQuery);
     jQuery(document).ready(function () {
-        jQuery('#applicantMail,#sdinformationinsuredMail').autoMail({
+        jQuery('#applicantMail,#recognizeeMail_0').autoMail({
             emails: ['qq.com', '163.com', '126.com', 'hotmail.com', 'sina.com', '139.com', 'gmail.com', 'sohu.com']
         });
 
@@ -980,7 +1008,7 @@
      * 点击邮件提示输入后 出发邮箱失去焦点以验证邮箱是否正确。
      */
     jQuery("#mailBox li").live('click', function () {
-        jQuery("#applicantMail,#sdinformationinsuredMail").blur();
+        jQuery("#applicantMail,#recognizeeMail_0").blur();
     });
     jQuery(".pos-tb-p input").focus(
         function () {
@@ -1009,9 +1037,21 @@
 
 
         /**
-         * Ajax提交Form表单
+         * 提交Form表单
          */
         jQuery("#confirm").click(function () {
+
+            if(!verifyInput()){
+                return false;
+            };
+
+            if(!verifyInput2()){
+                return false;
+            };
+
+            if(!verifyInput3()){
+                return false;
+            };
 
             var flag = true;
             var form = $("#sdinformationAppnt,#sdinformationinsured");
@@ -1034,9 +1074,9 @@
 
             //document:loginForm.submit()
 
-            if(flag){
+/*            if(flag){
                 $("#orderInfoForm").submit();
-            }
+            }*/
         })
 
 

@@ -23,6 +23,7 @@ public interface HappysysProductClientService {
     HappysysProduct getProductById(@PathVariable("productId") Integer productId);
 
 
+
     /**
      * @param productId
      * @return              根据productId商品的所有常见问题
@@ -185,6 +186,9 @@ public interface HappysysProductClientService {
     @RequestMapping("/HappysysOrder/getOrderCountByProductId/{productId}")
     Integer getOrderCountByProductId(@PathVariable("productId") Integer productId);
 
+    /**
+     * --------------------------------投保人/被保人-------------------------------
+     */
 
     /**
      * @param applicantIds
@@ -193,16 +197,38 @@ public interface HappysysProductClientService {
     @RequestMapping("/HappysysApplicantInfo/getApplicantByIds")
     List<HappysysApplicantInfo> getApplicantByIds(List<Integer> applicantIds);
 
+    /**
+     *查询此用户的所有被保人
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/HappysysApplicantInfo/getApplicantByUserId")
+    List<HappysysApplicantInfo> getApplicantByUserId(@RequestParam("userId") Integer userId);
 
-
-    @RequestMapping("/HappysysOrder/getInsuranceByOrderId/{orderId}")
-    List<HappysysInsurance> getInsuranceByOrderId(@PathVariable("orderId") Integer orderId);
-
+    /**
+     *查询投保人 Just One
+     * @param applicantId
+     * @return
+     */
+    @RequestMapping("/HappysysApplicantInfo/getApplicantByApplicatnId")
+    HappysysApplicantInfo getApplicantByApplicatnId(@RequestParam("applicantId") Integer applicantId);
 
 
     /**
+     * --------------------------------订单-------------------------------
+     */
+
+    /**
+     * 根据订单Id查询订单详情
+     * @param orderId
+     * @return
+     */
+    @RequestMapping("/HappysysOrder/getInsuranceByOrderId/{orderId}")
+    List<HappysysInsurance> getInsuranceByOrderId(@PathVariable("orderId") Integer orderId);
+
+    /**
      * 商品对比
-     * @param productId
+     * @param productIds
      * @return
      */
     @RequestMapping(value="/product/duibi")
