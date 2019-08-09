@@ -79,7 +79,6 @@ public class UserController {
         System.out.println("随机数："+notecode);
 
 
-
 /*        HttpClientUtil client = HttpClientUtil.getInstance();
         //UTF发送  还剩2条短信
         int result = client.sendMsgUtf8(Uid, Key, smsText, smsMob);
@@ -102,12 +101,11 @@ public class UserController {
             //登录
             System.out.println("登录。。。");
             ServletContext application=session.getServletContext();
-            List<HappysysUser> lists=(List<HappysysUser>) application.getAttribute("users");
-            for (HappysysUser hsu :lists){
-                if(hsu.getUserName().contains(user.getUserName())){
-                    model.addAttribute("mess","该用户已在线");
-                    return "login";
-                }
+            List<String> lists=(List<String>) application.getAttribute("users");
+
+            if(lists.contains(account)){
+                model.addAttribute("mess","该用户已在线");
+                return "login";
             }
 
             subject.login(token);
@@ -121,7 +119,7 @@ public class UserController {
             model.addAttribute("categoryList",happysysProductClientService.getCategoryAll());
             session.setAttribute("user",findbyname);
             //添加到在线用户集合
-            lists.add(findbyname);
+            lists.add(account);
             return "index";
         }catch (UnknownAccountException e){
             //用户不存在
@@ -132,33 +130,6 @@ public class UserController {
             model.addAttribute("mess","密码不正确");
             return "login";
         }
-      /*  user.setUserName(account);
-        user.setUserPassword(password);
-        ServletContext application=session.getServletContext();
-        List<HappysysUser> lists=(List<HappysysUser>) application.getAttribute("users");
-        for (HappysysUser hsu :lists){
-            if(hsu.getUserName().contains(user.getUserName())){
-                model.addAttribute("mess","该用户已在线");
-                return "login";
-            }
-        }
-        HappysysUser u=userClientService.showUser(user);
-
-        if(u!=null){
-            session.setAttribute("user",u);
-            //添加到在线用户集合
-            lists.add(u);
-            if(u.getUserIsadmin()==1){
-                System.out.println("准备进主页");
-                return "index";
-            }else{
-                //进入后台
-            }
-        }
-        System.out.println("失败了");
-        model.addAttribute("mess","用户名或密码错误");
-        return "login";*/
-
     }
 
     /*直接进入主页*/
@@ -259,12 +230,6 @@ public class UserController {
         return mav;
     }
 
-    @RequestMapping("/HappysysUser/loadUserChangePassword")
-    public String loadUserChangePassword(){
-        System.out.println("UserController      loadUserChangePassword");
-
-        return "user_center/change_password";
-    }
 
     @RequestMapping("/HappysysUser/emailValidate")
     @ResponseBody
@@ -294,6 +259,7 @@ public class UserController {
 
         return userClientService.updateUserById(user);
     }
+
     @RequestMapping("/liutao")
     public void liutao(){
         System.out.println("你好：刘涛");

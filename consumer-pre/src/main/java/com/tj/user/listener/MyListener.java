@@ -20,7 +20,7 @@ public class MyListener implements ServletContextListener,HttpSessionListener {
     public void contextInitialized(ServletContextEvent sce) {
         System.out.println("application初始化");
         application=sce.getServletContext();
-        application.setAttribute("users",new ArrayList<HappysysUser>());
+        application.setAttribute("users",new ArrayList<String>());
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MyListener implements ServletContextListener,HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent se) {
         HttpSession session = se.getSession();
-        session.setMaxInactiveInterval(30);
+        //session.setMaxInactiveInterval(10);
         System.out.println("创建sessionid:"+session.getId());
     }
 
@@ -41,13 +41,19 @@ public class MyListener implements ServletContextListener,HttpSessionListener {
         System.out.println("销毁sessionid:"+session.getId());
         //销毁
         HappysysUser user=(HappysysUser) session.getAttribute("user");
-        List<HappysysUser> list=(List<HappysysUser>) application.getAttribute("users");
-        for (HappysysUser h :list){
-            if(h.getUserName().contains(user.getUserName())){
-                System.out.println("h.getUserName()；"+h.getUserName()+"\tuser.getUserName():"+user.getUserName());
-                list.remove(user.getUserName());
-                break;
+
+        if(user != null){//用户登陆了才销毁
+            ServletContext application = session.getServletContext();
+
+            List<String> userNameList=(List<String>)application.getAttribute("users") ;
+            for (String userName :userNameList){
+                if(userName.equals(user.getUserName())){
+                    System.out.println("application usrName："+userName+"\tuser.getUserName():"+user.getUserName());
+                    userNameList.remove(userName);
+                    break;
+                }
             }
         }
+
     }
 }
