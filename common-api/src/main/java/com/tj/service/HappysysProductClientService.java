@@ -202,7 +202,7 @@ public interface HappysysProductClientService {
 
     /**
      * 商品对比
-     * @param productId
+     * @param productIds
      * @return
      */
     @RequestMapping(value="/product/duibi")
