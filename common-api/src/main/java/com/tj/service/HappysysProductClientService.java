@@ -3,7 +3,6 @@ package com.tj.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
-
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -212,6 +211,10 @@ public interface HappysysProductClientService {
      */
     @RequestMapping("/HappysysApplicantInfo/getApplicantByApplicatnId")
     HappysysApplicantInfo getApplicantByApplicatnId(@RequestParam("applicantId") Integer applicantId);
+
+
+    @RequestMapping("/HappysysApplicantInfo/operationApplicationInfo")
+    public boolean operationApplicationInfo(HappysysOrder order,  HappysysApplicantInfoModel happysysApplicantInfoModel);
 
 
     /**

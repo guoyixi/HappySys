@@ -20,7 +20,7 @@ public class HappysysOrder implements Serializable {
     @TableId
     private Integer orderId;
     private String orderNumber;                 //订单号
-    private Double orderPrice;                  //保额
+    private Double orderPrice;                  //总价格
     private Double orderFaceAmount;            //最基本的保额：除所有保险项的保额
     private Date orderTime;                     //购买日期
     private Date orderExpireTime;               //到期时间

@@ -1,6 +1,7 @@
 package com.tj.product;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.io.Serializable;
@@ -23,6 +24,7 @@ public class HappysysApplicantInfo implements Serializable {
     private String applicantSex;
     private String applicantIdentity;
     private String applicantPhone;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date applicantBirthday;
     private String applicantEmail;
     private Integer applicantUserId;
