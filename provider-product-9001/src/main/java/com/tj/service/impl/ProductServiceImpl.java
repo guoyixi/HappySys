@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tj.mapper.ProductMapper;
 import com.tj.product.*;
 import com.tj.service.ProductService;
+import com.tj.vo.HappysysProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Override
+    public List<HappysysPayment> getPayment(Integer productId) {
+        return null;
+    }
 
     @Override
     public Integer commentCount(Integer productId) {
@@ -73,5 +79,38 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
         return productMapper.calculatePrice(map);
     }
 
+    @Override
+    public List<HappysysSection> findListidSection(Integer sectionListid) {
+        return productMapper.findListidSection(sectionListid);
+    }
 
+    @Override
+    public List<HappysysDeadline> findListidDeadline(Integer deadlineListid) {
+        return productMapper.findListidDeadline(deadlineListid);
+    }
+
+    @Override
+    public List<HappysysFeature> findFeatureListid(Integer findfeaturelistid) {
+        return productMapper.findFeatureListid(findfeaturelistid);
+    }
+
+    @Override
+    public List<HappysysInsuranceList> showAllInsuranceList() {
+        return productMapper.showAllInsuranceList();
+    }
+
+    @Override
+    public List<HappysysInsuranceSum> findinsurancesum(Integer insurancesumListid) {
+        return productMapper.findinsurancesum(insurancesumListid);
+    }
+
+    @Override
+    public List<HappysysInsurance> findInsuranceListid(Integer findinsurancetListid) {
+        return productMapper.findInsuranceListid(findinsurancetListid);
+    }
+
+    @Override
+    public boolean productinsert(HappysysProductVo productvo) {
+            return productMapper.productinsert(productvo);
+    }
 }

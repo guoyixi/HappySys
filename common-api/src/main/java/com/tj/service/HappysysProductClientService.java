@@ -4,6 +4,7 @@ package com.tj.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
 
+import com.tj.vo.HappysysProductVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,6 @@ public interface HappysysProductClientService {
      */
     @RequestMapping("/HappysysProduct/getById/{productId}")
     HappysysProduct getProductById(@PathVariable("productId") Integer productId);
-
 
 
     /**
@@ -234,9 +234,11 @@ public interface HappysysProductClientService {
     @RequestMapping("/HappysysOrder/getInsuranceByOrderId/{orderId}")
     List<HappysysInsurance> getInsuranceByOrderId(@PathVariable("orderId") Integer orderId);
 
+
+
     /**
      * 商品对比
-     * @param productIds
+     * @param productId
      * @return
      */
     @RequestMapping(value="/product/duibi")
@@ -262,4 +264,40 @@ public interface HappysysProductClientService {
 
 
 
+
+
+    @RequestMapping("/ajax/productlist/{pageIndex}/{productnamelike}")
+    Page<Map<String,Object>> showProductAll(@PathVariable(value = "pageIndex") Integer pageIndex,@PathVariable(value = "productnamelike") String productnamelike);
+
+    /**
+     * 查sectionlist表
+     * @return
+     */
+    @RequestMapping("/ajax/section")
+    List<HappysysSectionList> showSectionAll();
+
+
+    @RequestMapping("/ajax/findsectionListId")
+    List<HappysysSection> findlistidSection(@Param("SectionListid") Integer SectionListid);
+
+    @RequestMapping("/ajax/sectionList")
+    List<HappysysDeadlineList> showalldealineList();
+    @RequestMapping("/ajax/findlistiddeadline")
+    List<HappysysDeadline> findlistiddeadline(Integer deadlineListid);
+    @RequestMapping("/ajax/findlistshowInsuranceSumList")
+    List<HappysysInsuranceSumList> showAllInsuranceSumList();
+    @RequestMapping("/findinsurancesumlistid")
+    List<HappysysInsuranceSum> findInsurancesSum(Integer findinsurancesumlistid);
+    @RequestMapping("/ajax/showAllFeatureList")
+    List<HappysysFeatureList> showAllFeatureList();
+    @RequestMapping("/findfeatureListId")
+    List<HappysysFeature> findfeaturelistid(Integer featruelistid);
+    @RequestMapping("/showAllInsuranceSumList")
+    List<HappysysInsuranceList> showAllInsuranceList();
+    @RequestMapping("/findinsurancetListid")
+    List<HappysysInsurance> findinsurancetid(Integer findinsurancetListid);
+    @RequestMapping("/findcategory/parentid/{parentid}")
+    List<HappysysCategory> findcategoryparentId(@PathVariable(value="parentid") Integer parentid);
+    @RequestMapping("/add/product")
+    boolean addproduct( HappysysProductVo hprodouct);
 }
