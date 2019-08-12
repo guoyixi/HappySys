@@ -207,8 +207,9 @@ public class UserController {
         }
         ModelAndView mav = new ModelAndView();
         mav.addObject("resultMess",resultMess);
-        mav.setViewName("user_info_show");
+        mav.addObject("pageName","user_info_show");
 
+        mav.setViewName("forward:/HappysysUser/loadUserPersonalCenter");
         return mav;
     }
 
@@ -226,7 +227,6 @@ public class UserController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("user_personal_center");
         mav.addObject("pageName", pageName);
-
         return mav;
     }
 

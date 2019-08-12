@@ -19,7 +19,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  */
 
 @EnableRedisHttpSession(
-        maxInactiveIntervalInSeconds = 120	//单位：秒
+        maxInactiveIntervalInSeconds = 480	//单位：秒
         )
 @ServletComponentScan("com.tj.user.listener")  //扫描监听器
 @EnableEurekaClient

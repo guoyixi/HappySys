@@ -16,9 +16,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by tym on 2019/5/4 0004.
- */
+
 @Configuration
 public class ShiroConfig {
 
@@ -60,6 +58,9 @@ public class ShiroConfig {
         //----------Order-------------
         filterMap.put("/HappysysOrder/getAllOrderStatusNumByUserId","authc");
         filterMap.put("/HappysysOrder/getOrderByMap","authc");
+
+        //----------Applicant-------------
+        filterMap.put("/HappysysApplicantInfo/getCurrentUserApplicantAndInsured","authc");
 
 
         filterMap.put("/**","anon");
