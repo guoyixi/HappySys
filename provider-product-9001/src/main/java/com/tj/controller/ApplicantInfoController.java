@@ -67,4 +67,12 @@ public class ApplicantInfoController {
     }
 
 
+    @RequestMapping("/HappysysApplicantInfo/delApplicantById")
+    public Boolean delApplicantById(Integer applicantId){
+        System.out.println("ApplicantInfoController      delApplicantById：");
+        System.out.println(applicantId);
+
+        return applicantInfoService.removeById(applicantId);
+    }
+
 }

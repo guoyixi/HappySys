@@ -16,9 +16,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by tym on 2019/5/4 0004.
- */
+
 @Configuration
 public class ShiroConfig {
 
@@ -39,6 +37,32 @@ public class ShiroConfig {
         filterMap.put("login.html","anon");*/
         filterMap.put("/logout","logout");
         filterMap.put("/liutao","authc");
+
+        //----------user-------------
+        filterMap.put("/HappysysUser/loadUserPersonalCenter","authc");
+        filterMap.put("/HappysysUser/updateUserById","authc");
+        filterMap.put("/HappysysUser/updatePwd","authc");
+
+        //-----------ShoppingCart------------
+        filterMap.put("/HappysysShoppingCart/getShoppingCartByProductIdAndUserId/**","authc");
+        filterMap.put("/HappysysShoppingCart/addShoppingCart","authc");
+        filterMap.put("/HappysysShoppingCart/delShoppingCartByProductIdAndUserId/**","authc");
+        filterMap.put("/HappysysShoppingCart/getCurrentUserShoppingCartProduct","authc");
+
+        //----------Comment-------------
+        filterMap.put("/HappysysComment/addComment","authc");
+
+        //----------Footprint-------------
+        filterMap.put("/HappysysFootprint/getFootprintProductByUserId","authc");
+
+        //----------Order-------------
+        filterMap.put("/HappysysOrder/getAllOrderStatusNumByUserId","authc");
+        filterMap.put("/HappysysOrder/getOrderByMap","authc");
+
+        //----------Applicant-------------
+        filterMap.put("/HappysysApplicantInfo/getCurrentUserApplicantAndInsured","authc");
+
+
         filterMap.put("/**","anon");
         //注意顺序：这里的已经被上面拦截不能过去
         //filterMap.put("/index","anon");

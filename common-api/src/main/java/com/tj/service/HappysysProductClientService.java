@@ -212,6 +212,14 @@ public interface HappysysProductClientService {
     @RequestMapping("/HappysysApplicantInfo/getApplicantByApplicatnId")
     HappysysApplicantInfo getApplicantByApplicatnId(@RequestParam("applicantId") Integer applicantId);
 
+    /**
+     *                          根据id删除投保人或被保人
+     * @param applicantId
+     * @return
+     */
+    @RequestMapping("/HappysysApplicantInfo/delApplicantById")
+    Boolean delApplicantById(@RequestParam("applicantId") Integer applicantId);
+
 
     @RequestMapping("/HappysysApplicantInfo/operationApplicationInfo")
     public boolean operationApplicationInfo(HappysysOrder order,  HappysysApplicantInfoModel happysysApplicantInfoModel);
