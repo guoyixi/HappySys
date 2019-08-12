@@ -1,7 +1,9 @@
 package com.tj.product;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
+import org.springframework.boot.ExitCodeEvent;
 
 import java.io.Serializable;
 
@@ -18,4 +20,10 @@ public class HappysysFeature implements Serializable{
     private String featureName;
     private Integer featureCategory;
 
+    @TableField(exist = false)
+    private String title;
+
+    public void setTitle(String title){
+        this.title=featureName;
+    }
 }

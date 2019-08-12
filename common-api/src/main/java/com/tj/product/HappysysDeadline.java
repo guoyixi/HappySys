@@ -1,5 +1,6 @@
 package com.tj.product;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
@@ -25,4 +26,10 @@ public class HappysysDeadline  implements Serializable {
  private String deadlineTime;          //显示的值
  private Double deadlinePrice;        //价格
 
+ @TableField(exist = false)
+ private String title;
+
+ public void setTitle(String title) {
+  this.title = deadlineTime;
+ }
 }
