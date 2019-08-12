@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -157,20 +158,6 @@ public interface HappysysProductClientService {
     HashMap<String,Object> categoryOneTow(@PathVariable("productLevel3") Integer productLevel3);
 
     /**
-     * @param userId
-     * @return              返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
-     */
-    @RequestMapping("/HappysysOrder/getAllOrderStatusNumByUserId/{userId}")
-    Map<String,Object> getAllOrderStatusNumByUserId(@PathVariable("userId") Integer userId);
-
-    /**
-     * @return              根据userId查询所有订单list
-     */
-    @RequestMapping("/HappysysOrder/getOrderByMap")
-    List<Map<String,Object>> getOrderByMap(@RequestParam Map<String,Object> conditions);
-
-
-    /**
      * @param orderId
      * @return              根据orderId查询order详情
      */
@@ -217,12 +204,19 @@ public interface HappysysProductClientService {
      * @param applicantId
      * @return
      */
-    @RequestMapping("/HappysysApplicantInfo/delApplicantById")
+    @RequestMapping(value = "/HappysysApplicantInfo/delApplicantById",method = RequestMethod.POST)
     Boolean delApplicantById(@RequestParam("applicantId") Integer applicantId);
 
 
-    @RequestMapping("/HappysysApplicantInfo/operationApplicationInfo")
-    public boolean operationApplicationInfo(HappysysOrder order,  HappysysApplicantInfoModel happysysApplicantInfoModel);
+    /**
+     * ApplicantInfo的插改操作
+     * @param quickappnt
+     * @param quickrecognizee
+     * @param happysysApplicantInfoModel
+     * @return
+     */
+    @RequestMapping(value = "/HappysysApplicantInfo/operationApplicationInfo",method = RequestMethod.POST)
+    Integer[] operationApplicationInfo( @RequestBody  HappysysApplicantInfoModel happysysApplicantInfoModel);
 
 
     /**
@@ -236,6 +230,32 @@ public interface HappysysProductClientService {
      */
     @RequestMapping("/HappysysOrder/getInsuranceByOrderId/{orderId}")
     List<HappysysInsurance> getInsuranceByOrderId(@PathVariable("orderId") Integer orderId);
+
+    /**
+     * @param userId
+     * @return              返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
+     */
+    @RequestMapping("/HappysysOrder/getAllOrderStatusNumByUserId/{userId}")
+    Map<String,Object> getAllOrderStatusNumByUserId(@PathVariable("userId") Integer userId);
+
+    /**
+     * @return              根据userId查询所有订单list
+     */
+    @RequestMapping("/HappysysOrder/getOrderByMap")
+    List<Map<String,Object>> getOrderByMap(@RequestParam Map<String,Object> conditions);
+
+    /**
+     * 添加订单
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "/HappysysOrder/insertOrder",method = RequestMethod.POST)
+    Integer insertOrder(@RequestBody HappysysOrder order);
+
+    @RequestMapping(value = "/HappysysOrder/insertOrderDetails",method = RequestMethod.POST)
+    Boolean insertOrderDetails(Collection<HappysysOrderDetails> happysysOrderDetails);
+
+
 
     /**
      * 商品对比

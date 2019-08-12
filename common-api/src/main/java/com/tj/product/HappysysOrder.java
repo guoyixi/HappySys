@@ -1,10 +1,12 @@
 package com.tj.product;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -29,5 +31,8 @@ public class HappysysOrder implements Serializable {
     private Integer orderRecognizeeId;          //被保人id
     private Integer orderProductId;             //商品id
     private Integer orderUserId;                //用户id
+
+    @TableField(exist = false)
+    private List<HappysysOrderDetails> orderDetailsList;
 
 }

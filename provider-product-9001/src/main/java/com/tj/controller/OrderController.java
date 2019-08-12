@@ -1,10 +1,14 @@
 package com.tj.controller;
 
+import com.tj.product.HappysysOrder;
+import com.tj.product.HappysysOrderDetails;
+import com.tj.service.OrderDetailsService;
 import com.tj.service.OrderService;
 import com.tj.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +17,9 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private OrderDetailsService orderDetailsService;
 
     @Autowired
     private ProductService productService;
@@ -45,6 +52,18 @@ public class OrderController {
         System.out.println("OrderController      getOrderCountByProduct");
 
         return productService.OrderCount(productId);
+    }
+
+    @RequestMapping(value = "/HappysysOrder/insertOrder",method = RequestMethod.POST)
+    public Integer insertOrder(@RequestBody HappysysOrder order){
+        orderService.save(order);
+        return order.getOrderId();
+    }
+
+
+    @RequestMapping(value = "/HappysysOrder/insertOrderDetails",method = RequestMethod.POST)
+    public Boolean insertOrderDetails(Collection<HappysysOrderDetails> happysysOrderDetails){
+        return orderDetailsService.saveBatch(happysysOrderDetails);
     }
 
 

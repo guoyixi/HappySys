@@ -3,7 +3,6 @@ package com.tj.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tj.product.HappysysApplicantInfo;
 import com.tj.product.HappysysApplicantInfoModel;
-import com.tj.product.HappysysOrder;
 import com.tj.service.ApplicantInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -45,24 +44,26 @@ public class ApplicantInfoController {
         return applicantInfoService.getById(applicantId);
     }
 
-    @RequestMapping("/HappysysApplicantInfo/operationApplicationInfo")
-    public boolean operationApplicationInfo(HappysysOrder order,  HappysysApplicantInfoModel happysysApplicantInfoModel){
-        Integer quickappnt = 0;
-        Integer quickrecognizee = 0;
-        if(quickappnt!=0){
+    @RequestMapping(value = "/HappysysApplicantInfo/operationApplicationInfo", method = RequestMethod.POST)
+    public Integer[] operationApplicationInfo(@RequestBody HappysysApplicantInfoModel happysysApplicantInfoModel) {
 
-        }
-
+        Integer[] l = new Integer[2];
 
         List<HappysysApplicantInfo> list = happysysApplicantInfoModel.getList();
-/*  list.forEach(i->{
-   System.out.println(i.getApplicantName());
-  });*/
 
+        //投保人And被保人
         HappysysApplicantInfo applicant = list.get(0);
-        HappysysApplicantInfo recognizee = list.get(0);
+        HappysysApplicantInfo recognizee = list.get(1);
 
-        return true;
+        applicantInfoService.saveOrUpdate(applicant);
+        l[0] = applicant.getApplicantId();
+        System.out.println(l[0]);
+
+        applicantInfoService.saveOrUpdate(recognizee);
+        l[1] = recognizee.getApplicantId();
+        System.out.println(l[1]);
+
+        return l;
 
     }
 
