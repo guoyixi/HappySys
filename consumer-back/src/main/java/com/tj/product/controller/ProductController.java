@@ -40,6 +40,7 @@ public class ProductController implements  ServletContextAware{
         Page<Map<String,Object>> productList = productClientService.showProductAll(pageIndex,productnamelike);
         String json= JSON.toJSONString(productList);
         System.out.println("json2:"+json);
+
         return json;
     }
     @RequestMapping("/ajax/section")

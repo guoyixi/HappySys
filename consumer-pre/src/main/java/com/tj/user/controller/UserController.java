@@ -169,7 +169,7 @@ public class UserController {
         boolean result = false;
         String resultMess = "修改用户资料失败，请联系管理员！";
 
-        if (file.isEmpty()) {
+        if (file == null || file.isEmpty()) {
             System.out.println("文件为空空哦");
             result = userClientService.updateUserById(user);
         }else {
