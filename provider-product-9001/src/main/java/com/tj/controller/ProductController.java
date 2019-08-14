@@ -103,6 +103,8 @@ public class ProductController {
         for (HappysysProduct hp:byMap.getRecords()) {
            hp.setProductFeatureList(productService.getFeature(hp.getProductId()));
            hp.setProductInsuranceList(productService.getInsurance(hp.getProductId()));
+           hp.setCommentCount(productService.commentCount(hp.getProductId()));
+           hp.setOrderCount(productService.OrderCount(hp.getProductId()));
         }
        return byMap;
     }

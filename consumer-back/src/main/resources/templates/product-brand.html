@@ -241,7 +241,7 @@
                     "\t\t\t\t\t\t\t<td><input name=\"\" type=\"checkbox\" value=\"\"></td>\n" +
                     "\t\t\t\t\t\t\t<td>"+(i+1)+"</td>\n" +
                     "\t\t\t\t\t\t\t<td>"+obj.records[i].productPrice+"</td>\n" +
-                    "\t\t\t\t\t\t\t<td><img src=\""+obj.records[i].productImage+"\"></td>\n" +
+                    "\t\t\t\t\t\t\t<td><img width='100px' src=\""+obj.records[i].productImage+"\"></td>\n" +
                     "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productTitle+"</td>\n" +
                     "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productDetails+"</td>\n" +
                     "\t\t\t\t\t\t\t<td class=\"f-14 product-brand-manage\"><a style=\"text-decoration:none\" onClick=\"product_brand_edit('品牌编辑','codeing.html','1')\" href=\"javascript:;\" title=\"编辑\"><i class=\"Hui-iconfont\">&#xe6df;</i></a> <a style=\"text-decoration:none\" class=\"ml-5\" onClick=\"active_del(this,'10001')\" href=\"javascript:;\" title=\"删除\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a></td>\n" +
@@ -258,12 +258,13 @@
                     ,count: obj.total //数据总数
                     ,limit: 2   //每页显示2条数据
                     ,jump: function(obj){
-
                         $("#layui-laypage-1").click(function () {
                             var tij=$("#tijiaoo").val();
                             if("" == tij){
                                 tij="null";
                             }
+							//$("#layui-laypage-1").css("border","1px solid red");
+							//alert("layui-laypage-1");
                             $.post("/ajax/productlist/"+obj.curr+"/"+tij,function (data) {
                                 var obj=JSON.parse(data);
                                 console.info(obj);
@@ -274,17 +275,14 @@
                                         "\t\t\t\t\t\t\t<td><input name=\"\" type=\"checkbox\" value=\"\"></td>\n" +
                                         "\t\t\t\t\t\t\t<td>"+(i+1)+"</td>\n" +
                                         "\t\t\t\t\t\t\t<td>"+obj.records[i].productPrice+"</td>\n" +
-                                        "\t\t\t\t\t\t\t<td><img src=\""+obj.records[i].productImage+"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t<td><img width='100px' src=\""+obj.records[i].productImage+"\"></td>\n" +
                                         "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productTitle+"</td>\n" +
                                         "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productDetails+"</td>\n" +
                                         "\t\t\t\t\t\t\t<td class=\"f-14 product-brand-manage\"><a style=\"text-decoration:none\" onClick=\"product_brand_edit('品牌编辑','codeing.html','1')\" href=\"javascript:;\" title=\"编辑\"><i class=\"Hui-iconfont\">&#xe6df;</i></a> <a style=\"text-decoration:none\" class=\"ml-5\" onClick=\"active_del(this,'10001')\" href=\"javascript:;\" title=\"删除\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a></td>\n" +
                                         "\t\t\t\t\t\t</tr>";
 
                                 }
-
                                 $("tbody").append(str);
-
-
                             })
                         })
 
@@ -312,7 +310,7 @@
                     "\t\t\t\t\t\t\t<td><input name=\"\" type=\"checkbox\" value=\"\"></td>\n" +
                     "\t\t\t\t\t\t\t<td>"+(i+1)+"</td>\n" +
                     "\t\t\t\t\t\t\t<td>"+obj.records[i].productPrice+"</td>\n" +
-                    "\t\t\t\t\t\t\t<td><img src=\""+obj.records[i].productImage+"\"></td>\n" +
+                    "\t\t\t\t\t\t\t<td><img width='100px' src=\""+obj.records[i].productImage+"\"></td>\n" +
                     "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productTitle+"</td>\n" +
                     "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productDetails+"</td>\n" +
                     "\t\t\t\t\t\t\t<td class=\"f-14 product-brand-manage\"><a style=\"text-decoration:none\" onClick=\"product_brand_edit('品牌编辑','codeing.html','1')\" href=\"javascript:;\" title=\"编辑\"><i class=\"Hui-iconfont\">&#xe6df;</i></a> <a style=\"text-decoration:none\" class=\"ml-5\" onClick=\"active_del(this,'10001')\" href=\"javascript:;\" title=\"删除\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a></td>\n" +
@@ -342,17 +340,13 @@
                                         "\t\t\t\t\t\t\t<td><input name=\"\" type=\"checkbox\" value=\"\"></td>\n" +
                                         "\t\t\t\t\t\t\t<td>"+(i+1)+"</td>\n" +
                                         "\t\t\t\t\t\t\t<td>"+obj.records[i].productPrice+"</td>\n" +
-                                        "\t\t\t\t\t\t\t<td><img src=\""+obj.records[i].productImage+"\"></td>\n" +
+                                        "\t\t\t\t\t\t\t<td><img width='100px' src=\""+obj.records[i].productImage+"\"></td>\n" +
                                         "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productTitle+"</td>\n" +
                                         "\t\t\t\t\t\t\t<td class=\"text-l\">"+obj.records[i].productDetails+"</td>\n" +
                                         "\t\t\t\t\t\t\t<td class=\"f-14 product-brand-manage\"><a style=\"text-decoration:none\" onClick=\"product_brand_edit('品牌编辑','codeing.html','1')\" href=\"javascript:;\" title=\"编辑\"><i class=\"Hui-iconfont\">&#xe6df;</i></a> <a style=\"text-decoration:none\" class=\"ml-5\" onClick=\"active_del(this,'10001')\" href=\"javascript:;\" title=\"删除\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a></td>\n" +
                                         "\t\t\t\t\t\t</tr>";
-
                                 }
-
                                 $("tbody").append(str);
-
-
                             })
                         })
 
