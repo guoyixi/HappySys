@@ -29,9 +29,9 @@
                 <!-- 未登录状态-->
                 <!-- 已登录状态-->
                 <div id="yesLogin" class="login_in" style="display: none" >
-                    <div class="user-head"><span class="i_user"></span><a
+                    <div class="user-head"><span class="i_user"></span><a target="_blank"
                             href="/HappysysUser/loadUserPersonalCenter" id="headerLoginMemberUsername"
-                            class="name"></a><span id="headerLoginMemGradeIcon" class="" th:text="${session.user}==null?'':${session.user.userName}"></span><span
+                            class="name"><span id="headerLoginMemGradeIcon" class="" th:text="${session.user}==null?'':${session.user.userName}"></span></a><span
                             class="iconfont icon-xiangxia"></span>
                     </div>
                     <div class="user-box">
