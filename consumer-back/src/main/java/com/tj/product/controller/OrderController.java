@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class OrderController {
 
-    public OrderController(){
-        System.out.println("OrderController创建了");
-    }
-
     @Autowired
     public HappysysProductClientService productClientService;
 

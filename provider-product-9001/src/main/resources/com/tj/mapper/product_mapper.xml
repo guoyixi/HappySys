@@ -4,13 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tj.mapper.ProductMapper">
 
-    <!--看不懂的地方不要管，要加条件直接加！！-->
     <select id="getByMap" resultType="com.tj.product.HappysysProduct">
         SELECT `product_id`,`product_title`,`product_price`,`product_image`,`product_details`,`product_deadline`
         ,`product_section`,`product_feature`,`product_insurance`,`product_level1`,`product_level2`,`product_level3`
-
-
-
 
                 <if test="conditions.shopping_cart_user_id != null and conditions.shopping_cart_user_id != ''">
                     ,(SELECT `shopping_cart_id` FROM `happysys_shopping_cart`
@@ -64,12 +60,10 @@
     </select>
 
     <select id="findListidSection" resultType="HappysysSection">
-
-        SELECT section_min,section_max FROM happysys_section s INNER JOIN happysys_section_center  sc
-        ON s.section_id=sc.section_id
+        SELECT s.`section_id`,s.`section_min`,s.`section_max`,s.`section_price` FROM happysys_section s
+        INNER JOIN happysys_section_center sc ON s.section_id=sc.section_id
         INNER JOIN happysys_section_list  sl ON sl.section_list_id= sc.section_list_id
         WHERE sl.section_list_id=#{sectionListid}
-
     </select>
 
     <select id="getFeature" resultType="HappysysFeature" >
@@ -81,9 +75,10 @@
     </select>
 
     <select id="findFeatureListid" resultType="HappysysFeature">
-        SELECT * FROM happysys_feature f INNER JOIN happysys_feature_center fc
-        ON f.feature_id=fc.feature_id
+        SELECT f.`feature_id`,f.`feature_name`,f.`feature_category`,pc.`category_name` FROM happysys_feature f
+        INNER JOIN happysys_feature_center fc ON f.feature_id=fc.feature_id
         INNER JOIN happysys_feature_list fl ON fl.feature_list_id=fc.feature_list_id
+        INNER JOIN `happysys_category` pc ON pc.`category_id` = `feature_category`
         WHERE fl.feature_list_id = #{featruelistid}
     </select>
 
@@ -124,7 +119,9 @@
         SELECT * FROM happysys_insurance_list
     </select>
     <select id="findInsuranceListid" resultType="HappysysInsurance">
-        SELECT insurance_name FROM happysys_insurance_list il
+        SELECT i.`insurance_id`,i.`insurance_name`,i.`insurance_price`,i.`insurance_compensate_price`
+        ,i.`insurance_details`
+        FROM happysys_insurance_list il
         INNER JOIN happysys_insurance_center ic ON il.insurance_list_id=ic.insurance_list_id
         INNER JOIN happysys_insurance i ON i.insurance_id=ic.insurance_id
         WHERE il.insurance_list_id=#{findinsurancetListid}
@@ -165,8 +162,8 @@
     </select>
 
     <select id="findinsurancesum" resultType="HappysysInsuranceSum">
-         SELECT insurance_sum FROM happysys_insurance_sum i INNER JOIN happysys_insurance_sum_center isc
-        ON i.insurance_sum_id=isc.insurance_sum_id
+         SELECT i.`insurance_sum_id`,`insurance_sum`,`insurance_sum_price` FROM happysys_insurance_sum i
+         INNER JOIN happysys_insurance_sum_center isc ON i.insurance_sum_id=isc.insurance_sum_id
         INNER JOIN happysys_insurance_sum_list isl WHERE  isl.insurance_sum_list_id=#{insurancesumListid}
     </select>
 
