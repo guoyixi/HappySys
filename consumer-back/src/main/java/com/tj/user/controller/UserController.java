@@ -27,7 +27,7 @@ public class UserController {
     @RequestMapping("jin/userAll/{pageIndex}/{usernamelike}")
     public String userAll(@PathVariable Integer pageIndex, @PathVariable String usernamelike, Model model){
         Page<Map<String, Object>> mapPage = userClientService.showAllUser(pageIndex, usernamelike);
-        System.out.println("jsonliu:"+ JSON.toJSONString(mapPage));
+        model.addAttribute("usernamelike",usernamelike);
         model.addAttribute("mapPage",mapPage);
         return "admin-role";
     }

@@ -4,16 +4,19 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.tj.product.HappysysApplicantInfo;
 import com.tj.product.HappysysApplicantInfoModel;
 import com.tj.service.ApplicantInfoService;
+import com.tj.service.HappySys_UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController(value = "applicantInfoController2")
 public class ApplicantInfoController {
 
     @Autowired
     private ApplicantInfoService applicantInfoService;
+
+    private HappySys_UserService happySys_userService;
 
     @RequestMapping("/HappysysApplicantInfo/getApplicantByIds")
     @ResponseBody
@@ -57,14 +60,11 @@ public class ApplicantInfoController {
 
         applicantInfoService.saveOrUpdate(applicant);
         l[0] = applicant.getApplicantId();
-        System.out.println(l[0]);
 
         applicantInfoService.saveOrUpdate(recognizee);
         l[1] = recognizee.getApplicantId();
-        System.out.println(l[1]);
 
         return l;
-
     }
 
 

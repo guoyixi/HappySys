@@ -2,11 +2,10 @@ package com.tj.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.tj.product.HappysysFeature;
-import com.tj.product.HappysysInsurance;
-import com.tj.product.HappysysProduct;
-import com.tj.service.CommonProblemService;
-import com.tj.service.ProductService;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.tj.product.*;
+import com.tj.service.*;
+import com.tj.vo.HappysysProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +27,17 @@ public class ProductController {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private HappysysSectionListService sectionService;
+
+    @Autowired
+    private HappysysDeadlineListService deadlinelistService;
+    @Autowired
+    private HappysysInsuranceSumListService insuranceSumListService;
+    @Autowired
+    private HappysysFeatureListService featureListService;
+    @Autowired
+    private CategoryService categoryService;
 
 
     @RequestMapping("/HappysysProduct/getById/{productId}")
@@ -128,5 +138,77 @@ public class ProductController {
         HappysysProduct product_title = productService.getOne(new QueryWrapper<HappysysProduct>().eq("product_title", title));
         System.out.println("product_title:"+product_title.getProductId());
         return String.valueOf(product_title.getProductId());
+    }
+
+
+    @RequestMapping("/ajax/productlist/{pageIndex}/{productnamelike}")
+    IPage<HappysysProduct> productnamelike(@PathVariable Integer pageIndex, @PathVariable String productnamelike){
+        QueryWrapper queryWrapper=new QueryWrapper();
+        if(productnamelike!=null && !productnamelike.equals("null")){
+            queryWrapper.like("product_title",productnamelike);
+        }
+        Page<HappysysProduct> pg=new Page(pageIndex,2);
+        return productService.page(pg, queryWrapper);
+    }
+
+
+    @RequestMapping("/ajax/section")
+    @ResponseBody
+    List<HappysysSectionList> showSectionAll(){
+        return  sectionService.list();
+    }
+
+    @RequestMapping("/ajax/findsectionListId")
+    List<HappysysSection> findlistidSection(@RequestBody Integer SectionListid){
+       return  productService.findListidSection(SectionListid);
+    }
+
+    @RequestMapping("/ajax/sectionList")
+    @ResponseBody
+    List<HappysysDeadlineList> showalldealineList(){
+       return deadlinelistService.list();
+    }
+
+    @RequestMapping("/ajax/findlistiddeadline")
+    List<HappysysDeadline> findlistiddeadline(@RequestBody Integer deadlineListid){
+        return productService.findListidDeadline(deadlineListid);
+    }
+    @RequestMapping("/ajax/findlistshowInsuranceSumList")
+    @ResponseBody
+    List<HappysysInsuranceSumList> showAllInsuranceSumList(){
+        return insuranceSumListService.list();
+    }
+
+    @RequestMapping("/findinsurancesumlistid")
+    List<HappysysInsuranceSum> showAllInsuranceSum(@RequestBody Integer findinsurancesumlistid){
+        return productService.findinsurancesum(findinsurancesumlistid);
+    }
+
+    @RequestMapping("/ajax/showAllFeatureList")
+    @ResponseBody
+    List<HappysysFeatureList> showAllFeatureList(){
+        return featureListService.list();
+    }
+    @RequestMapping("findfeatureListId")
+    List<HappysysFeature> findfeaturelistid(@RequestBody Integer featruelistid){
+        return productService.findFeatureListid(featruelistid);
+    }
+
+    @RequestMapping("/showAllInsuranceSumList")
+    List<HappysysInsuranceList> showAllInsuranceList(){
+        return productService.showAllInsuranceList();
+    }
+    @RequestMapping("/findinsurancetListid")
+    List<HappysysInsurance> findinsurancetid(@RequestBody Integer findinsurancetListid){
+        return productService.findInsuranceListid(findinsurancetListid);
+    }
+    @RequestMapping("/findcategory/parentid/{parentid}")
+    List<HappysysCategory> findcategoryparentId(@PathVariable Integer parentid){
+        return categoryService.list(new QueryWrapper<HappysysCategory>().eq("category_parent_id",parentid));
+    }
+
+    @RequestMapping("/add/product")
+    boolean addproduct(@RequestBody(required=false) HappysysProductVo hprodouct){
+        return productService.productinsert(hprodouct);
     }
 }

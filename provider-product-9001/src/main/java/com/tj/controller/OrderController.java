@@ -60,9 +60,14 @@ public class OrderController {
         return order.getOrderId();
     }
 
+    @RequestMapping(value = "/HappysysOrder/updateOrder",method = RequestMethod.POST)
+    public boolean updateOrder(HappysysOrder order){
+        return orderService.updateById(order);
+    }
+
 
     @RequestMapping(value = "/HappysysOrder/insertOrderDetails",method = RequestMethod.POST)
-    public Boolean insertOrderDetails(Collection<HappysysOrderDetails> happysysOrderDetails){
+    public Boolean insertOrderDetails(@RequestBody Collection<HappysysOrderDetails> happysysOrderDetails){
         return orderDetailsService.saveBatch(happysysOrderDetails);
     }
 

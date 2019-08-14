@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>[[${map.productName}]]-开心保保险网</title>
+    <title>填写保单</title>
     <meta name="Author" content="SINOSOFT Team"/>
     <meta name="Copyright" content="SINOSOFT"/>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
@@ -17,7 +17,6 @@
     <link rel="stylesheet" type="text/css" href="http://resource.kaixinbao.com/style/skins/default.css"/>
     <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
     <link rel="stylesheet" th:href="@{/css/layui.css}" media="all">
-
 
     <script type="text/javascript" src="http://resource.kaixinbao.com/js/iframe.js"></script>
     <script type="text/javascript" src="http://resource.kaixinbao.com/js/VerifyInput.js"></script>
@@ -88,7 +87,7 @@
                         <span class="span_t">保单终止日期：</span>
                         <input id="fail_" name="orderExpireTime" readonly="readonly" class="shop_day_cfs"
                                style="border:0;background:transparent;" value="">
-                        <em class="from-up-time" id="ensureDate_em">( 从2019-08-06 00时起到2019-08-06 24时为止 )</em>
+                        <em class="from-up-time" id="ensureDate_em"></em>
                     </p>
 
                     <p>
@@ -96,7 +95,7 @@
                         <input type="hidden" name="orderFaceAmount" th:value="${map.insuranceSum}">
                         <input type="hidden" name="orderStatus" value="1">
                         <input type="hidden" name="orderProductId" th:value="${map.productId}">
-                        <input type="hidden" name="orderUserId" value="18">
+                        <input type="hidden" name="orderUserId" th:value="${session.user.getUserId()}">
                         <input type="hidden" name="insuranceList" th:value="${map.insuranceList}">
                     </p>
 
@@ -225,7 +224,7 @@
                                         <dd class="cy_user_ch" >
                                             <label><input type="radio" value="0" onclick="clearText('#insurance_0');"
                                                           name="quickrecognizee" checked >新增</label>
-                                            <label th:each="re:${recognizee}"><input type="radio" name="quickrecognizee" onclick="quickQueryInsured(this);" th:value="${re.getApplicantId()}">[[${re.getApplicantName()}]]</label>
+                                            <label th:each="re:${recognizee}"><input type="radio" name="quickrecognizee" onclick="quickQueryInsured(this);" th:value="${re.getApplicantId()}">[[${re.getApplicantName() eq applicant.getApplicantName()?'本人':re.getApplicantName()}]]</label>
                                         </dd>
                                     </dl>
                                     <div class="clear"></div>
@@ -234,7 +233,7 @@
                                 <div id="insurance_0">
                                     <div>
                                         <p>
-                                            <input type="hidden" id="recognizeeId" name="list[1].applicantId" value=""/>
+                                            <input type="text" id="recognizeeId" name="list[1].applicantId" value=""/>
                                             <input type="hidden" id="recognizeeUserId" name="list[1].applicantUserId"
                                                    value="">
                                         </p>
@@ -326,39 +325,23 @@
                     <div class="line_a clear_mar">
                         <div class="line_at">合计信息</div>
                         <div class="shop_mes_all">
-                            <table border="0" class="cp_pricebox">
-                                <tbody>
-                                <!--                                <tr>
-                                                                    <th>起止日期</th>
-                                                                    <th>被保人人数</th>
-                                                                    <th>购买份数</th>
-                                                                    <th>费用合计</th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td id="ensureDate">
-                                                                    </td>
-                                                                    <td><font id="insNum">0</font></td>
-                                                                    <td id="insMult">0</td>
-                                                                    <td colspan="2"><font class="up_font_s">￥ <span id="priceTotle">0</span>
-                                                                    </font></td>
-
-                                                                </tr>-->
-                                <tr>
-                                    <td colspan="5" class="order-hd-list" id="inspageone_activityTD">
-
-                                        <div class="at-desp">
-                                            <span class="at-des-p">继续支付满足条件可以享受以下优惠</span>
-                                            <ul class="at_list">
-                                                <li><span class=" tb_icon active_03">惠一</span><span class="tb_text">7.31-8.2，每日下单享健康生活好礼，详情请咨询客服。</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
+                            <table class="cp_pricebox" border="0">
+                                <tbody><tr>
+                                    <th>起止日期</th>
+                                    <th>保险年限</th>
+                                    <th>基本保额</th>
+                                    <th>费用合计</th>
                                 </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                <tr>
+                                    <td id="ensureDate">从&nbsp;&nbsp;&nbsp;2019-08-13&nbsp;&nbsp;&nbsp;00时起到&nbsp;&nbsp;&nbsp;2071-08-12&nbsp;&nbsp;&nbsp;24时为止</td>
+                                    <td><font id="insNum" th:text="${map.deadline}"></font></td>
+                                    <td id="insMult">[[${#strings.substring(map.insuranceSum,0,2)}]]万</td>
+                                    <td colspan="2"><font class="up_font_s">￥ <span id="priceTotle" th:text="${map.totolPrice}"></span>
+                                    </font></td>
 
+                                </tr>
+                                </tbody></table>
+                        </div>
 
                         <div class="syr2 syr33">
                             <input type="button" id="confirm" value="下一步" class="next_btn dev_submitButton"
@@ -533,7 +516,7 @@
                                 src="http://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582921308.png" width="90"
                                 height="37"></a></li>
 
-                        <!--                     <li class="sl-floatcenter-item"><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088"
+                        <!-- <li class="sl-floatcenter-item"><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088"
                                                                                target="_blank" rel="nofollow"><img
                                                     src="http://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582937061.png" width="37"
                                                     height="37"/></a></li> -->
@@ -707,29 +690,14 @@
         $("#effective").val(start);
         $("#fail_").val(end);
         $("#ensureDate_em").text("( 从" + start + " 00时起到" + end + " 24时为止 )");
-
+        $("#ensureDate").html("从&nbsp;&nbsp;&nbsp;" + start + "&nbsp;&nbsp;&nbsp;00时起到&nbsp;&nbsp;&nbsp;" + end + " &nbsp;&nbsp;&nbsp;24时为止");
     }
 
     /**
      * 快速查询投保人信息
      */
     function quickQueryAppnt(obj) {
-        var object = [[${applicant}]];
-        if (object) {
-            var element = ["applicant_Id", "applicantName", "applicantSex", "applicantId", "applicantMobile", "applicantBirthday", "applicantMail", "applicantUserId"]
 
-            $("#" + element[0]).val(object.applicantId);
-            $("#" + element[1]).val(object.applicantName);
-            $("#" + element[2]).val(object.applicantSex);
-            $("#" + element[3]).val(object.applicantIdentity);
-            $("#" + element[4]).val(object.applicantPhone);
-            $("#" + element[5]).val(object.applicantBirthday);
-            $("#" + element[6]).val(object.applicantEmail);
-            $("#" + element[7]).val(object.applicantUserId);
-
-            //eachReadonly("#sdinformationAppnt",true);
-            validate();
-        }
     }
 
     /*        var checkboxName = jQuery(obj).attr("name");
@@ -968,7 +936,20 @@
     jQuery(function () {
 
         startAndEndDate();
-        quickQueryAppnt(this);
+        var object = [[${applicant}]];
+        if (object) {
+            var element = ["applicant_Id", "applicantName", "applicantSex", "applicantId", "applicantMobile", "applicantBirthday", "applicantMail", "applicantUserId"]
+
+            $("#" + element[0]).val(object.applicantId);
+            $("#" + element[1]).val(object.applicantName);
+            $("#" + element[2]).val(object.applicantSex);
+            $("#" + element[3]).val(object.applicantIdentity);
+            $("#" + element[4]).val(object.applicantPhone);
+            $("#" + element[5]).val(object.applicantBirthday);
+            $("#" + element[6]).val(object.applicantEmail);
+            $("#" + element[7]).val(object.applicantUserId);
+
+        }
 
         /**
          * 提交Form表单

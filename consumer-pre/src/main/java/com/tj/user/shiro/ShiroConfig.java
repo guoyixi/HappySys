@@ -59,6 +59,11 @@ public class ShiroConfig {
         filterMap.put("/HappysysOrder/getAllOrderStatusNumByUserId","authc");
         filterMap.put("/HappysysOrder/getOrderByMap","authc");
 
+        //-----------payment-----------
+        filterMap.put("/HappysysPayment/payment1","authc");
+        filterMap.put("/HappysysPayment/payment2","authc");
+        filterMap.put("/HappysysPayment/payment3","authc");
+
         //----------Applicant-------------
         filterMap.put("/HappysysApplicantInfo/getCurrentUserApplicantAndInsured","authc");
 

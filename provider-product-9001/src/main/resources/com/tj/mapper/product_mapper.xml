@@ -49,6 +49,12 @@
         INNER JOIN happysys_deadline deadline ON deadline.`deadline_id` = dcenter.`deadline_id`
         WHERE product_id = #{productId}
     </select>
+    <select id="findListidDeadline" resultType="HappysysDeadline">
+        SELECT deadline_time FROM happysys_deadline d INNER JOIN happysys_deadline_center dc
+        ON d.deadline_id=dc.deadline_id INNER JOIN happysys_deadline_list dl
+        ON dl.deadline_list_id=dc.deadline_list_id WHERE dl.deadline_list_id = #{deadlineListid}
+    </select>
+
     <select id="getSection" resultType="HappysysSection">
         SELECT section.section_id,section_min,section_max,section_price FROM happysys_product product
         INNER JOIN happysys_section_list slist ON product.product_section = slist.`section_list_id`
@@ -56,6 +62,16 @@
         INNER JOIN happysys_section section ON  scenter.`section_id`= section.`section_id`
         WHERE product_id = #{productId}
     </select>
+
+    <select id="findListidSection" resultType="HappysysSection">
+
+        SELECT section_min,section_max FROM happysys_section s INNER JOIN happysys_section_center  sc
+        ON s.section_id=sc.section_id
+        INNER JOIN happysys_section_list  sl ON sl.section_list_id= sc.section_list_id
+        WHERE sl.section_list_id=#{sectionListid}
+
+    </select>
+
     <select id="getFeature" resultType="HappysysFeature" >
         SELECT feature.`feature_id`,feature.`feature_name`,feature.`feature_category` FROM happysys_product product
         INNER JOIN happysys_feature_list flist ON product.product_feature = flist.`feature_list_id`
@@ -63,6 +79,14 @@
         INNER JOIN happysys_feature feature ON feature.`feature_id` = fcenter.`feature_id`
         WHERE product_id = #{productId}
     </select>
+
+    <select id="findFeatureListid" resultType="HappysysFeature">
+        SELECT * FROM happysys_feature f INNER JOIN happysys_feature_center fc
+        ON f.feature_id=fc.feature_id
+        INNER JOIN happysys_feature_list fl ON fl.feature_list_id=fc.feature_list_id
+        WHERE fl.feature_list_id = #{featruelistid}
+    </select>
+
     <select id="getInsurance" resultType="HappysysInsurance" >
         SELECT insurance.insurance_id,insurance_name,insurance_price,insurance_details FROM happysys_product product
         INNER JOIN happysys_insurance_list ilist ON product.product_insurance =  ilist.insurance_list_id
@@ -70,6 +94,7 @@
         INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
         WHERE product_id = #{productId}
     </select>
+
     <select id="getInsuranceSum" resultType="HappysysInsuranceSum" >
         SELECT insurance_sum.`insurance_sum_id`,insurance_sum.`insurance_sum`,insurance_sum.`insurance_sum_price` FROM happysys_product product
         INNER JOIN happysys_insurance_sum_list ilist ON product.`product_insurance_sum` =  ilist.`insurance_sum_list_id`
@@ -83,10 +108,26 @@
         INNER JOIN happysys_product p ON p.product_id=c.comment_product_id
         WHERE p.product_id=#{productId}
     </select>
+
     <select id="OrderCount" resultType="Integer">
          SELECT COUNT(order_number) FROM happysys_order o
          INNER JOIN happysys_product p ON o.order_product_id=p.product_id
          WHERE p.product_id=#{productId}
+    </select>
+
+    <insert id="productinsert" >
+       INSERT INTO `happysys`.`happysys_product` (`product_title`, `product_price`, `product_image`, `product_details`, `product_section`, `product_deadline`, `product_insurance_sum`, `product_feature`, `product_insurance`, `product_level1`, `product_level2`, `product_level3`)
+       VALUES (#{productvo.productTitle},#{productvo.productPrice},#{productvo.productImage},#{productvo.productDetails},#{productvo.productSectionList},#{productvo.productDeadlineList},#{productvo.productInsuranceSumList},#{productvo.productFeatureList},#{productvo.productInsuranceList},#{productvo.productLevel1},#{productvo.productLevel2},#{productvo.productLevel3});
+
+    </insert>
+    <select id="showAllInsuranceList" resultType="HappysysInsuranceList">
+        SELECT * FROM happysys_insurance_list
+    </select>
+    <select id="findInsuranceListid" resultType="HappysysInsurance">
+        SELECT insurance_name FROM happysys_insurance_list il
+        INNER JOIN happysys_insurance_center ic ON il.insurance_list_id=ic.insurance_list_id
+        INNER JOIN happysys_insurance i ON i.insurance_id=ic.insurance_id
+        WHERE il.insurance_list_id=#{findinsurancetListid}
     </select>
 
     <select id="insuranceAll" resultType="HappysysInsurance">
@@ -114,6 +155,27 @@
             INNER JOIN happysys_insurance insurance ON  icenter.`insurance_id`= insurance.`insurance_id`
             WHERE product_id =#{conditions.productId3}
         </if>
+    </select>
+    <select id="getInsuranceSum" resultType="HappysysInsuranceSum" >
+        SELECT insurance_sum.`insurance_sum_id`,insurance_sum.`insurance_sum`,insurance_sum.`insurance_sum_price` FROM happysys_product product
+        INNER JOIN happysys_insurance_sum_list ilist ON product.`product_insurance_sum` =  ilist.`insurance_sum_list_id`
+        INNER JOIN happysys_insurance_sum_center icenter ON icenter.`insurance_sum_list_id` = ilist.`insurance_sum_list_id`
+        INNER JOIN happysys_insurance_sum insurance_sum ON  icenter.`insurance_sum_id` = insurance_sum.`insurance_sum_id`
+        WHERE product_id = #{productId}
+    </select>
+
+    <select id="findinsurancesum" resultType="HappysysInsuranceSum">
+         SELECT insurance_sum FROM happysys_insurance_sum i INNER JOIN happysys_insurance_sum_center isc
+        ON i.insurance_sum_id=isc.insurance_sum_id
+        INNER JOIN happysys_insurance_sum_list isl WHERE  isl.insurance_sum_list_id=#{insurancesumListid}
+    </select>
+
+    <select id="getPayment" resultType="HappysysPayment" >
+        SELECT payment.`payment_id`,payment.`payment_time`,payment.`payment_category` FROM happysys_product product
+        INNER JOIN happysys_payment_list plist ON plist.`paymnet_list_id` = product.`product_payment`
+        INNER JOIN happysys_payment_center pcenter ON pcenter.`payment_list_id` = plist.`paymnet_list_id`
+        INNER JOIN happysys_payment payment ON payment.`payment_id` = pcenter.`payment_id`
+        WHERE product_id = #{productId}
     </select>
 
     <select id="calculatePrice" resultType="Double">

@@ -1,6 +1,6 @@
 server:
   #eureka服务器端口号。尽管无论官网还是大部分参考书都使用8761，但默认并不是，而是8080
-  port: 8000
+  port: 5001
   
 spring:
   application:
@@ -14,19 +14,13 @@ spring:
     static-path-pattern: /**
   resources:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-  #redis配置
-  redis:
-      database: 0
-      host: 118.25.13.168
-      port: 6379
-      password: 856856
-      timeout: 20000
+
 
 
   servlet:
     multipart:
       enabled: true       # 开启 multipart 上传功能
-
+      max-file-size: 10MB
   #Thymeleaf配置
   thymeleaf:
     encoding: UTF-8

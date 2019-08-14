@@ -1,5 +1,6 @@
 package com.tj.product;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.*;
 import lombok.experimental.Accessors;
@@ -20,4 +21,11 @@ public class HappysysSection implements Serializable {
     private Integer sectionMax;
     private Integer sectionPrice;
 
+
+    @TableField(exist = false)
+    private String title;
+
+    public void setTitle(String title) {
+        this.title = sectionMin+"-"+sectionMax;
+    }
 }

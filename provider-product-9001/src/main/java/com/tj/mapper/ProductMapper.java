@@ -3,6 +3,7 @@ package com.tj.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.tj.product.*;
+import com.tj.vo.HappysysProductVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,9 +20,13 @@ public interface ProductMapper extends BaseMapper<HappysysProduct> {
     List<HappysysInsuranceSum> getInsuranceSum(Integer productId);
 
     Double calculatePrice(Map<String,Object> map);
-
-
-
+    List<HappysysSection> findListidSection(@Param("sectionListid") Integer sectionListid);
+    List<HappysysDeadline> findListidDeadline(Integer deadlineListid);
+    List<HappysysInsuranceSum> findinsurancesum(Integer insurancesumListid);
+    List<HappysysFeature> findFeatureListid(Integer findfeaturelistid);
+    List<HappysysInsuranceList> showAllInsuranceList();
+    List<HappysysInsurance> findInsuranceListid(Integer findinsurancetListid);
+    boolean productinsert(@Param("productvo") HappysysProductVo productvo);
     /**
      * 评论数
      * @param productId
@@ -42,4 +47,5 @@ public interface ProductMapper extends BaseMapper<HappysysProduct> {
      * @return
      */
     List<HappysysInsurance> insuranceAll(@Param("conditions") Map<Object,String> map);
+
 }
