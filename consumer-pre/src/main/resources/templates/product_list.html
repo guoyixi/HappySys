@@ -900,11 +900,11 @@
                                 <ul class="d_list_con"><li th:EACH="featrueList:${plist.productFeatureList}"><span>[[${featrueList.featureName}]]</span></li></ul>
                                 <ul class="recommend_list"><li class="rec_list_li" th:EACH="iList:${plist.productInsuranceList}"><span class="rec_list_s" th:title="${iList.insuranceName}" >[[${iList.insuranceName}]]</span> <span class="rec_list_money" th:title="${iList.insurancePrice}">[[${iList.insurancePrice}]] </span></li>   </ul>
                                 <DIV class="price_tj">
-                                    <span class="recom_xl" id="SalesV_228001001">(累计销量：加载中...)</span>
+                                    <span class="recom_xl" id="SalesV_228001001">(累计销量:[[${plist.orderCount}]])</span>
                                     <span class="recom_xl"><i><a
                                             href="javascript:void(0)"
                                             onclick="openCommnet('http://www.kaixinbao.com/jiankang-baoxian/320065.shtml')"
-                                            class="shop_tj_num" id="CommentV_228001001">评论加载中...</a></i></span>
+                                            class="shop_tj_num" id="CommentV_228001001">评论: [[${plist.commentCount}]]</a></i></span>
 
                                 </DIV>
                             </DIV>
@@ -1289,7 +1289,7 @@
                                  str+=' <li class="rec_list_li"><span class="rec_list_s" title="'+data.records[i].productInsuranceList[k].insuranceName+'" >'+data.records[i].productInsuranceList[k].insuranceName+'</span> <span class="rec_list_money" title="'+data.records[i].productInsuranceList[k].insurancePrice+'">'+data.records[i].productInsuranceList[k].insurancePrice+' </span></li>';
 
                              }
-                             str+='</ul><DIV class="price_tj"><span class="recom_xl" id="SalesV_228001001">(累计销量：加载中...)</span> <span class="recom_xl"><i><a  href="javascript:void(0)" onclick="openCommnet(\'http://www.kaixinbao.com/jiankang-baoxian/320065.shtml\')" class="shop_tj_num" id="CommentV_228001001">评论加载中...</a></i></span> </DIV></DIV><DIV class="nlist_price"><p class="list_Sale tribe-action" id="Activity_228001001"><span id="Diy_Title_Activity_228001001" style="display: none;"></span><em id="Diy_Activity_228001001" style="display: none;"></em> </p><span class="nlist_pay moneys" NAME="Ajax_Prict_228001001"><em>￥</em>'+data.records[i].productPrice+'</span> <em class="nlist_pay_t moneys"><span NAME="Clear_Ajax_Prict_228001001"></span> </em> <DIV class="remcon_desmore"><a target="_blank" href="/HappysysProduct/getById/'+data.records[i].productId+'" rel="nofollow">去看看</a> <label class="nlist_add_db" onclick="showcp(\''+data.records[i].productTitle+'\',\'http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg\','+data.records[i].productId+',\'\',\'D\',\'http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg\','+data.records[i].productPrice+');">加入对比</label></DIV></DIV> </DIV></DIV>';
+                             str+='</ul><DIV class="price_tj"><span class="recom_xl" id="SalesV_228001001">(累计销量:'+data.records[i].orderCount+')</span> <span class="recom_xl"><i><a  href="javascript:void(0)" onclick="openCommnet(\'http://www.kaixinbao.com/jiankang-baoxian/320065.shtml\')" class="shop_tj_num" id="CommentV_228001001">评论:'+data.records[i].commentCount+'</a></i></span> </DIV></DIV><DIV class="nlist_price"><p class="list_Sale tribe-action" id="Activity_228001001"><span id="Diy_Title_Activity_228001001" style="display: none;"></span><em id="Diy_Activity_228001001" style="display: none;"></em> </p><span class="nlist_pay moneys" NAME="Ajax_Prict_228001001"><em>￥</em>'+data.records[i].productPrice+'</span> <em class="nlist_pay_t moneys"><span NAME="Clear_Ajax_Prict_228001001"></span> </em> <DIV class="remcon_desmore"><a target="_blank" href="/HappysysProduct/getById/'+data.records[i].productId+'" rel="nofollow">去看看</a> <label class="nlist_add_db" onclick="showcp(\''+data.records[i].productTitle+'\',\'http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg\','+data.records[i].productId+',\'\',\'D\',\'http://resource.kaixinbao.com/eriskfile/ERiskPic/228001001.jpg\','+data.records[i].productPrice+');">加入对比</label></DIV></DIV> </DIV></DIV>';
                         }
                         $("#products").append(str);
 

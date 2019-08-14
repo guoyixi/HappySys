@@ -28,7 +28,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
     }
 
     @Override
-    public Integer commentCount(Integer productId) {
+    public  Integer commentCount(Integer productId) {
         return productMapper.commentCount(productId);
     }
 
@@ -38,7 +38,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, HappysysProdu
     }
 
     @Override
-    public Integer OrderCount(Integer productId) {
+    public  Integer OrderCount(Integer productId) {
         return productMapper.OrderCount(productId);
     }
 

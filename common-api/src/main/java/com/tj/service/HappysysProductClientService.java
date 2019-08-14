@@ -185,7 +185,7 @@ public interface HappysysProductClientService {
      */
     @RequestMapping("/HappysysOrder/getOrderCountByProductId/{productId}")
     Integer getOrderCountByProductId(@PathVariable("productId") Integer productId);
-
+    
     /**
      * --------------------------------投保人/被保人-------------------------------
      */
