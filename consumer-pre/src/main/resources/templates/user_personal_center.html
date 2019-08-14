@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_collect.css">
     <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_datum.css">
     <link rel="shortcut icon" href="https://mresource.kaixinbao.com/member/pc/r02/images/common/favicon.ico"/>
+
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
     <link rel="shortcut icon" href="images/favicon.ico"/>
@@ -23,7 +24,7 @@
 <body id="member">
 
 <!-- 公共头部：后台开发请直接替换 -->
-<div th:replace="~{header/IndexHeader::#header-box}"></div>
+<div id="header-box" th:include="~{header/IndexHeader::#header-box}"></div>
 <!-- /公共头部：后台开发请直接替换 -->
 
 
