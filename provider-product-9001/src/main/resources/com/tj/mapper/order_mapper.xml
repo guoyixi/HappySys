@@ -55,7 +55,7 @@
                     AND `order_status` = 3 AND `order_expire_time` > NOW()
                 </when>
                 <when test="conditions.order_status != null and conditions.order_status == 4 ">
-                    AND `order_expire_time` > NOW() AND DATEDIFF(`order_expire_time`,NOW()) &lt; 30
+                    AND `order_status` = 3 AND `order_expire_time` > NOW() AND DATEDIFF(`order_expire_time`,NOW()) &lt; 30
                 </when>
                 <when test="conditions.order_status != null and conditions.order_status == 5 ">
                     AND `order_status` = 3 AND `order_expire_time` &lt; NOW()

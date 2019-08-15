@@ -12,6 +12,8 @@
     </dd>
 </dl>-->
 
+<link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
+
 <!--commont_applicant_list-->
 <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_useinfo.css">
 
@@ -44,7 +46,7 @@
                 $.post("/HappysysApplicantInfo/delApplicantById",{applicantId:applicantId},
                     function(result){
                         if(result == true){
-                            alert("删除成功！");
+                            layer.msg('删除成功！');
                             var $em = $("#applicantInfoTitle em");
                             $em.html(parseInt($em.html()) -1);
 
@@ -53,7 +55,7 @@
 
                             loadApplicant(applicantAndInsuredList);
                         }else {
-                            alert("此被保人在订单中存在，不能删除哦！");
+                            layer.msg('此被保人在订单中存在，不能删除哦！');
                         }
                     }
                 );
@@ -113,8 +115,8 @@
                     }
                 });
             });
-
         }
 
     </script>
 
+<script type="text/javascript" th:src="@{/layui/layui.all.js}" src="/layui/layui.all.js" charset="utf-8"></script>

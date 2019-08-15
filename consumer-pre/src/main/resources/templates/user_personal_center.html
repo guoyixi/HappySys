@@ -14,8 +14,10 @@
 
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
-    <link rel="shortcut icon" href="images/favicon.ico"/>
+    <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
 
+
+    <link rel="stylesheet" href="https://resource.kaixinbao.com/r02/css/common/mod_cm_kxb.css" />
 
 </head>
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
@@ -352,71 +354,8 @@
     </div>
 </div>
 <!--/footer-->
-
-<div id="toorbar">
-    <div class="toorbar-box">
-        <div class="toobar-box-height"></div>
-        <a class="toorbar-box-service ntkf-service" data-ntkf="" href="javascript:void(0);" vlpageid="xiaoneng" rel="nofollow" exturl="http://www.kaixinbao.com/xiaoneng" onclick="return(VL_FileDL(this));return false;">
-            <span class="iconfont icon-kefu1"></span>
-            <em class="text ">客服</em>
-        </a>
-        <div class="toorbar-box-shopcar">
-            <span class="iconfont icon-shopcar"></span>
-            <em class="text">购物车</em>
-            <span class="num" id="shopCartNo"></span>
-        </div>
-        <!--
-        <div class="toorbar-box-shopvs">
-            <span class="iconfont icon-duibi"></span>
-            <em class="text">产品对比</em>
-            <em class="vs"><i>0</i>/4</em>
-        </div>
-        -->
-        <div class="toorbar-box-wechart">
-            <span class="iconfont icon-erweima"></span>
-            <div class="wechart child">
-                <p><span>微信公众号</span><img src="https://resource.kaixinbao.com/r02/images/common/wechat14.png" alt=""></p>
-                <p><span>下载app</span><img src="https://resource.kaixinbao.com/r02/images/common/app.jpg" alt=""></p>
-            </div>
-        </div>
-        <div class="toorbar-box-top">
-            <span class="iconfont icon-top"></span>
-            <div class="top child">返回顶部</div>
-        </div>
-        <!--
-        <div class="toorbar-box-vs">
-            <div class="title"><em>产品对比</em><span class="closed">关闭</span></div>
-            <p class="tip">最多可对比 <em>4</em> 款产品</p>
-            <div class="content">
-                <dl>
-                    <dt><em class="iconfont icon-kongxin"></em><a href="../" target="_blank">阳光保重大疾病险保重大疾病险</a> <span class="iconfont icon-close1"></span></dt>
-                    <dd class="trait"><span>特点特点特点</span><span>特点特点特点</span></dd>
-                    <dd class="money"><span><em>￥</em><i>999.00</i></span> <img src="../images/logo/1001.gif" alt=""></dd>
-                </dl>
-                <dl>
-                    <dt><em class="iconfont icon-kongxin"></em><a href="../" target="_blank">阳光保重大疾病险保重大疾病险</a>  <span class="iconfont icon-close1"></span></dt>
-                    <dd class="trait"><span>特点特点特点</span><span>特点特点特点</span></dd>
-                    <dd class="money"><span><em>￥</em><i>999.00</i></span> <img src="../images/logo/1001.gif" alt=""></dd>
-                </dl>
-                <dl>
-                    <dt><em class="iconfont icon-kongxin"></em><a href="../" target="_blank">阳光保重大疾病险保重大疾病险</a>  <span class="iconfont icon-close1"></span></dt>
-                    <dd class="trait"><span>特点特点特点</span><span>特点特点特点</span></dd>
-                    <dd class="money"><span><em>￥</em><i>999.00</i></span> <img src="../images/logo/1001.gif" alt=""></dd>
-                </dl>
-                <dl>
-                    <dt><em class="iconfont icon-kongxin"></em><a href="../" target="_blank">阳光保重大疾病险保重大疾病险</a>  <span class="iconfont icon-close1"></span></dt>
-                    <dd class="trait"><span>特点特点特点</span><span>特点特点特点</span></dd>
-                    <dd class="money"><span><em>￥</em><i>999.00</i></span> <img src="../images/logo/1001.gif" alt=""></dd>
-                </dl>
-            </div>
-            <div class="beginvs">
-                <span>已选<em class="nums">0</em>件产品</span>
-                <a href="javascript:void(0);">开始对比</a>
-            </div>
-        </div>
-        -->
-    </div>
-</div>
+<!--工具栏-->
+<div th:replace="~{common/Toorbar::#toorbar}"></div>
 <!-- /公共尾部：后台开发请直接替换 -->
 
 <input type="hidden" id="PcStaticResourcePath" value="https://mresource.kaixinbao.com/member/pc/r02">
@@ -425,7 +364,7 @@
 
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.js"></script>
 <script type="text/javascript" src="https://mresource.kaixinbao.com/member/pc/r02/js/require.config.js"></script>
-<script type="text/javascript" th:src="@{/layui/layui.js}" src="/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{/layui/layui.all.js}" src="/layui/layui.all.js" charset="utf-8"></script>
 <script type="text/javascript" th:inline="javascript">
     //头部显示用户信息
     var happyuser=$("#aab").text();
@@ -435,9 +374,10 @@
         $("#yesLogin").css("display","block");
     }
 
+
     var resultMess = [[${resultMess}]];
     if(resultMess != null){
-        alert(resultMess);
+        layer.msg(resultMess);
     }
 
     //返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
@@ -462,6 +402,14 @@
     var order_status ;
 
     function cententChange(pageName,currentObj,order_status_inner){
+        if(resultMess == null){
+            layer.msg('加载中...', {
+                icon: 16
+                ,shade: 0.1
+                ,area: ['120px', '60px']
+            });
+        }
+
         if(pageName == null){
             pageName = 'order_list';
         }
@@ -471,7 +419,6 @@
         if(currentObj != null){
             $(currentObj).parent().attr("class","sel").siblings().removeAttr("class","sel");
         }
-
         $.ajax({
             url:"/HappysysUser/userPersonalCenterContentChange/"+pageName,
             method:"get",
@@ -479,10 +426,9 @@
                 $("#change_centent").html(result);
             },
             error:function () {
-                alert("数据正在测试中....");
+                layer.msg('数据正在测试中......');
             }
-        })
-
+        });
     }
 
 </script>
