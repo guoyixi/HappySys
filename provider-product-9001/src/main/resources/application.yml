@@ -1,6 +1,8 @@
 server:
   port: 9001
 
+
+
 spring:
   application:
     name: HAPPY-PRODUCT     #微服务名
@@ -39,7 +41,7 @@ spring:
     ###############以上为配置druid添加的配置########################################
 
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd
     time-zone: GMT+8
 
   #mongodb配置
@@ -71,12 +73,18 @@ spring:
     username: guest
     password: guest
 
+  output:
+    ansi:
+      enabled: never
+
+
 
 #mybatisplus配置
 mybatis-plus:
   type-aliases-package: com.tj.product
   mapper-locations: classpath*:com/**/*mapper.xml
   configuration:
+
     use-generated-keys: true
     auto-mapping-behavior: full
     #配置java驼峰命名法和数据库下划线命名规则互转
@@ -93,6 +101,7 @@ mybatis-plus:
         table-underline: true
         #列名名、是否使用下划线命名，默认数据库列使用下划线命名
         column-underline: true
+
 
         #逻辑删除是为了方便数据恢复和保护数据本身价值等等的一种方案，但实际就是删除。
         #如果你需要再查出来就不应使用逻辑删除，而是以一个状态去表示。
@@ -118,4 +127,5 @@ info:
   company.name: www.xiaoll.com
   build.artifactId: ${project.artifactId}
   build.version: ${project.version}
+
 

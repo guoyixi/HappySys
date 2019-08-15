@@ -8,9 +8,10 @@
     <title>[[${product.productTitle}]]-开心保保险网</title>
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
-    <link rel="stylesheet" th:href="@{/css/mod_cm_kxb.css}"/>
-    <link rel="stylesheet" th:href="@{/css/mod_detail.css}"/>
+    <link rel="stylesheet" href="https://resource.kaixinbao.com/r02/css/common/mod_cm_kxb.css" />
+    <link rel="stylesheet" href="https://resource.kaixinbao.com/r02/css/shop/mod_detail.css" />
     <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
+
 
 </head>
 <body>
@@ -18,10 +19,6 @@
 <!--商品详情头-->
 <div th:replace="~{header/ProductDetailsHeader::#header-box}"></div>
 
-<input type="hidden" id="productid" value="228001001"/>
-<input type="hidden" id="articleid" value="320065"/>
-<input type="hidden" id="complicatedFlag" value="Y"/>
-<input type="hidden" id="BaseAppResourcePath" value="http://www.kaixinbao.com/"/>
 
 <!--中间部分-->
 <div class="content-box">
@@ -124,9 +121,7 @@
                                   th:class="'live'+${featureStat.count}" th:text="${feature.getFeatureName()}"></span>
                         </div>
 
-                        <span class="insure-filter"><i class="i-shop i-jisuan">
-
-                        </i>保障详情<i class="rs-edge" style="border-top-color:#fd8824"></i></span>
+                        <span class="insure-filter"></i>保障详情<i class="rs-edge" style="border-top-color:#fd8824"></i></span>
                         <ul class="filter-temp">
                             <li class="icon-arrow"></li>
 
@@ -167,8 +162,10 @@
                             <div id="insurance_sum_id" class="text">
                                 <span th:each="insuranceSum:${product.getProductInsuranceSumList()}" class=""
                                       th:value="${insuranceSum.getInsuranceSumId()}"
-                                      th:text="${#strings.substring(insuranceSum.getInsuranceSum(),0,2)}+'万'"
-                                      th:class="${insuranceSumStat.count==1}?'selected'"></span>
+                                      th:class="${insuranceSumStat.count==1}?'selected'">
+                                    [[${#strings.substring(insuranceSum.getInsuranceSum(),0,2)}]]万
+                                    <input type="hidden" class="sum" th:value="${insuranceSum.getInsuranceSum()}"/>
+                                </span>
                             </div>
                         </li>
 
@@ -188,8 +185,7 @@
                 </div>
             </div>
 
-
-            <p class="bottom-money">
+            <p class="bottom-money" style="display: block">
                 <span>保费:</span>
                 <span class="red">￥<i id="totolPrice" class="product_id" ></i>
                     <b class="split-line"></b></span>
@@ -199,6 +195,7 @@
 
             <form id="Immediately" action="/HappysysPayment/payment1" method="post">
 
+                <input type="hidden" name="productId" value="" />
                 <input type="hidden" name="productName" value="" />
                 <input type="hidden" name="totolPrice" value="" />
                 <input type="hidden" name="section" value="" />
@@ -766,12 +763,13 @@
     function payment(){
 
         //商品名称
-        $("input[name=productName]").attr("value",$("#product_id").text().trim());
+        $("input[name=productName]").val($("#product_id").text().trim());
+        $("input[name=productId]").val($("#product_id").attr("value"));
         //商品总价格
-        $("input[name=totolPrice]").attr("value",$("#totolPrice").text().trim());
-        $("input[name=section]").attr("value",$("#section_id>.selected").text().trim());
-        $("input[name=deadline]").attr("value",$("#deadline_id>.selected").text().trim());
-        $("input[name=insuranceSum]").attr("value",$("#insurance_sum_id>.selected").text().trim());
+        $("input[name=totolPrice]").val($("#totolPrice").text().trim());
+        $("input[name=section]").val($("#section_id>.selected").text().trim());
+        $("input[name=deadline]").val($("#deadline_id>.selected").text().trim());
+        $("input[name=insuranceSum]").val($("#insurance_sum_id>.selected>.sum").val());
 
         var count = 0;
         var _list = new Array();
@@ -781,7 +779,7 @@
                 count++;
             }
         })
-        $("input[name=insuranceList]").attr("value",_list);
+        $("input[name=insuranceList]").val(_list);
 
         $("#Immediately").submit();
 

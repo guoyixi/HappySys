@@ -1,14 +1,13 @@
 package com.tj.service;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
-
 import com.tj.vo.HappysysProductVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,20 +157,6 @@ public interface HappysysProductClientService {
     HashMap<String,Object> categoryOneTow(@PathVariable("productLevel3") Integer productLevel3);
 
     /**
-     * @param userId
-     * @return              返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
-     */
-    @RequestMapping("/HappysysOrder/getAllOrderStatusNumByUserId/{userId}")
-    Map<String,Object> getAllOrderStatusNumByUserId(@PathVariable("userId") Integer userId);
-
-    /**
-     * @return              根据userId查询所有订单list
-     */
-    @RequestMapping("/HappysysOrder/getOrderByMap")
-    List<Map<String,Object>> getOrderByMap(@RequestParam Map<String,Object> conditions);
-
-
-    /**
      * @param orderId
      * @return              根据orderId查询order详情
      */
@@ -223,6 +208,15 @@ public interface HappysysProductClientService {
 
 
     /**
+     *  ApplicantInfo的插改操作
+     * @param happysysApplicantInfoModel
+     * @return
+     */
+    @RequestMapping(value = "/HappysysApplicantInfo/operationApplicationInfo",method = RequestMethod.POST)
+    Integer[] operationApplicationInfo(@RequestBody HappysysApplicantInfoModel happysysApplicantInfoModel);
+
+
+    /**
      * --------------------------------订单-------------------------------
      */
 
@@ -234,10 +228,50 @@ public interface HappysysProductClientService {
     @RequestMapping("/HappysysOrder/getInsuranceByOrderId/{orderId}")
     List<HappysysInsurance> getInsuranceByOrderId(@PathVariable("orderId") Integer orderId);
 
+    /**
+     * @param userId
+     * @return              返回指定user的：（总订单数、待支付、待生效、生效中、即将过期、已过期、待评论） 各项的数量
+     */
+    @RequestMapping("/HappysysOrder/getAllOrderStatusNumByUserId/{userId}")
+    Map<String,Object> getAllOrderStatusNumByUserId(@PathVariable("userId") Integer userId);
+
+    /**
+     * @return              根据userId查询所有订单list
+     */
+    @RequestMapping("/HappysysOrder/getOrderByMap")
+    List<Map<String,Object>> getOrderByMap(@RequestParam Map<String,Object> conditions);
+
+    /**
+     * 添加订单
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "/HappysysOrder/insertOrder",method = RequestMethod.POST)
+    Integer insertOrder(@RequestBody HappysysOrder order);
+
+    /**
+     *
+     * @param order
+     * @return
+     */
+    @RequestMapping(value = "/HappysysOrder/updateOrder",method = RequestMethod.POST)
+    boolean updateOrder(HappysysOrder order);
+
+    /**
+     * 插入订单详情
+     * @param happysysOrderDetails
+     * @return
+     */
+    @RequestMapping(value = "/HappysysOrder/insertOrderDetails",method = RequestMethod.POST)
+    Boolean insertOrderDetails(@RequestBody Collection<HappysysOrderDetails> happysysOrderDetails);
+
+    @RequestMapping(value = "/HappysysOrder/loadOrderList",method = RequestMethod.POST)
+    Page<HappysysOrder> loadOrderList(@RequestBody Map<String,Object> map,@RequestParam("currentPage") Integer currentPage,@RequestParam("size")  Integer size);
 
 
     /**
      * 商品对比
+     * @param productId
      * @return
      */
     @RequestMapping(value="/product/duibi")

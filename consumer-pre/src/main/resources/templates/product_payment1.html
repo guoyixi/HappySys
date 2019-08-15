@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-    <title>[[${map.productName}]]-开心保保险网</title>
+    <title>填写保单</title>
     <meta name="Author" content="SINOSOFT Team"/>
     <meta name="Copyright" content="SINOSOFT"/>
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9">
@@ -18,87 +18,9 @@
     <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
     <link rel="stylesheet" th:href="@{/css/layui.css}" media="all">
 
-
     <script type="text/javascript" src="http://resource.kaixinbao.com/js/iframe.js"></script>
     <script type="text/javascript" src="http://resource.kaixinbao.com/js/VerifyInput.js"></script>
     <script type="text/javascript" src="http://resource.kaixinbao.com/js/Common.js"></script>
-    <script language="javascript" type="text/javascript">
-        function loadRelation() {
-            if ("02" == "") {
-                sethash();
-            }
-            /* zhangjinquan 11180 2012-10-11修改对保险期限的处理，以保证暂存后能够正确带出曾经保存的数据 */
-            var protectionPeriodFlag = document.getElementById("protectionPeriodFlag").value;//保障期限是否存在
-            if (("true" == protectionPeriodFlag) && ("" == "")) {
-                var protectionPeriodLast = document.getElementById("protectionPeriodLast").value;//保障期限后段
-                var protectionPeriodTy = document.getElementById("protectionPeriodTy").value;//保障期限类型Y,M,D
-                var d = new Date();
-                d.setDate(d.getDate() + 1);
-                var eff_value = document.getElementById("effective").value
-                var ndate
-                if (eff_value == "" || eff_value == null) {
-                    ndate = d.getFullYear() + "-" + add_zero(d.getMonth() + 1) + "-" + add_zero(d.getDate());
-                } else {
-                    ndate = eff_value;
-                }
-                //document.getElementById("effective").value = ndate;
-                if (protectionPeriodTy != "A") {
-                    var temp = addDate(protectionPeriodTy, protectionPeriodLast, ndate);
-                    document.getElementById("fail").value = temp;
-                    document.getElementById("fail_").value = temp;
-                }
-            }
-            changeInformation("", "");
-            //产品次日生效的处理逻辑
-            var effectiveNextDayFlag = document.getElementById("effectiveNextDayFlag").value;//保障期限是否存在
-            if ("true" == effectiveNextDayFlag) {
-                var protectionPeriodLast = document.getElementById("protectionPeriodLast").value;//保障期限后段
-                var protectionPeriodTy = document.getElementById("protectionPeriodTy").value;//保障期限类型Y,M,D
-                var ndate = document.getElementById("effective").value;
-                if (protectionPeriodTy != "A") {
-                    var temp = addDate(protectionPeriodTy, protectionPeriodLast, ndate);
-                    document.getElementById("fail").value = temp;
-                    document.getElementById("fail_").value = temp;
-                }
-                var start = jQuery('#effective').val();
-                var end = jQuery('#fail').val();
-                if (end == "终身") {
-                    jQuery('#ensureDate').html(start + " 00时  至  " + end);
-                    jQuery('#ensureDate_em').html("( 从" + start + " 00时起到  " + end + "  )");
-                } else {
-
-                    jQuery('#ensureDate').html(start + " 00时  至  " + end + " 24时");
-                    jQuery('#ensureDate_em').html("( 从" + start + " 00时起到" + end + " 24时为止 )");
-                }
-            }
-
-        }
-
-        var status = "";
-        var updateOrderId = "";
-        var productId = "228001001"
-        var KID = "";
-        var companyCode = "2280";
-        var typeFlag = "";
-        var p_url = "";
-        var effdatedate = "";
-        var orderSn = "";
-        var productExcelFlag = "N";
-        var loginFlag = "";
-        var appStartDate = "6574";
-        var appEndDate = "22279";
-        var insStartDate = "28";
-        var insEndDate = "22279";
-        var insuredLenFlag = false;
-        var risktype = "03";
-        var pointExchangeFlag = "";
-        var memberid = "";
-        var memberActivity = "N";
-        var premProducts = ['101401014', '101401024', '103601005', '103601006', '103601007', '103601008'];
-        var OccupLevel = "";
-        var needShowOccupLevel = "0";
-        var needShowOccup = "0";
-    </script>
 
 
 </head>
@@ -151,23 +73,32 @@
                 </p>
                 <p>
                     <span class="span_t">基本保额：</span>
-                    <span id="insurance_sum">[[${map.insuranceSum}]]
+                    <span id="insurance_sum">[[${#strings.substring(map.insuranceSum,0,2)}]]万
                     </span>
                 </p>
                 <div class="clearfix">
                     <p class="from_update xg_width">
                         <span class="span_t">保单起保日期：</span>
-                        <input id="effective" name="m_startDate" type="text" pattern="yyyy-MM-dd"
-                               readonly="readonly"  class="shop_day_cfs  ">
+                        <input id="effective" name="orderTime" type="text" pattern="yyyy-MM-dd"
+                               readonly="readonly" class="shop_day_cfs  ">
                         <em class="from-up-time" >( 次日0点开始生效 )</em>
                     </p>
                     <p class="from_update xg_width">
                         <span class="span_t">保单终止日期：</span>
-                        <input id="fail_" name="fail_" readonly="readonly" class="shop_day_cfs"
+                        <input id="fail_" name="orderExpireTime" readonly="readonly" class="shop_day_cfs"
                                style="border:0;background:transparent;" value="">
-                        <em class="from-up-time" id="ensureDate_em">( 从2019-08-06 00时起到2019-08-06 24时为止 )</em>
-                        <input id="fail" name="m_endDate" type="hidden" value="">
+                        <em class="from-up-time" id="ensureDate_em"></em>
                     </p>
+
+                    <p>
+                        <input type="hidden" name="orderPrice" th:value="${map.totolPrice}">
+                        <input type="hidden" name="orderFaceAmount" th:value="${map.insuranceSum}">
+                        <input type="hidden" name="orderStatus" value="1">
+                        <input type="hidden" name="orderProductId" th:value="${map.productId}">
+                        <input type="hidden" name="orderUserId" th:value="${session.user.getUserId()}">
+                        <input type="hidden" name="insuranceList" th:value="${map.insuranceList}">
+                    </p>
+
                 </div>
             </div>
             <div class="line_a">
@@ -183,10 +114,12 @@
                                 <dt id="quick_2_2" class="cy_user_t">常用投保人：</dt>
                                 <dd id="quick_2_1" class="cy_user_ch" >
 
-                                    <label th:if="${applicant}==null" ><input type="radio" value="0" onclick="clearText('#sdinformationAppnt');"
-                                                  name="quickappnt" checked >新增</label>
+                                    <label th:if="${applicant}==null"><input type="radio" value="0"
+                                                                             onclick="clearText('#sdinformationAppnt');"
+                                                                             name="quickappnt" checked >新增</label>
                                     <label th:if="${applicant}!=null" ><input type="radio" th:value="${applicant.getApplicantId()}"
-                                                  onclick="quickQueryAppnt(this);" name="quickappnt">[[${applicant.getApplicantName()}]]</label>
+                                                                              onclick="quickQueryAppnt(this);"
+                                                                              name="quickappnt" checked>[[${applicant.getApplicantName()}]]</label>
 
 
                                 </dd>
@@ -197,53 +130,55 @@
                         <div class="h10"></div>
                         <div class="h2"></div>
 
-                        <p><input type="hidden" id="applicant_Id" value=""/></p>
+                        <p>
+                            <input type="hidden" id="applicant_Id" name="list[0].applicantId" value=""/>
+                            <input type="hidden" id="applicantUserId" name="list[0].applicantUserId" value="">
+                        </p>
                         <p>
                             <span class="span_t">*投保人姓名：</span>
-                            <input type="text" id="applicantName" name="sdinformationAppnt.applicantName"
+                            <input type="text" id="applicantName" name="list[0].applicantName"
                                    verify="投保人姓名|notnull&amp;UFO&amp;LEN>2&amp;CHANDEH"
                                    onblur="verifyElement('投保人姓名|notnull&amp;UFO&amp;LEN>2&amp;CHANDEH',this.value,this.id);"
                                    onfocus="verifyShowInf(this.value,this.id);" value="" maxlength="60">
                             <label class="requireField"></label>
-                            <font color="#E7AC59" style="display:none">
-                                <i class="yz_mes_des">请填写与有效证件相符的姓名，以保障您的权益</i>
-                            </font>
+                            <i class="validate yz_mes_des">请填写与有效证件相符的姓名，以保障您的权益</i>
                         </p>
                         <div class="clearfix">
                             <p class="from_table">
                                 <span class="span_t">*证件号码：</span>
                                 <select id="applicantTypeId" class="typeoption"
-                                        name="sdinformationAppnt.applicantIdentityType" style="width:105px;"
-                                        onchange="changeVerification('applicantTypeId','applicantId');">
+                                        style="width:105px;">
                                     <option value="0">身份证</option>
                                 </select>
                             </p>
                             <p class="from_table2">
-                                <input id="applicantId" name="sdinformationAppnt.applicantIdentityId" maxlength="64"
+                                <input id="applicantId" name="list[0].applicantIdentity" maxlength="64"
                                        type="text" value="" onfocus="verifyShowInf(this.value,this.id);"
                                        verify="证件号码|NOTNULL&amp;BIRAPPAGE"
                                        onblur="idcheck('applicantTypeId','applicantId','applicantBirthday','applicantSex','');">
                                 <label class="requireField"></label>
+                                <i class="validate yz_mes_des">请填写正确的证件号码</i>
                             </p>
                         </div>
 
                         <p>
                             <span class="span_t">*出生日期：</span>
                             <input id="applicantBirthday"
-                                   name="sdinformationAppnt.applicantBirthday" type="text"
+                                   name="list[0].applicantBirthday" type="text"
                                    onclick="applicantDate()"
                                    value="" onblur="verifyElement('出生日期|NOTNULL',this.value,this.id)"
                                    verify="出生日期|NOTNULL" class="shop_day">
                             <label class="requireField"></label>
+                            <i class="validate yz_mes_des">请填写正确的出生日期</i>
                         </p>
 
 
 
                         <p class="idControl">
                             <span class="span_t">*性别：</span>
-                            <label><input type="radio" name="sdinformationAppnt.applicantSex" value="M"
+                            <label><input type="radio" name="list[0].applicantSex" value="M"
                                           class="applicantSex frome_radio" checked="checked">男</label>
-                            <label><input type="radio" name="sdinformationAppnt.applicantSex" value="F"
+                            <label><input type="radio" name="list[0].applicantSex" value="F"
                                           class="applicantSex frome_radio" >女</label>
                             <label class="requireField"></label>
                         </p>
@@ -252,31 +187,24 @@
                         <div class="pos-tb-p">
                             <p>
                                 <span class="span_t">*手机号码：</span>
-                                <input type="text" id="applicantMobile" name="sdinformationAppnt.applicantMobile"
+                                <input type="text" id="applicantMobile" name="list[0].applicantPhone"
                                        value="" onfocus="verifyShowInf(this.value,this.id);"
                                        onblur="verifyElement('手机号码|MOBILENO',this.value,this.id)" verify="手机号码|MOBILENO"
                                        maxlength="11">
                                 <label class="requireField"></label>
-                                <font color="#E7AC59" style="display:none">
-                                    <i class="yz_mes_des">请填写正确的手机号</i>
-
-                                </font>
-
+                                <i class="validate yz_mes_des">请填写正确的手机号</i>
                             </p>
-                            <label class="app_mobile" for="applicantMobile">
-                                用来接收保单生效通知</label></div>
+                        </div>
                         <div class="pos-tb-p">
                             <p>
                                 <span class="span_t">*电子邮箱：</span>
-                                <input type="text" id="applicantMail" name="sdinformationAppnt.applicantMail" value=""
+                                <input type="text" id="applicantMail" name="list[0].applicantEmail" value=""
                                        onblur="verifyElement('电子邮箱|NOTNULL&amp;EMAIL',this.value,this.id)"
                                        onfocus="verifyShowInf(this.value,this.id);"
                                        onchange="verifyShowInf(this.value,this.id);" verify="电子邮箱|NOTNULL&amp;EMAIL">
-                                <label class="requireField"></label> <font color="#E7AC59" style="display:none"> <i
-                                    class="yz_mes_des">请填写常用邮箱，以便接收电子保单，此邮箱将自动成为您登录的账号</i></font>
+                                <label class="requireField"></label>
+                                <i class="validate yz_mes_des">请填写常用邮箱，以便接收电子保单，此邮箱将自动成为您登录的账号</i>
                             </p>
-                            <label class="app_mobile" for="applicantMail">
-                                填写常用邮箱，接收电子保单邮件</label>
                         </div>
 
                     </div>
@@ -296,7 +224,7 @@
                                         <dd class="cy_user_ch" >
                                             <label><input type="radio" value="0" onclick="clearText('#insurance_0');"
                                                           name="quickrecognizee" checked >新增</label>
-                                            <label th:each="re:${recognizee}"><input type="radio" name="quickrecognizee" onclick="quickQueryInsured(this);" th:value="${re.getApplicantId()}">[[${re.getApplicantName()}]]</label>
+                                            <label th:each="re:${recognizee}"><input type="radio" name="quickrecognizee" onclick="quickQueryInsured(this);" th:value="${re.getApplicantId()}">[[${re.getApplicantName() eq applicant.getApplicantName()?'本人':re.getApplicantName()}]]</label>
                                         </dd>
                                     </dl>
                                     <div class="clear"></div>
@@ -304,50 +232,59 @@
 
                                 <div id="insurance_0">
                                     <div>
-                                        <p><input type="hidden" id="recognizeeId" value=""/></p>
+                                        <p>
+                                            <input type="text" id="recognizeeId" name="list[1].applicantId" value=""/>
+                                            <input type="hidden" id="recognizeeUserId" name="list[1].applicantUserId"
+                                                   value="">
+                                        </p>
+
                                         <p>
                                             <span class="span_t">*被保人姓名：</span>
                                             <input type="text" id="recognizeeName_0"
-                                                   name="sdinformationinsured.applicantName" value=""
+                                                   name="list[1].applicantName" value=""
                                                    onblur="verifyElement('被保人姓名|NOTNULL&amp;UFO&amp;LEN>2&amp;CHANDEH',this.value,this.id)"
                                                    maxlength="60" verify="被保人姓名|NOTNULL&amp;UFO&amp;LEN>2&amp;CHANDEH">
                                             <label class="requireField"></label>
+                                            <i class="validate yz_mes_des">请填写正确的被保人姓名</i>
                                         </p>
                                         <div class="clearfix">
                                             <p class="from_table" id="testid111">
                                                 <span class="span_t">*证件号码：</span>
                                                 <select id="recognizeeTypeId_0" class="typeoption"
-                                                        name="sdinformationAppnt.applicantIdentityType"
-                                                        style="width:105px;"
-                                                        onchange="changeVerification('applicantTypeId','applicantId');">
+                                                        style="width:105px;">
                                                     <option id="" value="0">身份证</option>
                                                 </select>
                                             </p>
                                             <p class="from_table2">
                                                 <input id="recognizeeId_0" type="text"
-                                                       name="sdinformationinsured.applicantIdentity" value=""
+                                                       name="list[1].applicantIdentity" value=""
                                                        verify="证件号码|NOTNULL&amp;BIRAGE"
                                                        onblur="idcheck('recognizeeTypeId_0','recognizeeId_0','recognizeeBirthday_0','recognizeeSex_0','sdinformation.InsuranceCompany');">
                                                 <label class="requireField"></label>
+                                                <i class="validate yz_mes_des">请填写正确的证件号码</i>
                                             </p>
                                         </div>
 
                                         <p>
                                             <span class="span_t">*出生日期：</span>
                                             <input id="recognizeeBirthday_0"
-                                                   name="sdinformationinsured.applicantBirthday" type="text"
+                                                   name="list[1].applicantBirthday" type="text"
                                                    onclick="insuredDate()"
                                                    value="" onblur="verifyElement('出生日期|NOTNULL',this.value,this.id)"
                                                    verify="出生日期|NOTNULL" class="shop_day">
                                             <label class="requireField"></label>
+                                            <i class="validate yz_mes_des">请填写正确出生日期</i>
                                         </p>
 
 
                                         <p class="idControl">
                                             <span class="span_t">*性别：</span>
-                                            <label><input type="radio" name="sdinformationAppnt.applicantSex" value="M"
-                                                          class="recognizeeSex_0 frome_radio" checked>男</label>
-                                            <label><input type="radio" name="sdinformationAppnt.applicantSex" value="F"
+                                            <label><input type="radio" name="list[1].applicantSex"
+                                                          value="M"
+                                                          class="recognizeeSex_0 frome_radio"
+                                                          checked="checked">男</label>
+                                            <label><input type="radio" name="list[1].applicantSex"
+                                                          value="F"
                                                           class="recognizeeSex_0 frome_radio" >女</label>
                                             <label class="requireField"></label>
                                         </p>
@@ -355,29 +292,26 @@
                                         <p>
                                             <span class="span_t">*手机号码：</span>
                                             <input type="text" id="recognizeeMobile_0"
-                                                   name="sdinformationinsured.recognizeeMobile" value=""
+                                                   name="list[1].applicantPhone" value=""
                                                    onblur="verifyElement('手机号码|MOBILENO',this.value,this.id)"
                                                    onfocus="verifyShowInf(this.value,this.id);" verify="手机号码|MOBILENO"
                                                    maxlength="11">
                                             <label class="requireField"></label>
-                                            <i class="yz_mes_des">请填写正确的手机号</i></font>
+                                            <i class="validate yz_mes_des">请填写正确的手机号</i>
                                         </p>
 
                                         <div class="pos-tb-p">
                                             <p>
                                                 <span class="span_t">*电子邮箱：</span>
                                                 <input type="text" id="recognizeeMail_0"
-                                                       name="sdinformationinsured.applicantMail" value=""
+                                                       name="list[1].applicantEmail" value=""
                                                        onblur="verifyElement('电子邮箱|NOTNULL&amp;EMAIL',this.value,this.id)"
                                                        onfocus="verifyShowInf(this.value,this.id);"
                                                        onchange="verifyShowInf(this.value,this.id);"
                                                        verify="电子邮箱|NOTNULL&amp;EMAIL">
-                                                <label class="requireField"></label> <font color="#E7AC59"
-                                                                                           style="display:none"> <i
-                                                    class="yz_mes_des">请填写常用邮箱，以便接收电子保单，此邮箱将自动成为您登录的账号</i></font>
+                                                <label class="requireField"></label>
+                                                <i class="validate yz_mes_des">请填写常用邮箱，以便接收电子保单，此邮箱将自动成为您登录的账号</i>
                                             </p>
-                                            <label class="app_mobile" for="recognizeeMail_0">
-                                                填写常用邮箱，接收电子保单邮件</label>
                                         </div>
 
                                     </div>
@@ -391,49 +325,27 @@
                     <div class="line_a clear_mar">
                         <div class="line_at">合计信息</div>
                         <div class="shop_mes_all">
-                            <table border="0" class="cp_pricebox">
-                                <tbody>
-                                <tr>
+                            <table class="cp_pricebox" border="0">
+                                <tbody><tr>
                                     <th>起止日期</th>
-                                    <th>被保人人数</th>
-                                    <th>购买份数</th>
+                                    <th>保险年限</th>
+                                    <th>基本保额</th>
                                     <th>费用合计</th>
                                 </tr>
                                 <tr>
-                                    <td id="ensureDate">
-                                    </td>
-                                    <td><font id="insNum">0</font></td>
-                                    <td id="insMult">0</td>
-                                    <td colspan="2"><font class="up_font_s">￥ <span id="priceTotle">0</span>
+                                    <td id="ensureDate">从&nbsp;&nbsp;&nbsp;2019-08-13&nbsp;&nbsp;&nbsp;00时起到&nbsp;&nbsp;&nbsp;2071-08-12&nbsp;&nbsp;&nbsp;24时为止</td>
+                                    <td><font id="insNum" th:text="${map.deadline}"></font></td>
+                                    <td id="insMult">[[${#strings.substring(map.insuranceSum,0,2)}]]万</td>
+                                    <td colspan="2"><font class="up_font_s">￥ <span id="priceTotle" th:text="${map.totolPrice}"></span>
                                     </font></td>
 
                                 </tr>
-                                <tr>
-                                    <td colspan="5" class="order-hd-list" id="inspageone_activityTD">
-
-                                        <div class="at-desp">
-                                            <span class="at-des-p">继续支付满足条件可以享受以下优惠</span>
-                                            <ul class="at_list">
-                                                <li><span class=" tb_icon active_03">惠一</span><span class="tb_text">7.31-8.2，每日下单享健康生活好礼，详情请咨询客服。</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="price_all" style="display:none">共
-                            <font id="insNum" color="red">1</font>位被保人，保费
-                            <font id="priceTotle_1" color="red">0</font>元，
-                            <font id="insMult_1" color="red">0</font>份保单，合计 <span>
-						<font color="red">￥ <span id="priceTotle"></span></font> </span>元
-                            <span id="discountPrice" style="display:none;">￥ </span>
+                                </tbody></table>
                         </div>
 
                         <div class="syr2 syr33">
                             <input type="button" id="confirm" value="下一步" class="next_btn dev_submitButton"
-                                   style="height=20px;width=100px;">
+                                   style="heigh=20px;width=100px;">
                             <font id="order_err" style="displan:none" class="order-error" color="red"></font>
                             <div class="clear"></div>
                             <div id="msg_1" class="londing_mes" style="display:none"><img
@@ -604,7 +516,7 @@
                                 src="http://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582921308.png" width="90"
                                 height="37"></a></li>
 
-                        <!--                     <li class="sl-floatcenter-item"><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088"
+                        <!-- <li class="sl-floatcenter-item"><a href="http://www.itrust.org.cn/yz/pjwx.asp?wm=1594416088"
                                                                                target="_blank" rel="nofollow"><img
                                                     src="http://resource.kaixinbao.com/upload/Image/xrwz/2012/12/2582937061.png" width="37"
                                                     height="37"/></a></li> -->
@@ -693,12 +605,6 @@
 
             if (str.length == 18) {
 
-                if (!checkId(str, "")) {
-                    if (!jQuery("#" + idCode).parent().children("label").next().is('i')) {
-                        jQuery("#" + idCode).parent().children("label").after(jQuery("<i class=\"yz_mes_error\">一定要填写18位有效身份证号码哟，请仔细检查一下</i>"));
-                    }
-                    return false;
-                } else {
                     if (StrLast == 'x') {
                         if (!jQuery("#" + idCode).parent().children("label").next().is('i')) {
                             jQuery("#" + idCode).parent().children("label").after(jQuery("<i class=\"yz_mes_error\">身份证有误,身份证号码最后一位请输入大写:X</i>"));
@@ -709,7 +615,6 @@
                             jQuery("#" + idCode).parent().children("label").after(jQuery("<i class=\"yz_mes_yes\">&nbsp;&nbsp;</i>"));
                         }
                     }
-                }
                 var sex = '';
                 var sexName = jQuery("#" + sexId).attr("name");
                 // 身份证对应性别
@@ -785,18 +690,13 @@
         $("#effective").val(start);
         $("#fail_").val(end);
         $("#ensureDate_em").text("( 从" + start + " 00时起到" + end + " 24时为止 )");
-
+        $("#ensureDate").html("从&nbsp;&nbsp;&nbsp;" + start + "&nbsp;&nbsp;&nbsp;00时起到&nbsp;&nbsp;&nbsp;" + end + " &nbsp;&nbsp;&nbsp;24时为止");
     }
 
     /**
      * 快速查询投保人信息
      */
     function quickQueryAppnt(obj) {
-        var object = [[${applicant}]];
-        alert(object);
-        //var element = ["applicant_Id","applicantName","applicantId","applicantBirthday","applicantSex","applicantMobile","applicantMail"]
-
-        eachReadonly("#sdinformationAppnt",true);
 
     }
 
@@ -819,44 +719,46 @@
 
         var objList = [[${recognizee}]];
 
-        var objInsured = ["applicantId","applicantName","applicantSex","applicantIdentity","applicantPhone","applicantBirthday","applicantEmail","applicantUserId",{"applicantId":2,"applicantName":"\u5218\u4E8C","applicantSex":"M","applicantIdentity":"431021200176354786","applicantPhone":"17680648521","applicantBirthday":"2001-12-29T08:00:00.000+08:00","applicantEmail":"1197589624@qq.com","applicantUserId":18}];
-
-        var element = ["recognizeeId","recognizeeName_0","recognizeeSex_0","recognizeeId_0","recognizeeMobile_0","recognizeeBirthday_0","recognizeeMail_0"];
-
-        var
-
+        var element = ["recognizeeId", "recognizeeName_0", "recognizeeSex_0", "recognizeeId_0", "recognizeeMobile_0", "recognizeeBirthday_0", "recognizeeMail_0", "recognizeeUserId"];
 
         $.each(objList,function(i,dom){
 
             if(insuredId==dom.applicantId){
 
-                $("#"+element[i]).val("");
+                $("#" + element[0]).val(dom.applicantId);
+                $("#" + element[1]).val(dom.applicantName);
+                $("#" + element[2]).val(dom.applicantSex);
+                $("#" + element[3]).val(dom.applicantIdentity);
+                $("#" + element[4]).val(dom.applicantPhone);
+                $("#" + element[5]).val(dom.applicantBirthday);
+                $("#" + element[6]).val(dom.applicantEmail);
+                $("#" + element[7]).val(dom.applicantUserId);
 
-                alert(dom.applicantName);
+
             }
 
-
-            alert(dom);
         })
+        //eachReadonly("#insurance_0",true);
+        validate();
+    }
 
-        eachReadonly("#insurance_0",true);
+    function validate(){
+        verifyInput3();
     }
 
 
+/*
     function eachReadonly(id,flag){
 
         $(id).find("input[type=text]").attr("readonly",flag);;
 
-/*        $.each(element,function(i,dom){
-            var id = "#"+element[0];
-            $("#"+dom).attr("readonly",flag);
-        })*/
     }
+*/
 
 
     function clearText(id){
         $(id).find("input[type=text]").val("");
-
+        validate();
     }
 
 
@@ -1034,49 +936,62 @@
     jQuery(function () {
 
         startAndEndDate();
+        var object = [[${applicant}]];
+        if (object) {
+            var element = ["applicant_Id", "applicantName", "applicantSex", "applicantId", "applicantMobile", "applicantBirthday", "applicantMail", "applicantUserId"]
 
+            $("#" + element[0]).val(object.applicantId);
+            $("#" + element[1]).val(object.applicantName);
+            $("#" + element[2]).val(object.applicantSex);
+            $("#" + element[3]).val(object.applicantIdentity);
+            $("#" + element[4]).val(object.applicantPhone);
+            $("#" + element[5]).val(object.applicantBirthday);
+            $("#" + element[6]).val(object.applicantEmail);
+            $("#" + element[7]).val(object.applicantUserId);
+
+        }
 
         /**
          * 提交Form表单
          */
         jQuery("#confirm").click(function () {
 
-            if(!verifyInput()){
-                return false;
-            };
-
-            if(!verifyInput2()){
-                return false;
-            };
-
-            if(!verifyInput3()){
-                return false;
-            };
+            verifyInput();
+            verifyInput2();
+            verifyInput3();
 
             var flag = true;
+            //非法验证
+            var reg = new RegExp("[\\u4E00-\\u9FFF]+", "g");
+            var vilidate = $("p>i[class]");
+            $.each(vilidate, function (i, dom) {
+                if (reg.test($(dom).text())) {
+                    flag = false;
+                    return false;
+                } else {
+                    return true;
+                }
+            })
+
+
+            //非空判断
             var form = $("#sdinformationAppnt,#sdinformationinsured");
-
-            if ($("#recognizeeRelation_0").val() == 00) {
-                form = $("#sdinformationAppnt");
-            }
-
             for (var i = 0; i < form.length; i++) {                               //form, function (i, dom)
                 var text = $(form[i]).find("input[type='text']");
                 text.each(function (i, dom) {
                     var d = $(dom).val();
                     if (!d) {
-                        alert("请将信息填写完整！" + d);
                         flag = false;
                         return false;
                     }
                 })
             }
 
-            //document:loginForm.submit()
 
-/*            if(flag){
+            //document:loginForm.submit()
+            if(flag){
                 $("#orderInfoForm").submit();
-            }*/
+            }
         })
 
 
