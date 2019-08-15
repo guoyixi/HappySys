@@ -1,121 +1,221 @@
-<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<meta name="renderer" content="webkit|ie-comp|ie-stand">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="Bookmark" href="/favicon.ico" >
-<link rel="Shortcut Icon" href="/favicon.ico" />
-<!--[if lt IE 9]>
-<script type="text/javascript" src="/lib/html5.js"></script>
-<script type="text/javascript" src="/lib/respond.min.js"></script>
-<![endif]-->
-<link rel="stylesheet" type="text/css" href="/h-ui/css/H-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="/h-ui.admin/css/H-ui.admin.css" />
-<link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
-<link rel="stylesheet" type="text/css" href="/h-ui.admin/skin/default/skin.css" id="skin" />
-<link rel="stylesheet" type="text/css" href="/h-ui.admin/css/style.css" />
-	<link rel="stylesheet" href="/layui/css/layui.css"  media="all">
-<!--[if IE 6]>
-<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script><![endif]-->
-<!--/meta 作为公共模版分离出去-->
+	<div th:replace="~{common/_meta.html}"></div>
 
-<title>添加商品 - H-ui.admin v3.0</title>
-<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
-<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+
+	<link rel="stylesheet" href="/layui/css/layui.css"  media="all">
+
+	<!--杂项-->
+	<link rel="stylesheet" href="/layui/assets/common.css"/>
+	<link rel="stylesheet" href="/layui/css/aa.css">
+	<style>
+		/** 箭头未展开 */
+		#table1 + .treeTable .treeTable-icon .layui-icon-triangle-d:before {
+			content: "\e602";
+		}
+		/** 箭头展开 */
+		#table1 + .treeTable .treeTable-icon.open .layui-icon-triangle-d:before {
+			content: "\e61a";
+		}
+		/** 文件图标 */
+		#table1 + .treeTable .treeTable-icon .layui-icon-file:before {
+			content: "\e60d";
+		}
+		/** 文件夹未展开 */
+		#table1 + .treeTable .treeTable-icon .layui-icon-layer:before {
+			content: "\e637";
+		}
+		/** 文件夹展开 */
+		#table1 + .treeTable .treeTable-icon.open .layui-icon-layer:before {
+			content: "\e634";
+		}
+		.my_select{
+			width: 200px;
+			height: 30px;
+			border: 1px solid gainsboro;
+		}
+		.my_optionsbtn{
+			height: 27px;
+			width: 90px;
+			margin-left: 52px;
+			line-height: 27px;
+		}
+	</style>
+	<!--/杂项-->
+
+<title>添加商品</title>
 </head>
 <body>
-<article class="cl pd-20">
-	<form action="/product/add" method="post" class="form form-horizontal"  enctype="multipart/form-data" ><!--id="form-member-add"-->
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>产品名：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="productname" name="productTitle">
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>价格：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="price" name="productPrice">
-			</div>
-		</div>
+<!--_header 作为公共模版分离出去-->
+<div th:replace="~{common/_header::#box_header}"></div>
+<!--/_header 作为公共模版分离出去-->
 
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">附件图片：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
-				<input class="input-text upload-url" type="text" name="file" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
-				<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
-				<input type="file" multiple name="file2" class="input-file">
-				</span> </div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">年龄期间：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div id="section" class="demo-tree demo-tree-box"></div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">保险期限：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+<!--_menu 作为公共模版分离出去-->
+<div th:replace="~{common/_menu::#box_menu}"></div>
+<!--/_menu 作为公共模版分离出去-->
 
-				<div id="deadline" class="demo-tree demo-tree-box"></div>
-			</div>
-		</div>
 
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">保险保额：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+<section class="Hui-article-box">
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 品牌管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 
-				<div id="insuranceSum" class="demo-tree demo-tree-box"></div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">保险特色：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+	<div class="Hui-article">
+		<article style="margin-left: -100px" class="cl pd-20">
+			<form action="/product/add" method="post" onsubmit="return productValidating()" id="productForm" class="form form-horizontal layui-form"  enctype="multipart/form-data" ><!--id="form-member-add"-->
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>产品名：</label>
+					<div class="formControls col-xs-8 col-sm-9" style="width: 600px;">
+						<input type="text" class="input-text" value="" placeholder="" id="productname" name="productTitle">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>价格：</label>
+					<div class="formControls col-xs-8 col-sm-9" style="width: 400px;">
+						<input type="text" width="300px" class="input-text" value="" placeholder="" id="price" name="productPrice">
+					</div>
+				</div>
 
-				<div id="feature" class="demo-tree demo-tree-box"></div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">保险：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<div id="insurance" class="demo-tree demo-tree-box"></div>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">分类：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3" ><span class="c-red">*</span>附件图片：</label>
+					<div class="formControls col-xs-8 col-sm-9"> <span class="btn-upload form-group">
+					<input class="input-text upload-url" type="text" name="file" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
+					<a href="javascript:void();" class="btn btn-primary radius upload-btn" style="margin-left: 50px;">
+						<i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>
+					<input type="file" multiple name="file2" class="input-file">
+					</span>
+					</div>
+				</div>
 
-				<span id="biaoji"></span>
-				<select id="product_level2" name="productLevel2"><option value="-1">请选择--</option></select>
-				<select id="product_level3" name="productLevel3"><option value="-1">请选择--</option></select>
-			</div>
-		</div>
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3">描述：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<textarea name="productDetails" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入5个字符" ></textarea>
-				<!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
-			</div>
-		</div>
-		<div class="row cl">
-			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
-			</div>
-		</div>
-	</form>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄期间：</label>
+					<div class="formControls col-xs-8 col-sm-9">
 
-</article>
+						<div class="layui-inline" style="width: 200px">
+							<div class="layui-inline">
+								<div class="layui-input-inline" style="width: 200px">
+									<select name="productSectionList" class='my_select' lay-verify="required" lay-search="" id='ageselect' lay-filter="productSectionList">
+										<option value="">直接选择或搜索选择</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px" onclick="productOptionsShow(1)" href="javascript:void(0);">查看详情</a>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px;margin-left: 20px;" onclick="productOptionsAdd(1)" href="javascript:void(0);">添加</a>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>保险期限：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<!--<div id="deadline" class="demo-tree demo-tree-box"></div>-->
+						<div class="layui-inline"style="width: 200px">
+							<div class="layui-inline">
+								<div class="layui-input-inline"style="width: 200px">
+									<select name="productDeadlineList" class='my_select' lay-verify="required" lay-search="" id="deadlineselect" lay-filter="productDeadlineList">
+										<option value="">直接选择或搜索选择</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px" onclick="productOptionsShow(2)" href="javascript:void(0);">查看详情</a>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px;margin-left: 20px;" onclick="productOptionsAdd(2)" href="javascript:void(0);">添加</a>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>保险保额：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<div class="layui-inline"style="width: 200px">
+							<div class="layui-inline">
+								<div class="layui-input-inline"style="width: 200px">
+									<select name='productInsuranceSumList' class='my_select' lay-verify="required" lay-search="" id="insuranceSumselect" lay-filter="productInsuranceSumList">
+										<option value="">直接选择或搜索选择</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px" onclick="productOptionsShow(3)" href="javascript:void(0);">查看详情</a>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px;margin-left: 20px;" onclick="productOptionsAdd(3)" href="javascript:void(0);">添加</a>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>保险特色：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<div class="layui-inline"style="width: 200px">
+							<div class="layui-inline">
+								<div class="layui-input-inline"style="width: 200px">
+									<select id='featureselect' name='productFeatureList' class='my_select' lay-verify="required" lay-search="" lay-filter="productFeatureList">
+										<option value="">直接选择或搜索选择</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px" onclick="productOptionsShow(4)" href="javascript:void(0);">查看详情</a>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px;margin-left: 20px;" onclick="productOptionsAdd(4)" href="javascript:void(0);">添加</a>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>保险：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<!---->
+						<div class="layui-inline"style="width: 200px">
+							<div class="layui-inline">
+								<div class="layui-input-inline"style="width: 200px">
+									<select id='insuranceselect' name='productInsuranceList' class='my_select' lay-verify="required" lay-search="" lay-filter="productInsuranceList">
+										<option value="">直接选择或搜索选择</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px" onclick="productOptionsShow(5)" href="javascript:void(0);">查看详情</a>
+						<a class="layui-btn layui-btn-primary layer-demolist my_optionsbtn" style="height: 27px;line-height: 27px;margin-left: 20px;" onclick="productOptionsAdd(5)" href="javascript:void(0);">添加</a>
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>分类：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<!--<span id="biaoji"></span>
+						<select id="product_level2" name="productLevel2"><option value="-1">请选择&#45;&#45;</option></select>
+						<select id="product_level3" name="productLevel3"><option value="-1">请选择&#45;&#45;</option></select>-->
+						<div class="layui-form-item">
+							<div class="layui-input-inline">
+								<select id="product_level1" name="productLevel1" lay-filter="myselect1">
+									<option value="">请选择</option>
+								</select>
+							</div>
+							<div class="layui-input-inline">
+								<select id="product_level2" name="productLevel2" lay-filter="myselect2">
+								</select>
+							</div>
+							<div class="layui-input-inline">
+								<select id="product_level3" name="productLevel3" lay-filter="myselect3">
+								</select>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>描述：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<textarea name="productDetails" style="width: 600px" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入5个字符" ></textarea>
+						<!--<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>-->
+					</div>
+				</div>
+				<div class="row cl">
+					<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+						<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+					</div>
+				</div>
+			</form>
+
+		</article>
+	</div>
+</section>
+
 
 <!--_footer 作为公共模版分离出去-->
-<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/h-ui/js/H-ui.js"></script>
-<script type="text/javascript" src="/h-ui.admin/js/H-ui.admin.page.js"></script>
+<div th:replace="~{common/_footer::#box_footer}"></div>
+
 <!--/_footer /作为公共模版分离出去-->
 
 <!--请在下方写此页面业务相关的脚本-->
@@ -123,151 +223,221 @@
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script src="/layui/layui.js" charset="utf-8"></script>
-
+<!--<script src="/layui/layui.js" charset="utf-8"></script>-->
+<script src="/layui/layui.all.js"></script>
 <script type="text/javascript" th:inline="javascript">
 
-	$(document).on("change","#product_level1",function () {
-		var parentid=$(this).val();
-		$("#product_level2").find("option").remove();
-		$.post("/ajax/category/"+parentid,function (data) {
-		    var str="";
-            for (var i=0;i<data.length;i++){
-                str+="<option name=\"productLevel2\" value=\""+data[i].categoryId+"\">"+data[i].categoryName+"</option>";
-            }
-            $("#product_level2").append(str);
-        })
-    });
 
-    $(document).on("change","#product_level2",function () {
-        var parentid=$(this).val();
-        $("#product_level3").find("option").remove();
-        $.post("/ajax/category/"+parentid,function (data) {
-            var str="";
-            for (var i=0;i<data.length;i++){
-                str+="<option name=\"productLevel3\" value=\""+data[i].categoryId+"\">"+data[i].categoryName+"</option>";
-            }
-            $("#product_level3").append(str);
-        })
-    });
+	function productValidating() {
+		var flag = true;
+        if(isNaN($("[name=productPrice]").val())){
+            layer.msg('请填写正确的价格！');
+            return false;
+        }
+		var form = $("#productForm");
+		for (var i = 0; i < form.length; i++) {
+			var text = $(form[i]).find("input[type='text'],input[type='file'],.row select,[name='productDetails']");
+			text.each(function (i, dom) {
+				var d = $(dom).val();
+				if (!d) {
+					layer.msg('请将信息填写完整！');
+					flag = false;
+					return false;
+				}
+			})
+		}
+		if(flag == false){
+			return false;
+		}
+		return flag; //layAltert("确定要提交此商品嘛？");
+	}
 
 
+	function layAltert(content){
+		var flag = false;
+		layer.confirm(content, {btn: ['确定','取消']},{ title: "删除确认" }, function(index) {
+			flag = true;
+			layer.close(index);
+		});
+		return flag;
+	}
 
-/*	function productOptionsOperations(loadType){
-		var product_options_operations_panel = $("#product_options_operations_panel");
+	var isShowOrAddOrUpdate = 1;
+
+	function renderPanelTable(trs) {
+		var $optionsPanelTable = "";
+		if(isShowOrAddOrUpdate == 1){			//渲染查看详情面板的table
+			$optionsPanelTable = $("#optionsPanelTable");
+		}else if(isShowOrAddOrUpdate == 2){		//渲染添加面板的table
+			$optionsPanelTable = $("#optionsPanelTableAdd");
+		}else if(isShowOrAddOrUpdate == 3){		//渲染修改面板的table
+			//$optionsPanelTable = $("#optionsPanelTable");
+		}
+		$optionsPanelTable.empty();
+		$optionsPanelTable.append(trs);
+	}
+
+	//点击当前选项的值
+	var sectionSelectedVal = "";
+	var dealineSelectedVal = "";
+	var insuranceSumSelectedVal = "";
+	var featureSelectedVal = "";
+	var insuranceSelectedVal = "";
+
+	var sectionJson ;
+	var dealineJson ;
+	var insuranceSumJson ;
+	var featureJson ;
+	var insuranceJson ;
+
+	function dealineSelecteChange(dealineList){
+		var trs ='<tr><td>保险期限</td><td>单位</td><td>价格</td></tr>';
+		$(dealineList).each(function(index,obj){
+			trs += '<tr><td>'+(obj.deadlineDays > 365 ? obj.deadlineDays / 365:obj.deadlineDays)+'</td>'
+					+'<td>'+(obj.deadlineDays > 365 ? '年':'天')+'</td>'
+					+'<td>'+obj.deadlinePrice.toFixed(2) +'</td></tr>';
+		});
+		renderPanelTable(trs);
+	}
+	function sectionSelecteChange(sectionList){
+		var trs = '<tr><td>最小年龄</td><td>最大年龄</td><td>价格</td></tr>';
+		$(sectionList).each(function(index,obj){
+			trs += '<tr><td>'+obj.sectionMin+'</td>'
+					+'<td>'+obj.sectionMax+'</td>'
+					+'<td>'+obj.sectionPrice+'</td></tr>';
+		});
+		renderPanelTable(trs);
+	}
+	function insuranceSumSelecteChange(insuranceSumList){
+		var trs = '<tr><td>保额</td><td>价格</td></tr>';
+		$(insuranceSumList).each(function(index,obj){
+			trs += '<tr><td>'+obj.insuranceSum.toFixed(2)+'</td>'
+					+'<td>'+obj.insuranceSumPrice.toFixed(2)+'</td></tr>';
+		});
+		renderPanelTable(trs);
+	}
+	function featureSelecteChange(featureList) {
+		var trs ='<tr><td>特色标题</td><td>所属商品分类</td></tr>';
+		$(featureList).each(function(index,obj){
+			trs += '<tr><td>'+obj.featureName+'</td>'
+					+'<td>'+obj.featureCategoryTitle+'</td></tr>';
+		});
+		renderPanelTable(trs);
+	}
+	function insuranceSelecteChange(insuranceList) {
+		var trs ='<tr><td>保险名</td><td>保额</td><td>价格</td><td>描述</td></tr>';
+		$(insuranceList).each(function(index,obj){
+			trs += '<tr><td>'+obj.insuranceName+'</td>'
+					+'<td>'+obj.insuranceCompensatePrice.toFixed(2)+'</td>'
+					+'<td>'+obj.insurancePrice.toFixed(2)+'</td>'
+					+'<td>'+5+'</td></tr>'
+		});//obj.insuranceDetails
+		renderPanelTable(trs);
+	}
+	
+
+	function getSectionAllRender(){
+		$.get("/HappysysSection/getAllSection",function (result) {
+			sectionSelecteChange(result);
+		},"json");
+	}
+	function getDeadlineAllRender(){
+		$.get("/HappysysDeadline/getAllDeadline",function (result) {
+			dealineSelecteChange(result);
+		},"json");
+	}
+	function getInsuranceSumAllRender(){
+		$.get("/HappysysInsuranceSum/getAllInsuranceSum",function (result) {
+			insuranceSumSelecteChange(result);
+		},"json");
+	}
+	function getFeatureAllRender(){
+		$.get("/HappysysFeature/getAllFeature",function (result) {
+			featureSelecteChange(result);
+		},"json");
+	}
+	function getInsuranceAllRender(){
+		$.get("/HappysysInsurance/getAllInsurance",function (result) {
+			insuranceSelecteChange(result);
+		},"json");
+	}
+
+	var loadTypeOut = "";
+	function productOptionsShow(loadType){
+		isShowOrAddOrUpdate = 1;
+		var product_options_show_panel = $("#product_options_show_panel");
 		layer.open({
-			type: 1,
-			area: ['600px', '400px'],
-			fixed: false, //不固定
-			maxmin: true,
-			title: "添加信息",
-			content: product_options_operations_panel,
+			type: 1, area: ['620px', '500px'], fixed: false, maxmin: true, title: "查看详情",
+			content: product_options_show_panel,
 			success: function (currentDom,index) {
-				var layer = layui.layer, form = layui.form;
-				var trs = "";
-				var $optionsPanelTable = $("#optionsPanelTable");
-
+				var form = layui.form;
 				var eachObj ;
 				var optionsSelected = 0;
+				loadTypeOut = loadType;
 				if(loadType == 1){//年龄
-					trs = '<tr><td>最小年龄</td><td>最大年龄</td><td>价格</td></tr>';
-					var sectionList ;
 					if(sectionSelectedVal != "" && sectionSelectedVal != null){//选中了section的某一项
 						$(sectionJson).each(function(index,obj){
 							if(obj.id == sectionSelectedVal){
-								sectionList = obj.children;
+								sectionSelecteChange(obj.children);
 								return;
 							}
 						});
 						optionsSelected = sectionSelectedVal;
-					}else {//查询出所有的section
-						$.get("/HappysysSection/getAllSection",function (result) {
-							sectionList = result;
-							console.info(result);
-							alert("aadd");
-						},"json");
+					}else {//查询出所有的section,并渲染
+						getSectionAllRender();
 					}
-					$(sectionList).each(function(index,obj){
-						trs += '<tr><td>'+obj.sectionMin+'</td>'
-								+'<td>'+obj.sectionMax+'</td>'
-								+'<td>'+obj.sectionPrice+'</td></tr>';
-					});
 					eachObj = sectionJson;
-
 				}else if(loadType == 2){//期限
-					trs ='<tr><td>保险期限</td><td>单位</td><td>价格</td></tr>';
-					var dealineList ;
 					if(dealineSelectedVal != "" && dealineSelectedVal != null){
 						$(dealineJson).each(function(index,obj){
 							if(obj.id == dealineSelectedVal){
-								dealineList = obj.children;
+								dealineSelecteChange(obj.children);
 								return;
 							}
 						});
 						optionsSelected = dealineSelectedVal;
 					}else {//查所有
+						getDeadlineAllRender();
 					}
-					$(dealineList).each(function(index,obj){
-						trs += '<tr><td>'+(obj.deadlineDays > 365 ? obj.deadlineDays / 365:obj.deadlineDays)+'</td>'
-								+'<td>'+(obj.deadlineDays > 365 ? '年':'天')+'</td>'
-								+'<td>'+obj.deadlinePrice.toFixed(2) +'</td></tr>';
-					});
 					eachObj = dealineJson;
 				}else if(loadType == 3){//保额
-					trs ='<tr><td>保额</td><td>价格</td></tr>';
-					var insuranceSumList ;
 					if(insuranceSumSelectedVal != "" && insuranceSumSelectedVal != null){
 						$(insuranceSumJson).each(function(index,obj){
 							if(obj.id == insuranceSumSelectedVal){
-								insuranceSumList = obj.children;
+								insuranceSumSelecteChange(obj.children);
 								return;
 							}
 						});
 						optionsSelected = insuranceSumSelectedVal;
 					}else {//查所有
+						getInsuranceSumAllRender();
 					}
-					$(insuranceSumList).each(function(index,obj){
-						trs += '<tr><td>'+obj.insuranceSum.toFixed(2)+'</td>'
-								+'<td>'+obj.insuranceSumPrice.toFixed(2)+'</td></tr>';
-					});
 					eachObj = insuranceSumJson;
 				}else if(loadType == 4){//特色
-					trs ='<tr><td>特色标题</td><td>所属商品分类</td></tr>';
-					var featureList ;
 					if(featureSelectedVal != "" && featureSelectedVal != null){
 						$(featureJson).each(function(index,obj){
 							if(obj.id == featureSelectedVal){
-								featureList = obj.children;
+								featureSelecteChange(obj.children);
 								return;
 							}
 						});
 						optionsSelected = featureSelectedVal;
 					}else {//查所有
+						getFeatureAllRender();
 					}
-					$(featureList).each(function(index,obj){
-						trs += '<tr><td>'+obj.featureName+'</td>'
-								+'<td>'+obj.featureCategoryTitle+'</td></tr>';
-					});
 					eachObj = featureJson;
 				}else if(loadType == 5){//保险项
-					trs ='<tr><td>保险名</td><td>保额</td><td>价格</td><td>描述</td></tr>';
-					var insuranceList ;
 					if(insuranceSelectedVal != "" && insuranceSelectedVal != null){
 						$(insuranceJson).each(function(index,obj){
 							if(obj.id == insuranceSelectedVal){
-								insuranceList = obj.children;
+								insuranceSelecteChange(obj.children);
 								return;
 							}
 						});
 						optionsSelected = insuranceSelectedVal;
 					}else {//查所有
+						getInsuranceAllRender();
 					}
-					$(insuranceList).each(function(index,obj){
-						trs += '<tr><td>'+obj.insuranceName+'</td>'
-								+'<td>'+obj.insuranceCompensatePrice.toFixed(2)+'</td>'
-								+'<td>'+obj.insurancePrice.toFixed(2)+'</td>'
-								+'<td>'+5+'</td></tr>'
-					});//obj.insuranceDetails
 					eachObj = insuranceJson;
 				}
 				var panelOptions = "<option value=''>直接选择或搜索选择</option>";
@@ -275,191 +445,326 @@
 				$(eachObj).each(function (index,obj) {
 					panelOptions +='<option '+(obj.id == optionsSelected ? 'selected=selected':'')+' value='+obj.id+'>'+obj.title+'</option>';
 				});
-				$(product_options_operations_panel).find("#productOptionsSelect").empty();
-				$(product_options_operations_panel).find("#productOptionsSelect").html(panelOptions);
+				$(product_options_show_panel).find("#productOptionsSelect").empty();
+				$(product_options_show_panel).find("#productOptionsSelect").html(panelOptions);
 				form.render();
 
-				$optionsPanelTable.empty();
-				$optionsPanelTable.append(trs);
 			}
 		});
-	}*/
+	}
+
+
+	function productOptionsAdd(loadType){
+		isShowOrAddOrUpdate = 2;
+		var product_options_add_panel = $("#product_options_add_panel");
+		layer.open({
+			type: 1,
+			area: ['620px', '500px'],
+			fixed: false, //不固定
+			maxmin: true,
+			title: "添加信息",
+			content: product_options_add_panel,
+			success: function (currentDom,index) {
+				var form = layui.form;
+				loadTypeOut = loadType;
+				if(loadType == 1){//年龄
+					getSectionAllRender();
+				}else if(loadType == 2){//期限
+					getDeadlineAllRender();
+				}else if(loadType == 3){//保额
+					getInsuranceSumAllRender();
+				}else if(loadType == 4){//特色
+					getFeatureAllRender();
+				}else if(loadType == 5){//保险项
+					getInsuranceAllRender();
+				}
+				form.render();
+			}
+		});
+	}
+
+	layui.use(['layer', 'form'], function() {
+		var form = layui.form;
+		form.on("select(myselect1)",function (selectedObj) {
+			console.info(selectedObj);
+			var parentId = selectedObj.value;
+			$("#product_level2").find("option").remove();
+			$("#product_level3").find("option").remove();
+			$.post("/ajax/category/"+parentId,function (data) {
+				var str="";
+				for (var i=0;i<data.length;i++){
+					str+='<option value='+data[i].categoryId+'>'+data[i].categoryName+'</option>';
+				}
+				$("#product_level2").append(str);
+				form.render('select');
+			});
+			form.render('select');
+		});
+		form.on("select(myselect2)",function (selectedObj) {
+			console.info(selectedObj);
+			var parentId = selectedObj.value;
+			$("#product_level3").find("option").remove();
+			$.post("/ajax/category/"+parentId,function (data) {
+				var str="";
+				for (var i=0;i<data.length;i++){
+					str+='<option value='+data[i].categoryId+'>'+data[i].categoryName+'</option>';
+				}
+				$("#product_level3").append(str);
+				form.render('select');
+			});
+		});
+
+		form.on('select(productSectionList)', function (data) {
+			sectionSelectedVal = data.value;
+		});
+		form.on('select(productDeadlineList)', function (data) {
+			dealineSelectedVal = data.value;
+		});
+		form.on('select(productInsuranceSumList)', function (data) {
+			insuranceSumSelectedVal = data.value;
+		});
+		form.on('select(productFeatureList)', function (data) {
+			featureSelectedVal = data.value;
+		});
+		form.on('select(productInsuranceList)', function (data) {
+			insuranceSelectedVal = data.value;
+		});
+
+
+		form.on('select(productOptionsSelect)', function (data) {
+			var currSelVal = data.value;
+
+			if(loadTypeOut == 1){//年龄
+				if(currSelVal == null || currSelVal == ""){
+					getSectionAllRender();
+				}else {
+					$(sectionJson).each(function(index,obj){
+						if(obj.id == currSelVal){
+							sectionSelecteChange(obj.children);
+							return;
+						}
+					});
+				}
+			}else if(loadTypeOut == 2){//期限
+				if(currSelVal == null || currSelVal == ""){
+					getDeadlineAllRender();
+				}else {
+					$(dealineJson).each(function(index,obj){
+						if(obj.id == currSelVal){
+							dealineSelecteChange(obj.children);
+							return;
+						}
+					});
+				}
+			}else if(loadTypeOut == 3){//保额
+				if(currSelVal == null || currSelVal == ""){
+					getInsuranceSumAllRender();
+				}else {
+					$(insuranceSumJson).each(function(index,obj){
+						if(obj.id == currSelVal){
+							insuranceSumSelecteChange(obj.children);
+							return;
+						}
+					});
+				}
+			}else if(loadTypeOut == 4){//特色
+				if(currSelVal == null || currSelVal == ""){
+					getFeatureAllRender();
+				}else {
+					$(featureJson).each(function(index,obj){
+						if(obj.id == currSelVal){
+							featureSelecteChange(obj.children);
+							return;
+						}
+					});
+				}
+			}else if(loadTypeOut == 5){//保险
+				if(currSelVal == null || currSelVal == ""){
+					getInsuranceAllRender();
+				}else {
+					$(insuranceJson).each(function(index,obj){
+						if(obj.id == currSelVal){
+							insuranceSelecteChange(obj.children);
+							return;
+						}
+					});
+				}
+			}
+
+		});
+	});
+
+
+	function layuiSelectRender(){
+		layui.use(['layer', 'form'], function () {
+			var form=layui.form;
+			form.render('select');//没有写这个，操作后没有效果
+		});
+	}
 
 $(function() {
-
-    $.post("/ajax/section", function (data) {
-        console.info(data);
-        layui.use(['tree', 'util'], function () {
-            var tree = layui.tree
-                , layer = layui.layer
-                , util = layui.util
-
-                //section渲染数据
-                , data2 = data
-
-            //常规用法
-            tree.render({
-                elem: '#section' //默认是点击节点可进行收缩
-                , data: data2
-            });
-        })
-        $("#ageselect").remove();
-		var str="<select id='ageselect' name='productSectionList'>";
-
+	$.post("/ajax/section", function (data) {
+		sectionJson = data;
+		console.info(data);
+		var str = "";
 		for(var i=0;i<data.length;i++){
-			str+="<option name=\"productSectionList\" value=\""+data[i].id+"\">"+data[i].title+"</option>";
+			str += "<option value=\""+data[i].id+"\">"+data[i].title+"</option>";
 		}
-		str+="</select>";
-		$("#section").before(str);
-    });
+		$("#ageselect").append(str);
+		layuiSelectRender();
+	});
     $.post("/ajax/dealinelist",function (data) {
-        console.info(data);
-        layui.use(['tree', 'util'], function () {
-            var tree = layui.tree
-                , layer = layui.layer
-                , util = layui.util
-
-                //section渲染数据
-                , data2 = data
-
-            //常规用法
-            tree.render({
-                elem: '#deadline' //默认是点击节点可进行收缩
-                , data: data2
-            });
-        })
-        $("#deadlineselect").remove();
-        var str="<select id='deadlineselect' name='productDeadlineList'>";
+		dealineJson = data;
+		console.info(data);
+        var str= "";
         for(var i=0;i<data.length;i++){
-            str+="<option name=\"productDeadlineList\" value=\""+data[i].id+"\">"+data[i].title+"</option>";
+            str+="<option value=\""+data[i].id+"\">"+data[i].title+"</option>";
         }
-        str+="</select>";
-        $("#deadline").before(str);
-    })
-
+        $("#deadlineselect").append(str);
+		layuiSelectRender();
+    });
 	$.post("/ajax/insuranceSumList",function (data) {
-        console.info(data);
-        layui.use(['tree', 'util'], function () {
-            var tree = layui.tree
-                , layer = layui.layer
-                , util = layui.util
-
-                //section渲染数据
-                , data2 = data
-
-            //常规用法
-            tree.render({
-                elem: '#insuranceSum' //默认是点击节点可进行收缩
-                , data: data2
-            });
-        })
-        $("#deadlineselect").remove();
-        var str="<select id='insuranceSumselect' name='productInsuranceSumList'>";
+		insuranceSumJson = data;
+		console.info(data);
+        var str="";
         for(var i=0;i<data.length;i++){
-            str+="<option name=\"productInsuranceSumList\" value=\""+data[i].id+"\">"+data[i].title+"</option>";
+            str+="<option value=\""+data[i].id+"\">"+data[i].title+"</option>";
         }
-        str+="</select>";
-        $("#insuranceSum").before(str);
-    })
+        $("#insuranceSumselect").append(str);
+		layuiSelectRender();
+    });
 	$.post("/ajax/featureList",function (data) {
-        console.info(data);
-        layui.use(['tree', 'util'], function () {
-            var tree = layui.tree
-                , layer = layui.layer
-                , util = layui.util
-
-                //section渲染数据
-                , data2 = data
-
-            //常规用法
-            tree.render({
-                elem: '#feature' //默认是点击节点可进行收缩
-                , data: data2
-            });
-        })
-        $("#featureselect").remove();
-        var str="<select id='featureselect' name='productFeatureList'>";
+		featureJson = data;
+		console.info(data);
+        var str="";
         for(var i=0;i<data.length;i++){
-            str+="<option name=\"productFeatureList\" value=\""+data[i].id+"\">"+data[i].title+"</option>";
+            str+="<option value=\""+data[i].id+"\">"+data[i].title+"</option>";
         }
-        str+="</select>";
-        $("#feature").before(str);
-    })
+        $("#featureselect").append(str);
+		layuiSelectRender();
+    });
 	$.post("/ajax/insurance_list",function (data) {
-        console.info(data);
-        layui.use(['tree', 'util'], function () {
-            var tree = layui.tree
-                , layer = layui.layer
-                , util = layui.util
-
-                //section渲染数据
-                , data2 = data
-
-            //常规用法
-            tree.render({
-                elem: '#insurance' //默认是点击节点可进行收缩
-                , data: data2
-            });
-        })
-        $("#insuranceselect").remove();
-        var str="<select id='insuranceselect' name='productInsuranceList'>";
+		insuranceJson = data;
+		console.info(data);
+        var str="";
         for(var i=0;i<data.length;i++){
-            str+="<option name=\"productInsuranceList\" value=\""+data[i].id+"\">"+data[i].title+"</option>";
+            str+="<option value=\""+data[i].id+"\">"+data[i].title+"</option>";
         }
-        str+="</select>";
-        $("#insurance").before(str);
-    })
+		$("#insuranceselect").append(str);
+		layuiSelectRender();
+    });
+
 	$.post("/ajax/category/0",function (data) {
-		var str="<select id='product_level1' name='productLevel1'><option name=\"yiji\" value='-1'>请选择--</option>";
+		var str="";
 		for (var i=0;i<data.length;i++){
-		    str+="<option name=\"productLevel1\" value=\""+data[i].categoryId+"\">"+data[i].categoryName+"</option>";
+			str+="<option value=\""+data[i].categoryId+"\">"+data[i].categoryName+"</option>";
 		}
-		str+="</select>";
-		$("#biaoji").before(str);
-    })
+		$("#product_level1").append(str);
+		layuiSelectRender();
+	});
 
-        $('.skin-minimal input').iCheck({
-            checkboxClass: 'icheckbox-blue',
-            radioClass: 'iradio-blue',
-            increaseArea: '20%'
-        });
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
 
-        $("#form-member-add").validate({
-            rules: {
-                username: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 16
-                },
-                sex: {
-                    required: true,
-                },
-                mobile: {
-                    required: true,
-                    isMobile: true,
-                },
-                email: {
-                    required: true,
-                    email: true,
-                },
-                uploadfile: {
-                    required: true,
-                },
+	$("#form-member-add").validate({
+		rules: {
+			username: {
+				required: true,
+				minlength: 2,
+				maxlength: 16
+			},
+			sex: {
+				required: true,
+			},
+			mobile: {
+				required: true,
+				isMobile: true,
+			},
+			email: {
+				required: true,
+				email: true,
+			},
+			uploadfile: {
+				required: true,
+			},
 
-            },
-            onkeyup: false,
-            focusCleanup: true,
-            success: "valid",
-            submitHandler: function (form) {
-                $(form).ajaxSubmit();
-                var index = parent.layer.getFrameIndex(window.name);
-                parent.$('.btn-refresh').click();
-                parent.layer.close(index);
-            }
-        });
+		},
+		onkeyup: false,
+		focusCleanup: true,
+		success: "valid",
+		submitHandler: function (form) {
+			$(form).ajaxSubmit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
 
+	layer.msg('加载中...', {
+		icon: 16
+		,shade: 0.1
+		,area: ['120px', '60px']
+	});
 });
-</script> 
-<!--/请在上方写此页面业务相关的脚本-->
+
+</script>
 </body>
+
+<div class="layuimini-container" id="product_options_add_panel" align="center" style="display: none;">
+	<div class="layuimini-main">
+		<fieldset class="layui-elem-field layuimini-search">
+			<div style="margin: 10px 10px 10px 10px">
+				<form class="layui-form layui-form-pane" action="">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">方案名</label>
+							<div class="layui-input-inline">
+								<input type="text" name="goodsname" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<a class="layui-btn" lay-submit="" lay-filter="data-search-btn">新增方案</a>
+						</div>
+					</div>
+					<table id="optionsPanelTableAdd" class="layui-table" lay-filter="table2">
+
+					</table>
+				</form>
+			</div>
+		</fieldset>
+	</div>
+</div>
+
+
+<div class="layuimini-container" id="product_options_show_panel" align="center" style="display: none;">
+	<div class="layuimini-main">
+		<fieldset class="layui-elem-field layuimini-search">
+			<div style="margin: 10px 10px 10px 10px">
+				<form class="layui-form layui-form-pane" action="">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">方案名</label>
+							<div class="layui-inline">
+								<div class="layui-inline">
+									<div class="layui-input-inline">
+										<select id="productOptionsSelect" name='productOptionsSelect' lay-filter="productOptionsSelect" class='my_select' lay-verify="required" lay-search="">
+											<option value="">直接选择或搜索选择</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<table id="optionsPanelTable" class="layui-table" lay-filter="table1">
+
+					</table>
+				</form>
+			</div>
+		</fieldset>
+	</div>
+</div>
+
 </html>
