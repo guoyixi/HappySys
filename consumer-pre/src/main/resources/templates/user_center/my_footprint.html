@@ -1,4 +1,4 @@
-
+<link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
 
 <!--my_footprint-->
 <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_track.css">
@@ -58,7 +58,7 @@
                                         //item:当前json对象
                                         arr.push('<dl><dt>'
                                             +'<a href="/HappysysProduct/getById/'+item.productId+'" target="_blank">'
-                                            +'<img src="/images/product/'+item.productImage+'" alt=""/></a>'
+                                            +'<img src="'+item.productImage+'" alt=""/></a>'
                                             +'</dt><dd class="des">'
                                             +'<a class="title" href="/HappysysProduct/getById/'+item.productId+'" target="_blank">'+item.productTitle+'</a>'
                                             +'</dd><dd class="active">'
@@ -80,3 +80,5 @@
 
 
     </script>
+
+<script type="text/javascript" th:src="@{/layui/layui.all.js}" src="/layui/layui.all.js" charset="utf-8"></script>

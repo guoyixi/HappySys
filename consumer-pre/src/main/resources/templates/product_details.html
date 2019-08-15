@@ -10,8 +10,8 @@
 
     <link rel="stylesheet" href="https://resource.kaixinbao.com/r02/css/common/mod_cm_kxb.css" />
     <link rel="stylesheet" href="https://resource.kaixinbao.com/r02/css/shop/mod_detail.css" />
-    <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
 
+    <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
 
 </head>
 <body>
@@ -48,7 +48,7 @@
                     <li class="active" data-att="bzxq">保障详情</li>
                     <li data-att="cjwt">常见问题</li>
                     <li data-att="lpfw">理赔服务</li>
-                    <li data-att="yhpj" class="user_commont">用户评价（4）</li>
+                    <li data-att="yhpj" class="user_commont">用户评价（n）</li>
                 </ul>
                 <div class="fun-nav">
                     <div class="shop-buy-compared"
@@ -462,9 +462,14 @@
 
 <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
 <script type="text/javascript" rel="script" th:src="@{/js/CommonHeader.js}"></script>
-<script type="text/javascript" th:src="@{/layui/layui.js}" src="../static/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" th:src="@{/layui/layui.all.js}" src="/layui/layui.all.js" charset="utf-8"></script>
 <script type="text/javascript" th:inline="javascript">
 
+    layer.msg('加载中...', {
+        icon: 16
+        ,shade: 0.1
+        ,area: ['120px', '60px']
+    });
 
     // 查询此商品的销量
     $.get("/HappysysOrder/getOrderCountByProductId/"+[[${product.productId}]],function (result) {
@@ -492,7 +497,6 @@
                 layui.use(['laypage', 'layer'], function(){
                     var laypage = layui.laypage
                         ,layer = layui.layer;
-
                     laypage.render({
                         elem: 'page_btn'
                         ,first: '首页'
@@ -512,7 +516,7 @@
                                     arr.push('<div class="user-comment">'
                                         +'<div class="cont-show">'
                                         +'<p class="user">'
-                                        +'<img src="/images/usericon/'+item.user_icon+'" alt="'+item.user_name+'" title="'+item.user_name+'" />'
+                                        +'<img src="'+item.user_icon+'" title="'+item.user_name+'" />'
                                         +'<span class="user-name">'+item.user_name+'</span>'
                                         +'<span class="i_k i_k0"></span>'
                                         +'</p>'
@@ -551,6 +555,7 @@
                     if(addOrDel == 0){//加入
                         $.get("/HappysysShoppingCart/addShoppingCart",{productId:[[${product.productId}]]},function (result) {
                             if (result == true){
+                                layer.msg('加入购物车成功！');
                                 $("#add_shopping_cart").prop("class","i-shop i-shoucang-yidian");
                                 addOrDel = 1;
                             }
@@ -558,13 +563,14 @@
                     }else if(addOrDel == 1){//删除
                         $.get("/HappysysShoppingCart/delShoppingCartByProductIdAndUserId/"+[[${product.productId}]],function (result) {
                             if (result == true){
+                                layer.msg('取消成功！');
                                 $("#add_shopping_cart").prop("class","i-shop i-shoucang-weidian");
                                 addOrDel = 0;
                             }
                         },"json");
                     }
                 }else {
-                    alert("请先登录！");
+
                 }
 
             };
@@ -803,7 +809,7 @@
                 $(".product_id").text(rs);
             },
             "errer": function () {
-                alert("数据测试中...");
+                layer.msg('数据测试中......');
             }
         });
     }

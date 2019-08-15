@@ -61,10 +61,10 @@ public class UserController {
     //private static String Key = "d41d8cd98f00b204e980";
 
 
-/*    //用户名
+    //用户名
     private static String Uid = "xiaoll";
     //接口安全秘钥
-    private static String Key = "d41d8cd98f00b204e980";*/
+    private static String Key = "d41d8cd98f00b204e980";
 
 
     @RequestMapping("/generate/erweima")
@@ -80,14 +80,14 @@ public class UserController {
         System.out.println("随机数："+notecode);
 
 
-/*        HttpClientUtil client = HttpClientUtil.getInstance();
+        HttpClientUtil client = HttpClientUtil.getInstance();
         //UTF发送  还剩2条短信
         int result = client.sendMsgUtf8(Uid, Key, smsText, smsMob);
         if(result>0){
             System.out.println("UTF8成功发送条数=="+result);
         }else{
             System.out.println(client.getErrorMsg(result));
-        }*/
+        }
         return notecode;
     }
 
@@ -209,10 +209,10 @@ public class UserController {
             resultMess = "修改用户资料成功！";
         }
         ModelAndView mav = new ModelAndView();
-        mav.addObject("resultMess",resultMess);
-        mav.addObject("pageName","user_info_show");
+        //mav.addObject("resultMess",resultMess);
+        //mav.addObject("pageName","user_info_show");
 
-        mav.setViewName("forward:/HappysysUser/loadUserPersonalCenter");
+        mav.setViewName("redirect:/HappysysUser/loadUserPersonalCenter?resultMess="+resultMess);
         return mav;
     }
 
@@ -225,11 +225,13 @@ public class UserController {
     }
 
     @RequestMapping("/HappysysUser/loadUserPersonalCenter")
-    public ModelAndView loadUserPersonalCenter(@RequestParam(required = false) String pageName){
+    public ModelAndView loadUserPersonalCenter(@RequestParam(required = false) String pageName,@RequestParam(required = false) String resultMess){
         System.out.println("UserController      loadUserPersonalCenter");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("user_personal_center");
         mav.addObject("pageName", pageName);
+        mav.addObject("resultMess", resultMess);
+
         return mav;
     }
 

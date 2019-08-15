@@ -2,6 +2,8 @@
 <!--order-->
 <link rel="stylesheet" href="https://mresource.kaixinbao.com/member/pc/r02/css/member/mod_unpaid.css">
 
+<link rel="stylesheet" th:href="@{/layui/css/layui.css}"  media="all">
+
         <div class="member-order">
             <!-- 订单列表表头 -->
             <div class="member-order-nav">
@@ -36,10 +38,7 @@
 
             </div>
             <!--待支付-->
-
         </div>
-
-
 <script type="text/javascript">require(['member/mod_order']);
 
 //评价
@@ -49,7 +48,7 @@ function orderComment(orderId,productId,index) {
     var $price_stars = $("#price_stars").val();
     var $afterSale_stars = $("#afterSale_stars").val();
     if($range_stars == 0 || $degree_stars == 0 || $price_stars == 0 || $afterSale_stars == 0){
-        alert("请选择星级");
+        layer.msg('请选择星级！');
         return;
     }
     var comment_grade = (parseInt($range_stars) + parseInt($degree_stars) + parseInt($price_stars) + parseInt($afterSale_stars)) / 4;
@@ -63,14 +62,12 @@ function orderComment(orderId,productId,index) {
         data:JSON.stringify(commentJson),
         success:function(result){
             if(result == true){
-
                 orderResult[index].is_evaluated = 1;
                 //评论成功重新加载订单列表评论区
                 reloadOrder(orderResult);
-
-                alert("评论成功！");
+                layer.msg('评论成功！');
             }else {
-                alert("评论失败，请联系管理员！");
+                layer.msg('评论失败，请联系管理员！');
             }
         }
     });
@@ -112,7 +109,7 @@ function reloadOrder(result) {
             ,prev: '<em>上一页</em>'
             ,next: '<em>下一页</em>'
             ,theme: '#FFB800'
-            ,limit : 2
+            ,limit : 3
             ,count: result.length
             ,jump: function(obj){
                 document.getElementById('orderPage').innerHTML = function(){
@@ -192,3 +189,5 @@ function reloadOrder(result) {
 }
 
 </script>
+
+<script type="text/javascript" th:src="@{/layui/layui.all.js}" src="/layui/layui.all.js" charset="utf-8"></script>
