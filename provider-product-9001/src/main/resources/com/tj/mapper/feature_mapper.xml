@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tj.mapper.FeatureMapper">
+
+
+    <select id="getAllFeature" resultType="HappysysFeature">
+        SELECT f.`feature_id`,f.`feature_name`,f.`feature_category`,pc.`category_name` feature_category_title FROM happysys_feature f
+        INNER JOIN happysys_feature_center fc ON f.feature_id=fc.feature_id
+        INNER JOIN happysys_feature_list fl ON fl.feature_list_id=fc.feature_list_id
+        INNER JOIN `happysys_category` pc ON pc.`category_id` = `feature_category`
+    </select>
+
+
+</mapper>
+
+
