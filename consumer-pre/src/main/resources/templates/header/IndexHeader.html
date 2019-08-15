@@ -29,9 +29,9 @@
                 <!-- 未登录状态-->
                 <!-- 已登录状态-->
                 <div id="yesLogin" class="login_in" style="display: none" >
-                    <div class="user-head"><span class="i_user"></span><a
+                    <div class="user-head"><span class="i_user"></span><a target="_blank"
                             href="/HappysysUser/loadUserPersonalCenter" id="headerLoginMemberUsername"
-                            class="name"></a><span id="headerLoginMemGradeIcon" class="" th:text="${session.user}==null?'':${session.user.userName}"></span><span
+                            class="name"><span id="headerLoginMemGradeIcon" class="" th:text="${session.user}==null?'':${session.user.userName}"></span></a><span
                             class="iconfont icon-xiangxia"></span>
                     </div>
                     <div class="user-box">
@@ -97,7 +97,7 @@
     <div class="header-logo">
 
         <a href="http://www.kaixinbao.com/">
-            <img src="picture/3166901960.jpg" width="235" height="94" class="header-main-logo" alt="开心保保险网"/></a>
+            <img src="/picture/3166901960.jpg" width="235" height="94" class="header-main-logo" alt="开心保保险网"/></a>
         <!-- 搜索-->
         <div class="main-nav-search">
             <form id="form">
@@ -113,7 +113,7 @@
             </form>
         </div>
         <!-- 搜索-->
-        <div class="header-des-logo"><img src="picture/logo_05.png" width="336" height="90" alt="保险服务"/></div>
+        <div class="header-des-logo"><img src="/picture/logo_05.png" width="336" height="90" alt="保险服务"/></div>
     </div>
     <!--- logo ---->
     <!--- 主导航 --->

@@ -46,9 +46,10 @@
         WHERE product_id = #{productId}
     </select>
     <select id="findListidDeadline" resultType="HappysysDeadline">
-        SELECT deadline_time FROM happysys_deadline d INNER JOIN happysys_deadline_center dc
-        ON d.deadline_id=dc.deadline_id INNER JOIN happysys_deadline_list dl
-        ON dl.deadline_list_id=dc.deadline_list_id WHERE dl.deadline_list_id = #{deadlineListid}
+        SELECT d.`deadline_id`,d.`deadline_days`,d.`deadline_time`,d.`deadline_price` FROM happysys_deadline d
+        INNER JOIN happysys_deadline_center dc ON d.deadline_id=dc.deadline_id
+        INNER JOIN happysys_deadline_list dl ON dl.deadline_list_id=dc.deadline_list_id
+        WHERE dl.deadline_list_id = #{deadlineListid}
     </select>
 
     <select id="getSection" resultType="HappysysSection">
@@ -75,7 +76,7 @@
     </select>
 
     <select id="findFeatureListid" resultType="HappysysFeature">
-        SELECT f.`feature_id`,f.`feature_name`,f.`feature_category`,pc.`category_name` FROM happysys_feature f
+        SELECT f.`feature_id`,f.`feature_name`,f.`feature_category`,pc.`category_name` feature_category_title FROM happysys_feature f
         INNER JOIN happysys_feature_center fc ON f.feature_id=fc.feature_id
         INNER JOIN happysys_feature_list fl ON fl.feature_list_id=fc.feature_list_id
         INNER JOIN `happysys_category` pc ON pc.`category_id` = `feature_category`

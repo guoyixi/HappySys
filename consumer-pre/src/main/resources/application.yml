@@ -110,3 +110,10 @@ pagehelper:
 #  helperDialect: mysql  #方言  默认
   reasonable: true      #启动合理化
 #  pageSizeZero: true    #小于pageIndex1时，pageIndex=1 默认
+
+#默认支持文件上传:本示例上传七牛云
+servlet:
+  multipart:
+    enabled: true
+    max-file-size: 10000000      #单文件大小
+    max-request-size: 100000000   #总大小

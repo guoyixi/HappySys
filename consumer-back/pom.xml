@@ -48,6 +48,13 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--七牛云  图片服务器-->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>[7.2.0, 7.2.99]</version>
+        </dependency>
+
         <!-- 引入thymeleaf模版 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
