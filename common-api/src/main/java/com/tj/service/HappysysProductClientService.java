@@ -238,7 +238,6 @@ public interface HappysysProductClientService {
 
     /**
      * 商品对比
-     * @param productId
      * @return
      */
     @RequestMapping(value="/product/duibi")
@@ -300,4 +299,27 @@ public interface HappysysProductClientService {
     List<HappysysCategory> findcategoryparentId(@PathVariable(value="parentid") Integer parentid);
     @RequestMapping("/add/product")
     boolean addproduct( HappysysProductVo hprodouct);
+
+
+    @RequestMapping("/HappysysSection/getAllSection")
+    List<HappysysSection> getAllSection();
+    @RequestMapping("/HappysysSection/addSection")
+    Boolean addSection(@RequestBody HappysysSection section);
+
+    @RequestMapping("/HappysysDeadline/getAllDeadline")
+    List<HappysysDeadline> getAllDeadline();
+
+    @RequestMapping("/HappysysOrder/getAllInsuranceSum")
+    List<HappysysInsuranceSum> getAllInsuranceSum();
+
+    @RequestMapping("/HappysysDeadline/getAllFeature")
+    List<HappysysFeature> getAllFeature();
+
+    @RequestMapping("/HappysysOrder/addInsuranceList")
+    Boolean addInsuranceList(@RequestBody HappysysInsuranceList insurance);
+    @RequestMapping("/HappysysOrder/getAllInsurance")
+    List<HappysysInsurance> getAllInsurance();
+    @RequestMapping("/HappysysOrder/addInsurance")
+    Boolean addInsurance(@RequestBody HappysysInsurance insurance);
+
 }
