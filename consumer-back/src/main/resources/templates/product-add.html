@@ -153,6 +153,138 @@
 
 
 
+/*	function productOptionsOperations(loadType){
+		var product_options_operations_panel = $("#product_options_operations_panel");
+		layer.open({
+			type: 1,
+			area: ['600px', '400px'],
+			fixed: false, //不固定
+			maxmin: true,
+			title: "添加信息",
+			content: product_options_operations_panel,
+			success: function (currentDom,index) {
+				var layer = layui.layer, form = layui.form;
+				var trs = "";
+				var $optionsPanelTable = $("#optionsPanelTable");
+
+				var eachObj ;
+				var optionsSelected = 0;
+				if(loadType == 1){//年龄
+					trs = '<tr><td>最小年龄</td><td>最大年龄</td><td>价格</td></tr>';
+					var sectionList ;
+					if(sectionSelectedVal != "" && sectionSelectedVal != null){//选中了section的某一项
+						$(sectionJson).each(function(index,obj){
+							if(obj.id == sectionSelectedVal){
+								sectionList = obj.children;
+								return;
+							}
+						});
+						optionsSelected = sectionSelectedVal;
+					}else {//查询出所有的section
+						$.get("/HappysysSection/getAllSection",function (result) {
+							sectionList = result;
+							console.info(result);
+							alert("aadd");
+						},"json");
+					}
+					$(sectionList).each(function(index,obj){
+						trs += '<tr><td>'+obj.sectionMin+'</td>'
+								+'<td>'+obj.sectionMax+'</td>'
+								+'<td>'+obj.sectionPrice+'</td></tr>';
+					});
+					eachObj = sectionJson;
+
+				}else if(loadType == 2){//期限
+					trs ='<tr><td>保险期限</td><td>单位</td><td>价格</td></tr>';
+					var dealineList ;
+					if(dealineSelectedVal != "" && dealineSelectedVal != null){
+						$(dealineJson).each(function(index,obj){
+							if(obj.id == dealineSelectedVal){
+								dealineList = obj.children;
+								return;
+							}
+						});
+						optionsSelected = dealineSelectedVal;
+					}else {//查所有
+					}
+					$(dealineList).each(function(index,obj){
+						trs += '<tr><td>'+(obj.deadlineDays > 365 ? obj.deadlineDays / 365:obj.deadlineDays)+'</td>'
+								+'<td>'+(obj.deadlineDays > 365 ? '年':'天')+'</td>'
+								+'<td>'+obj.deadlinePrice.toFixed(2) +'</td></tr>';
+					});
+					eachObj = dealineJson;
+				}else if(loadType == 3){//保额
+					trs ='<tr><td>保额</td><td>价格</td></tr>';
+					var insuranceSumList ;
+					if(insuranceSumSelectedVal != "" && insuranceSumSelectedVal != null){
+						$(insuranceSumJson).each(function(index,obj){
+							if(obj.id == insuranceSumSelectedVal){
+								insuranceSumList = obj.children;
+								return;
+							}
+						});
+						optionsSelected = insuranceSumSelectedVal;
+					}else {//查所有
+					}
+					$(insuranceSumList).each(function(index,obj){
+						trs += '<tr><td>'+obj.insuranceSum.toFixed(2)+'</td>'
+								+'<td>'+obj.insuranceSumPrice.toFixed(2)+'</td></tr>';
+					});
+					eachObj = insuranceSumJson;
+				}else if(loadType == 4){//特色
+					trs ='<tr><td>特色标题</td><td>所属商品分类</td></tr>';
+					var featureList ;
+					if(featureSelectedVal != "" && featureSelectedVal != null){
+						$(featureJson).each(function(index,obj){
+							if(obj.id == featureSelectedVal){
+								featureList = obj.children;
+								return;
+							}
+						});
+						optionsSelected = featureSelectedVal;
+					}else {//查所有
+					}
+					$(featureList).each(function(index,obj){
+						trs += '<tr><td>'+obj.featureName+'</td>'
+								+'<td>'+obj.featureCategoryTitle+'</td></tr>';
+					});
+					eachObj = featureJson;
+				}else if(loadType == 5){//保险项
+					trs ='<tr><td>保险名</td><td>保额</td><td>价格</td><td>描述</td></tr>';
+					var insuranceList ;
+					if(insuranceSelectedVal != "" && insuranceSelectedVal != null){
+						$(insuranceJson).each(function(index,obj){
+							if(obj.id == insuranceSelectedVal){
+								insuranceList = obj.children;
+								return;
+							}
+						});
+						optionsSelected = insuranceSelectedVal;
+					}else {//查所有
+					}
+					$(insuranceList).each(function(index,obj){
+						trs += '<tr><td>'+obj.insuranceName+'</td>'
+								+'<td>'+obj.insuranceCompensatePrice.toFixed(2)+'</td>'
+								+'<td>'+obj.insurancePrice.toFixed(2)+'</td>'
+								+'<td>'+5+'</td></tr>'
+					});//obj.insuranceDetails
+					eachObj = insuranceJson;
+				}
+				var panelOptions = "<option value=''>直接选择或搜索选择</option>";
+				//循环放到面板的select中
+				$(eachObj).each(function (index,obj) {
+					panelOptions +='<option '+(obj.id == optionsSelected ? 'selected=selected':'')+' value='+obj.id+'>'+obj.title+'</option>';
+				});
+				$(product_options_operations_panel).find("#productOptionsSelect").empty();
+				$(product_options_operations_panel).find("#productOptionsSelect").html(panelOptions);
+				form.render();
+
+				$optionsPanelTable.empty();
+				$optionsPanelTable.append(trs);
+			}
+		});
+	}*/
+
 $(function() {
 
     $.post("/ajax/section", function (data) {
