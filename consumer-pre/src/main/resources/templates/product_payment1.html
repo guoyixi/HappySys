@@ -935,6 +935,14 @@
 
     jQuery(function () {
 
+        //头部显示用户信息
+        var happyuser=$("#aab").text();
+
+        if(happyuser.length>0){
+            $("#notLogin").css("display","none");
+            $("#yesLogin").css("display","block");
+        }
+
         startAndEndDate();
         var object = [[${applicant}]];
         if (object) {
