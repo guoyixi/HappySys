@@ -1,17 +1,15 @@
 package com.tj.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class HappysysProductVo {
     private String productTitle;
-    private String productPrice;
+    private Double productPrice;
     private String productImage;
     private String productSectionList;
     private String  productDeadlineList;

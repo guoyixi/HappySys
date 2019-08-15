@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
 import com.tj.product.config.Qiniu;
 import com.tj.service.HappysysProductClientService;
-import com.tj.service.HappysysUserClientService;
 import com.tj.vo.HappysysProductVo;
-import javafx.scene.control.Alert;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
@@ -127,7 +123,7 @@ public class ProductController implements  ServletContextAware{
        return  productClientService.findcategoryparentId(parentid);
     }
     @RequestMapping("/product/add")
-    public String addProduct(HappysysProductVo hproduct, MultipartFile file2) throws IllegalStateException, IOException {
+    public ModelAndView addProduct(HappysysProductVo hproduct, MultipartFile file2) throws IllegalStateException, IOException {
         String Filename="";
 
         //上传到的路径
@@ -152,35 +148,31 @@ public class ProductController implements  ServletContextAware{
                     }*/
             byte[] imgBytes = file2.getBytes();
             Filename = Qiniu.upLoadImage(imgBytes);
-
         }
-
+        //System.out.println(hproduct);
         hproduct.setProductImage(Filename);
-        productClientService.addproduct(hproduct);//添加
-        return "redirect:/product-brand.html";
-    }
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("forward:/HappysysProduct/loadProductList");
 
+        String mess = "添加商品成功！";
+        if(productClientService.addproduct(hproduct) == false){
+            mess = "添加商品失败，请联系管理员！";
+        }
+        return mav;
+    }
 
     @RequestMapping("/HappysysProduct/loadProductList")
     public String loadProductList(){
         System.out.println("ProductController      loadProductList");
-
         return "product-list";
     }
 
     @RequestMapping("/HappysysProduct/loadProductAdd")
     public String loadProductAdd(){
         System.out.println("ProductController      loadProductAdd");
-
-        return "product-add2";
+        return "product-add";
     }
 
-    @RequestMapping("/HappysysProduct/loadInsuranceSum")
-    public String loadInsuranceSum(){
-        System.out.println("ProductController      loadInsuranceSum");
-
-        return "/product_options/insurance_sum";
-    }
 
 
 }
