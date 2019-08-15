@@ -10,7 +10,7 @@
                     <li>
                         <div class="item" style="margin-top: 30px"><span>头像</span></div>
                         <div class="text">
-                            <a href="javascript:clickFileField()"><img id="userIconImg" style="cursor:pointer" src="https://resource.kaixinbao.com/r02/images/common/hader_kxb.jpg" th:src="@{'/images/usericon/'+${session.user.userIcon}}" height="100px" width="100px"></a>
+                            <a href="javascript:clickFileField()"><img id="userIconImg" style="cursor:pointer" src="https://resource.kaixinbao.com/r02/images/common/hader_kxb.jpg" th:src="${session.user.userIcon}" height="100px" width="100px"></a>
                             <input type="file" id="userIcon" name="file" accept="image/*" onchange="changeImg()" style="display: none" >
                         </div>
                     </li>

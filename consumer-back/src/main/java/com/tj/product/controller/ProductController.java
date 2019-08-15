@@ -3,6 +3,7 @@ package com.tj.product.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
+import com.tj.product.config.Qiniu;
 import com.tj.service.HappysysProductClientService;
 import com.tj.service.HappysysUserClientService;
 import com.tj.vo.HappysysProductVo;
@@ -130,24 +131,28 @@ public class ProductController implements  ServletContextAware{
         String Filename="";
 
         //上传到的路径
-        String realPath = "D:/Y2/workspace_idea3/HappySys/consumer-back/src/main/resources/static/image";
+        /*String realPath = "D:/Y2/workspace_idea3/HappySys/consumer-back/src/main/resources/static/image";
         System.out.println("\trealPath:"+realPath);
         System.out.println("=============="+file2);
-        List<String> asList = Arrays.asList("image/jpeg","image/gif","image/png");
+        List<String> asList = Arrays.asList("image/jpeg","image/gif","image/png");*/
         if(file2!=null) {
-            long millis=System.currentTimeMillis();//获取当前时间的毫秒
-            Filename = millis+file2.getOriginalFilename();//获取原始文件名
-            String contentType = file2.getContentType();//文件类型
+                   /* long millis=System.currentTimeMillis();//获取当前时间的毫秒
+                    Filename = millis+file2.getOriginalFilename();//获取原始文件名
+                    String contentType = file2.getContentType();//文件类型
 
-            System.out.println("Filename:"+Filename);
-            System.out.println("contentType:"+contentType);
+                    System.out.println("Filename:"+Filename);
+                    System.out.println("contentType:"+contentType);
 
-            if(asList.contains(contentType)) {
-                File df=new File(realPath,Filename);
-                //将内存文件写入硬盘
+                    if(asList.contains(contentType)) {
+                        File df=new File(realPath,Filename);
+                        //将内存文件写入硬盘
 
-                file2.transferTo(df);
-            }
+                        file2.transferTo(df);
+
+                    }*/
+            byte[] imgBytes = file2.getBytes();
+            Filename = Qiniu.upLoadImage(imgBytes);
+
         }
 
         hproduct.setProductImage(Filename);

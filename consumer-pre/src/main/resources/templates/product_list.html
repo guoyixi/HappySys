@@ -886,9 +886,9 @@
 
                         <DIV class="nlist_con cf" th:each="plist:${productLista.records}">
                             <DIV class="nlist_des">
-                                <DIV class="icon_C2280 m-list-logo"></DIV>
+                              <!--  icon_C2280--> <DIV class="m-list-logo" th:style="'background:url('+${plist.productImage}+') no-repeat center'"></DIV>
                                 <DIV class="m-list-cn">
-                                    <a href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank" class="nlist_title" th:text="${plist.productTitle}"></a>
+                                    <a th:href="@{'/HappysysProduct/getById/'+${plist.productId}}" target="_blank" class="nlist_title" th:text="${plist.productTitle}"></a>
                                     <DIV class="shop_tj_shrq cf">
                                         <p class="shop_shrd_con">
                                             <span class="shop_shrq_bg">适合人群</span>
@@ -1261,7 +1261,6 @@
         src="/js/re_productlistv3.js"></script>
 <script src="/layui/layui.js" charset="utf-8"></script>
 <script th:inline="javascript">
-
     layui.use(['laypage', 'layer'], function(){
         var laypage = layui.laypage
             ,layer = layui.layer;
@@ -1280,7 +1279,7 @@
                         var str="";
 
                         for(var i=0;i<data.records.length;i++){
-                             str+='<DIV class="nlist_con cf" ><DIV class="nlist_des"><DIV class="icon_C2280 m-list-logo"></DIV> <DIV class="m-list-cn"><a href="http://www.kaixinbao.com/jiankang-baoxian/320065.shtml" target="_blank" class="nlist_title" >'+data.records[i].productTitle+'</a><DIV class="shop_tj_shrq cf"><p class="shop_shrd_con"> <span class="shop_shrq_bg">适合人群</span>'+data.records[i].productDetails+'</p></DIV></DIV><DIV class="clear"></DIV><ul class="d_list_con">';
+                             str+='<DIV class="nlist_con cf" ><DIV class="nlist_des"><DIV class="m-list-logo" style="background:url('+data.records[i].productImage+') no-repeat center"></DIV> <DIV class="m-list-cn"><a href="/HappysysProduct/getById/'+data.records[i].productId+'" target="_blank" class="nlist_title" >'+data.records[i].productTitle+'</a><DIV class="shop_tj_shrq cf"><p class="shop_shrd_con"> <span class="shop_shrq_bg">适合人群</span>'+data.records[i].productDetails+'</p></DIV></DIV><DIV class="clear"></DIV><ul class="d_list_con">';
                              for(var j=0;j<data.records[i].productFeatureList.length;j++){
                                  str+='<li><span>'+data.records[i].productFeatureList[j].featureName+'</span></li>';
                              }

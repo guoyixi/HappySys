@@ -10,6 +10,7 @@ import com.tj.user.HappysysUser;
 import com.tj.user.shiro.MD5Pwd;
 import com.tj.user.util.HttpClientUtil;
 import com.tj.user.util.MailUtil;
+import com.tj.user.util.Qiniu;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -157,7 +158,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/HappysysUser/updateUserById")
-    public ModelAndView updateUserById(HappysysUser user,@RequestParam(required = false) MultipartFile file,HttpSession session) {
+    public ModelAndView updateUserById(HappysysUser user,@RequestParam(required = false) MultipartFile file,HttpSession session) throws IOException {
         System.out.println("UserController      updateUserById");
         HappysysUser prototypeUser = (HappysysUser)session.getAttribute("user");
 
@@ -174,7 +175,7 @@ public class UserController {
             result = userClientService.updateUserById(user);
         }else {
             System.out.println("文件不为空空");
-            //获取全文件名
+           /* //获取全文件名
             String fileName = file.getOriginalFilename();
             //截取后缀 ：.xxx
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
@@ -196,10 +197,12 @@ public class UserController {
                     file.transferTo(dest);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
-                user.setUserIcon(fileName);
-                result = userClientService.updateUserById(user);
-            }
+                }*/
+            byte[] bytes = file.getBytes();
+            String imgUrl = Qiniu.upLoadImage(bytes);
+            user.setUserIcon(imgUrl);
+             result = userClientService.updateUserById(user);
+            //}
         }
         if(result){ //如果修改成功就去数据库重新查出来
             session.setAttribute("user",userClientService.findbyname(prototypeUser.getUserName()));
