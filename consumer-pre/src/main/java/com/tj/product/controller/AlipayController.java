@@ -151,11 +151,6 @@ public class AlipayController {
 				//TRADE_FINISHED
 			}
 
-			//修改订单成功后的状态
-			HappysysOrder a = (HappysysOrder)request.getAttribute("order");
-			happysysOrder.setOrderStatus(2);
-			happysysProductClientService.updateOrder(happysysOrder);
-			System.out.println("验证成功");
 			out.println("paymentSuccess");
 
 		}else {//验证失败
@@ -201,6 +196,12 @@ public class AlipayController {
 		System.out.println("signVerified:"+signVerified);
 		//——请在这里编写您的程序（以下代码仅作参考）——
 		if(signVerified) {
+
+			//修改订单成功后的状态
+			HappysysOrder a = (HappysysOrder)request.getAttribute("order");
+			happysysOrder.setOrderStatus(2);
+			happysysProductClientService.updateOrder(happysysOrder);
+			System.out.println("验证成功");
 
 			return "paymentSuccess";
 		}else {

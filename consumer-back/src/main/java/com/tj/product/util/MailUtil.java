@@ -1,4 +1,4 @@
-package com.tj.user.util;
+package com.tj.product.util;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
