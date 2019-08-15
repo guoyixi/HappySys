@@ -1,9 +1,7 @@
 package com.tj.service;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tj.product.*;
-
 import com.tj.vo.HappysysProductVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -210,9 +208,7 @@ public interface HappysysProductClientService {
 
 
     /**
-     * ApplicantInfo的插改操作
-     * @param quickappnt
-     * @param quickrecognizee
+     *  ApplicantInfo的插改操作
      * @param happysysApplicantInfoModel
      * @return
      */
@@ -269,13 +265,13 @@ public interface HappysysProductClientService {
     @RequestMapping(value = "/HappysysOrder/insertOrderDetails",method = RequestMethod.POST)
     Boolean insertOrderDetails(@RequestBody Collection<HappysysOrderDetails> happysysOrderDetails);
 
-
-
+    @RequestMapping(value = "/HappysysOrder/loadOrderList",method = RequestMethod.POST)
+    Page<HappysysOrder> loadOrderList(@RequestBody Map<String,Object> map,@RequestParam("currentPage") Integer currentPage,@RequestParam("size")  Integer size);
 
 
     /**
      * 商品对比
-     * @param productId
+     * @param productIds
      * @return
      */
     @RequestMapping(value="/product/duibi")

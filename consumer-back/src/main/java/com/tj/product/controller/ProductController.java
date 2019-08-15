@@ -135,27 +135,46 @@ public class ProductController implements  ServletContextAware{
         System.out.println("=============="+file2);
         List<String> asList = Arrays.asList("image/jpeg","image/gif","image/png");
         if(file2!=null) {
-                    long millis=System.currentTimeMillis();//获取当前时间的毫秒
-                    Filename = millis+file2.getOriginalFilename();//获取原始文件名
-                    String contentType = file2.getContentType();//文件类型
+            long millis=System.currentTimeMillis();//获取当前时间的毫秒
+            Filename = millis+file2.getOriginalFilename();//获取原始文件名
+            String contentType = file2.getContentType();//文件类型
 
-                    System.out.println("Filename:"+Filename);
-                    System.out.println("contentType:"+contentType);
+            System.out.println("Filename:"+Filename);
+            System.out.println("contentType:"+contentType);
 
-                    if(asList.contains(contentType)) {
-                        File df=new File(realPath,Filename);
-                        //将内存文件写入硬盘
+            if(asList.contains(contentType)) {
+                File df=new File(realPath,Filename);
+                //将内存文件写入硬盘
 
-                        file2.transferTo(df);
-
-                    }
-
+                file2.transferTo(df);
+            }
         }
 
         hproduct.setProductImage(Filename);
         productClientService.addproduct(hproduct);//添加
         return "redirect:/product-brand.html";
+    }
 
+
+    @RequestMapping("/HappysysProduct/loadProductList")
+    public String loadProductList(){
+        System.out.println("ProductController      loadProductList");
+
+        return "product-list";
+    }
+
+    @RequestMapping("/HappysysProduct/loadProductAdd")
+    public String loadProductAdd(){
+        System.out.println("ProductController      loadProductAdd");
+
+        return "product-add2";
+    }
+
+    @RequestMapping("/HappysysProduct/loadInsuranceSum")
+    public String loadInsuranceSum(){
+        System.out.println("ProductController      loadInsuranceSum");
+
+        return "/product_options/insurance_sum";
     }
 
 

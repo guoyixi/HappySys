@@ -1,6 +1,8 @@
 server:
   port: 9001
 
+
+
 spring:
   application:
     name: HAPPY-PRODUCT     #微服务名
@@ -71,6 +73,11 @@ spring:
     username: guest
     password: guest
 
+  output:
+    ansi:
+      enabled: never
+
+
 
 #mybatisplus配置
 mybatis-plus:
@@ -120,4 +127,5 @@ info:
   company.name: www.xiaoll.com
   build.artifactId: ${project.artifactId}
   build.version: ${project.version}
+
 

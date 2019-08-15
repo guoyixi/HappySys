@@ -2,6 +2,7 @@ package com.tj.product;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.io.Serializable;
@@ -24,7 +25,9 @@ public class HappysysOrder implements Serializable {
     private String orderNumber;                 //订单号
     private Double orderPrice;                  //总价格
     private Double orderFaceAmount;            //最基本的保额：除所有保险项的保额
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date orderTime;                     //购买日期
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date orderExpireTime;               //到期时间
     private Integer orderStatus;                //状态：1待支付、2待生效、3生效中
     private Integer orderApplicantId;           //投保人id

@@ -21,6 +21,9 @@ public class HappysysFeature implements Serializable{
     private Integer featureCategory;
 
     @TableField(exist = false)
+    private String featureCategoryTitle;
+
+    @TableField(exist = false)
     private String title;
 
     public void setTitle(String title){
