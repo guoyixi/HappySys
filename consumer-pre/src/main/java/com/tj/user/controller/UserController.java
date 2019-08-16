@@ -209,10 +209,10 @@ public class UserController {
             resultMess = "修改用户资料成功！";
         }
         ModelAndView mav = new ModelAndView();
-        //mav.addObject("resultMess",resultMess);
-        //mav.addObject("pageName","user_info_show");
+        mav.addObject("resultMess",resultMess);
+        mav.addObject("pageName","user_info_show");
 
-        mav.setViewName("redirect:/HappysysUser/loadUserPersonalCenter?resultMess="+resultMess);
+        mav.setViewName("redirect:/HappysysUser/loadUserPersonalCenter");
         return mav;
     }
 
