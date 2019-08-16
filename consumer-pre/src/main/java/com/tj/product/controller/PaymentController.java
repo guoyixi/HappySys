@@ -100,7 +100,7 @@ public class PaymentController {
   return "forward:/HappysysOrder/loadProductPayment2/"+orderId;
  }
 
- @RequestMapping(value = "/HappysysPayment/payment3",method = RequestMethod.POST)
+ @RequestMapping(value = "/HappysysPayment/payment3")
  public String paymentTwo(HttpSession session) {
 
   return "product_payment3";

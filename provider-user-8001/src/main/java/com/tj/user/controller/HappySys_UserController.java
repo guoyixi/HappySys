@@ -103,7 +103,13 @@ public class HappySys_UserController {
     @RequestMapping("/userfindbyid")
     @ResponseBody
     public HappysysUser finduserbyid(@RequestBody Integer userId) {
-        return  userservice.getOne(new QueryWrapper<HappysysUser>().eq("user_id", userId));
+        System.out.println("userId;:"+userId);
+        try{
+            return   userservice.getOne(new QueryWrapper<HappysysUser>().eq("user_id", userId));
+        }catch(Exception e){
+            return null;
+        }
+
     }
 
     @RequestMapping("/updateUser/{phone}/{riqi}/{sex}")

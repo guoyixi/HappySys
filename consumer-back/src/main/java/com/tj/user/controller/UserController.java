@@ -42,7 +42,11 @@ public class UserController {
     @RequestMapping("/delbyid")
     @ResponseBody
     public Integer delbyid(Integer userId){
-        return  userClientService.deletebyid(userId);
+        try {
+            return userClientService.deletebyid(userId);
+        }catch (Exception e){
+            return 2;
+        }
     }
     @RequestMapping("/userfindbyid")
     @ResponseBody

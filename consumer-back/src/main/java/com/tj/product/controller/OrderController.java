@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.jfunc.json.impl.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -99,9 +100,11 @@ public class OrderController {
         System.out.println("UserController      emailValidate");
         System.out.println("email："+order);
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM日");
+
         new Thread(new MailUtil("xll1197578609@163.com", "尊敬的 用户 您好: \n" +
-         "您于"+order.getOrderTime()+"购买的 开心保产品，订单号（"+order.getOrderNumber()+"）已经确认。\n" +
-         "请前往个人中心立即支付！")).start();
+         "您于"+simpleDateFormat.format(order.getOrderTime())+"购买的 开心保产品，订单号（"+order.getOrderNumber()+"）已经确认。\n" +
+         "请<a href='http://localhost:800/HappysysPayment/payment3'>立即支付</a>")).start();
         return 0;
     }
 

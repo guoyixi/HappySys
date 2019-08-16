@@ -52,9 +52,9 @@ public class MailUtil implements Runnable {
 			// 2.2设置接收人
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			// 2.3设置邮件主题
-			message.setSubject("验证码");
+			message.setSubject("开心保订单待支付提心");
 			// 2.4设置邮件内容
-			String content = "<html><head></head><body>亲爱的会员，您好！您的验证码是"+code+"，请您及时操作哦。</body></html>";
+			String content = "<html><head></head><body>"+code+"</body></html>";
 			message.setContent(content, "text/html;charset=UTF-8");
 			// 3.发送邮件
 			Transport.send(message);

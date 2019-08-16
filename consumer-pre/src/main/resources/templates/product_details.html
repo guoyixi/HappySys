@@ -13,6 +13,9 @@
 
     <link rel="shortcut icon" href="https://resource.kaixinbao.com/r02/images/favicon.ico"/>
 
+    <link rel="stylesheet" href="/layui/assets/common.css"/>
+    <link rel="stylesheet" href="/layui/css/aa.css">
+
 </head>
 <body>
 
@@ -48,7 +51,7 @@
                     <li class="active" data-att="bzxq">保障详情</li>
                     <li data-att="cjwt">常见问题</li>
                     <li data-att="lpfw">理赔服务</li>
-                    <li data-att="yhpj" class="user_commont">用户评价（n）</li>
+                    <li data-att="yhpj" class="user_commont">用户评价（0）</li>
                 </ul>
                 <div class="fun-nav">
                     <div class="shop-buy-compared"
@@ -175,8 +178,8 @@
 
                             <div class="item" th:text="${insurance.getInsuranceName()}"></div>
                             <div class="text insurance_id">
-                                <span class="selected" data-value="0">不投保</span>
-                                <span class="insurance" th:value="${insurance.getInsuranceId()}">投保</span>
+                                <span class="selected" th:value="${insurance.getInsuranceId()}"  onclick="updateUnApplicant(this)">不投保</span>
+                                <span class="insurance" th:value="${insurance.getInsuranceId()}" onclick="updateApplicant(this)" >投保</span>
                             </div>
                         </li>
 
@@ -258,16 +261,16 @@
                                         详细保障
                                     </td>
                                 </tr>
-                                <tr th:each="insurance:${product.getProductInsuranceList()}">
+                                <tr th:each="insurance:${product.getProductInsuranceList()}" id="insuranceList">
                                     <td class="dutyCol1"><em class="xiangmu"></em><span><b th:text="${insurance.getInsuranceName()}"></b></span></td>
-                                    <td class="dutyCol2" data-title="恶性肿瘤保险金" data-tip="">
-                                        <div data-id="228001001006">
+                                    <td class="dutyCol2" >
+                                        <div >
                                             <div class="rs-wrap">
-                                                <input type="text" value="不投保" data-value="0"
-                                                                        class="elm-sel" placeholder="请选择"
-                                                                        readonly="readonly" unselectable="on"
-                                                                        onfocus="this.blur()"
-                                                                        style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;">
+                                                <input type="hidden" th:id="'insurance'+${insurance.getInsuranceId()}" />
+                                                <input type="text" value="不投保"
+                                                       class="elm-sel"
+                                                       readonly="readonly"
+                                                       style="cursor: pointer; border: none; padding: 0px; text-overflow: inherit;">
                                                 <i class="rs-edge"style="border-top-color: rgb(253, 136, 36); display: none;"></i>
                                                 <dl class="rs-select" style="min-width: 170px; display: none;"></dl>
                                             </div>
@@ -425,7 +428,7 @@
 
             <!-- 评价 -->
             <div class="comment">
-                <h3 class="common-num user_commont">用户评价(4)</h3>
+                <h3 class="common-num user_commont">用户评价(0)</h3>
                 <div class="head-commen">
                     <div class="degree">
                         <span class="num commentSatisfaction"></span>
@@ -551,6 +554,7 @@
 
             //加入和删除购物车
             function addAndDelShoppingCart(){
+
                 if([[${session.user}]] != null){
                     if(addOrDel == 0){//加入
                         $.get("/HappysysShoppingCart/addShoppingCart",{productId:[[${product.productId}]]},function (result) {
@@ -570,7 +574,7 @@
                         },"json");
                     }
                 }else {
-
+                    location.href="/login.html";
                 }
 
             };

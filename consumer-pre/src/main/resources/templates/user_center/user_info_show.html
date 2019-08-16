@@ -47,7 +47,7 @@
                             <!--<input class="date-sel__birth" name="userBirthday" th:value="${session.user.userBirthday }" type="text" placeholder="请选择" data-verify="NOTNULL|请选择生日" data-format="date" data-min="1900-01-01"   data-max=""   value="" />
                             <em class="i-data"></em>-->
                             <div class="layui-inline"> <!-- 注意：这一层元素并不是必须的 -->
-                                <input type="text" readonly name="userBirthday" th:value="${#dates.format(session.user.userBirthday, 'yyyy-MM-dd')}" class="layui-input" id="layui_date">
+                                <input type="text" name="userBirthday" th:value="${#dates.format(session.user.userBirthday, 'yyyy-MM-dd')}" class="layui-input" id="layui_date">
                             </div>
                         </div>
                     </li>

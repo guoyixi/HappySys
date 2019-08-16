@@ -83,7 +83,7 @@
 		$.post("/userfindbyid",function (data) {
 			console.info(data);
 			$("#roleName").val(data.userName);
-			if(data.userSex=="男"){
+			if(data.userSex=="M"){
 				$("#boy").attr("checked","checked");
 			}else{
                 $("#girl").attr("checked","checked");
