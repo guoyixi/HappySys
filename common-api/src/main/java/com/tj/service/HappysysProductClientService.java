@@ -5,6 +5,7 @@ import com.tj.product.*;
 import com.tj.vo.HappysysProductVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -255,7 +256,7 @@ public interface HappysysProductClientService {
      * @return
      */
     @RequestMapping(value = "/HappysysOrder/updateOrder",method = RequestMethod.POST)
-    boolean updateOrder(HappysysOrder order);
+    boolean updateOrder(@RequestBody HappysysOrder order);
 
     /**
      * 插入订单详情
@@ -267,6 +268,7 @@ public interface HappysysProductClientService {
 
     @RequestMapping(value = "/HappysysOrder/loadOrderList",method = RequestMethod.POST)
     Page<HappysysOrder> loadOrderList(@RequestBody Map<String,Object> map,@RequestParam("currentPage") Integer currentPage,@RequestParam("size")  Integer size);
+
 
 
     /**

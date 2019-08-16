@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="http://resource.kaixinbao.com/style/shop/css/re_shops.css"/>
+</head>
+<body>
+
+<div style="padding:0px 20px;">
+
+    <div class="lay-ins-con pro-con-info">
+        <span class="small_fr f_mi">订单号：[[${orderDetails.order_number}]]</span>
+        <div class="ins-tit un_bot_bor" >保单明细</div>
+        <div class="bdmx_table_b">
+            <table class="bdmx_table">
+                <tr>
+                    <th class="bd_t_bg" width="340px;">投保计划</th>
+                    <th class="bd_t_bg">保单起保日期</th>
+                    <th class="bd_t_bg">保单终止日期</th>
+                </tr>
+                <tr>
+                    <td><a target="_blank" style="text-decoration: none;color: black" th:href="'/HappysysProduct/getById/'+${orderDetails.product_id}">
+                        [[${orderDetails.product_title}]]</a></td>
+                    <td>[[${orderDetails.order_time}]]</td>
+                    <td>[[${orderDetails.order_expire_time}]]</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="lay-ins-con pro-con-info">
+        <div class="ins-tit un_bot_bor">投保人信息</div>
+        <table class="tbr_mes_table">
+            <tr>
+                <td class="bd_t_bg td_t_w">姓名</td>
+                <td class="tb_t_ws">[[${applicantInfo.applicantName}]]</td>
+                <td class="bd_t_bg td_t_w">证件类型</td>
+                <td class="tb_t_ws">身份证</td>
+                <td class="bd_t_bg td_t_w">证件号码</td>
+                <td class="tb_t_ws">[[${applicantInfo.applicantIdentity}]]</td>
+            </tr>
+            <tr>
+                <td class="bd_t_bg td_t_w">出生日期</td>
+                <td class="tb_t_ws">[[${#dates.format(applicantInfo.applicantBirthday,'yyyy-MM-dd')}]]</td>
+                <td class="bd_t_bg td_t_w">邮箱</td>
+                <td class="tb_t_ws">[[${applicantInfo.applicantEmail}]]</td>
+                <td class="bd_t_bg td_t_w">性别</td>
+                <td class="tb_t_ws">[[${recognizeeInfo.applicantSex == 'F' ? '女':'男'}]]</td>
+            </tr>
+            <tr>
+                <td class="bd_t_bg td_t_w">手机号码</td>
+                <td class="tb_t_ws">[[${applicantInfo.applicantPhone}]]</td>
+            </tr>
+
+
+        </table>
+    </div>
+
+    <div class="lay-ins-con pro-con-info">
+        <div class="ins-tit  ">被保险人信息</div>
+        <div class="tbr-box">
+            <table class="tbr_mes_table">
+                <tr>
+                    <td class="bd_t_bg td_t_w">姓名</td>
+                    <td class="tb_t_ws">[[${recognizeeInfo.applicantName}]]</td>
+                    <td class="bd_t_bg td_t_w">证件类型</td>
+                    <td class="tb_t_ws">身份证</td>
+                    <td class="bd_t_bg td_t_w">证件号码</td>
+                    <td class="tb_t_ws">[[${recognizeeInfo.applicantIdentity}]]</td>
+                </tr>
+                <tr>
+                    <td class="bd_t_bg td_t_w">出生日期</td>
+                    <td class="tb_t_ws">[[${#dates.format(applicantInfo.applicantBirthday,'yyyy-MM-dd')}]]</td>
+                    <td class="bd_t_bg td_t_w">邮箱</td>
+                    <td class="tb_t_ws">[[${recognizeeInfo.applicantEmail}]]</td>
+                    <td class="bd_t_bg td_t_w">性别</td>
+                    <td class="tb_t_ws">[[${recognizeeInfo.applicantSex == 'F' ? '女':'男'}]]</td>
+                </tr>
+                <tr>
+                    <td class="bd_t_bg td_t_w">手机号码</td>
+                    <td class="tb_t_ws">[[${recognizeeInfo.applicantPhone}]]</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div class="lay-ins-con pro-con-info">
+        <div class="ins-tit un_bot_bor">费用合计</div>
+        <div class="bdmx_table_b">
+            <table class="bdmx_table">
+                <tr>
+                    <th class="bd_t_bg" width="340px;">起止日期</th>
+                    <th class="bd_t_bg">状态</th>
+                    <th class="bd_t_bg">基本保额</th>
+                    <th class="bd_t_bg">费用合计</th>
+                </tr>
+                <tr>
+                    <td>[[${orderDetails.order_time}]] 时  至   [[${orderDetails.order_expire_time}]] 时</td>
+                    <td th:if="${orderDetails.order_status == 1}">待支付</td>
+                    <td th:if="${orderDetails.order_status == 2}">待生效</td>
+                    <td th:if="${orderDetails.order_status == 3}">生效中</td>
+                    <td><font class="yh-oreder-money">￥[[${#numbers.formatDecimal(orderDetails.order_face_amount, 0, 2)}]]</font></td>
+                    <td ><font class="yh-oreder-money">￥[[${#numbers.formatDecimal(orderDetails.order_price, 0, 2)}]]</font></td>
+
+                </tr>
+            </table>
+
+        </div>
+        <div style="display:none">
+                        <span class="ins-int-con">共<span class="num red">1</span>名被保险人，
+                        <span class="num red">1</span>份保单，保费合计：
+                        <span class="ui-money"><dfn>￥</dfn>1311.0</span></span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

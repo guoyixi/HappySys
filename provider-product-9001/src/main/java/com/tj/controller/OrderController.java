@@ -54,7 +54,6 @@ public class OrderController {
     }
 
 
-
     @RequestMapping("/HappysysOrder/getAllOrderStatusNumByUserId/{userId}")
     public Map<String,Object> getAllOrderStatusNumByUserId(@PathVariable("userId") Integer userId){
         System.out.println("OrderController      getAllOrderStatusNumByUserId");
@@ -76,7 +75,6 @@ public class OrderController {
         return orderService.getOrderByOrderId(orderId);
     }
 
-
     @RequestMapping("/HappysysOrder/getOrderCountByProductId/{productId}")
     public Integer getOrderCountByProductId(@PathVariable("productId") Integer productId){
         System.out.println("OrderController      getOrderCountByProduct");
@@ -91,15 +89,16 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/HappysysOrder/updateOrder",method = RequestMethod.POST)
-    public boolean updateOrder(HappysysOrder order){
+    public boolean updateOrder(@RequestBody HappysysOrder order){
+        System.out.println("updateOrderStatus："+order);
         return orderService.updateById(order);
     }
-
 
     @RequestMapping(value = "/HappysysOrder/insertOrderDetails",method = RequestMethod.POST)
     public Boolean insertOrderDetails(@RequestBody Collection<HappysysOrderDetails> happysysOrderDetails){
         return orderDetailsService.saveBatch(happysysOrderDetails);
     }
+
 
 
 }

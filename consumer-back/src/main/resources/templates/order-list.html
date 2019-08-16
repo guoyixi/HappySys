@@ -1,183 +1,98 @@
 ﻿<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-
-	<div th:replace="~{common/_meta.html}"></div>
-	<!--/meta 作为公共模版分离出去-->
-
-	<link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
-
+	<link rel="stylesheet" type="text/css" href="/layui/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="/h-ui/css/H-ui.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/h-ui.admin/css/H-ui.admin.css"/>
+	<!--
+        <link rel="stylesheet" type="text/css" href="/lib/Hui-iconfont/1.0.8/iconfont.css" />
+        <link rel="stylesheet" type="text/css" href="/h-ui.admin/skin/default/skin.css" id="skin" />
+        <link rel="stylesheet" type="text/css" href="/h-ui.admin/css/style.css" />
+    -->
 	<title>订单列表</title>
 </head>
 <body>
-<!--_header 作为公共模版分离出去-->
-<div th:replace="~{common/_header::#box_header}"></div>
-<!--<header class="navbar-wrapper">
-	<div class="navbar navbar-fixed-top">
-		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">H-ui.admin</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> <span class="logo navbar-slogan f-l mr-10 hidden-xs">v3.0</span> <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
-			<nav class="nav navbar-nav">
-				<ul class="cl">
-					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
-						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
-							<li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i> 图片</a></li>
-							<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
-							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-			<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
-				<ul class="cl">
-					<li>超级管理员</li>
-					<li class="dropDown dropDown_hover"> <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
-						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-							<li><a href="#">切换账户</a></li>
-							<li><a href="#">退出</a></li>
-						</ul>
-					</li>
-					<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
-					<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
-						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
-							<li><a href="javascript:;" data-val="blue" title="蓝色">蓝色</a></li>
-							<li><a href="javascript:;" data-val="green" title="绿色">绿色</a></li>
-							<li><a href="javascript:;" data-val="red" title="红色">红色</a></li>
-							<li><a href="javascript:;" data-val="yellow" title="黄色">黄色</a></li>
-							<li><a href="javascript:;" data-val="orange" title="橙色">橙色</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</div>
-	</div>
-</header>-->
-<!--/_header 作为公共模版分离出去-->
 
-<!--_menu 作为公共模版分离出去-->
-<div th:replace="~{common/_menu::#box_menu}"></div>
-<!--/_menu 作为公共模版分离出去-->
+<div style="width:auto;border: 1px solid red;padding: 10px">
 
-
-<section class="Hui-article-box">
-
-	<nav class="breadcrumb"><i class="Hui-iconfont"></i> <a href="/" class="maincolor">首页</a>
+	<nav class="breadcrumb">
+		<a href="/" class="maincolor">首页</a>
 		<span class="c-999 en">&gt;</span>
-		<span class="c-666">我的桌面</span>
+		<span class="c-666">我的订单</span>
 		<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
 			<i class="Hui-iconfont">&#xe68f;</i>
 		</a>
 	</nav>
 
-	<div class="page-container">
+	<div class="layuimini-container">
+		<div class="layuimini-main">
 
-		<div class="layuimini-container">
-			<div class="layuimini-main">
+			<fieldset class="layui-elem-field layuimini-search">
+				<legend>搜索信息</legend>
+				<div style="margin: 10px 0px 0px 10px">
+					<form class="layui-form layui-form-pane" action="/HappysysOrder/loadOrderList" method="post">
+						<div class="layui-form-item">
 
-				<fieldset class="layui-elem-field layuimini-search">
-					<legend>搜索信息</legend>
-					<div style="margin: 10px 0px 0px 10px">
-						<form class="layui-form layui-form-pane" action="/HappysysOrder/loadOrderList" method="post">
-							<div class="layui-form-item">
-
-								<div class="layui-inline">
-									<label class="layui-form-label" style="width:130px">保单起止日期</label>
-									<div class="layui-input-inline" style="width: 120px;">
-										<input name="startDate" type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">									</div>
-									<div class="layui-form-mid">-</div>
-									<div class="layui-input-inline" style="width: 120px;">
-										<input name="endDate" type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd">
-									</div>
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width:130px">保单起止日期</label>
+								<div class="layui-input-inline" style="width: 120px;">
+									<input name="startDate" type="text" class="layui-input" id="test1" placeholder="yyyy-MM-dd">									</div>
+								<div class="layui-form-mid">-</div>
+								<div class="layui-input-inline" style="width: 120px;">
+									<input name="endDate" type="text" class="layui-input" id="test2" placeholder="yyyy-MM-dd">
 								</div>
+							</div>
 
-								<div class="layui-inline">
-									<label class="layui-form-label" style="width:100px">保额区间</label>
-									<div class="layui-input-inline" style="width: 100px;">
-										<input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
-									</div>
-									<div class="layui-form-mid">-</div>
-									<div class="layui-input-inline" style="width: 100px;">
-										<input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
-									</div>
+							<div class="layui-inline">
+								<label class="layui-form-label" style="width:100px">保额区间</label>
+								<div class="layui-input-inline" style="width: 100px;">
+									<input type="text" name="price_min" placeholder="￥" autocomplete="off" class="layui-input">
 								</div>
+								<div class="layui-form-mid">-</div>
+								<div class="layui-input-inline" style="width: 100px;">
+									<input type="text" name="price_max" placeholder="￥" autocomplete="off" class="layui-input">
+								</div>
+							</div>
 
-								<div class="layui-inline" >
-									<div class="layui-input-inline">
+							<div class="layui-inline" >
+								<div class="layui-input-inline">
 
-										<select name="modules" lay-search="" >
-											<option value="">查询所有状态</option>
-											<option value="1">待付款</option>
-											<option value="2">待生效</option>
-											<option value="3">生效中</option>
+									<select name="modules" lay-search="" >
+										<option value="">查询所有状态</option>
+										<option value="1">待付款</option>
+										<option value="2">待生效</option>
+										<option value="3">生效中</option>
 <!--
 											<option value="3">已过期</option>
 -->
-										</select>
+									</select>
 
-									</div>
 								</div>
-
-								<div class="layui-inline" >
-									<div class="layui-input-inline" style="width: 50px">
-										<button class="layui-btn" lay-submit="" lay-filter="search">立即提交</button>
-									</div>
-								</div>
-
 							</div>
-						</form>
 
-						<table class="layui-hide" id="test" lay-filter="test"></table>
-					</div>
-				</fieldset>
-			</div>
+							<div class="layui-inline" >
+								<div class="layui-input-inline" style="width: 50px">
+									<button class="layui-btn" lay-submit="" lay-filter="search">搜索</button>
+								</div>
+							</div>
+
+						</div>
+					</form>
+
+				</div>
+			</fieldset>
+
+
+			<table class="layui-hide" id="orderList" lay-filter="orderList"></table>
+
 		</div>
-
-
-		<div class="mt-20">
-			<table class="layui-hide" id="orderList">
-
-			</table>
-		</div>
-
-		<script type="text/html" id="barDemo">
-			<a class="layui-btn layui-btn-sm" lay-event="detail">查看</a>
-			<a class="layui-btn layui-btn-sm" lay-event="edit">编辑</a>
-		</script>
-
-		<script type="text/html" id="selectStatus">
-			{{#
-				var fn = function(status){
-					var str = "aaa";
-						if(status==1){
-							str = "未支付";
-						}else if(status==2){
-							str = "待生效";
-						}else if(status==3){
-							str = "生效中";
-						}
-					return str;
-				};
-			}}
-			<span style="color: red">{{ fn(d.orderStatus) }}</span>
-		</script>
-
 	</div>
-</section>
+</div>
 
+<script type="text/javascript" src="/layui/layui.all.js"></script>
+<script type="text/javascript">
 
-<!--_footer 作为公共模版分离出去-->
-<div th:replace="~{common/_footer::#box_footer}"></div>
-<!--<script type="text/javascript" src="/lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="/lib/layer/2.4/layer.js"></script>
-<script type="text/javascript" src="/h-ui/js/H-ui.js"></script>
-<script type="text/javascript" src="/h-ui.admin/js/H-ui.admin.js"></script>-->
-<!--/_footer 作为公共模版分离出去-->
-
-<script type="text/javascript" th:src="@{/layui/layui.all.js}"></script>
-<script type="text/javascript" th:inline="none">
-
-    layui.use(["layer", "form", "table", "laypage","laydate"], function () {
+    layui.use(["layer", "form", "table", "laypage", "laydate"], function () {
 
         var $ = layui.jquery
             , layer = layui.layer	//弹层
@@ -186,45 +101,24 @@
             , laypage = layui.laypage //分页
         	, laydate = layui.laydate;
 
-        // 监听搜索操作
-        form.on('submit(data-search-btn)', function (data) {
-            var result = data.field;
-            //执行搜索重载
-            table.reload('test1', {
-                page: {
-                    curr: 1
-                }
-                ,text:{none:'这里空空如也'}
-                , where:{
-                    goodsid:result.goodsid,
-                    goodsname:result.goodsname,
-                    goodsfather:result.goodsfather,
-                    goodsstate:result.goodsstate
-                }
-            }, 'data');
-            return false;
-        });
-
         table.render({
 			id:"dataTable"
             ,elem: '#orderList'
             ,url:'/HappysysOrder/loadOrderList'
-            ,cellMinWidth: 50
             ,cols: [[
-                {field:'orderApplicantId',  title: '投保人ID',hide:true}
-                ,{field:'orderNumber',  title: '订单号'}
-
+                 {field:'orderId',title:'ID', sort: true}
+                ,{field: 'orderNumber', align: "left", title: '订单号'}
                 ,{field:'orderExpireTime',title: '截止日期',sort:true}
                 ,{field:'orderTime', title: '起保日期',sort:true}
                 ,{field:'orderFaceAmount',title:'基本保额',sort:true}
                 ,{field:'orderPrice',  title: '总价格', sort: true}
                 ,{field:'orderStatus', title: '订单状态',align:"center",templet:"#selectStatus"}
-                ,{field:'orderId',  title: 'ID', sort: true,hide:true}
 
-                ,{field:'orderProductId',title:'产品ID',hide:true}
-                ,{field:'orderRecognizeeId',   title: '被保人ID',hide:true}
-                ,{field:'orderUserId',  title: '用户ID',sort:true,hide:true}
-                ,{field:'right', title: '操作',align:"center",toolbar:"#barDemo"}
+                , {field: 'orderApplicantId', title: '投保人ID', hide: true}
+                , {field: 'orderRecognizeeId', title: '被保人ID', hide: true}
+                , {field: 'orderProductId', title: '产品ID', hide: true}
+                , {field:'orderUserId',  title: '用户ID',sort:true,hide:true}
+                , {field:'right', title: '操作',align:"center",toolbar:"#barDemo"}
 
             ]]
 			,page:{
@@ -253,6 +147,104 @@
                     "data": eval("("+result.data+")") //解析数据列表
                 };
             }
+        });
+
+        table.on("tool(orderList)", function (obj) {
+
+            layer.msg('加载中...', {
+                icon: 16
+                ,shade: 0.1
+                ,area: ['120px', '60px']
+            });
+
+            var d = obj.data;
+            var event = obj.event;
+
+            if (event === 'detail') {
+
+                $.post('/HappysysOrder/loadOrderDetails', {"orderId":d.orderId}, function(str){
+
+                    var btn;
+                    if(d.orderStatus==1){
+                        //待支付
+						btn = ['发送待支付邮件','退出'];
+					}else if(d.orderStatus==2){
+                        //待生效
+                        btn = ['审核通过','退出'];
+					}else{
+                        //生效中
+                        btn = ['退出']
+                    }
+                    layer.open({
+                        type: 1,
+                        title: "订单详情"
+                        , move: false
+                        , area: ['860px', '500px']
+                        , btnAlign: 'c'
+                        , content:str
+                        , btn:btn
+                        , yes: function () {
+                            if(d.orderStatus===1){
+
+                                //待支付 发送邮件
+
+                                layer.confirm('您确认发送邮件嘛？', {
+                                    btn: ['发送','取消'] //按钮
+                                }, function(){
+                                    $.ajax({
+                                        url:"/HappysysUser/emailOrderValidate",
+                                        method:"post",
+										async:true,
+                                        data:d,
+                                        success:function (res) {
+                                        }
+                                    });
+                                    layer.msg('发送成功！',
+										{icon: 1
+										,time: 1000
+                                    });
+                                });
+
+                            }else if(d.orderStatus===2){
+
+                                layer.confirm('您确认该保单准确无误嘛？', {
+                                    btn: ['确认','取消'] //按钮
+                                }, function(){
+                                    $.ajax({
+                                        url:"/HappysysUser/updateOrderStatus",
+                                        method:"post",
+                                        contentType:"application/json",
+                                        data:JSON.stringify(d),
+                                        success:function (res) {
+                                            layer.msg('审核通过！',
+                                                {icon: 1
+                                                    ,time: 1000
+                                                });
+                                        }
+                                    })
+                                    table.reload("dataTable", { //此处是上文提到的 初始化标识id
+                                        page: {
+                                            curr:d.currentPage
+										}
+                                    },"data");
+                                });
+                                //待生效
+
+                            }else{
+                                //生效中
+                                layer.closeAll();
+                            }
+                        }
+                        , btn2:function(){
+                            layer.closeAll();
+						}
+                    });
+
+
+                });
+
+            }
+
         });
 
         //常规用法
@@ -284,42 +276,35 @@
         });
 
 
-        $(".qrgm_btn").click(function () {
-
-            var agreeInsure = document.getElementById("agreeInsure");
-            if (!agreeInsure.checked) {
-                jQuery('#agreeInsure').parent().addClass("red");
-
-                var othis = $(this), type = othis.data("type");
-                layer.open({
-                    type: 1,
-                    title: "消息"
-                    , offset: type
-                    , move: false
-                    , content: '<div style="padding: 20px 100px;">请仔细阅读投保须知和必读，\n' +
-                    '并勾选我接受以上投保声明及必读内容</div>'
-                    , btn: '确定'
-                    , btnAlign: 'c' //按钮居中
-                    , tips: [1, '#c00']
-                    , yes: function () {
-                        layer.closeAll();
-                    }
-                });
-
-            }
-            else {
-                $("#resultForm").submit();
-            }
-        });
-
-
-
-
     });
-
 
 </script>
 
-
 </body>
+
+<!--查看按钮-->
+<script type="text/html" id="barDemo">
+	<button type="button" class="layui-btn layui-btn-sm" lay-event="detail" style="width:100px">查看</button>
+</script>
+
+<!--订单状态判断-->
+<script type="text/html" id="selectStatus">
+	{{#
+	var fn = function(status){
+	var str = "aaa";
+	if(status==1){
+	str = "<span style='color: red'>待支付</span>";
+	}else if(status==2){
+	str = "<span style='color: #31b0d5'>待生效</span>";
+	}else if(status==3){
+	str = "<span style='color: green'>生效中</span>";
+	}
+	return str;
+	};
+	}}
+	{{ fn(d.orderStatus) }}
+</script>
+
+
+
 </html>
